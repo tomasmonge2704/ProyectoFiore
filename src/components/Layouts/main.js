@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import Head from 'next/head'
-import Navbar from '../Navbar'
-import { Container } from '@chakra-ui/react'
+import SideBar from '../sideBar/SideBar'
 const variants = {
   hidden: { opacity: 0, x: 0, y: 20 },
   enter: { opacity: 1, x: 0, y: 0 },
@@ -11,6 +10,8 @@ const variants = {
 const Layout = ({ children, title }) => {
   const t = `${title}`
   return (
+    <>
+    <SideBar/>
     <motion.article
       initial="hidden"
       animate="enter"
@@ -27,13 +28,11 @@ const Layout = ({ children, title }) => {
             <meta property="og:title" content={t} />
           </Head>
         )}
-        <Navbar/>
-        <Container maxW="container.md" pt={14}>
-        <div style={{height:"5rem"}}></div>
         {children}
-      </Container>
       </>
     </motion.article>
+    </>
+    
   )
 }
 
