@@ -7,33 +7,33 @@ import {
   DrawerContent,
   Text,
   useDisclosure,
-} from '@chakra-ui/react';
+  Image,
+} from "@chakra-ui/react";
 import {
   FiHome,
   FiTrendingUp,
-  FiCompass,
-  FiStar,
+  FiArrowUp,
+  FiPaperclip,
   FiSettings,
-} from 'react-icons/fi';
-import { NavItem } from './navItem';
-import { MobileNav } from './mobileNav';
+} from "react-icons/fi";
+import { NavItem } from "./navItem";
+import { MobileNav } from "./mobileNav";
 const LinkItems = [
-  { name: 'Home', icon: FiHome,href:"/" },
-  { name: 'Trending', icon: FiTrendingUp,href:"/trending" },
-  { name: 'Explore', icon: FiCompass,href:"/" },
-  { name: 'Favourites', icon: FiStar,href:"/" },
-  { name: 'Settings', icon: FiSettings,href:"/"},
+  { name: "Home", icon: FiHome, href: "/" },
+  { name: "Trending", icon: FiTrendingUp, href: "/" },
+  { name: "Agregar Compra", icon: FiArrowUp, href: "/agregar-compra" },
+  { name: "Agregar Venta", icon: FiArrowUp, href: "/agregar-venta" },
+  { name: "Generar una factura", icon: FiPaperclip, href: "/generar-factura" },
+  { name: "Settings", icon: FiSettings, href: "/" },
 ];
 
-export default function SidebarWithHeader({
-  children,
-}) {
+export default function SidebarWithHeader({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <SidebarContent
         onClose={() => onClose}
-        display={{ base: 'none', md: 'block' }}
+        display={{ base: "none", md: "block" }}
       />
       <Drawer
         autoFocus={false}
@@ -42,7 +42,8 @@ export default function SidebarWithHeader({
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="full">
+        size="full"
+      >
         <DrawerContent>
           <SidebarContent onClose={onClose} />
         </DrawerContent>
@@ -59,26 +60,32 @@ const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
       transition="3s ease"
-      bg={useColorModeValue('white', 'gray.900')}
-      borderRadius="2%"
-      borderRight="1px"
-      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w={{ base: 'full', md: 60 }}
+      w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
-      {...rest}>
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
-      </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} href={link.href} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
+      {...rest}
+    >
+      <Box
+        bg={useColorModeValue("#ffffff40", "#20202380")}
+        h="full"
+        borderRadius="25px"
+        borderRightColor={useColorModeValue("gray.200", "gray.700")}
+        marginLeft="5%"
+        marginRight="5%"
+      >
+        <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+          <Image src="./logo.png" />
+          <CloseButton
+            display={{ base: "flex", md: "none" }}
+            onClick={onClose}
+          />
+        </Flex>
+        {LinkItems.map((link) => (
+          <NavItem key={link.name} href={link.href} icon={link.icon}>
+            {link.name}
+          </NavItem>
+        ))}
+      </Box>
     </Box>
   );
 };
-

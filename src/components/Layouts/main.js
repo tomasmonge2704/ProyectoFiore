@@ -11,16 +11,6 @@ const Layout = ({ children, title }) => {
   const t = `${title}`
   return (
     <>
-    <SideBar/>
-    <motion.article
-      initial="hidden"
-      animate="enter"
-      exit="exit"
-      variants={variants}
-      transition={{ duration: 0.4, type: 'easeInOut' }}
-      style={{ position: 'relative' }}
-    >
-      <>
         {title && (
           <Head>
             <title>{t}</title>
@@ -28,9 +18,14 @@ const Layout = ({ children, title }) => {
             <meta property="og:title" content={t} />
           </Head>
         )}
-        {children}
-      </>
-    </motion.article>
+      <SideBar><motion.article
+      initial="hidden"
+      animate="enter"
+      exit="exit"
+      variants={variants}
+      transition={{ duration: 0.4, type: 'easeInOut' }}
+      style={{ position: 'relative' }}
+    >{children}</motion.article></SideBar>
     </>
     
   )
