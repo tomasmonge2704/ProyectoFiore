@@ -24,40 +24,44 @@ export default function SaleTable() {
       amount: 22950,
     },
   ]);
+
   const lessAdvancePayment = 6885;
-  const [pendingBalance, setPengingBalance] = useState(0); 
+  const [pendingBalance, setPendingBalance] = useState(0);
+
   useMemo(() => {
     let balance = 0;
     for (let i = 0; i < productos.length; i++) {
-      balance += productos[i].amount;
+      balance = balance + productos[i].amount;
     }
-    setPengingBalance(balance - lessAdvancePayment);
+    setPendingBalance(balance - lessAdvancePayment);
   }, [productos]);
 
   const handleNewRow = (id) => {
     const updatedProductos = [...productos, { id: id, amount: 0 }];
     setProductos(updatedProductos);
   };
-  const handleChangeAmount = (e) => {
-    const { id, amount } = e;
+
+  const handleChangeAmount = (event, id) => {
+    const amount = event.target.value;
     const updatedProductos = productos.map((producto) => {
-      if (producto.id == id) {
+      if (producto.id === id) {
         return {
           ...producto,
-          amount: amount
+          amount: parseFloat(amount),
         };
       }
       return producto;
     });
     setProductos(updatedProductos);
   };
-  const handleChangeUnitPrice = (e) => {
-    const { id, unitPrice } = e;
+
+  const handleChangeUnitPrice = (event, id) => {
+    const unitPrice = event.target.value;
     const updatedProductos = productos.map((producto) => {
       if (producto.id === id) {
         return {
           ...producto,
-          unitPrice: unitPrice
+          unitPrice: parseFloat(unitPrice),
         };
       }
       return producto;
@@ -104,7 +108,7 @@ export default function SaleTable() {
                   defaultValue={e.unitPrice && e.unitPrice}
                   variant="filled"
                   type="number"
-                  onChange={() => handleChangeUnitPrice(e)}
+                  onChange={(event) => handleChangeUnitPrice(event, e.id)}
                 />
               </Td>
               <Td isNumeric>
@@ -113,7 +117,7 @@ export default function SaleTable() {
                   defaultValue={e.unitPrice && e.amount}
                   variant="filled"
                   type="number"
-                  onChange={() => handleChangeAmount(e)}
+                  onChange={(event) => handleChangeAmount(event, e.id)}
                 />
               </Td>
               <Td>
