@@ -15,7 +15,7 @@ export const NavItem = ({ icon,href, children, ...rest }) => {
           role="group"
           cursor="pointer"
           _hover={{
-            bg: 'cyan.400',
+            bg: 'rgb(234 93 63)',
             color: 'white',
           }}
           {...rest}>

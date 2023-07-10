@@ -27,8 +27,7 @@ export const MobileNav = ({ onOpen, ...rest }) => {
       mt="1%"
       borderRadius="15px"
       alignItems="center"
-      bg={useColorModeValue("#ffffff40", "#20202380")}
-      css={{ backdropFilter: "blur(10px)" }}
+      bg={useColorModeValue("#ffffff40", "")}
       justifyContent={{ base: "space-between", md: "flex-end" }}
       {...rest}
     >

@@ -19,6 +19,7 @@ import {
       {
         id: "sdnkhqe12123142",
         description: "FROZEN BEEF LIVERS",
+        packing:15,
         netWeight: 27.0,
         unitPrice: 850,
         amount: 22950,
@@ -54,6 +55,19 @@ import {
       });
       setProductos(updatedProductos);
     };
+    const handleChangePacking = (event, id) => {
+        const packing = event.target.value;
+        const updatedProductos = productos.map((producto) => {
+          if (producto.id === id) {
+            return {
+              ...producto,
+              packing: parseFloat(packing),
+            };
+          }
+          return producto;
+        });
+        setProductos(updatedProductos);
+      };
   
     const handleChangeUnitPrice = (event, id) => {
       const unitPrice = event.target.value;
@@ -76,7 +90,7 @@ import {
   
     return (
       <TableContainer w="100%">
-        <Table variant="striped" colorScheme="teal">
+        <Table variant="striped" colorScheme='orange'>
           <Thead>
             <Tr>
               <Th>QUANTITY</Th>
@@ -104,13 +118,13 @@ import {
                   MT
                 </Td>
                 <Td isNumeric>
-                  ${" "}
                   <Input
-                    defaultValue={e.unitPrice && e.amount}
+                    defaultValue={e.packing && e.packing}
                     variant="filled"
                     type="number"
-                    onChange={(event) => handleChangeAmount(event, e.id)}
+                    onChange={(event) => handleChangePacking(event, e.id)}
                   />
+                  KGS{" "}
                 </Td>
                 <Td isNumeric>
                   ${" "}
@@ -124,7 +138,7 @@ import {
                 <Td isNumeric>
                   ${" "}
                   <Input
-                    defaultValue={e.unitPrice && e.amount}
+                    defaultValue={e.amount && e.amount}
                     variant="filled"
                     type="number"
                     onChange={(event) => handleChangeAmount(event, e.id)}

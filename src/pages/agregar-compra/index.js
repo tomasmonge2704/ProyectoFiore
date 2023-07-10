@@ -4,7 +4,7 @@ import PurchaseForm from "@/components/compras/newPurchase";
 export default function Home() {
   return (
     <Layout title="Ventas">
-     <Tabs variant='soft-rounded' colorScheme='green'>
+     <Tabs variant='soft-rounded' colorScheme='orange'>
         <Center width="100%">
   <TabList>
     <Tab>Manualmente</Tab>

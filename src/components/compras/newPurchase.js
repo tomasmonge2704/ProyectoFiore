@@ -1,14 +1,11 @@
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import {
   Box,
-  Flex,
   Grid,
   GridItem,
   Center,
   Text,
-  Input,
-  InputGroup,
-  InputLeftAddon,
+  Button,
   Card,
   CardBody,
   VStack,
@@ -74,6 +71,7 @@ export default function PurchaseForm() {
             </GridItem>
           </Grid>
           <InputPersonalizado type="text" label="INSPECTED, APPROVED & ELEGIBLE FOR EXPORT TO"/>			
+          <Center><Button colorScheme='orange'>Finalizar</Button></Center>
         </VStack>
       </CardBody>
     </Card>

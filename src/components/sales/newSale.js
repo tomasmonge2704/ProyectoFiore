@@ -94,7 +94,7 @@ export default function SaleForm() {
               </VStack>
             </GridItem>
           </Grid>
-          <Center><Button colorScheme='teal'>Finalizar</Button></Center>
+          <Center><Button colorScheme='orange'>Finalizar</Button></Center>
         </VStack>
       </CardBody>
     </Card>

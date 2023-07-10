@@ -24,7 +24,6 @@ const LinkItems = [
   { name: "Agregar Compra", icon: FiArrowUp, href: "/agregar-compra" },
   { name: "Agregar Venta", icon: FiArrowUp, href: "/agregar-venta" },
   { name: "Generar una factura", icon: FiPaperclip, href: "/generar-factura" },
-  { name: "Settings", icon: FiSettings, href: "/" },
 ];
 
 export default function SidebarWithHeader({ children }) {
@@ -66,15 +65,15 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}
     >
       <Box
-        bg={useColorModeValue("#ffffff40", "#20202380")}
+        bg={useColorModeValue("#ffffff40", "")}
         h="full"
         borderRadius="25px"
         borderRightColor={useColorModeValue("gray.200", "gray.700")}
         marginLeft="5%"
         marginRight="5%"
       >
-        <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-          <Image src="./logo.png" />
+        <Flex h="20" alignItems="center" mx="8" mb={4} justifyContent="space-between">
+          <Image src="./logo.jpg" />
           <CloseButton
             display={{ base: "flex", md: "none" }}
             onClick={onClose}

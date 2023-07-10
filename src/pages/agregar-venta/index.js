@@ -11,7 +11,7 @@ import SaleForm from "@/components/sales/newSale";
 export default function Home() {
   return (
     <Layout title="Ventas">
-      <Tabs variant="soft-rounded" colorScheme="green">
+      <Tabs variant="soft-rounded" colorScheme='orange'>
         <Center width="100%">
           <TabList>
             <Tab>Manualmente</Tab>

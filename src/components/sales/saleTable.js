@@ -76,7 +76,7 @@ export default function SaleTable() {
 
   return (
     <TableContainer w="100%">
-      <Table variant="striped" colorScheme="teal">
+      <Table variant="striped" colorScheme='orange'>
         <Thead>
           <Tr>
             <Th>Description</Th>
