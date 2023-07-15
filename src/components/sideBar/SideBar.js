@@ -13,7 +13,8 @@ import {
   FiHome,
   FiTrendingUp,
   FiArrowUp,
-  FiPaperclip,
+  FiBox,
+  FiUser,
   FiSettings,
 } from "react-icons/fi";
 import { NavItem } from "./navItem";
@@ -21,9 +22,10 @@ import { MobileNav } from "./mobileNav";
 const LinkItems = [
   { name: "Home", icon: FiHome, href: "/" },
   { name: "Trending", icon: FiTrendingUp, href: "/" },
-  { name: "Agregar Compra", icon: FiArrowUp, href: "/agregar-compra" },
-  { name: "Agregar Venta", icon: FiArrowUp, href: "/agregar-venta" },
-  { name: "Generar una factura", icon: FiPaperclip, href: "/generar-factura" },
+  { name: "Cartera Clientes", icon: FiUser, href: "/cartera-clientes" },
+  { name: "Cartera Proveedores", icon: FiBox, href: "/cartera-proveedores" },
+  { name: "Nueva Operacion", icon: FiArrowUp, href: "/nueva-operacion" },
+  { name: "Ajustes", icon: FiSettings, href: "/ajustes" }
 ];
 
 export default function SidebarWithHeader({ children }) {

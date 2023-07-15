@@ -9,10 +9,34 @@ import {
   Card,
   CardBody,
   VStack,
+  Select,
 } from "@chakra-ui/react";
 import { PaymentTerms } from "../sales/paymentTerms";
 import TablePurchase from "./tablePurchase";
+import { useContext, useState, useEffect } from "react";
+import { CarteraBancariaContext } from "../context/carterasContext";
+
 export default function PurchaseForm() {
+  const { CarteraBancaria } = useContext(CarteraBancariaContext);
+  const [indexCartera, setIndexCartera] = useState(0);
+  const [cuit, setCuit] = useState(CarteraBancaria[indexCartera]?.cuit || "");
+  const [direccion, setDireccion] = useState(
+    CarteraBancaria[indexCartera]?.direccion || ""
+  );
+  const [vatNumber, setVatNumber] = useState(
+    CarteraBancaria[indexCartera]?.vatNumber || ""
+  );
+
+  const handleIndexChange = (e) => {
+    setIndexCartera(parseInt(e.target.value));
+  };
+
+  useEffect(() => {
+    setCuit(CarteraBancaria[indexCartera]?.cuit || "");
+    setDireccion(CarteraBancaria[indexCartera]?.direccion || "");
+    setVatNumber(CarteraBancaria[indexCartera]?.vatNumber || "");
+  }, [indexCartera, CarteraBancaria]);
+
   return (
     <Card w="100%" p={4} variant="outline">
       <CardBody>
@@ -23,27 +47,49 @@ export default function PurchaseForm() {
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">
-                <InputPersonalizado type="text" label="ORDER NUMBER"/>
-                <InputPersonalizado type="text" label="SUPPLIER REF. NUMBER"/>
+                <InputPersonalizado type="text" label="ORDER NUMBER" />
+                <InputPersonalizado type="text" label="SUPPLIER REF. NUMBER" />
                 <Text>SHIPPER / SELLER</Text>
-                <InputPersonalizado type="text" label="Nombre"/>
-                <InputPersonalizado type="text" label="Direccion"/>
-                <InputPersonalizado type="text" label="Codigo postal"/>
-                <InputPersonalizado type="text" label="Pais"/>
-                <InputPersonalizado type="text" label="Cuit"/>
+                <InputPersonalizado type="text" label="Nombre" />
+                <InputPersonalizado type="text" label="Direccion" />
+                <InputPersonalizado type="text" label="Codigo postal" />
+                <InputPersonalizado type="text" label="Pais" />
+                <InputPersonalizado type="text" label="Cuit" />
               </VStack>
             </GridItem>
             <GridItem w="100%">
               <VStack spacing="7">
-              <InputPersonalizado type="date" label="Date" />
-              <Box h={10}></Box>
-              <Text>Buyer</Text>
-              <Text as="b">DPL Trading LLC</Text>
-              <InputPersonalizado type="text" label="Cuit"/>
-              <InputPersonalizado type="text" label="Direccion"/>
-              <InputPersonalizado type="text" label="VAT NUMBER"/>
-              <Text as="b">CONSIGNEE</Text>
-              <Text >(DOCS INSTRUCTION WILL FOLLOW SHORTLY)</Text>
+                <InputPersonalizado type="date" label="Date" />
+                <Box h={10}></Box>
+                <Text>Buyer</Text>
+                <Select onChange={handleIndexChange}>
+                  <option value={0}>
+                    {CarteraBancaria && CarteraBancaria[0].empresa}
+                  </option>
+                  <option value={1}>
+                    {CarteraBancaria && CarteraBancaria[1].empresa}
+                  </option>
+                </Select>
+                <InputPersonalizado
+                  type="text"
+                  label="Cuit"
+                  value={cuit}
+                  onChange={(e) => setCuit(e.target.value)}
+                />
+                <InputPersonalizado
+                  type="text"
+                  label="Direccion"
+                  value={direccion}
+                  onChange={(e) => setDireccion(e.target.value)}
+                />
+                <InputPersonalizado
+                  type="text"
+                  label="VAT NUMBER"
+                  value={vatNumber}
+                  onChange={(e) => setVatNumber(e.target.value)}
+                />
+                <Text as="b">CONSIGNEE</Text>
+                <Text>(DOCS INSTRUCTION WILL FOLLOW SHORTLY)</Text>
               </VStack>
             </GridItem>
           </Grid>
@@ -52,26 +98,31 @@ export default function PurchaseForm() {
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">
-              <InputPersonalizado type="text" label="ORIGIN"/>
-              <InputPersonalizado type="text" label="PLANT NUMBER"/>
-              <InputPersonalizado type="text" label="BRAND"/>
-              <InputPersonalizado type="text" label="PRODUCTION DATE"/>
-              <InputPersonalizado type="text" label="SHELF LIFE"/>
-              <InputPersonalizado type="text" label="DESTINATION PORT"/>
+                <InputPersonalizado type="text" label="ORIGIN" />
+                <InputPersonalizado type="text" label="PLANT NUMBER" />
+                <InputPersonalizado type="text" label="BRAND" />
+                <InputPersonalizado type="text" label="PRODUCTION DATE" />
+                <InputPersonalizado type="text" label="SHELF LIFE" />
+                <InputPersonalizado type="text" label="DESTINATION PORT" />
               </VStack>
             </GridItem>
             <GridItem w="100%">
               <VStack spacing="7">
-              <InputPersonalizado type="text" label="DESTINATION COUNTRY"/>
-              <InputPersonalizado type="text" label="QUANTITY"/>
-              <InputPersonalizado type="text" label="SHIPMENT PERIOD"/>
-              <InputPersonalizado type="text" label="DELIVERY TERMS"/>
-              <PaymentTerms/>
+                <InputPersonalizado type="text" label="DESTINATION COUNTRY" />
+                <InputPersonalizado type="text" label="QUANTITY" />
+                <InputPersonalizado type="text" label="SHIPMENT PERIOD" />
+                <InputPersonalizado type="text" label="DELIVERY TERMS" />
+                <PaymentTerms />
               </VStack>
             </GridItem>
           </Grid>
-          <InputPersonalizado type="text" label="INSPECTED, APPROVED & ELEGIBLE FOR EXPORT TO"/>			
-          <Center><Button colorScheme='orange'>Finalizar</Button></Center>
+          <InputPersonalizado
+            type="text"
+            label="INSPECTED, APPROVED & ELEGIBLE FOR EXPORT TO"
+          />
+          <Center>
+            <Button colorScheme="orange">Finalizar</Button>
+          </Center>
         </VStack>
       </CardBody>
     </Card>

@@ -19,7 +19,7 @@ export default function SaleForm() {
       <CardBody>
         <VStack spacing="10">
           <Center w="100%">
-            <Text fontSize="3xl">INVOICE</Text>
+            <Text fontSize="3xl">PROFORMA INVOICE</Text>
           </Center>
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
