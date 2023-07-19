@@ -6,16 +6,16 @@ export const CarteraProveedoresContext = createContext();
 
 export function CarterasProvider({ children }) {
   const [CarteraBancaria, setCarteraBancaria] = useState([
-    { empresa: "DPL",cuit:"312312312",direccion:"sdasdasda", vatNumber:4124124},
+    { empresa: "DPL Trading LLC",direccion:"30 North Gould Street, Suit R",direccion2:"Sheridan, WY 82801, USA", vatNumber:"92-0566625"},
     { empresa: "Duplo",cuit:"23124342423",direccion:"asfgsdg", vatNumber:52342 },
   ]);
   const [CarteraClientes, setCarteraClientes] = useState([
-    { empresa: "DPL" },
-    { empresa: "Duplo" },
+    { cliente: "Test 1",nombre:"test 1",direccion:"malagrino",codigoPostal:"1636",pais:"arg",cuit:"2141241" },
+    { cliente: "Test 2",nombre:"test 2",direccion:"malagrino",codigoPostal:"1636",pais:"arg",cuit:"5346534"  },
   ]);
   const [CarteraProveedores, setProveedores] = useState([
-    { empresa: "DPL" },
-    { empresa: "Duplo" },
+    { empresa: "REFINERIA DEL CENTRO S.A.",direccion:"Cno. a Jesús María KM. 10 1/2",direccion2:"(5145) Juárez Celman",pais:"Prov. de Córdoba - Rep. Argentina",cuit:"33-50134847-9"},
+    { empresa: "TEST S.A.",direccion:"Cno. a Jesús María KM. 10 1/2",direccion2:"(5145) Juárez Celman",pais:"Prov. de Córdoba - Rep. Argentina",cuit:"33-50134847-9"},
   ]);
   return (
     <CarteraBancariaContext.Provider

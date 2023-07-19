@@ -22,9 +22,8 @@ export default function Ajustes() {
     CarteraBancariaContext
   );
   const [isDirty, setIsDirty] = useState(false);
-  const [updatedCarteraBancaria, setUpdatedCarteraBancaria] = useState(
-    CarteraBancaria
-  );
+  const [updatedCarteraBancaria, setUpdatedCarteraBancaria] =
+    useState(CarteraBancaria);
 
   const handleInputChange = (value, index, field) => {
     setIsDirty(true);
@@ -46,103 +45,55 @@ export default function Ajustes() {
         <Text as="b">Cartera de datos Bancarios</Text>
       </Center>
       <Flex justify="space-evenly" mt={20}>
-        <Card minW="400px">
-          <CardHeader>
-            <Heading size="md">
-              {CarteraBancaria && CarteraBancaria[0].empresa}
-            </Heading>
-          </CardHeader>
-          <CardBody>
-            <Stack spacing="2">
-              <Text as="b">CUIT</Text>
-              <Text>{CarteraBancaria && CarteraBancaria[0].cuit}</Text>
-              <Editable
-                defaultValue={CarteraBancaria && CarteraBancaria[0].cuit}
-                onChange={(value) =>
-                  handleInputChange(value, 0, "cuit")
-                }
-              >
-                <EditablePreview />
-                <EditableInput />
-              </Editable>
-              <Text as="b">Direccion</Text>
-              <Editable
-                defaultValue={CarteraBancaria && CarteraBancaria[0].direccion}
-                onChange={(value) =>
-                  handleInputChange(value, 0, "direccion")
-                }
-              >
-                <EditablePreview />
-                <EditableInput />
-              </Editable>
-              <Text as="b">VAT NUMBER</Text>
-              <Editable
-                defaultValue={CarteraBancaria && CarteraBancaria[0].vatNumber}
-                onChange={(value) =>
-                  handleInputChange(value, 0, "vatNumber")
-                }
-              >
-                <EditablePreview />
-                <EditableInput />
-              </Editable>
-            </Stack>
-          </CardBody>
-          {isDirty && (
-            <CardFooter>
-              <Button colorScheme="blue" onClick={handleConfirmChanges}>
-                Confirmar cambios
-              </Button>
-            </CardFooter>
-          )}
-        </Card>
-        <Card minW="400px">
-          <CardHeader>
-            <Heading size="md">
-              {CarteraBancaria && CarteraBancaria[1].empresa}
-            </Heading>
-          </CardHeader>
-          <CardBody>
-            <Stack spacing="2">
-              <Text as="b">CUIT</Text>
-              <Editable
-                defaultValue={CarteraBancaria && CarteraBancaria[1].cuit}
-                onChange={(value) =>
-                  handleInputChange(value, 1, "cuit")
-                }
-              >
-                <EditablePreview />
-                <EditableInput />
-              </Editable>
-              <Text as="b">Direccion</Text>
-              <Editable
-                defaultValue={CarteraBancaria && CarteraBancaria[1].direccion}
-                onChange={(value) =>
-                  handleInputChange(value, 1, "direccion")
-                }
-              >
-                <EditablePreview />
-                <EditableInput />
-              </Editable>
-              <Text as="b">VAT NUMBER</Text>
-              <Editable
-                defaultValue={CarteraBancaria && CarteraBancaria[1].vatNumber}
-                onChange={(value) =>
-                  handleInputChange(value, 1, "vatNumber")
-                }
-              >
-                <EditablePreview />
-                <EditableInput />
-              </Editable>
-            </Stack>
-          </CardBody>
-          {isDirty && (
-            <CardFooter>
-              <Button colorScheme="blue" onClick={handleConfirmChanges}>
-                Confirmar cambios
-              </Button>
-            </CardFooter>
-          )}
-        </Card>
+        {CarteraBancaria &&
+          CarteraBancaria.map((e, index) => (
+            <Card minW="400px" key={index}>
+              <CardHeader>
+                <Heading size="md">{e.empresa}</Heading>
+              </CardHeader>
+              <CardBody>
+                <Stack spacing="2">
+                  <Text as="b">Direccion</Text>
+                  <Editable
+                    defaultValue={e.direccion}
+                    onChange={(value) =>
+                      handleInputChange(value, index, "direccion")
+                    }
+                  >
+                    <EditablePreview />
+                    <EditableInput />
+                  </Editable>
+                  <Text as="b">Direccion 2</Text>
+                  <Editable
+                    defaultValue={e.direccion2}
+                    onChange={(value) =>
+                      handleInputChange(value, index, "cuit")
+                    }
+                  >
+                    <EditablePreview />
+                    <EditableInput />
+                  </Editable>
+                  <Text as="b">VAT NUMBER</Text>
+                  <Editable
+                    defaultValue={e.vatNumber}
+                    onChange={(value) =>
+                      handleInputChange(value, index, "vatNumber")
+                    }
+                  >
+                    <EditablePreview />
+                    <EditableInput />
+                  </Editable>
+                </Stack>
+              </CardBody>
+              {isDirty && (
+                <CardFooter>
+                  <Button colorScheme="blue" onClick={handleConfirmChanges}>
+                    Confirmar cambios
+                  </Button>
+                </CardFooter>
+              )}
+            </Card>
+          ))}
       </Flex>
     </Layout>
   );

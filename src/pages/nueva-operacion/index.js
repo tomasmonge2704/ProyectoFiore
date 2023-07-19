@@ -1,3 +1,4 @@
+import { OperationContext } from "@/components/context/operationContext";
 import Layout from "@/components/Layouts/main";
 import { ContenedorOperaciones } from "@/components/operacion/contenedor";
 import {
@@ -13,13 +14,14 @@ import {
   useSteps,
   Box,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 export default function NuevaOperacion() {
+  const {operation,setOperation} = useContext(OperationContext); 
   const steps = [
-    { title: "Comercial", description: "100% completado" },
-    { title: "Docs", description: "0% completado" },
-    { title: "Logistica", description: "0% completado" },
-    { title: "Contable financiera", description: "0% completado" },
+    { title: "Comercial", description:`${Math.floor((operation.comercial.completedPurchase / 2) + (operation.comercial.completedInvoice / 2) || 0 )}% completado` },
+    { title: "Docs", description:`${operation.docs.completed || 0 }% completado`},
+    { title: "Logistica", description: `${operation.logistica.completed || 0 }% completado`},
+    { title: "Contable financiera", description:`${operation.contableFinanciera.completed || 0 }% completado`},
   ];
   const { activeStep,setActiveStep } = useSteps({
     index: 1,

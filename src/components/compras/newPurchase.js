@@ -9,33 +9,64 @@ import {
   Card,
   CardBody,
   VStack,
-  Select,
 } from "@chakra-ui/react";
 import { PaymentTerms } from "../sales/paymentTerms";
 import TablePurchase from "./tablePurchase";
 import { useContext, useState, useEffect } from "react";
-import { CarteraBancariaContext } from "../context/carterasContext";
-
+import { OperationContext } from "../context/operationContext";
+import { Buyer } from "./Buyer";
+import { Seller } from "./seller";
 export default function PurchaseForm() {
-  const { CarteraBancaria } = useContext(CarteraBancariaContext);
-  const [indexCartera, setIndexCartera] = useState(0);
-  const [cuit, setCuit] = useState(CarteraBancaria[indexCartera]?.cuit || "");
-  const [direccion, setDireccion] = useState(
-    CarteraBancaria[indexCartera]?.direccion || ""
-  );
-  const [vatNumber, setVatNumber] = useState(
-    CarteraBancaria[indexCartera]?.vatNumber || ""
-  );
-
-  const handleIndexChange = (e) => {
-    setIndexCartera(parseInt(e.target.value));
-  };
-
+  const { setOperation } = useContext(OperationContext);
+  const [orderNumber, setOrderNumber] = useState("");
+  const [supplierRefNumber, setSupplierRefNumber] = useState("");
+  const [date, setDate] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [direccion2, setDireccion2] = useState("");
+  const [vatNumber, setVatNumber] = useState("");
+  //seller
+  const [nombreSeller, setNombreSeller] = useState("");
+  const [direccionSeller, setDireccionSeller] = useState("");
+  const [codigoPostaleSeller, setCodigoPostaleSeller] = useState("");
+  const [paisSeller, setPaisSeller] = useState("");
+  const [cuitSeller, setCuitSeller] = useState("");
+  //productos
+  const [productos, setProductos] = useState([
+    {
+      id: "sdnkhqe12123142",
+      description: "FROZEN BEEF LIVERS",
+      packing:15,
+      quantity: 27,
+      unitPrice: 850,
+      amount: 22950,
+    },
+  ]);
+  const fields = [
+    direccion,
+    direccion2,
+    vatNumber,
+    orderNumber,
+    supplierRefNumber,
+    date,
+    nombreSeller,
+    direccionSeller,
+    codigoPostaleSeller,
+    paisSeller,
+    cuitSeller,
+    productos
+  ]
   useEffect(() => {
-    setCuit(CarteraBancaria[indexCartera]?.cuit || "");
-    setDireccion(CarteraBancaria[indexCartera]?.direccion || "");
-    setVatNumber(CarteraBancaria[indexCartera]?.vatNumber || "");
-  }, [indexCartera, CarteraBancaria]);
+    const totalFields = 24; // Total de campos del formulario
+    const completedFields = fields.filter(Boolean).length;
+    const completedPurchase = Math.floor((completedFields / totalFields) * 100);
+    setOperation((prevOperation) => ({
+      ...prevOperation,
+      comercial: {
+        ...prevOperation.comercial,
+        completedPurchase,
+      },
+    }));
+  }, fields);
 
   return (
     <Card w="100%" p={4} variant="outline">
@@ -47,46 +78,47 @@ export default function PurchaseForm() {
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">
-                <InputPersonalizado type="text" label="ORDER NUMBER" />
-                <InputPersonalizado type="text" label="SUPPLIER REF. NUMBER" />
+                <InputPersonalizado
+                  type="text"
+                  label="ORDER NUMBER"
+                  onChange={(e) => setOrderNumber(e.target.value)}
+                />
+                <InputPersonalizado
+                  type="text"
+                  label="SUPPLIER REF. NUMBER"
+                  onChange={(e) => setSupplierRefNumber(e.target.value)}
+                />
                 <Text>SHIPPER / SELLER</Text>
-                <InputPersonalizado type="text" label="Nombre" />
-                <InputPersonalizado type="text" label="Direccion" />
-                <InputPersonalizado type="text" label="Codigo postal" />
-                <InputPersonalizado type="text" label="Pais" />
-                <InputPersonalizado type="text" label="Cuit" />
+                <Seller
+                  nombre={nombreSeller}
+                  setNombre={setNombreSeller}
+                  direccion={direccionSeller}
+                  setDireccion={setDireccionSeller}
+                  cuit={cuitSeller}
+                  setCuit={setCuitSeller}
+                  codigoPostal={codigoPostaleSeller}
+                  setCodigoPostal={setCodigoPostaleSeller}
+                  pais={paisSeller}
+                  setPais={setPaisSeller}
+                />
               </VStack>
             </GridItem>
             <GridItem w="100%">
               <VStack spacing="7">
-                <InputPersonalizado type="date" label="Date" />
+                <InputPersonalizado
+                  type="date"
+                  label="Date"
+                  onChange={(e) => setDate(e.target.value)}
+                />
                 <Box h={10}></Box>
                 <Text>Buyer</Text>
-                <Select onChange={handleIndexChange}>
-                  <option value={0}>
-                    {CarteraBancaria && CarteraBancaria[0].empresa}
-                  </option>
-                  <option value={1}>
-                    {CarteraBancaria && CarteraBancaria[1].empresa}
-                  </option>
-                </Select>
-                <InputPersonalizado
-                  type="text"
-                  label="Cuit"
-                  value={cuit}
-                  onChange={(e) => setCuit(e.target.value)}
-                />
-                <InputPersonalizado
-                  type="text"
-                  label="Direccion"
-                  value={direccion}
-                  onChange={(e) => setDireccion(e.target.value)}
-                />
-                <InputPersonalizado
-                  type="text"
-                  label="VAT NUMBER"
-                  value={vatNumber}
-                  onChange={(e) => setVatNumber(e.target.value)}
+                <Buyer
+                  direccion={direccion}
+                  setDireccion={setDireccion}
+                  direccion2={direccion2}
+                  setDireccion2={setDireccion2}
+                  vatNumber={vatNumber}
+                  setVatNumber={setVatNumber}
                 />
                 <Text as="b">CONSIGNEE</Text>
                 <Text>(DOCS INSTRUCTION WILL FOLLOW SHORTLY)</Text>
@@ -94,7 +126,7 @@ export default function PurchaseForm() {
             </GridItem>
           </Grid>
           <Text as="b">WE CONFIRM HAVING PURCHASED</Text>
-          <TablePurchase />
+          <TablePurchase productos={productos} setProductos={setProductos} />
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">
@@ -121,7 +153,7 @@ export default function PurchaseForm() {
             label="INSPECTED, APPROVED & ELEGIBLE FOR EXPORT TO"
           />
           <Center>
-            <Button colorScheme="orange">Finalizar</Button>
+            <Button colorScheme="orange">Guardar</Button>
           </Center>
         </VStack>
       </CardBody>
