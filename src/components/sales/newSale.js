@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import SaleTable from "./saleTable";
 import InputPersonalizado from "@/utils/inputPersonalizado";
-import { PaymentTerms } from "./paymentTerms";
 
 export default function SaleForm() {
   return (
@@ -59,7 +58,7 @@ export default function SaleForm() {
                 <InputPersonalizado label="Seals" type="text" />
                 <InputPersonalizado label="Purchase order NR." type="text" />
                 <InputPersonalizado label="Sales order" type="text" />
-                <PaymentTerms />
+                
               </VStack>
             </GridItem>
           </Grid>

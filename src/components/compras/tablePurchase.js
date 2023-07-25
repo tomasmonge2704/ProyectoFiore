@@ -84,9 +84,9 @@ export default function TablePurchase({ productos, setProductos }) {
           <Tr>
             <Th>QUANTITY</Th>
             <Th>PRODUCT</Th>
-            <Th isNumeric>PACKING</Th>
-            <Th isNumeric>UNIT PRICE</Th>
-            <Th isNumeric>TOTAL AMOUNT</Th>
+            <Th>PACKING</Th>
+            <Th>UNIT PRICE</Th>
+            <Th>AMOUNT</Th>
             <Th></Th>
           </Tr>
         </Thead>
@@ -105,7 +105,7 @@ export default function TablePurchase({ productos, setProductos }) {
                   defaultValue={e.description && e.description}
                 />
               </Td>
-              <Td isNumeric>
+              <Td>
                 <InputPersonalizado
                   defaultValue={e.packing && e.packing}
                   type="number"
@@ -113,7 +113,7 @@ export default function TablePurchase({ productos, setProductos }) {
                   onChange={(event) => handleChangePacking(event, e.id)}
                 />
               </Td>
-              <Td isNumeric>
+              <Td>
                 <InputPersonalizado
                   defaultValue={e.unitPrice && e.unitPrice}
                   label="$"
@@ -121,7 +121,7 @@ export default function TablePurchase({ productos, setProductos }) {
                   onChange={(event) => handleChangeUnitPrice(event, e.id)}
                 />
               </Td>
-              <Td isNumeric>
+              <Td>
                 <InputPersonalizado
                   defaultValue={e.amount && e.amount}
                   label="$"

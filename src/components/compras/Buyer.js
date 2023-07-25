@@ -16,12 +16,11 @@ export const Buyer = ({direccion2,setDireccion2,direccion,setDireccion,vatNumber
   return (
     <>
       <Select onChange={handleIndexChange}>
-        <option value={0}>
-          {CarteraBancaria && CarteraBancaria[0].empresa}
+        {CarteraBancaria.map((e,index) => (
+          <option value={index} key={index}>
+          {e.empresa}
         </option>
-        <option value={1}>
-          {CarteraBancaria && CarteraBancaria[1].empresa}
-        </option>
+        ))}
       </Select>
       <InputPersonalizado
         type="text"

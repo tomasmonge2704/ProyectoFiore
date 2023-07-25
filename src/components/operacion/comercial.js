@@ -22,7 +22,7 @@ export const Comercial = () => {
       </Center>
       <TabPanels>
         <TabPanel>
-          <PurchaseForm />
+          <PurchaseForm  />
         </TabPanel>
         <TabPanel>
           <SaleForm />

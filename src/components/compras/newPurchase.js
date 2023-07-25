@@ -10,12 +10,13 @@ import {
   CardBody,
   VStack,
 } from "@chakra-ui/react";
-import { PaymentTerms } from "../sales/paymentTerms";
+
 import TablePurchase from "./tablePurchase";
 import { useContext, useState, useEffect } from "react";
 import { OperationContext } from "../context/operationContext";
 import { Buyer } from "./Buyer";
 import { Seller } from "./seller";
+import { PaymentTerms } from "./paymentTerms";
 export default function PurchaseForm() {
   const { setOperation } = useContext(OperationContext);
   const [orderNumber, setOrderNumber] = useState("");
@@ -33,14 +34,26 @@ export default function PurchaseForm() {
   //productos
   const [productos, setProductos] = useState([
     {
-      id: "sdnkhqe12123142",
-      description: "FROZEN BEEF LIVERS",
-      packing:15,
-      quantity: 27,
-      unitPrice: 850,
-      amount: 22950,
+      id: "",
+      description: "",
+      packing:null,
+      quantity:null,
+      unitPrice:null,
+      amount:null,
     },
   ]);
+  // extras
+  const [origin, setOrigin] = useState("");
+  const [plantNumber, setPlantNumber] = useState("");
+  const [brand, setBrand] = useState("");
+  const [productionDate, setProductionDate] = useState("");
+  const [shelfLife, setShelfLife] = useState("");
+  const [destinationPort, setDestinationPort] = useState("");
+  const [destinationCountry, setDestinationCountry] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [shipmentPeriod, setShipmentPeriod] = useState("");
+  const [deliveryTerms, setDeliveryTerms] = useState("");
+  const [paymentTerms, setPaymentTerms] = useState("");
   const fields = [
     direccion,
     direccion2,
@@ -53,7 +66,18 @@ export default function PurchaseForm() {
     codigoPostaleSeller,
     paisSeller,
     cuitSeller,
-    productos
+    productos,
+    origin,
+    plantNumber,
+    brand,
+    productionDate,
+    shelfLife,
+    destinationPort,
+    destinationCountry,
+    quantity,
+    shipmentPeriod,
+    deliveryTerms,
+    paymentTerms
   ]
   useEffect(() => {
     const totalFields = 24; // Total de campos del formulario
@@ -64,6 +88,7 @@ export default function PurchaseForm() {
       comercial: {
         ...prevOperation.comercial,
         completedPurchase,
+        fieldsPurchase:fields,
       },
     }));
   }, fields);
@@ -130,21 +155,21 @@ export default function PurchaseForm() {
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">
-                <InputPersonalizado type="text" label="ORIGIN" />
-                <InputPersonalizado type="text" label="PLANT NUMBER" />
-                <InputPersonalizado type="text" label="BRAND" />
-                <InputPersonalizado type="text" label="PRODUCTION DATE" />
-                <InputPersonalizado type="text" label="SHELF LIFE" />
-                <InputPersonalizado type="text" label="DESTINATION PORT" />
+                <InputPersonalizado type="text" label="ORIGIN" onChange={(e) => setOrigin(e.target.value)} />
+                <InputPersonalizado type="text" label="PLANT NUMBER" onChange={(e) => setPlantNumber(e.target.value)} />
+                <InputPersonalizado type="text" label="BRAND" onChange={(e) => setBrand(e.target.value)} />
+                <InputPersonalizado type="text" label="PRODUCTION DATE" onChange={(e) => setProductionDate(e.target.value)} />
+                <InputPersonalizado type="text" label="SHELF LIFE" onChange={(e) => setShelfLife(e.target.value)} />
+                <InputPersonalizado type="text" label="DESTINATION PORT" onChange={(e) => setDestinationPort(e.target.value)} />
               </VStack>
             </GridItem>
             <GridItem w="100%">
               <VStack spacing="7">
-                <InputPersonalizado type="text" label="DESTINATION COUNTRY" />
-                <InputPersonalizado type="text" label="QUANTITY" />
-                <InputPersonalizado type="text" label="SHIPMENT PERIOD" />
-                <InputPersonalizado type="text" label="DELIVERY TERMS" />
-                <PaymentTerms />
+                <InputPersonalizado type="text" label="DESTINATION COUNTRY" onChange={(e) => setDestinationCountry(e.target.value)} />
+                <InputPersonalizado type="text" label="QUANTITY" onChange={(e) => setQuantity(e.target.value)} />
+                <InputPersonalizado type="text" label="SHIPMENT PERIOD" onChange={(e) => setShipmentPeriod(e.target.value)} />
+                <InputPersonalizado type="text" label="DELIVERY TERMS" onChange={(e) => setDeliveryTerms(e.target.value)} />
+                <PaymentTerms setPaymentTerms={setPaymentTerms}/>
               </VStack>
             </GridItem>
           </Grid>
