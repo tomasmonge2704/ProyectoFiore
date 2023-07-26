@@ -27,7 +27,7 @@ export const MobileNav = ({ onOpen, ...rest }) => {
     router.replace("/login");
   }
   return (
-    <Flex
+      <Flex
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
       height="20"

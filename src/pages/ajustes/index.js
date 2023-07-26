@@ -5,14 +5,12 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Button,
   Heading,
   Flex,
-  Editable,
-  EditablePreview,
-  EditableInput,
   Stack,
+  Divider,
+  Input,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { CarteraBancariaContext } from "@/components/context/carterasContext";
@@ -21,12 +19,17 @@ export default function Ajustes() {
   const { CarteraBancaria, setCarteraBancaria } = useContext(
     CarteraBancariaContext
   );
-  const [isDirty, setIsDirty] = useState(false);
-  const [updatedCarteraBancaria, setUpdatedCarteraBancaria] =
-    useState(CarteraBancaria);
+  const [dirtyIndexes, setDirtyIndexes] = useState([]);
+  const [updatedCarteraBancaria, setUpdatedCarteraBancaria] = useState(CarteraBancaria);
 
   const handleInputChange = (value, index, field) => {
-    setIsDirty(true);
+    setDirtyIndexes((prevDirtyIndexes) => {
+      if (!prevDirtyIndexes.includes(index)) {
+        return [...prevDirtyIndexes, index];
+      }
+      return prevDirtyIndexes;
+    });
+
     setUpdatedCarteraBancaria((prevCarteraBancaria) => {
       const updatedData = [...prevCarteraBancaria];
       updatedData[index][field] = value;
@@ -34,64 +37,61 @@ export default function Ajustes() {
     });
   };
 
-  const handleConfirmChanges = () => {
-    setIsDirty(false);
-    setCarteraBancaria(updatedCarteraBancaria);
+  const handleConfirmChanges = (index) => {
+    setDirtyIndexes((prevDirtyIndexes) =>
+      prevDirtyIndexes.filter((dirtyIndex) => dirtyIndex !== index)
+    );
   };
-
   return (
     <Layout title="Ajustes">
       <Center>
-        <Text as="b">Cartera de datos Bancarios</Text>
+        <Heading>Cartera de datos Bancarios</Heading>
       </Center>
       <Flex justify="space-evenly" mt={20}>
         {CarteraBancaria &&
           CarteraBancaria.map((e, index) => (
-            <Card minW="400px" key={index}>
+            <Card minW="400px" key={index} variant="filled">
               <CardHeader>
-                <Heading size="md">{e.empresa}</Heading>
+                <Center>
+                  <Heading size="md">{e.nombre}</Heading>
+                </Center>
               </CardHeader>
               <CardBody>
                 <Stack spacing="2">
                   <Text as="b">Direccion</Text>
-                  <Editable
+                  <Input
+                    variant="outline"
                     defaultValue={e.direccion}
                     onChange={(value) =>
                       handleInputChange(value, index, "direccion")
                     }
-                  >
-                    <EditablePreview />
-                    <EditableInput />
-                  </Editable>
+                  />
                   <Text as="b">Direccion 2</Text>
-                  <Editable
+                  <Input
+                    variant="outline"
                     defaultValue={e.direccion2}
                     onChange={(value) =>
-                      handleInputChange(value, index, "cuit")
+                      handleInputChange(value, index, "direccion2")
                     }
-                  >
-                    <EditablePreview />
-                    <EditableInput />
-                  </Editable>
+                  />
                   <Text as="b">VAT NUMBER</Text>
-                  <Editable
+                  <Input
+                    variant="outline"
                     defaultValue={e.vatNumber}
                     onChange={(value) =>
                       handleInputChange(value, index, "vatNumber")
                     }
-                  >
-                    <EditablePreview />
-                    <EditableInput />
-                  </Editable>
+                  />
                 </Stack>
+
+                {dirtyIndexes.includes(index) && (
+                  <Center mt={7}>
+                    <Button colorScheme="orange" onClick={() => handleConfirmChanges(index)}>
+                      Guardar
+                    </Button>
+                  </Center>
+                )}
               </CardBody>
-              {isDirty && (
-                <CardFooter>
-                  <Button colorScheme="blue" onClick={handleConfirmChanges}>
-                    Confirmar cambios
-                  </Button>
-                </CardFooter>
-              )}
             </Card>
           ))}
       </Flex>

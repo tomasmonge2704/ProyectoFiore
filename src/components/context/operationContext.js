@@ -10,6 +10,7 @@ export function OperationProvider({ children }) {
       completed: 0,
       completedPurchase: 0,
       completedInvoice: 0,
+      completedGeneral:0,
       fieldsPurchase:{
         orderNumber: "",
         supplierRefNumber: "",
@@ -54,19 +55,12 @@ export function OperationProvider({ children }) {
     docs: { title: "Docs", completed: 0 },
     logistica: { title: "Logistica", completed: 0 },
     contableFinanciera: { title: "Contable financiera", completed: 0 },
-    state:"doing"
+    status:"New"
   });
-  // useEffect para guardar en localStorage cuando operation cambia
-  useEffect(() => {
-    const prevState = JSON.parse(localStorage.getItem("operation"));
-    if(typeof prevState === 'object' && prevState !== null){
-      prevState.restored = true;
-      setOperation(prevState);
-    }
-  }, []);
+  const [ purchase, setPurchase] = useState(operation.comercial.fieldsPurchase);
 
   return (
-    <OperationContext.Provider value={{ operation, setOperation }}>
+    <OperationContext.Provider value={{ operation, setOperation, purchase, setPurchase }}>
       {children}
     </OperationContext.Provider>
   );
