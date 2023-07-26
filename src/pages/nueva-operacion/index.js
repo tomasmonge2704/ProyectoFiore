@@ -18,10 +18,10 @@ import { useContext, useState } from "react";
 export default function NuevaOperacion() {
   const {operation,setOperation} = useContext(OperationContext); 
   const steps = [
-    { title: "Comercial", description:`${Math.floor((operation.comercial.completedPurchase / 2) + (operation.comercial.completedInvoice / 2) || 0 )}% completado` },
-    { title: "Docs", description:`${operation.docs.completed || 0 }% completado`},
-    { title: "Logistica", description: `${operation.logistica.completed || 0 }% completado`},
-    { title: "Contable financiera", description:`${operation.contableFinanciera.completed || 0 }% completado`},
+    { title: "Comercial", description:`${Math.floor((operation.comercial?.completedPurchase / 2) + (operation.comercial?.completedInvoice / 2) || 0 )}% completado` },
+    { title: "Docs", description:`${operation.docs?.completed || 0 }% completado`},
+    { title: "Logistica", description: `${operation.logistica?.completed || 0 }% completado`},
+    { title: "Contable financiera", description:`${operation.contableFinanciera?.completed || 0 }% completado`},
   ];
   const { activeStep,setActiveStep } = useSteps({
     index: 1,

@@ -1,37 +1,62 @@
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import { Select } from "@chakra-ui/react";
-import { useContext, useState, useEffect } from "react";
-import { CarteraProveedoresContext } from "../context/carterasContext";
+import { useState, useEffect } from "react";
+
 export const Seller = ({
-  nombre,
-  setNombre,
-  direccion,
-  setDireccion,
-  codigoPostal,
-  setCodigoPostal,
-  pais,
-  setPais,
-  cuit,
-  setCuit,
+  setPurchase,
+  CarteraProveedores
 }) => {
-  const { CarteraProveedores } = useContext(CarteraProveedoresContext);
   const [indexCartera, setIndexCartera] = useState(0);
+  const [nombre, setNombre] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [direccion2, setDireccion2] = useState("");
+  const [pais, setPais] = useState("");
+  const [cuit, setCuit] = useState("");
+
   const handleIndexChange = (e) => {
-    setIndexCartera(parseInt(e.target.value));
+    const newIndex = parseInt(e.target.value);
+    setIndexCartera(newIndex);
+    setPurchase((prevPurchase) => ({
+      ...prevPurchase,
+      seller: CarteraProveedores[newIndex],
+    }));
   };
+
+  // useEffect para sincronizar los cambios en los inputs con el estado 'seller' y establecer valores iniciales
   useEffect(() => {
-    setNombre(CarteraProveedores[indexCartera]?.empresa || "");
-    setDireccion(CarteraProveedores[indexCartera]?.direccion || "");
-    setCodigoPostal(CarteraProveedores[indexCartera]?.direccion2 || "");
-    setPais(CarteraProveedores[indexCartera]?.pais || "");
-    setCuit(CarteraProveedores[indexCartera]?.cuit || "");
-  }, [indexCartera, CarteraProveedores]);
+    const initialSeller = CarteraProveedores[indexCartera];
+    setNombre(initialSeller.nombre);
+    setDireccion(initialSeller.direccion);
+    setDireccion2(initialSeller.direccion2);
+    setPais(initialSeller.pais);
+    setCuit(initialSeller.cuit);
+    setPurchase((prevPurchase) => ({
+      ...prevPurchase,
+      seller: initialSeller,
+    }));
+  }, [indexCartera, CarteraProveedores, setPurchase]);
+
+  // useEffect para actualizar 'seller' cuando cambian los inputs
+  useEffect(() => {
+    setPurchase((prevPurchase) => ({
+      ...prevPurchase,
+      seller: {
+        ...prevPurchase.seller,
+        nombre,
+        direccion,
+        direccion2,
+        pais,
+        cuit,
+      },
+    }));
+  }, [nombre, direccion, direccion2, pais, cuit, setPurchase]);
+
   return (
     <>
       <Select onChange={handleIndexChange}>
         {CarteraProveedores.map((e, index) => (
           <option value={index} key={index}>
-            {e.empresa}
+            {e.nombre}
           </option>
         ))}
       </Select>
@@ -49,9 +74,9 @@ export const Seller = ({
       />
       <InputPersonalizado
         type="text"
-        label="Codigo postal"
-        value={codigoPostal}
-        onChange={(e) => setCodigoPostal(e.target.value)}
+        label="Direccion 2"
+        value={direccion2}
+        onChange={(e) => setDireccion2(e.target.value)}
       />
       <InputPersonalizado
         type="text"

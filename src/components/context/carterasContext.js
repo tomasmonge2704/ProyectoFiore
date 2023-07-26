@@ -36,13 +36,13 @@ export function CarterasProvider({ children }) {
   ]);
   const [CarteraBancaria, setCarteraBancaria] = useState([
     {
-      empresa: "DPL Trading LLC",
+      nombre: "DPL Trading LLC",
       direccion: "30 North Gould Street, Suit R",
       direccion2: "Sheridan, WY 82801, USA",
       vatNumber: "92-0566625",
     },
     {
-      empresa: "Duplo",
+      nombre: "Duplo",
       direccion: "40 North Gould Street, Suit R",
       direccion2: "Sheridan, WY 8000, USA",
       vatNumber: "90-000000",
@@ -68,14 +68,14 @@ export function CarterasProvider({ children }) {
   ]);
   const [CarteraProveedores, setProveedores] = useState([
     {
-      empresa: "REFINERIA DEL CENTRO S.A.",
+      nombre: "REFINERIA DEL CENTRO S.A.",
       direccion: "Cno. a Jesús María KM. 10 1/2",
       direccion2: "(5145) Juárez Celman",
       pais: "Prov. de Córdoba - Rep. Argentina",
       cuit: "33-50134847-9",
     },
     {
-      empresa: "TEST S.A.",
+      nombre: "TEST S.A.",
       direccion: "Test Jesús María KM. 10 1/2",
       direccion2: "(5145) Juárez Celman",
       pais: "Test - Rep. Argentina",
