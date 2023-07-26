@@ -18,8 +18,9 @@ export const Buyer = ({ purchase,setPurchase, detailView }) => {
     }));
   };
   useEffect(() => {
-    if(purchase.buyer.nombre){
-      setIndexCartera(CarteraBancaria.findIndex((elemento) => elemento.nombre === purchase.buyer.nombre));
+    const index = CarteraBancaria.findIndex((elemento) => elemento.nombre === purchase.buyer.nombre);
+    if(purchase.buyer.nombre  && index >= 0){
+      setIndexCartera(index);
     }
   }, [purchase]);
   // useEffect para sincronizar los cambios en los inputs con el estado 'buyer' y establecer valores iniciales

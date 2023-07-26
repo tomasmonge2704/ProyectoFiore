@@ -19,8 +19,9 @@ export const Seller = ({ purchase,setPurchase, CarteraProveedores, detailView })
     }));
   };
   useEffect(() => {
-    if(purchase.seller.nombre){
-      setIndexCartera(CarteraProveedores.findIndex((elemento) => elemento.nombre === purchase.seller.nombre));
+    const index = CarteraProveedores.findIndex((elemento) => elemento.nombre === purchase.seller.nombre);
+    if(purchase.seller.nombre && index >= 0){
+      setIndexCartera(index);
     }
   }, [purchase]);
   
