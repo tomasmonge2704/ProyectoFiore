@@ -4,6 +4,7 @@ export const CarteraBancariaContext = createContext();
 export const CarteraClientesContext = createContext();
 export const CarteraProveedoresContext = createContext();
 export const CarteraPaymentTermsContext = createContext();
+export const CarteraPuertosContext = createContext();
 
 export function CarterasProvider({ children }) {
   const [CarteraPaymentTerms, setCarteraPaymentTerms] = useState([
@@ -37,16 +38,32 @@ export function CarterasProvider({ children }) {
   const [CarteraBancaria, setCarteraBancaria] = useState([
     {
       nombre: "DPL Trading LLC",
+      empresa:"DPL",
+      direccion: "30 North Gould Street, Suit R",
+      direccion2: "Sheridan, WY 82801, USA",
+      vatNumber: "92-0566625",
+    },
+    {
+      nombre: "DPL Trading LLC 2",
+      empresa:"DPL",
       direccion: "30 North Gould Street, Suit R",
       direccion2: "Sheridan, WY 82801, USA",
       vatNumber: "92-0566625",
     },
     {
       nombre: "Duplo",
+      empresa:"Duplo",
       direccion: "40 North Gould Street, Suit R",
       direccion2: "Sheridan, WY 8000, USA",
       vatNumber: "90-000000",
     },
+    {
+      nombre: "Duplo 2",
+      empresa:"Duplo",
+      direccion: "40 North Gould Street, Suit R",
+      direccion2: "Sheridan, WY 8000, USA",
+      vatNumber: "90-000000",
+    }
   ]);
   const [CarteraClientes, setCarteraClientes] = useState([
     {
@@ -82,6 +99,17 @@ export function CarterasProvider({ children }) {
       cuit: "44-50134847-9",
     },
   ]);
+  const [CarteraPuertos, setCarteraPuertos] = useState([
+    {port:"Destination port 1",
+    country:"Buenos aires"
+  },
+  {port:"Destination port 2",
+    country:"uruguay"
+  },
+  {port:"Destination port 3",
+    country:"china"
+  },
+  ])
   return (
     <CarteraBancariaContext.Provider
       value={{ CarteraBancaria, setCarteraBancaria }}
@@ -95,7 +123,9 @@ export function CarterasProvider({ children }) {
           <CarteraPaymentTermsContext.Provider
             value={{ CarteraPaymentTerms, setCarteraPaymentTerms }}
           >
+            <CarteraPuertosContext.Provider value={{CarteraPuertos,setCarteraPuertos }}>
             {children}
+            </CarteraPuertosContext.Provider>
           </CarteraPaymentTermsContext.Provider>
         </CarteraProveedoresContext.Provider>
       </CarteraClientesContext.Provider>

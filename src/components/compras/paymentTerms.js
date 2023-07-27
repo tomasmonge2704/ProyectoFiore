@@ -4,7 +4,7 @@ import { useContext, useState,useEffect } from "react";
 import { CheckIcon } from "@chakra-ui/icons";
 export const PaymentTerms = ({setPaymentTerms}) => {
   const { CarteraPaymentTerms } = useContext(CarteraPaymentTermsContext);
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(undefined);
 
   const handleSelectChange = (event) => {
     const newIndex = parseInt(event.target.value);
@@ -16,7 +16,10 @@ export const PaymentTerms = ({setPaymentTerms}) => {
   return (
     <Card w="100%">
       <CardBody>
-        <Select onChange={handleSelectChange} value={tabIndex}>
+        <Select onChange={handleSelectChange} value={tabIndex || tabIndex == 0 ? tabIndex : ""}>
+        <option value="" disabled>
+        Payment Terms
+      </option>
           {CarteraPaymentTerms.map((e, index) => (
             <option value={index} key={index}>
               {e.title}

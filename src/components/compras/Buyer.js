@@ -4,7 +4,7 @@ import { Select } from "@chakra-ui/react";
 import InputPersonalizado from "@/utils/inputPersonalizado";
 export const Buyer = ({ purchase,setPurchase, detailView }) => {
   const { CarteraBancaria } = useContext(CarteraBancariaContext);
-  const [indexCartera, setIndexCartera] = useState(0);
+  const [indexCartera, setIndexCartera] = useState(undefined);
   const [nombre, setNombre] = useState(purchase.buyer.nombre || "");
   const [direccion, setDireccion] = useState(purchase.buyer.nombre || "");
   const [direccion2, setDireccion2] = useState(purchase.buyer.nombre || "");
@@ -25,6 +25,7 @@ export const Buyer = ({ purchase,setPurchase, detailView }) => {
   }, [purchase]);
   // useEffect para sincronizar los cambios en los inputs con el estado 'buyer' y establecer valores iniciales
   useEffect(() => {
+    if(indexCartera || indexCartera == 0){
     const initialSeller = CarteraBancaria[indexCartera];
     setNombre(initialSeller.nombre);
     setDireccion(initialSeller.direccion);
@@ -34,6 +35,7 @@ export const Buyer = ({ purchase,setPurchase, detailView }) => {
       ...prevPurchase,
       buyer: initialSeller,
     }));
+  }
   }, [indexCartera, CarteraBancaria, setPurchase]);
 
   // useEffect para actualizar 'buyer' cuando cambian los inputs
@@ -51,7 +53,10 @@ export const Buyer = ({ purchase,setPurchase, detailView }) => {
   }, [nombre, direccion, direccion2, vatNumber, setPurchase]);
   return (
     <>
-      <Select value={indexCartera} onChange={handleIndexChange}>
+      <Select value={indexCartera || indexCartera == 0 ? indexCartera : ""} onChange={handleIndexChange}>
+      <option value="" disabled>
+        Buyer
+      </option>
         {CarteraBancaria.map((e, index) => (
           <option value={index} key={index}>
             {e.nombre}

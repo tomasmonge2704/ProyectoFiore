@@ -3,7 +3,7 @@ import { Select } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
 export const Seller = ({ purchase,setPurchase, CarteraProveedores, detailView }) => {
-  const [indexCartera, setIndexCartera] = useState(0);
+  const [indexCartera, setIndexCartera] = useState(undefined);
   const [nombre, setNombre] = useState(purchase.seller.nombre || "");
   const [direccion, setDireccion] = useState(purchase.seller.direccion || "");
   const [direccion2, setDireccion2] = useState(purchase.seller.direccion2 || "");
@@ -27,6 +27,7 @@ export const Seller = ({ purchase,setPurchase, CarteraProveedores, detailView })
   
   // useEffect para sincronizar los cambios en los inputs con el estado 'seller' y establecer valores iniciales
   useEffect(() => {
+    if(indexCartera || indexCartera == 0){
     const initialSeller = CarteraProveedores[indexCartera];
     setNombre(initialSeller.nombre);
     setDireccion(initialSeller.direccion);
@@ -37,6 +38,7 @@ export const Seller = ({ purchase,setPurchase, CarteraProveedores, detailView })
       ...prevPurchase,
       seller: initialSeller,
     }));
+  }
   }, [indexCartera, CarteraProveedores, setPurchase]);
 
   // useEffect para actualizar 'seller' cuando cambian los inputs
@@ -56,7 +58,10 @@ export const Seller = ({ purchase,setPurchase, CarteraProveedores, detailView })
 
   return (
     <>
-      <Select value={indexCartera} onChange={handleIndexChange}>
+      <Select value={indexCartera || indexCartera == 0 ? indexCartera : ""} onChange={handleIndexChange}>
+      <option value="" disabled>
+        Seller
+      </option>
         {CarteraProveedores.map((e, index) => (
             <option value={index} key={index}>
               {e.nombre}

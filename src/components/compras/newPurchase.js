@@ -147,12 +147,12 @@ export default function PurchaseForm() {
                 <InputPersonalizado
                   type="text"
                   label="DESTINATION PORT"
-                  value={purchase.destinationPort}
+                  value={operation.destinationPort}
                   onChange={(e) =>
-                    setPurchase({
-                      ...purchase,
-                      destinationPort: e.target.value,
-                    })
+                    setOperation((prevOperation) => ({
+                      ...prevOperation,
+                      destinationPort:e.target.value,
+                    }))
                   }
                 />
               </VStack>
@@ -162,12 +162,12 @@ export default function PurchaseForm() {
                 <InputPersonalizado
                   type="text"
                   label="DESTINATION COUNTRY"
-                  value={purchase.destinationCountry}
+                  value={operation.destinationCountry}
                   onChange={(e) =>
-                    setPurchase({
-                      ...purchase,
-                      destinationCountry: e.target.value,
-                    })
+                    setOperation((prevOperation) => ({
+                      ...prevOperation,
+                      destinationCountry:e.target.value,
+                    }))
                   }
                 />
                 <InputPersonalizado

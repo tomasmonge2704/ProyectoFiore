@@ -10,7 +10,10 @@ export const OperationType = ({ operation, setOperation }) => {
   };
   return (
     <>
-      <Select onChange={(e) => handleIndexChange(e)}>
+      <Select value={operation.operationType ? operation.operationType : ""} onChange={(e) => handleIndexChange(e)}>
+      <option value="" disabled>
+        Operation Type
+      </option>
         <option value="Trading">Trading</option>
         <option value="Trading + Marketing">Trading + Marketing</option>
         <option value="Broker">Broker</option>

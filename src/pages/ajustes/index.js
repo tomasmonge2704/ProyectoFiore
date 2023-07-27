@@ -47,10 +47,10 @@ export default function Ajustes() {
       <Center>
         <Heading>Cartera de datos Bancarios</Heading>
       </Center>
-      <Flex justify="space-evenly" mt={20}>
+      <Flex justify="space-evenly" mt={10}>
         {CarteraBancaria &&
           CarteraBancaria.map((e, index) => (
-            <Card minW="400px" key={index} variant="filled">
+            <Card maxW="300px" key={index} variant="filled" backgroundColor={ e.empresa == "Duplo" ? "orange.200" : "orange.300"}>
               <CardHeader>
                 <Center>
                   <Heading size="md">{e.nombre}</Heading>
