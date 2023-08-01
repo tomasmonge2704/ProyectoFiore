@@ -1,17 +1,15 @@
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import {
-  Box,
   Grid,
   GridItem,
   Center,
-  Text,
   Button,
   Card,
   CardBody,
   VStack,
 } from "@chakra-ui/react";
 import TablaGeneral from "./tablaGeneral";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { OperationContext } from "../context/operationContext";
 import { Buyer } from "../compras/Buyer";
 import { Seller } from "../compras/seller";
@@ -19,13 +17,14 @@ import { PaymentTerms } from "../compras/paymentTerms";
 import { CarteraProveedoresContext } from "../context/carterasContext";
 import { OperationType } from "./operationType";
 import { DestinationPort } from "./destinationPort";
-
+import { ShelfLife } from "./shelfLife";
+import { DeliveryTerms } from "./deliveryTerms";
 export default function GeneralForm() {
   const { operation, setOperation, purchase, setPurchase } =
     useContext(OperationContext);
   const { CarteraProveedores } = useContext(CarteraProveedoresContext);
   useEffect(() => {
-    const totalFields = 18; // Total de campos del formulario
+    const totalFields = 15; // Total de campos del formulario
     let completedFields = Object.values(purchase).filter(Boolean).length;
     const completedGeneral = Math.floor((completedFields / totalFields) * 100);
     setOperation((prevOperation) => ({
@@ -71,8 +70,8 @@ export default function GeneralForm() {
             <GridItem w="100%">
               <VStack spacing="7">
                 <OperationType
-                  operation={operation}
-                  setOperation={setOperation}
+                  purchase={purchase}
+                  setPurchase={setPurchase}
                 />
                 <Buyer purchase={purchase} setPurchase={setPurchase} />
               </VStack>
@@ -114,25 +113,13 @@ export default function GeneralForm() {
                     setPurchase({ ...purchase, productionDate: e.target.value })
                   }
                 />
-                <InputPersonalizado
-                  type="text"
-                  label="SHELF LIFE"
-                  value={purchase.shelfLife}
-                  onChange={(e) =>
-                    setPurchase({ ...purchase, shelfLife: e.target.value })
-                  }
-                />
-                <DestinationPort purchase={purchase} operation={operation} setOperation={setOperation} />
+                <ShelfLife setPurchase={setPurchase} purchase={purchase} />
+                <DestinationPort purchase={purchase} setPurchase={setPurchase} />
                 <InputPersonalizado
                   type="text"
                   label="DESTINATION COUNTRY"
-                  value={operation.destinationCountry}
-                  onChange={(e) =>
-                    setOperation((prevOperation) => ({
-                      ...prevOperation,
-                      destinationCountry:e.target.value,
-                    }))
-                  }
+                  value={purchase.destinationCountry}
+                  onChange={(e) => setPurchase({...purchase,destinationCountry:e.target.value})}
                 />
                 <InputPersonalizado
                   type="text"
@@ -154,19 +141,8 @@ export default function GeneralForm() {
                     setPurchase({ ...purchase, shipmentPeriod: e.target.value })
                   }
                 />
-                <InputPersonalizado
-                  type="text"
-                  label="DELIVERY TERMS"
-                  value={purchase.deliveryTerms}
-                  onChange={(e) =>
-                    setPurchase({ ...purchase, deliveryTerms: e.target.value })
-                  }
-                />
-                <PaymentTerms
-                  setPaymentTerms={(value) =>
-                    setPurchase({ ...purchase, paymentTerms: value })
-                  }
-                />
+                <DeliveryTerms setPurchase={setPurchase} purchase={purchase} />
+                <PaymentTerms purchase={purchase} setPurchase={setPurchase} />
               </VStack>
             </GridItem>
           </Grid>

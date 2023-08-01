@@ -147,13 +147,8 @@ export default function PurchaseForm() {
                 <InputPersonalizado
                   type="text"
                   label="DESTINATION PORT"
-                  value={operation.destinationPort}
-                  onChange={(e) =>
-                    setOperation((prevOperation) => ({
-                      ...prevOperation,
-                      destinationPort:e.target.value,
-                    }))
-                  }
+                  value={purchase.destinationPort}
+                  onChange={(e) =>setPurchase({...purchase,destinationPort:e.target.value,})}
                 />
               </VStack>
             </GridItem>
@@ -162,13 +157,8 @@ export default function PurchaseForm() {
                 <InputPersonalizado
                   type="text"
                   label="DESTINATION COUNTRY"
-                  value={operation.destinationCountry}
-                  onChange={(e) =>
-                    setOperation((prevOperation) => ({
-                      ...prevOperation,
-                      destinationCountry:e.target.value,
-                    }))
-                  }
+                  value={purchase.destinationCountry}
+                  onChange={(e) =>setPurchase({...purchase,destinationCountry:e.target.value})}
                 />
                 <InputPersonalizado
                   type="text"
@@ -194,11 +184,7 @@ export default function PurchaseForm() {
                     setPurchase({ ...purchase, deliveryTerms: e.target.value })
                   }
                 />
-                <PaymentTerms
-                  setPaymentTerms={(value) =>
-                    setPurchase({ ...purchase, paymentTerms: value })
-                  }
-                />
+                <PaymentTerms purchase={purchase} setPurchase={setPurchase} />
               </VStack>
             </GridItem>
           </Grid>
