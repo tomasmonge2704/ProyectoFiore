@@ -64,7 +64,7 @@ export default function TablePurchase({ productos, setProductos }) {
       if (producto.id === id) {
         return {
           ...producto,
-          unitPrice: parseFloat(unitPrice),
+          unitPricePurchase: parseFloat(unitPrice),
         };
       }
       return producto;
@@ -115,7 +115,7 @@ export default function TablePurchase({ productos, setProductos }) {
               </Td>
               <Td>
                 <InputPersonalizado
-                  defaultValue={e.unitPrice && e.unitPrice}
+                  value={e.unitPricePurchase ? e.unitPricePurchase : ""}
                   label="$"
                   type="number"
                   onChange={(event) => handleChangeUnitPrice(event, e.id)}

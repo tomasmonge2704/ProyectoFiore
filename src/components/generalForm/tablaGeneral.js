@@ -14,7 +14,7 @@ import { convertirAMoneda } from "@/utils/convertInt";
 import { useMemo, useState } from "react";
 import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
 import InputPersonalizado from "@/utils/inputPersonalizado";
-export default function TablaGeneral({ operation,productos, setProductos }) {
+export default function TablaGeneral({ productos, setProductos,comision }) {
   const lessAdvancePayment = 0;
   const [pendingBalance, setPendingBalance] = useState(0);
 
@@ -31,19 +31,6 @@ export default function TablaGeneral({ operation,productos, setProductos }) {
     setProductos(updatedProductos);
   };
 
-  const handleChangeAmount = (event, id) => {
-    const amount = event.target.value;
-    const updatedProductos = productos.map((producto) => {
-      if (producto.id === id) {
-        return {
-          ...producto,
-          amount: parseFloat(amount),
-        };
-      }
-      return producto;
-    });
-    setProductos(updatedProductos);
-  };
   const handleChangePacking = (event, id) => {
     const packing = event.target.value;
     const updatedProductos = productos.map((producto) => {
@@ -58,14 +45,22 @@ export default function TablaGeneral({ operation,productos, setProductos }) {
     setProductos(updatedProductos);
   };
 
-  const handleChangeUnitPrice = (event, id) => {
+  const handleChangeUnitPrice = (event, id,type) => {
     const unitPrice = event.target.value;
     const updatedProductos = productos.map((producto) => {
       if (producto.id === id) {
-        return {
-          ...producto,
-          unitPrice: parseFloat(unitPrice),
-        };
+        if(type == "Purchase"){
+          return {
+            ...producto,
+            unitPricePurchase: parseFloat(unitPrice),
+          };
+        }
+        if(type == "Sale"){
+          return {
+            ...producto,
+            unitPriceSale: parseFloat(unitPrice),
+          };
+        }
       }
       return producto;
     });
@@ -85,8 +80,8 @@ export default function TablaGeneral({ operation,productos, setProductos }) {
             <Th>QUANTITY</Th>
             <Th>PRODUCT</Th>
             <Th>PACKING</Th>
-            <Th>UNIT PRICE</Th>
-            <Th>AMOUNT</Th>
+            <Th>UNIT PRICE PURCHASE</Th>
+            <Th>UNIT PRICE SALE</Th>
             <Th></Th>
           </Tr>
         </Thead>
@@ -96,13 +91,13 @@ export default function TablaGeneral({ operation,productos, setProductos }) {
               <Td>
                 <InputPersonalizado
                   label="MT"
-                  defaultValue={e.quantity && e.quantity}
+                  value={e.quantity ? e.quantity : ""}
                 />
               </Td>
               <Td>
                 <Input
                   variant="filled"
-                  defaultValue={e.description && e.description}
+                  value={e.description ? e.description : ""}
                 />
               </Td>
               <Td>
@@ -115,18 +110,18 @@ export default function TablaGeneral({ operation,productos, setProductos }) {
               </Td>
               <Td>
                 <InputPersonalizado
-                  defaultValue={e.unitPrice && e.unitPrice}
+                  value={e.unitPricePurchase ? e.unitPricePurchase : ""}
                   label="$"
                   type="number"
-                  onChange={(event) => handleChangeUnitPrice(event, e.id)}
+                  onChange={(event) => handleChangeUnitPrice(event, e.id,"Purchase")}
                 />
               </Td>
               <Td>
                 <InputPersonalizado
-                  defaultValue={e.amount && e.amount}
+                  defaultValue={e.unitPriceSale && e.unitPriceSale}
                   label="$"
                   type="number"
-                  onChange={(event) => handleChangeAmount(event, e.id)}
+                  onChange={(event) => handleChangeUnitPrice(event, e.id,"Sale")}
                 />
               </Td>
               <Td>
@@ -147,16 +142,25 @@ export default function TablaGeneral({ operation,productos, setProductos }) {
             <Th>Incoterm</Th>
             <Th></Th>
             <Th></Th>
-            <Th isNumeric></Th>
-            <Th isNumeric>{convertirAMoneda(pendingBalance)}</Th>
+            <Th><InputPersonalizado label="$" type="number" /></Th>
+            <Th><InputPersonalizado label="$" type="number" /></Th>
+            <Th></Th>
           </Tr>
-          {operation.comision && 
+          <Tr>
+            <Th>Payment Terms</Th>
+            <Th></Th>
+            <Th></Th>
+            <Th><InputPersonalizado label="$" type="number" /></Th>
+            <Th><InputPersonalizado label="$" type="number" /></Th>
+            <Th></Th>
+          </Tr>
+          {comision && 
           <Tr>
           <Th>Comision</Th>
           <Th></Th>
           <Th></Th>
           <Th isNumeric></Th>
-          <Th isNumeric>{convertirAMoneda(operation.comision)}</Th>
+          <Th isNumeric>{convertirAMoneda(comision)}</Th>
         </Tr>
           }
           <Tr>

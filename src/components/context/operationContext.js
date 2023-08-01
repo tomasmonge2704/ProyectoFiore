@@ -34,7 +34,8 @@ export function OperationProvider({ children }) {
             description: "",
             packing: null,
             quantity: null,
-            unitPrice: null,
+            unitPricePurchase: null,
+            unitPriceSale: null,
             amount: null,
           },
         ],
@@ -58,9 +59,16 @@ export function OperationProvider({ children }) {
     status:"New"
   });
   const [ purchase, setPurchase] = useState(operation.comercial.fieldsPurchase);
+  const [ productos, setProductos] = useState(purchase.productos);
+  useEffect(() => {
+    localStorage.setItem('purchase', JSON.stringify(purchase));
+  }, [purchase]);
+  useEffect(() => {
+    setPurchase({...purchase,productos:productos})
+  }, [productos]);
 
   return (
-    <OperationContext.Provider value={{ operation, setOperation, purchase, setPurchase }}>
+    <OperationContext.Provider value={{ operation, setOperation, purchase, setPurchase,productos,setProductos }}>
       {children}
     </OperationContext.Provider>
   );

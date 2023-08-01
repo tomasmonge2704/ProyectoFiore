@@ -18,8 +18,8 @@ export const OperationType = ({ purchase, setPurchase }) => {
       {purchase?.operationType == "Trading + Marketing" && (
         <InputPersonalizado
           type="number"
-          label="Comision"
-          value={purchase.comision}
+          label="Comisión"
+          value={purchase.comision || ""}
           onChange={(e) => setPurchase({...purchase,comision: e.target.value,})}
         />
       )}

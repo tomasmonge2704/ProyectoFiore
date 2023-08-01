@@ -20,8 +20,7 @@ import { DestinationPort } from "./destinationPort";
 import { ShelfLife } from "./shelfLife";
 import { DeliveryTerms } from "./deliveryTerms";
 export default function GeneralForm() {
-  const { operation, setOperation, purchase, setPurchase } =
-    useContext(OperationContext);
+  const { operation, setOperation, purchase, setPurchase,productos,setProductos } = useContext(OperationContext);
   const { CarteraProveedores } = useContext(CarteraProveedoresContext);
   useEffect(() => {
     const totalFields = 15; // Total de campos del formulario
@@ -96,11 +95,9 @@ export default function GeneralForm() {
             </GridItem>
           </Grid>
           <TablaGeneral
-            operation={operation}
-            productos={purchase.productos}
-            setProductos={(value) =>
-              setPurchase({ ...purchase, productos: value })
-            }
+            productos={productos}
+            comision={purchase.comision}
+            setProductos={setProductos}
           />
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">

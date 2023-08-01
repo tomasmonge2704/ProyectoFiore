@@ -19,8 +19,7 @@ import { PaymentTerms } from "./paymentTerms";
 import { CarteraProveedoresContext } from "../context/carterasContext";
 
 export default function PurchaseForm() {
-  const { operation, setOperation, purchase, setPurchase } =
-    useContext(OperationContext);
+  const { operation, setOperation, purchase, setPurchase,productos,setProductos } = useContext(OperationContext);
   const { CarteraProveedores } = useContext(CarteraProveedoresContext);
   useEffect(() => {
     const totalFields = 18; // Total de campos del formulario
@@ -96,10 +95,8 @@ export default function PurchaseForm() {
           </Grid>
           <Text as="b">WE CONFIRM HAVING PURCHASED</Text>
           <TablePurchase
-            productos={purchase.productos}
-            setProductos={(value) =>
-              setPurchase({ ...purchase, productos: value })
-            }
+            productos={productos}
+            setProductos={setProductos}
           />
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
