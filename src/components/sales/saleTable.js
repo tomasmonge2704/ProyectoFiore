@@ -6,14 +6,12 @@ import {
   Th,
   Tbody,
   Td,
-  Tfoot,
-  Center,
   IconButton,
   Input,
 } from "@chakra-ui/react";
-import { convertirAMoneda } from "@/utils/convertInt";
 import { useMemo, useState } from "react";
 import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
+import InputPersonalizado from "@/utils/inputPersonalizado";
 export default function SaleTable({productos, setProductos}) {
   const lessAdvancePayment = 0;
   const [pendingBalance, setPendingBalance] = useState(0);
@@ -75,30 +73,39 @@ export default function SaleTable({productos, setProductos}) {
       <Table variant="striped" colorScheme='orange'>
         <Thead>
           <Tr>
-            <Th>Description</Th>
-            <Th>Net Weight</Th>
-            <Th isNumeric>Unit price</Th>
-            <Th isNumeric>Amount</Th>
+            <Th>QUANTITY</Th>
+            <Th>PRODUCT</Th>
+            <Th>PACKING</Th>
+            <Th>UNIT PRICE</Th>
+            <Th>TOTAL AMOUNT</Th>
             <Th></Th>
           </Tr>
         </Thead>
         <Tbody>
           {productos.map((e, index) => (
             <Tr key={index}>
-              <Td>
-                <Input
-                  value={e.description ? e.description : ""}
-                  variant="filled"
-                  onChange={(event) => handleChangeInput(event, e.id,"Desc")}
+               <Td>
+                <InputPersonalizado
+                  label="MT"
+                  type="number"
+                  value={e.quantity ? e.quantity : ""}
+                  onChange={(event) => handleChangeInput(event, e.id,"Quantity")}
                 />
               </Td>
               <Td>
                 <Input
-                  value={e.netWeight ? e.netWeight : ""}
                   variant="filled"
-                  onChange={(event) => handleChangeInput(event, e.id,"")}
-                />{" "}
-                MT
+                  value={e.description ? e.description : ""}
+                  onChange={(event) => handleChangeInput(event, e.id,"Desc")}
+                />
+              </Td>
+              <Td>
+                <InputPersonalizado
+                  label="KGS"
+                  value={e.packing ? e.packing : ""}
+                  type="number"
+                  onChange={(event) => handleChangeInput(event, e.id,"Packing")}
+                />
               </Td>
               <Td isNumeric>
                 ${" "}
@@ -124,22 +131,7 @@ export default function SaleTable({productos, setProductos}) {
               </Td>
             </Tr>
           ))}
-          <Tr>
-            <Th></Th>
-            <Th></Th>
-            <Th isNumeric>LESS ADVANCE PAYMENT 3/2/23</Th>
-            <Th isNumeric>-{convertirAMoneda(lessAdvancePayment)}</Th>
-            <Th></Th>
-          </Tr>
         </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th></Th>
-            <Th></Th>
-            <Th isNumeric>PENDING BALANCE</Th>
-            <Th isNumeric>{convertirAMoneda(pendingBalance)}</Th>
-          </Tr>
-        </Tfoot>
       </Table>
     </TableContainer>
   );

@@ -11,7 +11,8 @@ import {
 import TablaGeneral from "./tablaGeneral";
 import { useContext, useEffect } from "react";
 import { OperationContext } from "../context/operationContext";
-import { Buyer } from "../compras/Buyer";
+import { Empresa } from "./empresa";
+import { Buyer } from "./buyer";
 import { Seller } from "../compras/seller";
 import { PaymentTerms } from "../compras/paymentTerms";
 import { CarteraProveedoresContext } from "../context/carterasContext";
@@ -42,17 +43,10 @@ export default function GeneralForm() {
     <Card w="100%" p={4} variant="outline">
       <CardBody>
         <VStack spacing="10">
-          <Grid w="100%" templateColumns="repeat(3, 1fr)" gap={5}>
+          <Grid w="100%" templateColumns="repeat(4, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">
-                <InputPersonalizado
-                  type="text"
-                  label="ORDER NUMBER"
-                  value={purchase.orderNumber}
-                  onChange={(e) =>
-                    setPurchase({ ...purchase, orderNumber: e.target.value })
-                  }
-                />
+              <Empresa purchase={purchase} setPurchase={setPurchase} />
                 <InputPersonalizado
                   type="text"
                   label="SUPPLIER REF. NUMBER"
@@ -72,11 +66,24 @@ export default function GeneralForm() {
                   purchase={purchase}
                   setPurchase={setPurchase}
                 />
-                <Buyer purchase={purchase} setPurchase={setPurchase} />
+                <InputPersonalizado
+                  type="text"
+                  label="ORDER NUMBER"
+                  value={purchase.orderNumber}
+                  onChange={(e) =>
+                    setPurchase({ ...purchase, orderNumber: e.target.value })
+                  }
+                />
               </VStack>
             </GridItem>
             <GridItem w="100%">
               <VStack spacing="7">
+                <Seller
+                  seller={purchase.seller}
+                  purchase={purchase}
+                  setPurchase={setPurchase}
+                  CarteraProveedores={CarteraProveedores}
+                />
                 <InputPersonalizado
                   type="date"
                   label="Date"
@@ -85,18 +92,17 @@ export default function GeneralForm() {
                     setPurchase({ ...purchase, date: e.target.value })
                   }
                 />
-                <Seller
-                  seller={purchase.seller}
-                  purchase={purchase}
-                  setPurchase={setPurchase}
-                  CarteraProveedores={CarteraProveedores}
-                />
+              </VStack>
+            </GridItem>
+            <GridItem w="100%">
+              <VStack spacing="7">
+              <Buyer purchase={purchase} setPurchase={setPurchase} />
               </VStack>
             </GridItem>
           </Grid>
           <TablaGeneral
             productos={productos}
-            comision={purchase.comision}
+            operationType={purchase.operationType}
             setProductos={setProductos}
           />
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>

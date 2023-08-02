@@ -15,7 +15,7 @@ export const OperationType = ({ purchase, setPurchase }) => {
         <option value="Trading + Marketing">Trading + Marketing</option>
         <option value="Broker">Broker</option>
       </Select>
-      {purchase?.operationType == "Trading + Marketing" && (
+      {purchase?.operationType == "Broker" && (
         <InputPersonalizado
           type="number"
           label="Comisión"

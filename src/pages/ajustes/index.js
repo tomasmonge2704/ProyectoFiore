@@ -11,6 +11,8 @@ import {
   Stack,
   Divider,
   Input,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { CarteraBancariaContext } from "@/components/context/carterasContext";
@@ -21,8 +23,6 @@ export default function Ajustes() {
   const { CarteraPuertos } = useContext(CarteraPuertosContext);
   const { CarteraPaymentTerms } = useContext(CarteraPaymentTermsContext);
   const [dirtyIndexes, setDirtyIndexes] = useState([]);
-  const [updatedCarteraBancaria, setUpdatedCarteraBancaria] =
-    useState(CarteraBancaria);
 
   const handleInputChange = (value, index, field) => {
     setDirtyIndexes((prevDirtyIndexes) => {
@@ -31,12 +31,7 @@ export default function Ajustes() {
       }
       return prevDirtyIndexes;
     });
-
-    setUpdatedCarteraBancaria((prevCarteraBancaria) => {
-      const updatedData = [...prevCarteraBancaria];
-      updatedData[index][field] = value;
-      return updatedData;
-    });
+    //aca deberia ir la logica para actualizar el campo
   };
 
   const handleConfirmChanges = (index) => {
@@ -47,13 +42,13 @@ export default function Ajustes() {
   return (
     <Layout title="Ajustes">
       <Center>
-        <Heading>Cartera de datos Bancarios</Heading>
+        <Heading>Datos bancarios</Heading>
       </Center>
       <Flex justify="space-evenly" mt={10} mb={10}>
         {CarteraBancaria &&
           CarteraBancaria.map((e, index) => (
             <Card
-              maxW="300px"
+              minW="47%"
               key={index}
               variant="filled"
               backgroundColor={
@@ -92,7 +87,40 @@ export default function Ajustes() {
                     }
                   />
                 </Stack>
-
+                <Divider mt={5} mb={5} />
+                <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
+                    { e.banks && e.banks.map((bank,index) => (
+                      <GridItem w="100%" key={index}>
+                      <Stack spacing="2">
+                        <Text as="b">Beneficiary Bank {index ? "2" : ""}</Text>
+                        <Input
+                          variant="filled"
+                          defaultValue={bank.beneficiaryBank}
+                        />
+                        <Text as="b">Bank Adress</Text>
+                        <Input
+                          variant="filled"
+                          defaultValue={bank.bankAdress}
+                        />
+                        <Text as="b">Swift Code</Text>
+                        <Input
+                          variant="filled"
+                          defaultValue={bank.swiftCode}
+                        />
+                        <Text as="b">Beneficiary Name</Text>
+                        <Input
+                          variant="filled"
+                          defaultValue={bank.beneficiaryName}
+                        />
+                        <Text as="b">Beneficiary Account Number</Text>
+                        <Input
+                          variant="filled"
+                          defaultValue={bank.beneficiaryAccountNumber}
+                        />
+                      </Stack>
+                    </GridItem>
+                    ))}
+                  </Grid>
                 {dirtyIndexes.includes(index) && (
                   <Center mt={7}>
                     <Button

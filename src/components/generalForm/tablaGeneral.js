@@ -14,7 +14,7 @@ import { convertirAMoneda } from "@/utils/convertInt";
 import { useMemo, useState } from "react";
 import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
 import InputPersonalizado from "@/utils/inputPersonalizado";
-export default function TablaGeneral({ productos, setProductos,comision }) {
+export default function TablaGeneral({ productos, setProductos,operationType }) {
   const lessAdvancePayment = 0;
   const [pendingBalance, setPendingBalance] = useState(0);
 
@@ -162,13 +162,14 @@ export default function TablaGeneral({ productos, setProductos,comision }) {
             <Th><InputPersonalizado label="$" type="number" /></Th>
             <Th></Th>
           </Tr>
-          {comision && 
+          {operationType && 
           <Tr>
-          <Th>Comision</Th>
+          <Th>Marketing</Th>
           <Th></Th>
           <Th></Th>
-          <Th isNumeric></Th>
-          <Th isNumeric>{convertirAMoneda(comision)}</Th>
+          <Th></Th>
+          <Th></Th>
+          <Th></Th>
         </Tr>
           }
           <Tr>

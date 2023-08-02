@@ -42,13 +42,19 @@ export function CarterasProvider({ children }) {
       direccion: "30 North Gould Street, Suit R",
       direccion2: "Sheridan, WY 82801, USA",
       vatNumber: "92-0566625",
-    },
-    {
-      nombre: "DPL Trading LLC 2",
-      empresa:"DPL",
-      direccion: "30 North Gould Street, Suit R",
-      direccion2: "Sheridan, WY 82801, USA",
-      vatNumber: "92-0566625",
+      banks:[{
+        beneficiaryBank:"INTERNATIONAL FINANCE BANK",
+        bankAdress:"777 SW 37th AVE. SUITE 100",
+        swiftCode:"MIAMI, FL 33135, USA",
+        beneficiaryName:"IFBKUS3M",
+        beneficiaryAccountNumber:"1200073959"
+      },{
+        beneficiaryBank:"INTERNATIONAL FINANCE BANK",
+        bankAdress:"777 SW 37th AVE. SUITE 100",
+        swiftCode:"MIAMI, FL 33135, USA",
+        beneficiaryName:"IFBKUS3M",
+        beneficiaryAccountNumber:"1200073959"
+      }]
     },
     {
       nombre: "Duplo",
@@ -56,13 +62,19 @@ export function CarterasProvider({ children }) {
       direccion: "40 North Gould Street, Suit R",
       direccion2: "Sheridan, WY 8000, USA",
       vatNumber: "90-000000",
-    },
-    {
-      nombre: "Duplo 2",
-      empresa:"Duplo",
-      direccion: "40 North Gould Street, Suit R",
-      direccion2: "Sheridan, WY 8000, USA",
-      vatNumber: "90-000000",
+      banks:[{
+        beneficiaryBank:"INTERNATIONAL FINANCE BANK",
+        bankAdress:"777 SW 37th AVE. SUITE 100",
+        swiftCode:"MIAMI, FL 33135, USA",
+        beneficiaryName:"IFBKUS3M",
+        beneficiaryAccountNumber:"1200073959"
+      },{
+        beneficiaryBank:"INTERNATIONAL FINANCE BANK",
+        bankAdress:"777 SW 37th AVE. SUITE 100",
+        swiftCode:"MIAMI, FL 33135, USA",
+        beneficiaryName:"IFBKUS3M",
+        beneficiaryAccountNumber:"1200073959"
+      }]
     }
   ]);
   const [CarteraClientes, setCarteraClientes] = useState([

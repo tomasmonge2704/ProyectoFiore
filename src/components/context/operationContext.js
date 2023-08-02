@@ -1,8 +1,14 @@
-import { flattenTokens } from "@chakra-ui/react";
 import { createContext, useState, useEffect } from "react";
 
 export const OperationContext = createContext();
+function obtenerFechaActual() {
+  const hoy = new Date();
+  const dia = hoy.getDate().toString().padStart(2, '0');
+  const mes = (hoy.getMonth() + 1).toString().padStart(2, '0'); // Los meses comienzan en 0 (enero=0, febrero=1, etc.)
+  const anio = hoy.getFullYear();
 
+  return `${anio}-${mes}-${dia}`;
+}
 export function OperationProvider({ children }) {
   const [operation, setOperation] = useState({
     comercial: {
@@ -14,7 +20,7 @@ export function OperationProvider({ children }) {
       fieldsPurchase:{
         orderNumber: "",
         supplierRefNumber: "",
-        date: "",
+        date: obtenerFechaActual(),
         seller:{
           nombre: "",
           direccion: "",
