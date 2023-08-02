@@ -22,7 +22,7 @@ export default function PurchaseForm() {
   const { operation, setOperation, purchase, setPurchase,productos,setProductos } = useContext(OperationContext);
   const { CarteraProveedores } = useContext(CarteraProveedoresContext);
   useEffect(() => {
-    const totalFields = 18; // Total de campos del formulario
+    const totalFields = 16; // Total de campos del formulario
     let completedFields = Object.values(purchase).filter(Boolean).length;
     const completedPurchase = Math.floor((completedFields / totalFields) * 100);
     setOperation((prevOperation) => ({
@@ -104,25 +104,25 @@ export default function PurchaseForm() {
                 <InputPersonalizado
                   type="text"
                   label="ORIGIN"
-                  value={purchase.origin}
+                  value={purchase.seller.origin}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, origin: e.target.value })
+                    setPurchase({ ...purchase.seller, origin: e.target.value })
                   }
                 />
                 <InputPersonalizado
                   type="text"
                   label="PLANT NUMBER"
-                  value={purchase.plantNumber}
+                  value={purchase.seller.plantNumber}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, plantNumber: e.target.value })
+                    setPurchase({ ...purchase.seller, plantNumber: e.target.value })
                   }
                 />
                 <InputPersonalizado
                   type="text"
                   label="BRAND"
-                  value={purchase.brand}
+                  value={purchase.seller.brand}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, brand: e.target.value })
+                    setPurchase({ ...purchase.seller, brand: e.target.value })
                   }
                 />
                 <InputPersonalizado

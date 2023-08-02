@@ -90,6 +90,9 @@ export function CarterasProvider({ children }) {
       direccion2: "(5145) Juárez Celman",
       pais: "Prov. de Córdoba - Rep. Argentina",
       cuit: "33-50134847-9",
+      origin:"ARGENTINA",
+      plantNumber:"4750 - Refineria del centro S.A",
+      brand:"BUSTOS BELTRAN"
     },
     {
       nombre: "TEST S.A.",
@@ -97,6 +100,9 @@ export function CarterasProvider({ children }) {
       direccion2: "(5145) Juárez Celman",
       pais: "Test - Rep. Argentina",
       cuit: "44-50134847-9",
+      origin:"ARGENTINA",
+      plantNumber:"4750 - Refineria del centro S.A",
+      brand:"BUSTOS BELTRAN"
     },
   ]);
   const [CarteraPuertos, setCarteraPuertos] = useState([

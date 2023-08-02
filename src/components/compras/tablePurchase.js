@@ -21,7 +21,7 @@ export default function TablePurchase({ productos, setProductos }) {
   useMemo(() => {
     let balance = 0;
     for (let i = 0; i < productos.length; i++) {
-      balance = balance + productos[i].amount;
+      balance = balance + productos[i].unitPricePurchase * productos[i].quantity;
     }
     setPendingBalance(balance - lessAdvancePayment);
   }, [productos]);
@@ -30,50 +30,44 @@ export default function TablePurchase({ productos, setProductos }) {
     const updatedProductos = [...productos, { id: id, amount: 0 }];
     setProductos(updatedProductos);
   };
-
-  const handleChangeAmount = (event, id) => {
-    const amount = event.target.value;
-    const updatedProductos = productos.map((producto) => {
-      if (producto.id === id) {
-        return {
-          ...producto,
-          amount: parseFloat(amount),
-        };
-      }
-      return producto;
-    });
-    setProductos(updatedProductos);
-  };
-  const handleChangePacking = (event, id) => {
-    const packing = event.target.value;
-    const updatedProductos = productos.map((producto) => {
-      if (producto.id === id) {
-        return {
-          ...producto,
-          packing: parseFloat(packing),
-        };
-      }
-      return producto;
-    });
-    setProductos(updatedProductos);
-  };
-
-  const handleChangeUnitPrice = (event, id) => {
-    const unitPrice = event.target.value;
-    const updatedProductos = productos.map((producto) => {
-      if (producto.id === id) {
-        return {
-          ...producto,
-          unitPricePurchase: parseFloat(unitPrice),
-        };
-      }
-      return producto;
-    });
-    setProductos(updatedProductos);
-  };
-
   const handleDeleteRow = (id) => {
     const updatedProductos = productos.filter((e) => e.id !== id);
+    setProductos(updatedProductos);
+  };
+
+  const handleChangeInput = (event, id,type) => {
+    const updatedProductos = productos.map((producto) => {
+      if (producto.id === id) {
+        if(type == "Purchase"){
+          return {
+            ...producto,
+            unitPricePurchase: parseFloat(event.target.value),
+            amountPurchase:producto.quantity * parseFloat(event.target.value)
+          };
+        }
+        if(type == "Quantity"){
+          return {
+            ...producto,
+            quantity: parseFloat(event.target.value),
+            amountPurchase: parseFloat(event.target.value) * producto.unitPricePurchase,
+            amountSale:parseFloat(event.target.value) * producto.unitPriceSale
+          };
+        }
+        if(type == "Desc"){
+          return {
+            ...producto,
+            description:event.target.value,
+          };
+        }
+        if(type == "Packing"){
+          return {
+            ...producto,
+            packing: parseFloat(event.target.value),
+          };
+        }
+      }
+      return producto;
+    });
     setProductos(updatedProductos);
   };
 
@@ -96,21 +90,23 @@ export default function TablePurchase({ productos, setProductos }) {
               <Td>
                 <InputPersonalizado
                   label="MT"
-                  defaultValue={e.quantity && e.quantity}
+                  value={e.quantity ? e.quantity : ""}
+                  onChange={(event) => handleChangeInput(event, e.id,"Quantity")}
                 />
               </Td>
               <Td>
                 <Input
                   variant="filled"
-                  defaultValue={e.description && e.description}
+                  value={e.description ? e.description : ""}
+                  onChange={(event) => handleChangeInput(event, e.id,"Desc")}
                 />
               </Td>
               <Td>
                 <InputPersonalizado
-                  defaultValue={e.packing && e.packing}
+                  value={e.packing ? e.packing : ""}
                   type="number"
                   label="KGS"
-                  onChange={(event) => handleChangePacking(event, e.id)}
+                  onChange={(event) => handleChangeInput(event, e.id,"Packing")}
                 />
               </Td>
               <Td>
@@ -118,16 +114,11 @@ export default function TablePurchase({ productos, setProductos }) {
                   value={e.unitPricePurchase ? e.unitPricePurchase : ""}
                   label="$"
                   type="number"
-                  onChange={(event) => handleChangeUnitPrice(event, e.id)}
+                  onChange={(event) => handleChangeInput(event, e.id,"Purchase")}
                 />
               </Td>
               <Td>
-                <InputPersonalizado
-                  defaultValue={e.amount && e.amount}
-                  label="$"
-                  type="number"
-                  onChange={(event) => handleChangeAmount(event, e.id)}
-                />
+                $ {e.amountPurchase || 0}
               </Td>
               <Td>
                 <IconButton

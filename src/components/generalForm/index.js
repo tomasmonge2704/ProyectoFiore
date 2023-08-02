@@ -23,7 +23,7 @@ export default function GeneralForm() {
   const { operation, setOperation, purchase, setPurchase,productos,setProductos } = useContext(OperationContext);
   const { CarteraProveedores } = useContext(CarteraProveedoresContext);
   useEffect(() => {
-    const totalFields = 15; // Total de campos del formulario
+    const totalFields = 16; // Total de campos del formulario
     let completedFields = Object.values(purchase).filter(Boolean).length;
     const completedGeneral = Math.floor((completedFields / totalFields) * 100);
     setOperation((prevOperation) => ({

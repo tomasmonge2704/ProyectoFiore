@@ -21,7 +21,7 @@ export default function TablaGeneral({ productos, setProductos,comision }) {
   useMemo(() => {
     let balance = 0;
     for (let i = 0; i < productos.length; i++) {
-      balance = balance + productos[i].amount;
+      balance = balance + productos[i].unitPriceSale * productos[i].quantity;
     }
     setPendingBalance(balance - lessAdvancePayment);
   }, [productos]);
@@ -30,45 +30,50 @@ export default function TablaGeneral({ productos, setProductos,comision }) {
     const updatedProductos = [...productos, { id: id, amount: 0 }];
     setProductos(updatedProductos);
   };
-
-  const handleChangePacking = (event, id) => {
-    const packing = event.target.value;
-    const updatedProductos = productos.map((producto) => {
-      if (producto.id === id) {
-        return {
-          ...producto,
-          packing: parseFloat(packing),
-        };
-      }
-      return producto;
-    });
+  const handleDeleteRow = (id) => {
+    const updatedProductos = productos.filter((e) => e.id !== id);
     setProductos(updatedProductos);
   };
-
-  const handleChangeUnitPrice = (event, id,type) => {
-    const unitPrice = event.target.value;
+  const handleChangeInput = (event, id,type) => {
     const updatedProductos = productos.map((producto) => {
       if (producto.id === id) {
         if(type == "Purchase"){
           return {
             ...producto,
-            unitPricePurchase: parseFloat(unitPrice),
+            unitPricePurchase: parseFloat(event.target.value),
+            amountPurchase: parseFloat(event.target.value) * producto.quantity
           };
         }
         if(type == "Sale"){
           return {
             ...producto,
-            unitPriceSale: parseFloat(unitPrice),
+            unitPriceSale: parseFloat(event.target.value),
+            amountSale:parseFloat(event.target.value) * producto.quantity
+          };
+        }
+        if(type == "Quantity"){
+          return {
+            ...producto,
+            quantity: parseFloat(event.target.value),
+            amountPurchase: parseFloat(event.target.value) * producto.unitPricePurchase,
+            amountSale:parseFloat(event.target.value) * producto.unitPriceSale
+          };
+        }
+        if(type == "Desc"){
+          return {
+            ...producto,
+            description:event.target.value,
+          };
+        }
+        if(type == "Packing"){
+          return {
+            ...producto,
+            packing: parseFloat(event.target.value),
           };
         }
       }
       return producto;
     });
-    setProductos(updatedProductos);
-  };
-
-  const handleDeleteRow = (id) => {
-    const updatedProductos = productos.filter((e) => e.id !== id);
     setProductos(updatedProductos);
   };
 
@@ -92,12 +97,15 @@ export default function TablaGeneral({ productos, setProductos,comision }) {
                 <InputPersonalizado
                   label="MT"
                   value={e.quantity ? e.quantity : ""}
+                  onChange={(event) => handleChangeInput(event, e.id,"Quantity")}
                 />
               </Td>
               <Td>
                 <Input
+                  type="text"
                   variant="filled"
                   value={e.description ? e.description : ""}
+                  onChange={(event) => handleChangeInput(event, e.id,"Desc")}
                 />
               </Td>
               <Td>
@@ -105,7 +113,7 @@ export default function TablaGeneral({ productos, setProductos,comision }) {
                   defaultValue={e.packing && e.packing}
                   type="number"
                   label="KGS"
-                  onChange={(event) => handleChangePacking(event, e.id)}
+                  onChange={(event) => handleChangeInput(event, e.id,"Packing")}
                 />
               </Td>
               <Td>
@@ -113,7 +121,7 @@ export default function TablaGeneral({ productos, setProductos,comision }) {
                   value={e.unitPricePurchase ? e.unitPricePurchase : ""}
                   label="$"
                   type="number"
-                  onChange={(event) => handleChangeUnitPrice(event, e.id,"Purchase")}
+                  onChange={(event) => handleChangeInput(event, e.id,"Purchase")}
                 />
               </Td>
               <Td>
@@ -121,7 +129,7 @@ export default function TablaGeneral({ productos, setProductos,comision }) {
                   defaultValue={e.unitPriceSale && e.unitPriceSale}
                   label="$"
                   type="number"
-                  onChange={(event) => handleChangeUnitPrice(event, e.id,"Sale")}
+                  onChange={(event) => handleChangeInput(event, e.id,"Sale")}
                 />
               </Td>
               <Td>

@@ -11,8 +11,11 @@ import {
 } from "@chakra-ui/react";
 import SaleTable from "./saleTable";
 import InputPersonalizado from "@/utils/inputPersonalizado";
+import { useContext } from "react";
+import { OperationContext } from "../context/operationContext";
 
 export default function SaleForm() {
+  const { operation, setOperation, purchase, setPurchase,productos,setProductos } = useContext(OperationContext);
   return (
     <Card w="100%" p={4} variant="outline">
       <CardBody>
@@ -41,7 +44,7 @@ export default function SaleForm() {
               </VStack>
             </GridItem>
           </Grid>
-          <SaleTable />
+          <SaleTable productos={productos} setProductos={setProductos} />
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">

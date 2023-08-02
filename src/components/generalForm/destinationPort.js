@@ -9,7 +9,7 @@ export const DestinationPort = ({ purchase, setPurchase }) => {
   };
   const handleIndexChange = (e) => {
     const country = findCountryByPort(e.target.value, CarteraPuertos);
-    setPurchase({...purchase,destinationPort:e.target.value,destinationCountry:country});
+    setPurchase({...purchase,destinationPort:e.target.value,destinationCountry:country,exportTo:country});
   };
 
   return (
