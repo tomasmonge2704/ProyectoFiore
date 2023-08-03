@@ -122,7 +122,7 @@ export default function Ajustes() {
                     ))}
                   </Grid>
                 {dirtyIndexes.includes(index) && (
-                  <Center mt={7}>
+                  <Center mt={7} key="">
                     <Button
                       colorScheme="orange"
                       onClick={() => handleConfirmChanges(index)}
