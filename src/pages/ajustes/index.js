@@ -46,10 +46,10 @@ export default function Ajustes() {
       </Center>
       <Flex justify="space-evenly" mt={10} mb={10}>
         {CarteraBancaria &&
-          CarteraBancaria.map((e) => (
+          CarteraBancaria.map((e, index) => (
             <Card
               minW="47%"
-              key={e.empresa}
+              key={index}
               variant="filled"
               backgroundColor={
                 e.empresa == "Duplo" ? "orange.200" : "orange.300"
