@@ -122,7 +122,7 @@ export default function Ajustes() {
                     ))}
                   </Grid>
                 {dirtyIndexes.includes(index) && (
-                  <Center mt={7} key="">
+                  <Center mt={7}>
                     <Button
                       colorScheme="orange"
                       onClick={() => handleConfirmChanges(index)}
@@ -220,6 +220,7 @@ export default function Ajustes() {
                   <Flex justify="space-evenly">
                     {e.items.map((e, index) => (
                       <Input
+                        key={index}
                         variant="filled"
                         width="48%"
                         defaultValue={e.descripcion}
