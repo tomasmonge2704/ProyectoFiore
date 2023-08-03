@@ -1,9 +1,9 @@
-import { CarteraBancariaContext } from "../context/carterasContext";
+import { CarteraClientesContext } from "../context/carterasContext";
 import { useContext, useState, useEffect } from "react";
 import { Select } from "@chakra-ui/react";
 import InputPersonalizado from "@/utils/inputPersonalizado";
 export const Buyer = ({ fields,setFields, detailView }) => {
-  const { CarteraBancaria } = useContext(CarteraBancariaContext);
+  const { CarteraClientes } = useContext(CarteraClientesContext);
   const [indexCartera, setIndexCartera] = useState(undefined);
   const [nombre, setNombre] = useState(fields.buyer.nombre || "");
   const [direccion, setDireccion] = useState(fields.buyer.nombre || "");
@@ -14,11 +14,11 @@ export const Buyer = ({ fields,setFields, detailView }) => {
     setIndexCartera(newIndex);
     setFields((prevPurchase) => ({
       ...prevPurchase,
-      buyer: CarteraBancaria[newIndex],
+      buyer: CarteraClientes[newIndex],
     }));
   };
   useEffect(() => {
-    const index = CarteraBancaria.findIndex((elemento) => elemento.nombre === fields.buyer.nombre);
+    const index = CarteraClientes.findIndex((elemento) => elemento.nombre === fields.buyer.nombre);
     if(fields.buyer.nombre  && index >= 0){
       setIndexCartera(index);
     }
@@ -26,7 +26,7 @@ export const Buyer = ({ fields,setFields, detailView }) => {
   // useEffect para sincronizar los cambios en los inputs con el estado 'buyer' y establecer valores iniciales
   useEffect(() => {
     if(indexCartera || indexCartera == 0){
-    const initialSeller = CarteraBancaria[indexCartera];
+    const initialSeller = CarteraClientes[indexCartera];
     setNombre(initialSeller.nombre);
     setDireccion(initialSeller.direccion);
     setDireccion2(initialSeller.direccion2);
@@ -36,7 +36,7 @@ export const Buyer = ({ fields,setFields, detailView }) => {
       buyer: initialSeller,
     }));
   }
-  }, [indexCartera, CarteraBancaria, setFields]);
+  }, [indexCartera, CarteraClientes, setFields]);
 
   // useEffect para actualizar 'buyer' cuando cambian los inputs
   useEffect(() => {
@@ -57,7 +57,7 @@ export const Buyer = ({ fields,setFields, detailView }) => {
       <option value="" disabled>
         Buyer
       </option>
-        {CarteraBancaria.map((e, index) => (
+        {CarteraClientes.map((e, index) => (
           <option value={index} key={index}>
             {e.nombre}
           </option>

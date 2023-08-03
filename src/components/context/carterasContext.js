@@ -79,20 +79,18 @@ export function CarterasProvider({ children }) {
   ]);
   const [CarteraClientes, setCarteraClientes] = useState([
     {
-      cliente: "Test 1",
       nombre: "test 1",
       direccion: "malagrino",
-      codigoPostal: "1636",
-      pais: "arg",
-      cuit: "2141241",
+      direccion2: "1636",
+      country: "arg",
+      vatNumber: "2141241",
     },
     {
-      cliente: "Test 2",
       nombre: "test 2",
       direccion: "malagrino",
-      codigoPostal: "1636",
-      pais: "arg",
-      cuit: "5346534",
+      direccion2: "1636",
+      country: "arg",
+      vatNumber: "2141241",
     },
   ]);
   const [CarteraProveedores, setProveedores] = useState([
