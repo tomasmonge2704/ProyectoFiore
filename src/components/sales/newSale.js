@@ -31,11 +31,7 @@ export default function SaleForm({fields,setFields,productos,setProductos,}) {
                 <InputPersonalizado label="Adress" type="text" />
                 <InputPersonalizado label="City" type="text" />
                 <InputPersonalizado label="VAT Nr" type="text" />
-                <Text>SHIPPER</Text>
-                <InputPersonalizado label="Name" type="text" />
-                <InputPersonalizado label="Adress" type="text" />
-                <InputPersonalizado label="City" type="text" />
-                <InputPersonalizado label="VAT Nr" type="text" />
+                
               </VStack>
             </GridItem>
             <GridItem w="100%">

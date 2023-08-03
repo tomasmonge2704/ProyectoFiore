@@ -109,14 +109,6 @@ export default function GeneralForm({
                     setFields({ ...fields, destinationCountry: e.target.value })
                   }
                 />
-                <InputPersonalizado
-                  type="text"
-                  label="QUANTITY"
-                  value={fields.quantity}
-                  onChange={(e) =>
-                    setFields({ ...fields, quantity: e.target.value })
-                  }
-                />
               </VStack>
             </GridItem>
             <GridItem w="100%">

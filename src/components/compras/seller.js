@@ -60,7 +60,7 @@ export const Seller = ({ fields,setFields, CarteraProveedores, detailView }) => 
     <>
       <Select value={indexCartera || indexCartera == 0 ? indexCartera : ""} onChange={handleIndexChange}>
       <option value="" disabled>
-        Seller
+        SHIPPER
       </option>
         {CarteraProveedores.map((e, index) => (
             <option value={index} key={index}>

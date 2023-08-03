@@ -15,7 +15,7 @@ function validateToken(token) {
 }
 
 export function CheckAuth({ children }) {
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const router = useRouter();
 
   useEffect(() => {
