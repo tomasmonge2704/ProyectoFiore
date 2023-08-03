@@ -14,13 +14,24 @@ export function OperationProvider({ children }) {
     comercial: {
       title: "Comercial",
       completed: 0,
-      completedPurchase: 0,
-      completedInvoice: 0,
-      completedGeneral:0,
-      fieldsPurchase:{
+      fields:{
         orderNumber: "",
         supplierRefNumber: "",
         date: obtenerFechaActual(),
+        empresa: {
+          nombre: "",
+          empresa:"",
+          direccion: "",
+          direccion2: "",
+          vatNumber: "",
+          bank:{
+            beneficiaryBank:"",
+            bankAdress:"",
+            swiftCode:"",
+            beneficiaryName:"",
+            beneficiaryAccountNumber:""
+          }
+        },
         seller:{
           nombre: "",
           direccion: "",
@@ -45,9 +56,6 @@ export function OperationProvider({ children }) {
             amount: null,
           },
         ],
-        origin: "",
-        plantNumber: "",
-        brand: "",
         productionDate: "",
         shelfLife: "",
         destinationPort: "",
@@ -64,17 +72,29 @@ export function OperationProvider({ children }) {
     contableFinanciera: { title: "Contable financiera", completed: 0 },
     status:"New"
   });
-  const [ purchase, setPurchase] = useState(operation.comercial.fieldsPurchase);
-  const [ productos, setProductos] = useState(purchase.productos);
+  const [ fields, setFields] = useState(operation.comercial.fields);
+  const [ productos, setProductos] = useState(fields.productos);
   useEffect(() => {
-    localStorage.setItem('purchase', JSON.stringify(purchase));
-  }, [purchase]);
+    let totalFields = 17;
+    if(fields.comision) totalFields = totalFields + 1;
+    let completedFields = Object.values(fields).filter(Boolean).length;
+    const completed = Math.floor((completedFields / totalFields) * 100);
+    setOperation({
+      ...operation,
+      comercial: {
+        ...operation.comercial,
+        completed,
+        fields: fields,
+      },
+    })
+    localStorage.setItem('fields', JSON.stringify(fields));
+  }, [fields]);
   useEffect(() => {
-    setPurchase({...purchase,productos:productos})
+    setFields({...fields,productos:productos})
   }, [productos]);
 
   return (
-    <OperationContext.Provider value={{ operation, setOperation, purchase, setPurchase,productos,setProductos }}>
+    <OperationContext.Provider value={{ operation, setOperation, fields, setFields,productos,setProductos }}>
       {children}
     </OperationContext.Provider>
   );

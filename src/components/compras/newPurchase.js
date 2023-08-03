@@ -11,29 +11,14 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import TablePurchase from "./tablePurchase";
-import { useContext, useState, useEffect } from "react";
-import { OperationContext } from "../context/operationContext";
+import { useContext } from "react";
 import { Buyer } from "./Buyer";
 import { Seller } from "./seller";
 import { PaymentTerms } from "./paymentTerms";
 import { CarteraProveedoresContext } from "../context/carterasContext";
 
-export default function PurchaseForm() {
-  const { operation, setOperation, purchase, setPurchase,productos,setProductos } = useContext(OperationContext);
+export default function PurchaseForm({ operation, fields, setFields,productos,setProductos }) {
   const { CarteraProveedores } = useContext(CarteraProveedoresContext);
-  useEffect(() => {
-    const totalFields = 16; // Total de campos del formulario
-    let completedFields = Object.values(purchase).filter(Boolean).length;
-    const completedPurchase = Math.floor((completedFields / totalFields) * 100);
-    setOperation((prevOperation) => ({
-      ...prevOperation,
-      comercial: {
-        ...prevOperation.comercial,
-        completedPurchase,
-        fieldsPurchase: purchase,
-      },
-    }));
-  }, [purchase]);
   const saveFormHandler = () => {
     localStorage.setItem("operation", JSON.stringify(operation));
   };
@@ -50,26 +35,26 @@ export default function PurchaseForm() {
                 <InputPersonalizado
                   type="text"
                   label="ORDER NUMBER"
-                  value={purchase.orderNumber}
+                  value={fields.orderNumber}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, orderNumber: e.target.value })
+                    setFields({ ...fields, orderNumber: e.target.value })
                   }
                 />
                 <InputPersonalizado
                   type="text"
                   label="SUPPLIER REF. NUMBER"
-                  value={purchase.supplierRefNumber}
+                  value={fields.supplierRefNumber}
                   onChange={(e) =>
-                    setPurchase({
-                      ...purchase,
+                    setFields({
+                      ...fields,
                       supplierRefNumber: e.target.value,
                     })
                   }
                 />
                 <Text>SHIPPER / SELLER</Text>
                 <Seller
-                  purchase={purchase}
-                  setPurchase={setPurchase}
+                  fields={fields}
+                  setFields={setFields}
                   CarteraProveedores={CarteraProveedores}
                   detailView={true}
                 />
@@ -80,14 +65,14 @@ export default function PurchaseForm() {
                 <InputPersonalizado
                   type="date"
                   label="Date"
-                  value={purchase.date}
+                  value={fields.date}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, date: e.target.value })
+                    setFields({ ...fields, date: e.target.value })
                   }
                 />
                 <Box h={10}></Box>
                 <Text>Buyer</Text>
-                <Buyer purchase={purchase} setPurchase={setPurchase} detailView={true} />
+                <Buyer fields={fields} setFields={setFields} detailView={true} />
                 <Text as="b">CONSIGNEE</Text>
                 <Text>(DOCS INSTRUCTION WILL FOLLOW SHORTLY)</Text>
               </VStack>
@@ -104,48 +89,48 @@ export default function PurchaseForm() {
                 <InputPersonalizado
                   type="text"
                   label="ORIGIN"
-                  value={purchase.seller.origin}
+                  value={fields.seller.origin}
                   onChange={(e) =>
-                    setPurchase({ ...purchase.seller, origin: e.target.value })
+                    setFields({ ...fields.seller, origin: e.target.value })
                   }
                 />
                 <InputPersonalizado
                   type="text"
                   label="PLANT NUMBER"
-                  value={purchase.seller.plantNumber}
+                  value={fields.seller.plantNumber}
                   onChange={(e) =>
-                    setPurchase({ ...purchase.seller, plantNumber: e.target.value })
+                    setFields({ ...fields.seller, plantNumber: e.target.value })
                   }
                 />
                 <InputPersonalizado
                   type="text"
                   label="BRAND"
-                  value={purchase.seller.brand}
+                  value={fields.seller.brand}
                   onChange={(e) =>
-                    setPurchase({ ...purchase.seller, brand: e.target.value })
+                    setFields({ ...fields.seller, brand: e.target.value })
                   }
                 />
                 <InputPersonalizado
                   type="text"
                   label="PRODUCTION DATE"
-                  value={purchase.productionDate}
+                  value={fields.productionDate}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, productionDate: e.target.value })
+                    setFields({ ...fields, productionDate: e.target.value })
                   }
                 />
                 <InputPersonalizado
                   type="text"
                   label="SHELF LIFE"
-                  value={purchase.shelfLife}
+                  value={fields.shelfLife}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, shelfLife: e.target.value })
+                    setFields({ ...fields, shelfLife: e.target.value })
                   }
                 />
                 <InputPersonalizado
                   type="text"
                   label="DESTINATION PORT"
-                  value={purchase.destinationPort}
-                  onChange={(e) =>setPurchase({...purchase,destinationPort:e.target.value,})}
+                  value={fields.destinationPort}
+                  onChange={(e) =>setFields({...fields,destinationPort:e.target.value,})}
                 />
               </VStack>
             </GridItem>
@@ -154,43 +139,43 @@ export default function PurchaseForm() {
                 <InputPersonalizado
                   type="text"
                   label="DESTINATION COUNTRY"
-                  value={purchase.destinationCountry}
-                  onChange={(e) =>setPurchase({...purchase,destinationCountry:e.target.value})}
+                  value={fields.destinationCountry}
+                  onChange={(e) =>setFields({...fields,destinationCountry:e.target.value})}
                 />
                 <InputPersonalizado
                   type="text"
                   label="QUANTITY"
-                  value={purchase.quantity}
+                  value={fields.quantity}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, quantity: e.target.value })
+                    setFields({ ...fields, quantity: e.target.value })
                   }
                 />
                 <InputPersonalizado
                   type="text"
                   label="SHIPMENT PERIOD"
-                  value={purchase.shipmentPeriod}
+                  value={fields.shipmentPeriod}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, shipmentPeriod: e.target.value })
+                    setFields({ ...fields, shipmentPeriod: e.target.value })
                   }
                 />
                 <InputPersonalizado
                   type="text"
                   label="DELIVERY TERMS"
-                  value={purchase.deliveryTerms}
+                  value={fields.deliveryTerms}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, deliveryTerms: e.target.value })
+                    setFields({ ...fields, deliveryTerms: e.target.value })
                   }
                 />
-                <PaymentTerms purchase={purchase} setPurchase={setPurchase} />
+                <PaymentTerms fields={fields} setFields={setFields} />
               </VStack>
             </GridItem>
           </Grid>
           <InputPersonalizado
             type="text"
             label="INSPECTED, APPROVED & ELEGIBLE FOR EXPORT TO"
-            value={purchase.exportTo}
+            value={fields.exportTo}
             onChange={(e) =>
-              setPurchase({ ...purchase, exportTo: e.target.value })
+              setFields({ ...fields, exportTo: e.target.value })
             }
           />
           <Center>

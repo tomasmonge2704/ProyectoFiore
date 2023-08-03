@@ -1,13 +1,13 @@
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import { Select } from "@chakra-ui/react";
 
-export const OperationType = ({ purchase, setPurchase }) => {
+export const OperationType = ({ fields, setFields }) => {
   const handleIndexChange = (e) => {
-    setPurchase({ ...purchase, operationType: e.target.value })
+    setFields({ ...fields, operationType: e.target.value })
   };
   return (
     <>
-      <Select value={purchase.operationType ? purchase.operationType : ""} onChange={(e) => handleIndexChange(e)}>
+      <Select value={fields.operationType ? fields.operationType : ""} onChange={(e) => handleIndexChange(e)}>
       <option value="" disabled>
         Operation Type
       </option>
@@ -15,12 +15,12 @@ export const OperationType = ({ purchase, setPurchase }) => {
         <option value="Trading + Marketing">Trading + Marketing</option>
         <option value="Broker">Broker</option>
       </Select>
-      {purchase?.operationType == "Broker" && (
+      {fields?.operationType == "Broker" && (
         <InputPersonalizado
           type="number"
           label="Comisión"
-          value={purchase.comision || ""}
-          onChange={(e) => setPurchase({...purchase,comision: e.target.value,})}
+          value={fields.comision || ""}
+          onChange={(e) => setFields({...fields,comision: e.target.value,})}
         />
       )}
     </>

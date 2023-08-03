@@ -49,7 +49,7 @@ export function CarterasProvider({ children }) {
         beneficiaryName:"IFBKUS3M",
         beneficiaryAccountNumber:"1200073959"
       },{
-        beneficiaryBank:"INTERNATIONAL FINANCE BANK",
+        beneficiaryBank:"INTERNATIONAL FINANCE BANK 2",
         bankAdress:"777 SW 37th AVE. SUITE 100",
         swiftCode:"MIAMI, FL 33135, USA",
         beneficiaryName:"IFBKUS3M",
@@ -63,13 +63,13 @@ export function CarterasProvider({ children }) {
       direccion2: "Sheridan, WY 8000, USA",
       vatNumber: "90-000000",
       banks:[{
-        beneficiaryBank:"INTERNATIONAL FINANCE BANK",
+        beneficiaryBank:"INTERNATIONAL FINANCE BANK 3",
         bankAdress:"777 SW 37th AVE. SUITE 100",
         swiftCode:"MIAMI, FL 33135, USA",
         beneficiaryName:"IFBKUS3M",
         beneficiaryAccountNumber:"1200073959"
       },{
-        beneficiaryBank:"INTERNATIONAL FINANCE BANK",
+        beneficiaryBank:"INTERNATIONAL FINANCE BANK 4",
         bankAdress:"777 SW 37th AVE. SUITE 100",
         swiftCode:"MIAMI, FL 33135, USA",
         beneficiaryName:"IFBKUS3M",

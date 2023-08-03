@@ -2,27 +2,27 @@ import { CarteraBancariaContext } from "../context/carterasContext";
 import { useContext, useState, useEffect } from "react";
 import { Select } from "@chakra-ui/react";
 import InputPersonalizado from "@/utils/inputPersonalizado";
-export const Buyer = ({ purchase,setPurchase, detailView }) => {
+export const Buyer = ({ fields,setFields, detailView }) => {
   const { CarteraBancaria } = useContext(CarteraBancariaContext);
   const [indexCartera, setIndexCartera] = useState(undefined);
-  const [nombre, setNombre] = useState(purchase.buyer.nombre || "");
-  const [direccion, setDireccion] = useState(purchase.buyer.nombre || "");
-  const [direccion2, setDireccion2] = useState(purchase.buyer.nombre || "");
-  const [vatNumber, setVatNumber] = useState(purchase.buyer.nombre || "");
+  const [nombre, setNombre] = useState(fields.buyer.nombre || "");
+  const [direccion, setDireccion] = useState(fields.buyer.nombre || "");
+  const [direccion2, setDireccion2] = useState(fields.buyer.nombre || "");
+  const [vatNumber, setVatNumber] = useState(fields.buyer.nombre || "");
   const handleIndexChange = (e) => {
     const newIndex = parseInt(e.target.value);
     setIndexCartera(newIndex);
-    setPurchase((prevPurchase) => ({
+    setFields((prevPurchase) => ({
       ...prevPurchase,
       buyer: CarteraBancaria[newIndex],
     }));
   };
   useEffect(() => {
-    const index = CarteraBancaria.findIndex((elemento) => elemento.nombre === purchase.buyer.nombre);
-    if(purchase.buyer.nombre  && index >= 0){
+    const index = CarteraBancaria.findIndex((elemento) => elemento.nombre === fields.buyer.nombre);
+    if(fields.buyer.nombre  && index >= 0){
       setIndexCartera(index);
     }
-  }, [purchase]);
+  }, [fields]);
   // useEffect para sincronizar los cambios en los inputs con el estado 'buyer' y establecer valores iniciales
   useEffect(() => {
     if(indexCartera || indexCartera == 0){
@@ -31,16 +31,16 @@ export const Buyer = ({ purchase,setPurchase, detailView }) => {
     setDireccion(initialSeller.direccion);
     setDireccion2(initialSeller.direccion2);
     setVatNumber(initialSeller.vatNumber);
-    setPurchase((prevPurchase) => ({
+    setFields((prevPurchase) => ({
       ...prevPurchase,
       buyer: initialSeller,
     }));
   }
-  }, [indexCartera, CarteraBancaria, setPurchase]);
+  }, [indexCartera, CarteraBancaria, setFields]);
 
   // useEffect para actualizar 'buyer' cuando cambian los inputs
   useEffect(() => {
-    setPurchase((prevPurchase) => ({
+    setFields((prevPurchase) => ({
       ...prevPurchase,
       buyer: {
         ...prevPurchase.buyer,
@@ -50,7 +50,7 @@ export const Buyer = ({ purchase,setPurchase, detailView }) => {
         vatNumber,
       },
     }));
-  }, [nombre, direccion, direccion2, vatNumber, setPurchase]);
+  }, [nombre, direccion, direccion2, vatNumber, setFields]);
   return (
     <>
       <Select value={indexCartera || indexCartera == 0 ? indexCartera : ""} onChange={handleIndexChange}>

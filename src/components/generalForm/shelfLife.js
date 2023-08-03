@@ -1,10 +1,10 @@
 import { Select } from "@chakra-ui/react"
-export const ShelfLife = ({purchase, setPurchase}) => {
+export const ShelfLife = ({fields, setFields}) => {
     const handleIndexChange = (e) => {
-        setPurchase({ ...purchase, shelfLife: e.target.value })
+        setFields({ ...fields, shelfLife: e.target.value })
       };
     return (
-    <Select  value={purchase.shelfLife ? purchase.shelfLife : ""} onChange={(e) => handleIndexChange(e)}>
+    <Select  value={fields.shelfLife ? fields.shelfLife : ""} onChange={(e) => handleIndexChange(e)}>
          <option value="" disabled>
        SHELF LIFE
       </option>

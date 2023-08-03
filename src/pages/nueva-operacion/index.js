@@ -15,18 +15,14 @@ import {
   Box,
   Badge,
   Text,
-  Center
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 export default function NuevaOperacion() {
-  const { operation, setOperation } = useContext(OperationContext);
+  const { operation, fields, setFields, productos, setProductos } = useContext(OperationContext);
   const steps = [
     {
       title: "Comercial",
-      description: `${Math.floor(
-        operation.comercial?.completedPurchase / 2 +
-          operation.comercial?.completedInvoice / 2 || 0
-      )}% completado`,
+      description: `${Math.floor(operation.comercial.completed)}% completado`,
     },
     {
       title: "Docs",
@@ -89,7 +85,7 @@ export default function NuevaOperacion() {
         </Stepper>
       </Box>
       <Box m={1} mt={12}>
-        <ContenedorOperaciones show={showStep} />
+        <ContenedorOperaciones show={showStep} operation={operation} fields={fields} setFields={setFields} productos={productos} setProductos={setProductos} />
       </Box>
     </Layout>
   );

@@ -9,33 +9,26 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import TablaGeneral from "./tablaGeneral";
-import { useContext, useEffect } from "react";
-import { OperationContext } from "../context/operationContext";
+import { useContext } from "react";
 import { Empresa } from "./empresa";
 import { Buyer } from "./buyer";
 import { Seller } from "../compras/seller";
 import { PaymentTerms } from "../compras/paymentTerms";
-import { CarteraProveedoresContext } from "../context/carterasContext";
+import { CarteraProveedoresContext,CarteraBancariaContext } from "../context/carterasContext";
 import { OperationType } from "./operationType";
 import { DestinationPort } from "./destinationPort";
 import { ShelfLife } from "./shelfLife";
 import { DeliveryTerms } from "./deliveryTerms";
-export default function GeneralForm() {
-  const { operation, setOperation, purchase, setPurchase,productos,setProductos } = useContext(OperationContext);
+import { SelectBanco } from "./banco";
+export default function GeneralForm({
+  operation,
+  fields,
+  setFields,
+  productos,
+  setProductos,
+}) {
+  const { CarteraBancaria } = useContext(CarteraBancariaContext);
   const { CarteraProveedores } = useContext(CarteraProveedoresContext);
-  useEffect(() => {
-    const totalFields = 16; // Total de campos del formulario
-    let completedFields = Object.values(purchase).filter(Boolean).length;
-    const completedGeneral = Math.floor((completedFields / totalFields) * 100);
-    setOperation((prevOperation) => ({
-      ...prevOperation,
-      comercial: {
-        ...prevOperation.comercial,
-        completedGeneral,
-        fieldsPurchase: purchase,
-      },
-    }));
-  }, [purchase]);
   const saveFormHandler = () => {
     localStorage.setItem("operation", JSON.stringify(operation));
   };
@@ -46,14 +39,25 @@ export default function GeneralForm() {
           <Grid w="100%" templateColumns="repeat(4, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">
-              <Empresa purchase={purchase} setPurchase={setPurchase} />
+                <Empresa fields={fields} setFields={setFields} CarteraBancaria={CarteraBancaria} />
+                <SelectBanco fields={fields} setFields={setFields} CarteraBancaria={CarteraBancaria}/> 
+              </VStack>
+            </GridItem>
+            <GridItem w="100%">
+              <VStack spacing="7">
+                <Seller
+                  seller={fields.seller}
+                  fields={fields}
+                  setFields={setFields}
+                  CarteraProveedores={CarteraProveedores}
+                />
                 <InputPersonalizado
                   type="text"
                   label="SUPPLIER REF. NUMBER"
-                  value={purchase.supplierRefNumber}
+                  value={fields.supplierRefNumber}
                   onChange={(e) =>
-                    setPurchase({
-                      ...purchase,
+                    setFields({
+                      ...fields,
                       supplierRefNumber: e.target.value,
                     })
                   }
@@ -62,47 +66,26 @@ export default function GeneralForm() {
             </GridItem>
             <GridItem w="100%">
               <VStack spacing="7">
-                <OperationType
-                  purchase={purchase}
-                  setPurchase={setPurchase}
-                />
-                <InputPersonalizado
-                  type="text"
-                  label="ORDER NUMBER"
-                  value={purchase.orderNumber}
-                  onChange={(e) =>
-                    setPurchase({ ...purchase, orderNumber: e.target.value })
-                  }
-                />
-              </VStack>
-            </GridItem>
-            <GridItem w="100%">
-              <VStack spacing="7">
-                <Seller
-                  seller={purchase.seller}
-                  purchase={purchase}
-                  setPurchase={setPurchase}
-                  CarteraProveedores={CarteraProveedores}
-                />
+                <Buyer fields={fields} setFields={setFields} />
                 <InputPersonalizado
                   type="date"
                   label="Date"
-                  value={purchase.date}
+                  value={fields.date}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, date: e.target.value })
+                    setFields({ ...fields, date: e.target.value })
                   }
                 />
               </VStack>
             </GridItem>
             <GridItem w="100%">
               <VStack spacing="7">
-              <Buyer purchase={purchase} setPurchase={setPurchase} />
+                <OperationType fields={fields} setFields={setFields} />
               </VStack>
             </GridItem>
           </Grid>
           <TablaGeneral
             productos={productos}
-            operationType={purchase.operationType}
+            operationType={fields.operationType}
             setProductos={setProductos}
           />
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
@@ -111,25 +94,27 @@ export default function GeneralForm() {
                 <InputPersonalizado
                   type="date"
                   label="PRODUCTION DATE"
-                  value={purchase.productionDate}
+                  value={fields.productionDate}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, productionDate: e.target.value })
+                    setFields({ ...fields, productionDate: e.target.value })
                   }
                 />
-                <ShelfLife setPurchase={setPurchase} purchase={purchase} />
-                <DestinationPort purchase={purchase} setPurchase={setPurchase} />
+                <ShelfLife setFields={setFields} fields={fields} />
+                <DestinationPort fields={fields} setFields={setFields} />
                 <InputPersonalizado
                   type="text"
                   label="DESTINATION COUNTRY"
-                  value={purchase.destinationCountry}
-                  onChange={(e) => setPurchase({...purchase,destinationCountry:e.target.value})}
+                  value={fields.destinationCountry}
+                  onChange={(e) =>
+                    setFields({ ...fields, destinationCountry: e.target.value })
+                  }
                 />
                 <InputPersonalizado
                   type="text"
                   label="QUANTITY"
-                  value={purchase.quantity}
+                  value={fields.quantity}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, quantity: e.target.value })
+                    setFields({ ...fields, quantity: e.target.value })
                   }
                 />
               </VStack>
@@ -139,13 +124,13 @@ export default function GeneralForm() {
                 <InputPersonalizado
                   type="date"
                   label="SHIPMENT PERIOD"
-                  value={purchase.shipmentPeriod}
+                  value={fields.shipmentPeriod}
                   onChange={(e) =>
-                    setPurchase({ ...purchase, shipmentPeriod: e.target.value })
+                    setFields({ ...fields, shipmentPeriod: e.target.value })
                   }
                 />
-                <DeliveryTerms setPurchase={setPurchase} purchase={purchase} />
-                <PaymentTerms purchase={purchase} setPurchase={setPurchase} />
+                <DeliveryTerms setFields={setFields} fields={fields} />
+                <PaymentTerms fields={fields} setFields={setFields} />
               </VStack>
             </GridItem>
           </Grid>
