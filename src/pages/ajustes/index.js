@@ -208,6 +208,7 @@ export default function Ajustes() {
                   <Flex justify="space-evenly">
                     {e.items.map((e, index) => (
                       <Input
+                        key={index}
                         variant="filled"
                         width="48%"
                         defaultValue={e.porcentaje}
