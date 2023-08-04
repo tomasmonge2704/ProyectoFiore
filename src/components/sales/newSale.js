@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import SaleTable from "./saleTable";
 import InputPersonalizado from "@/utils/inputPersonalizado";
-import { PaymentTerms } from "../compras/paymentTerms";
+import { PaymentTerms } from "../generalForm/paymentTerms";
 
 export default function SaleForm({fields,setFields,productos,setProductos,}) {
   return (

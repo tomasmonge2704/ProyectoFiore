@@ -13,12 +13,10 @@ import { useContext } from "react";
 import { Empresa } from "./empresa";
 import { Buyer } from "./buyer";
 import { Seller } from "../compras/seller";
-import { PaymentTerms } from "../compras/paymentTerms";
 import { CarteraProveedoresContext,CarteraBancariaContext } from "../context/carterasContext";
 import { OperationType } from "./operationType";
 import { DestinationPort } from "./destinationPort";
 import { ShelfLife } from "./shelfLife";
-import { DeliveryTerms } from "./deliveryTerms";
 import { SelectBanco } from "./banco";
 export default function GeneralForm({
   operation,
@@ -36,11 +34,22 @@ export default function GeneralForm({
     <Card w="100%" p={4} variant="outline">
       <CardBody>
         <VStack spacing="10">
-          <Grid w="100%" templateColumns="repeat(4, 1fr)" gap={5}>
+          <Grid w="100%" templateColumns="repeat(3, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">
                 <Empresa fields={fields} setFields={setFields} CarteraBancaria={CarteraBancaria} />
-                <SelectBanco fields={fields} setFields={setFields} CarteraBancaria={CarteraBancaria}/> 
+                <InputPersonalizado
+                  type="text"
+                  label="REF. NUMBER"
+                  value={fields.empresaRefNumber}
+                  onChange={(e) =>
+                    setFields({
+                      ...fields,
+                      empresaRefNumber: e.target.value,
+                    })
+                  }
+                />
+               <SelectBanco fields={fields} setFields={setFields} CarteraBancaria={CarteraBancaria}/> 
               </VStack>
             </GridItem>
             <GridItem w="100%">
@@ -53,7 +62,7 @@ export default function GeneralForm({
                 />
                 <InputPersonalizado
                   type="text"
-                  label="SUPPLIER REF. NUMBER"
+                  label="REF. NUMBER"
                   value={fields.supplierRefNumber}
                   onChange={(e) =>
                     setFields({
@@ -62,11 +71,6 @@ export default function GeneralForm({
                     })
                   }
                 />
-              </VStack>
-            </GridItem>
-            <GridItem w="100%">
-              <VStack spacing="7">
-                <Buyer fields={fields} setFields={setFields} />
                 <InputPersonalizado
                   type="date"
                   label="Date"
@@ -79,27 +83,48 @@ export default function GeneralForm({
             </GridItem>
             <GridItem w="100%">
               <VStack spacing="7">
+                <Buyer fields={fields} setFields={setFields} />
+                <InputPersonalizado
+                  type="text"
+                  label="REF. NUMBER"
+                  value={fields.buyerRefNumber}
+                  onChange={(e) =>
+                    setFields({
+                      ...fields,
+                      buyerRefNumber: e.target.value,
+                    })
+                  }
+                />
                 <OperationType fields={fields} setFields={setFields} />
               </VStack>
             </GridItem>
           </Grid>
           <TablaGeneral
+            fields={fields}
+            setFields={setFields}
             productos={productos}
             operationType={fields.operationType}
             setProductos={setProductos}
           />
-          <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
-            <GridItem w="100%">
-              <VStack spacing="7">
-                <InputPersonalizado
-                  type="date"
+          <InputPersonalizado
+                  type="text"
                   label="PRODUCTION DATE"
                   value={fields.productionDate}
                   onChange={(e) =>
                     setFields({ ...fields, productionDate: e.target.value })
                   }
                 />
-                <ShelfLife setFields={setFields} fields={fields} />
+                <InputPersonalizado
+                  type="date"
+                  label="SHIPMENT PERIOD"
+                  value={fields.shipmentPeriod}
+                  onChange={(e) =>
+                    setFields({ ...fields, shipmentPeriod: e.target.value })
+                  }
+                />  
+          <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
+            <GridItem w="100%">
+              <VStack spacing="7">
                 <DestinationPort fields={fields} setFields={setFields} />
                 <InputPersonalizado
                   type="text"
@@ -113,16 +138,7 @@ export default function GeneralForm({
             </GridItem>
             <GridItem w="100%">
               <VStack spacing="7">
-                <InputPersonalizado
-                  type="date"
-                  label="SHIPMENT PERIOD"
-                  value={fields.shipmentPeriod}
-                  onChange={(e) =>
-                    setFields({ ...fields, shipmentPeriod: e.target.value })
-                  }
-                />
-                <DeliveryTerms setFields={setFields} fields={fields} />
-                <PaymentTerms fields={fields} setFields={setFields} />
+              <ShelfLife setFields={setFields} fields={fields} />
               </VStack>
             </GridItem>
           </Grid>

@@ -1,10 +1,25 @@
 import { Select } from "@chakra-ui/react"
-export const DeliveryTerms = ({fields, setFields}) => {
+import { useEffect, useState } from "react";
+export const DeliveryTerms = ({fields, setFields,type}) => {
+    const [deliveryTerms, setDeliveryTerms] = useState(type);
+    useEffect(() => {
+      if(type == "sale"){
+        setDeliveryTerms(fields.deliveryTermsSale)
+      }
+      if(type == "purchase"){
+        setDeliveryTerms(fields.deliveryTermsPurchase)
+      }
+    },[type,fields])
     const handleIndexChange = (e) => {
-        setFields({ ...fields, deliveryTerms: e.target.value })
+        if(type == "sale"){
+          setFields({ ...fields, deliveryTermsSale: e.target.value })
+        }
+        if(type == "purchase"){
+          setFields({ ...fields, deliveryTermsPurchase: e.target.value })
+        }
       };
     return (
-    <Select value={fields.deliveryTerms ? fields.deliveryTerms : ""} onChange={(e) => handleIndexChange(e)}>
+    <Select value={deliveryTerms ? deliveryTerms : ""} onChange={(e) => handleIndexChange(e)}>
          <option value="" disabled>INCOTERMS</option>
         <option value="FOB">FOB</option>
         <option value="CFR">CFR</option>

@@ -62,8 +62,10 @@ export function OperationProvider({ children }) {
         destinationCountry: "",
         quantity: "",
         shipmentPeriod: "",
-        deliveryTerms: "",
-        paymentTerms: "",
+        deliveryTermsSale: "",
+        deliveryTermsPurchase: "",
+        paymentTermsSale: "",
+        paymentTermsPurchase: "",
         exportTo: "",
       }
     },

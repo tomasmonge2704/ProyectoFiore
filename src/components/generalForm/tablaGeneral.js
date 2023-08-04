@@ -12,18 +12,22 @@ import {
 } from "@chakra-ui/react";
 import { convertirAMoneda } from "@/utils/convertInt";
 import { useMemo, useState } from "react";
+import { DeliveryTerms } from "./deliveryTerms";
 import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
 import InputPersonalizado from "@/utils/inputPersonalizado";
-export default function TablaGeneral({ productos, setProductos,operationType }) {
-  const lessAdvancePayment = 0;
-  const [pendingBalance, setPendingBalance] = useState(0);
-
+import { PaymentTerms } from "./paymentTerms";
+export default function TablaGeneral({ fields,setFields,productos, setProductos,operationType }) {
+  const [pendingBalanceSale, setPendingBalanceSale] = useState(0);
+  const [pendingBalancePurchase, setPendingBalancePurchase] = useState(0);
   useMemo(() => {
-    let balance = 0;
+    let balanceSale = 0;
+    let balancePurchase = 0;
     for (let i = 0; i < productos.length; i++) {
-      balance = balance + productos[i].unitPriceSale * productos[i].quantity;
+      balanceSale = balanceSale + productos[i].unitPriceSale * productos[i].quantity;
+      balancePurchase = balancePurchase + productos[i].unitPricePurchase * productos[i].quantity;
     }
-    setPendingBalance(balance - lessAdvancePayment);
+    setPendingBalanceSale(balanceSale);
+    setPendingBalancePurchase(balancePurchase)
   }, [productos]);
 
   const handleNewRow = (id) => {
@@ -150,24 +154,24 @@ export default function TablaGeneral({ productos, setProductos,operationType }) 
             <Th>Incoterm</Th>
             <Th></Th>
             <Th></Th>
-            <Th><InputPersonalizado label="$" type="number" /></Th>
-            <Th><InputPersonalizado label="$" type="number" /></Th>
+            <Th><DeliveryTerms setFields={setFields} fields={fields} type="purchase" /></Th>
+            <Th><DeliveryTerms setFields={setFields} fields={fields} type="sale"/></Th>
             <Th></Th>
           </Tr>
           <Tr>
             <Th>Payment Terms</Th>
             <Th></Th>
             <Th></Th>
-            <Th><InputPersonalizado label="$" type="number" /></Th>
-            <Th><InputPersonalizado label="$" type="number" /></Th>
+            <Th><PaymentTerms fields={fields} setFields={setFields} type="purchase"/></Th>
+            <Th><PaymentTerms fields={fields} setFields={setFields} type="sale"/></Th>
             <Th></Th>
           </Tr>
-          {operationType && 
+          {operationType == "Trading + Marketing" && 
           <Tr>
           <Th>Marketing</Th>
           <Th></Th>
           <Th></Th>
-          <Th></Th>
+          <Th><InputPersonalizado label="$" type="number" /></Th>
           <Th></Th>
           <Th></Th>
         </Tr>
@@ -176,8 +180,8 @@ export default function TablaGeneral({ productos, setProductos,operationType }) 
             <Th>Total</Th>
             <Th></Th>
             <Th></Th>
-            <Th isNumeric></Th>
-            <Th isNumeric>{convertirAMoneda(pendingBalance)}</Th>
+            <Th isNumeric>{convertirAMoneda(pendingBalancePurchase)}</Th>
+            <Th isNumeric>{convertirAMoneda(pendingBalanceSale)}</Th>
           </Tr>
         </Tfoot>
       </Table>

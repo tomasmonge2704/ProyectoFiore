@@ -14,7 +14,7 @@ import TablePurchase from "./tablePurchase";
 import { useContext } from "react";
 import { Buyer } from "./Buyer";
 import { Seller } from "./seller";
-import { PaymentTerms } from "./paymentTerms";
+import { PaymentTerms } from "../generalForm/paymentTerms";
 import { CarteraProveedoresContext } from "../context/carterasContext";
 
 export default function PurchaseForm({ operation, fields, setFields,productos,setProductos }) {
