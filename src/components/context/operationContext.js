@@ -67,6 +67,7 @@ export function OperationProvider({ children }) {
         paymentTermsSale: "",
         paymentTermsPurchase: "",
         exportTo: "",
+        totalWeight:0
       }
     },
     docs: { title: "Docs", completed: 0 },

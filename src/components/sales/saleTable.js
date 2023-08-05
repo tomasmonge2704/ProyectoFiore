@@ -12,14 +12,16 @@ import {
 import { useMemo, useState } from "react";
 import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
 import InputPersonalizado from "@/utils/inputPersonalizado";
-export default function SaleTable({productos, setProductos}) {
+export default function SaleTable({productos, setProductos,fields,setFields}) {
   const lessAdvancePayment = 0;
   const [pendingBalance, setPendingBalance] = useState(0);
 
   useMemo(() => {
     let balance = 0;
+    let weight = 0;
     for (let i = 0; i < productos.length; i++) {
       balance = balance + productos[i].unitPriceSale * productos[i].quantity;
+      weight = weight + productos[i].packing * productos[i].quantity;
     }
     setPendingBalance(balance - lessAdvancePayment);
   }, [productos]);
@@ -82,7 +84,7 @@ export default function SaleTable({productos, setProductos}) {
           </Tr>
         </Thead>
         <Tbody>
-          {productos.map((e, index) => (
+          {productos.length && productos.map((e, index) => (
             <Tr key={index}>
                <Td>
                 <InputPersonalizado

@@ -17,19 +17,20 @@ import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import { PaymentTerms } from "./paymentTerms";
 export default function TablaGeneral({ fields,setFields,productos, setProductos,operationType }) {
-  const [pendingBalanceSale, setPendingBalanceSale] = useState(0);
-  const [pendingBalancePurchase, setPendingBalancePurchase] = useState(0);
+  const [pendingBalanceSale, setPendingBalanceSale] = useState(fields.pendingBalanceSale);
+  const [pendingBalancePurchase, setPendingBalancePurchase] = useState(fields.pendingBalancePurchase);
   useMemo(() => {
     let balanceSale = 0;
     let balancePurchase = 0;
+    let weight = 0;
     for (let i = 0; i < productos.length; i++) {
       balanceSale = balanceSale + productos[i].unitPriceSale * productos[i].quantity;
       balancePurchase = balancePurchase + productos[i].unitPricePurchase * productos[i].quantity;
+      weight = weight + productos[i].packing * productos[i].quantity;
     }
     setPendingBalanceSale(balanceSale);
-    setPendingBalancePurchase(balancePurchase)
+    setPendingBalancePurchase(balancePurchase);
   }, [productos]);
-
   const handleNewRow = (id) => {
     const updatedProductos = [...productos, { id: id, amount: 0 }];
     setProductos(updatedProductos);
@@ -60,7 +61,7 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
             ...producto,
             quantity: parseFloat(event.target.value),
             amountPurchase: parseFloat(event.target.value) * producto.unitPricePurchase,
-            amountSale:parseFloat(event.target.value) * producto.unitPriceSale
+            amountSale:parseFloat(event.target.value) * producto.unitPriceSale,
           };
         }
         if(type == "Desc"){
@@ -95,7 +96,7 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
           </Tr>
         </Thead>
         <Tbody>
-          {productos.map((e, index) => (
+          {productos.length && productos.map((e, index) => (
             <Tr key={index}>
               <Td>
                 <InputPersonalizado

@@ -85,7 +85,7 @@ export default function TablePurchase({ productos, setProductos }) {
           </Tr>
         </Thead>
         <Tbody>
-          {productos.map((e, index) => (
+          {productos.length && productos.map((e, index) => (
             <Tr key={index}>
               <Td>
                 <InputPersonalizado

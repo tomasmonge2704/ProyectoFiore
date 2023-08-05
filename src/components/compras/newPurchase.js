@@ -43,11 +43,11 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                 <InputPersonalizado
                   type="text"
                   label="SUPPLIER REF. NUMBER"
-                  value={fields.supplierRefNumber}
+                  value={fields.seller.refNumber}
                   onChange={(e) =>
                     setFields({
                       ...fields,
-                      supplierRefNumber: e.target.value,
+                      seller:{...fields.seller,refNumber:e.target.value},
                     })
                   }
                 />
@@ -161,12 +161,12 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                 <InputPersonalizado
                   type="text"
                   label="DELIVERY TERMS"
-                  value={fields.deliveryTerms}
+                  value={fields.deliveryTermsPurchase}
                   onChange={(e) =>
-                    setFields({ ...fields, deliveryTerms: e.target.value })
+                    setFields({ ...fields, deliveryTermsPurchase: e.target.value })
                   }
                 />
-                <PaymentTerms fields={fields} setFields={setFields} />
+                <PaymentTerms fields={fields} setFields={setFields} type="purchase"  />
               </VStack>
             </GridItem>
           </Grid>
