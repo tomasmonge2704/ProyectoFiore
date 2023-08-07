@@ -53,9 +53,13 @@ export function OperationProvider({ children }) {
             quantity: null,
             unitPricePurchase: null,
             unitPriceSale: null,
-            amount: null,
+            amountSale: null,
+            amountPurchase:null
           },
         ],
+        totalPurchase:0,
+        totalSale:0,
+        totalWeight:0,
         productionDate: "",
         shelfLife: "",
         destinationPort: "",
@@ -92,8 +96,22 @@ export function OperationProvider({ children }) {
     })
     localStorage.setItem('fields', JSON.stringify(fields));
   }, [fields]);
+  let balanceSale = 0;
+  let balancePurchase = 0;
+  let totalWeight = 0;
   useEffect(() => {
-    setFields({...fields,productos:productos})
+    for (let i = 0; i < productos.length; i++) {
+      balanceSale += productos[i].unitPriceSale * productos[i].quantity;
+      balancePurchase += productos[i].unitPricePurchase * productos[i].quantity;
+      totalWeight += productos[i].packing * productos[i].quantity;
+    }
+    setFields((prevFields) => ({
+      ...prevFields,
+      productos: productos,
+      totalPurchase: balancePurchase,
+      totalSale: balanceSale,
+      totalWeight: totalWeight,
+    }));
   }, [productos]);
 
   return (

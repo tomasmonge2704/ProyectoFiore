@@ -11,21 +11,9 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { convertirAMoneda } from "@/utils/convertInt";
-import { useMemo, useState } from "react";
 import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
 import InputPersonalizado from "@/utils/inputPersonalizado";
-export default function TablePurchase({ productos, setProductos }) {
-  const lessAdvancePayment = 0;
-  const [pendingBalance, setPendingBalance] = useState(0);
-
-  useMemo(() => {
-    let balance = 0;
-    for (let i = 0; i < productos.length; i++) {
-      balance = balance + productos[i].unitPricePurchase * productos[i].quantity;
-    }
-    setPendingBalance(balance - lessAdvancePayment);
-  }, [productos]);
-
+export default function TablePurchase({ productos, setProductos,fields }) {
   const handleNewRow = (id) => {
     const updatedProductos = [...productos, { id: id, amount: 0 }];
     setProductos(updatedProductos);
@@ -34,43 +22,15 @@ export default function TablePurchase({ productos, setProductos }) {
     const updatedProductos = productos.filter((e) => e.id !== id);
     setProductos(updatedProductos);
   };
-
-  const handleChangeInput = (event, id,type) => {
+  const handleChangeInput = (event, id,parameter) => {
     const updatedProductos = productos.map((producto) => {
       if (producto.id === id) {
-        if(type == "Purchase"){
-          return {
-            ...producto,
-            unitPricePurchase: parseFloat(event.target.value),
-            amountPurchase:producto.quantity * parseFloat(event.target.value)
-          };
-        }
-        if(type == "Quantity"){
-          return {
-            ...producto,
-            quantity: parseFloat(event.target.value),
-            amountPurchase: parseFloat(event.target.value) * producto.unitPricePurchase,
-            amountSale:parseFloat(event.target.value) * producto.unitPriceSale
-          };
-        }
-        if(type == "Desc"){
-          return {
-            ...producto,
-            description:event.target.value,
-          };
-        }
-        if(type == "Packing"){
-          return {
-            ...producto,
-            packing: parseFloat(event.target.value),
-          };
-        }
+        return {...producto, [parameter]:event.target.value}
       }
       return producto;
     });
     setProductos(updatedProductos);
   };
-
   return (
     <TableContainer w="100%">
       <Table variant="striped" colorScheme="orange">
@@ -91,14 +51,14 @@ export default function TablePurchase({ productos, setProductos }) {
                 <InputPersonalizado
                   label="MT"
                   value={e.quantity ? e.quantity : ""}
-                  onChange={(event) => handleChangeInput(event, e.id,"Quantity")}
+                  onChange={(event) => handleChangeInput(event, e.id,"quantity")}
                 />
               </Td>
               <Td>
                 <Input
                   variant="filled"
                   value={e.description ? e.description : ""}
-                  onChange={(event) => handleChangeInput(event, e.id,"Desc")}
+                  onChange={(event) => handleChangeInput(event, e.id,"description")}
                 />
               </Td>
               <Td>
@@ -106,7 +66,7 @@ export default function TablePurchase({ productos, setProductos }) {
                   value={e.packing ? e.packing : ""}
                   type="number"
                   label="KGS"
-                  onChange={(event) => handleChangeInput(event, e.id,"Packing")}
+                  onChange={(event) => handleChangeInput(event, e.id,"packing")}
                 />
               </Td>
               <Td>
@@ -114,11 +74,11 @@ export default function TablePurchase({ productos, setProductos }) {
                   value={e.unitPricePurchase ? e.unitPricePurchase : ""}
                   label="$"
                   type="number"
-                  onChange={(event) => handleChangeInput(event, e.id,"Purchase")}
+                  onChange={(event) => handleChangeInput(event, e.id,"unitPricePurchase")}
                 />
               </Td>
               <Td>
-                $ {e.amountPurchase || 0}
+                $ {e.unitPricePurchase * e.quantity || 0}
               </Td>
               <Td>
                 <IconButton
@@ -139,7 +99,7 @@ export default function TablePurchase({ productos, setProductos }) {
             <Th></Th>
             <Th></Th>
             <Th isNumeric>Total</Th>
-            <Th isNumeric>{convertirAMoneda(pendingBalance)}</Th>
+            <Th isNumeric>{convertirAMoneda(fields.totalPurchase)}</Th>
           </Tr>
         </Tfoot>
       </Table>

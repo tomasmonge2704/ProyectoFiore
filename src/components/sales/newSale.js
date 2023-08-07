@@ -202,7 +202,7 @@ export default function SaleForm({
               </VStack>
             </GridItem>
           </Grid>
-          <SaleTable productos={productos} setProductos={setProductos} fields={fields} setFields={setFields} />
+          <SaleTable productos={productos} setProductos={setProductos}/>
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">
@@ -323,10 +323,10 @@ export default function SaleForm({
                 <InputPersonalizado
                   label="TOTAL PURCHASE"
                   type="text"
-                  value={fields.exportTo ? fields.exportTo : ""}
+                  value={fields.totalPurchase ? fields.totalPurchase : ""}
                   onChange={(e) =>
                     setFields({
-                      ...fields,exportTo:e.target.value,
+                      ...fields,totalPurchase:e.target.value,
                     })
                   }
                 />
@@ -336,7 +336,7 @@ export default function SaleForm({
                   value={fields.totalWeight ? fields.totalWeight : ""}
                   onChange={(e) =>
                     setFields({
-                      ...fields,productionDate:e.target.value,
+                      ...fields,totalWeight:e.target.value,
                     })
                   }
                 />

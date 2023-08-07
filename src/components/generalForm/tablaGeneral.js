@@ -11,26 +11,11 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { convertirAMoneda } from "@/utils/convertInt";
-import { useMemo, useState } from "react";
 import { DeliveryTerms } from "./deliveryTerms";
 import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import { PaymentTerms } from "./paymentTerms";
 export default function TablaGeneral({ fields,setFields,productos, setProductos,operationType }) {
-  const [pendingBalanceSale, setPendingBalanceSale] = useState(fields.pendingBalanceSale);
-  const [pendingBalancePurchase, setPendingBalancePurchase] = useState(fields.pendingBalancePurchase);
-  useMemo(() => {
-    let balanceSale = 0;
-    let balancePurchase = 0;
-    let weight = 0;
-    for (let i = 0; i < productos.length; i++) {
-      balanceSale = balanceSale + productos[i].unitPriceSale * productos[i].quantity;
-      balancePurchase = balancePurchase + productos[i].unitPricePurchase * productos[i].quantity;
-      weight = weight + productos[i].packing * productos[i].quantity;
-    }
-    setPendingBalanceSale(balanceSale);
-    setPendingBalancePurchase(balancePurchase);
-  }, [productos]);
   const handleNewRow = (id) => {
     const updatedProductos = [...productos, { id: id, amount: 0 }];
     setProductos(updatedProductos);
@@ -39,43 +24,10 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
     const updatedProductos = productos.filter((e) => e.id !== id);
     setProductos(updatedProductos);
   };
-  const handleChangeInput = (event, id,type) => {
+  const handleChangeInput = (event, id,parameter) => {
     const updatedProductos = productos.map((producto) => {
       if (producto.id === id) {
-        if(type == "Purchase"){
-          return {
-            ...producto,
-            unitPricePurchase: parseFloat(event.target.value),
-            amountPurchase: parseFloat(event.target.value) * producto.quantity
-          };
-        }
-        if(type == "Sale"){
-          return {
-            ...producto,
-            unitPriceSale: parseFloat(event.target.value),
-            amountSale:parseFloat(event.target.value) * producto.quantity
-          };
-        }
-        if(type == "Quantity"){
-          return {
-            ...producto,
-            quantity: parseFloat(event.target.value),
-            amountPurchase: parseFloat(event.target.value) * producto.unitPricePurchase,
-            amountSale:parseFloat(event.target.value) * producto.unitPriceSale,
-          };
-        }
-        if(type == "Desc"){
-          return {
-            ...producto,
-            description:event.target.value,
-          };
-        }
-        if(type == "Packing"){
-          return {
-            ...producto,
-            packing: parseFloat(event.target.value),
-          };
-        }
+        return {...producto, [parameter]:event.target.value}
       }
       return producto;
     });
@@ -102,7 +54,7 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
                 <InputPersonalizado
                   label="MT"
                   value={e.quantity ? e.quantity : ""}
-                  onChange={(event) => handleChangeInput(event, e.id,"Quantity")}
+                  onChange={(event) => handleChangeInput(event, e.id,"quantity")}
                 />
               </Td>
               <Td>
@@ -110,7 +62,7 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
                   type="text"
                   variant="filled"
                   value={e.description ? e.description : ""}
-                  onChange={(event) => handleChangeInput(event, e.id,"Desc")}
+                  onChange={(event) => handleChangeInput(event, e.id,"description")}
                 />
               </Td>
               <Td>
@@ -118,7 +70,7 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
                   defaultValue={e.packing && e.packing}
                   type="number"
                   label="KGS"
-                  onChange={(event) => handleChangeInput(event, e.id,"Packing")}
+                  onChange={(event) => handleChangeInput(event, e.id,"packing")}
                 />
               </Td>
               <Td>
@@ -126,7 +78,7 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
                   value={e.unitPricePurchase ? e.unitPricePurchase : ""}
                   label="$"
                   type="number"
-                  onChange={(event) => handleChangeInput(event, e.id,"Purchase")}
+                  onChange={(event) => handleChangeInput(event, e.id,"unitPricePurchase")}
                 />
               </Td>
               <Td>
@@ -134,7 +86,7 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
                   defaultValue={e.unitPriceSale && e.unitPriceSale}
                   label="$"
                   type="number"
-                  onChange={(event) => handleChangeInput(event, e.id,"Sale")}
+                  onChange={(event) => handleChangeInput(event, e.id,"unitPriceSale")}
                 />
               </Td>
               <Td>
@@ -181,8 +133,8 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
             <Th>Total</Th>
             <Th></Th>
             <Th></Th>
-            <Th isNumeric>{convertirAMoneda(pendingBalancePurchase)}</Th>
-            <Th isNumeric>{convertirAMoneda(pendingBalanceSale)}</Th>
+            <Th isNumeric>{convertirAMoneda(fields.totalPurchase)}</Th>
+            <Th isNumeric>{convertirAMoneda(fields.totalSale)}</Th>
           </Tr>
         </Tfoot>
       </Table>

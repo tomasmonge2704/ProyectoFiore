@@ -82,6 +82,7 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
           <TablePurchase
             productos={productos}
             setProductos={setProductos}
+            fields={fields}
           />
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">

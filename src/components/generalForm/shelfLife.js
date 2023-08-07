@@ -8,9 +8,9 @@ export const ShelfLife = ({fields, setFields}) => {
          <option value="" disabled>
        SHELF LIFE
       </option>
-        <option value="12 Meses">12 Meses</option>
-        <option value="18 Meses">18 Meses</option>
-        <option value="24 Meses">24 Meses</option>
+        <option value="12 Meses">12 Mounths</option>
+        <option value="18 Meses">18 Mounths</option>
+        <option value="24 Meses">24 Mounths</option>
       </Select>
     )
 }

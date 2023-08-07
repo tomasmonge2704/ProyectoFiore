@@ -9,23 +9,9 @@ import {
   IconButton,
   Input,
 } from "@chakra-ui/react";
-import { useMemo, useState } from "react";
 import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
 import InputPersonalizado from "@/utils/inputPersonalizado";
-export default function SaleTable({productos, setProductos,fields,setFields}) {
-  const lessAdvancePayment = 0;
-  const [pendingBalance, setPendingBalance] = useState(0);
-
-  useMemo(() => {
-    let balance = 0;
-    let weight = 0;
-    for (let i = 0; i < productos.length; i++) {
-      balance = balance + productos[i].unitPriceSale * productos[i].quantity;
-      weight = weight + productos[i].packing * productos[i].quantity;
-    }
-    setPendingBalance(balance - lessAdvancePayment);
-  }, [productos]);
-
+export default function SaleTable({productos, setProductos}) {
   const handleNewRow = (id) => {
     const updatedProductos = [...productos, { id: id, amount: 0 }];
     setProductos(updatedProductos);
@@ -34,36 +20,10 @@ export default function SaleTable({productos, setProductos,fields,setFields}) {
     const updatedProductos = productos.filter((e) => e.id !== id);
     setProductos(updatedProductos);
   };
-
-  const handleChangeInput = (event, id,type) => {
+  const handleChangeInput = (event, id,parameter) => {
     const updatedProductos = productos.map((producto) => {
       if (producto.id === id) {
-        if(type == "Sale"){
-          return {
-            ...producto,
-            unitPriceSale: parseFloat(event.target.value),
-            amountSale:producto.quantity * parseFloat(event.target.value)
-          };
-        }
-        if(type == "Quantity"){
-          return {
-            ...producto,
-            quantity: parseFloat(event.target.value),
-            amountSale: parseFloat(event.target.value) * producto.unitPriceSale
-          };
-        }
-        if(type == "Desc"){
-          return {
-            ...producto,
-            description:event.target.value,
-          };
-        }
-        if(type == "Packing"){
-          return {
-            ...producto,
-            packing: parseFloat(event.target.value),
-          };
-        }
+        return {...producto, [parameter]:event.target.value}
       }
       return producto;
     });
@@ -91,14 +51,14 @@ export default function SaleTable({productos, setProductos,fields,setFields}) {
                   label="MT"
                   type="number"
                   value={e.quantity ? e.quantity : ""}
-                  onChange={(event) => handleChangeInput(event, e.id,"Quantity")}
+                  onChange={(event) => handleChangeInput(event, e.id,"quantity")}
                 />
               </Td>
               <Td>
                 <Input
                   variant="filled"
                   value={e.description ? e.description : ""}
-                  onChange={(event) => handleChangeInput(event, e.id,"Desc")}
+                  onChange={(event) => handleChangeInput(event, e.id,"description")}
                 />
               </Td>
               <Td>
@@ -106,7 +66,7 @@ export default function SaleTable({productos, setProductos,fields,setFields}) {
                   label="KGS"
                   value={e.packing ? e.packing : ""}
                   type="number"
-                  onChange={(event) => handleChangeInput(event, e.id,"Packing")}
+                  onChange={(event) => handleChangeInput(event, e.id,"packing")}
                 />
               </Td>
               <Td isNumeric>
@@ -115,11 +75,11 @@ export default function SaleTable({productos, setProductos,fields,setFields}) {
                   value={e.unitPriceSale ? e.unitPriceSale : ""}
                   variant="filled"
                   type="number"
-                  onChange={(event) => handleChangeInput(event, e.id,"Sale")}
+                  onChange={(event) => handleChangeInput(event, e.id,"unitPriceSale")}
                 />
               </Td>
               <Td isNumeric>
-              $ {e.amountSale || 0}
+              $ {e.unitPriceSale * e.quantity || 0}
               </Td>
               <Td>
                 <IconButton
