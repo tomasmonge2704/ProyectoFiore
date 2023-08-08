@@ -6,7 +6,6 @@ export const OperationType = ({ fields, setFields }) => {
     setFields({ ...fields, operationType: e.target.value })
   };
   return (
-    <>
       <Select value={fields.operationType ? fields.operationType : ""} onChange={(e) => handleIndexChange(e)}>
       <option value="" disabled>
         Operation Type
@@ -15,14 +14,5 @@ export const OperationType = ({ fields, setFields }) => {
         <option value="Trading + Marketing">Trading + Marketing</option>
         <option value="Broker">Broker</option>
       </Select>
-      {fields?.operationType == "Broker" && (
-        <InputPersonalizado
-          type="number"
-          label="Comisión"
-          value={fields.comision || ""}
-          onChange={(e) => setFields({...fields,comision: e.target.value,})}
-        />
-      )}
-    </>
   );
 };

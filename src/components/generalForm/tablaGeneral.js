@@ -8,13 +8,13 @@ import {
   Td,
   Tfoot,
   IconButton,
-  Input,
 } from "@chakra-ui/react";
 import { convertirAMoneda } from "@/utils/convertInt";
 import { DeliveryTerms } from "./deliveryTerms";
 import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import { PaymentTerms } from "./paymentTerms";
+import { SelectProducts } from "./products";
 export default function TablaGeneral({ fields,setFields,productos, setProductos,operationType }) {
   const handleNewRow = (id) => {
     const updatedProductos = [...productos, { id: id, amount: 0 }];
@@ -39,8 +39,8 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
       <Table variant="striped" colorScheme="orange">
         <Thead>
           <Tr>
-            <Th>QUANTITY</Th>
-            <Th>PRODUCT</Th>
+            <Th w="11%">QUANTITY</Th>
+            <Th w="35%">PRODUCT</Th>
             <Th>PACKING</Th>
             <Th>UNIT PRICE PURCHASE</Th>
             <Th>UNIT PRICE SALE</Th>
@@ -58,13 +58,8 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
                 />
               </Td>
               <Td>
-                <Input
-                  type="text"
-                  variant="filled"
-                  value={e.description ? e.description : ""}
-                  onChange={(event) => handleChangeInput(event, e.id,"description")}
-                />
-              </Td>
+                <SelectProducts productos={productos} setProductos={setProductos} id={e.id} index={index} />
+                </Td>
               <Td>
                 <InputPersonalizado
                   defaultValue={e.packing && e.packing}
@@ -126,6 +121,16 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
           <Th></Th>
           <Th><InputPersonalizado label="$" type="number" /></Th>
           <Th></Th>
+          <Th></Th>
+        </Tr>
+          }
+           {operationType == "Broker" && 
+          <Tr>
+          <Th>COMISSION</Th>
+          <Th></Th>
+          <Th></Th>
+          <Th><InputPersonalizado label="$" type="number" /></Th>
+          <Th><InputPersonalizado label="$" type="number" /></Th>
           <Th></Th>
         </Tr>
           }

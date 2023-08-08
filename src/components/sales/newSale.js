@@ -29,7 +29,17 @@ export default function SaleForm({
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">
-                <InputPersonalizado label="ORDER NUMBER" type="text" />
+              <InputPersonalizado
+                  label="BUYER REF. NUMBER"
+                  type="text"
+                  value={fields.buyer.refNumber}
+                  onChange={(e) =>
+                    setFields({
+                      ...fields,
+                      buyer: { ...fields.buyer, refNumber: e.target.value },
+                    })
+                  }
+                />
                 <Text>Buyer</Text>
                 <InputPersonalizado
                   label="Name"
@@ -75,17 +85,7 @@ export default function SaleForm({
                     })
                   }
                 />
-                <InputPersonalizado
-                  label="BUYER REF. NUMBER"
-                  type="text"
-                  value={fields.buyer.refNumber}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      buyer: { ...fields.buyer, refNumber: e.target.value },
-                    })
-                  }
-                />
+               
               </VStack>
             </GridItem>
             <GridItem w="100%">

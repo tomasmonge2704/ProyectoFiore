@@ -34,14 +34,6 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
               <VStack spacing="7">
                 <InputPersonalizado
                   type="text"
-                  label="ORDER NUMBER"
-                  value={fields.orderNumber}
-                  onChange={(e) =>
-                    setFields({ ...fields, orderNumber: e.target.value })
-                  }
-                />
-                <InputPersonalizado
-                  type="text"
                   label="SUPPLIER REF. NUMBER"
                   value={fields.seller.refNumber}
                   onChange={(e) =>
@@ -70,7 +62,6 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                     setFields({ ...fields, date: e.target.value })
                   }
                 />
-                <Box h={10}></Box>
                 <Text>Buyer</Text>
                 <Buyer fields={fields} setFields={setFields} detailView={true} />
                 <Text as="b">CONSIGNEE</Text>

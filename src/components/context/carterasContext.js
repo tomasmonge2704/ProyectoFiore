@@ -5,6 +5,8 @@ export const CarteraClientesContext = createContext();
 export const CarteraProveedoresContext = createContext();
 export const CarteraPaymentTermsContext = createContext();
 export const CarteraPuertosContext = createContext();
+export const CarteraProductsContext = createContext();
+export const CarteraPackingContext = createContext();
 
 export function CarterasProvider({ children }) {
   const [CarteraPaymentTerms, setCarteraPaymentTerms] = useState([
@@ -247,7 +249,41 @@ export function CarterasProvider({ children }) {
   {port:"Destination port 3",
     country:"china"
   },
-  ])
+  ]);
+  const [CarteraPacking, setCarteraPacking] = useState([
+  {nombre:"10 kgs - bulk",weight:10},{nombre:"10 kgs - bulk",weight:10},{nombre:"10 kgs - bulk",weight:10},{nombre:"10 kgs - bulk",weight:10},{nombre:"10 kgs - bulk",weight:10}
+  ]);
+  const [CarteraProducts, setCarteraProducts] = useState([
+    { family: "Meat", famili2: "Beef Offals", description: "Frozen Beef Green Tripes" },
+    { family: "Meat", famili2: "Beef Offals", description: "Frozen Beef Kidneys" },
+    { family: "Meat", famili2: "Beef Offals", description: "Frozen Beef Lips" },
+    { family: "Meat", famili2: "Beef Offals", description: "Frozen Beef Tails" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Breast skinless, boneless, with innerfillet" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Breast skinless, boneless, without innerfillet" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Feet, A grade" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Feet, AB grade" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Feet, B grade" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Gizzards" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Grillers" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Hearts" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Leg Quarters, A grade" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Leg Quarters, B grade" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Livers" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken MDM" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Necks" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, A grade" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, A grade -Jumbo-" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, AB grade" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, B grade" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, BC grade" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, C grade" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Shanks" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Shawarma" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Wings, A grade" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Wings, AB grade" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Wings, B grade" },
+    { family: "Meat", famili2: "Chicken", description: "Frozen Heavy Hen Leg Quarters" },
+  ]);
   return (
     <CarteraBancariaContext.Provider
       value={{ CarteraBancaria, setCarteraBancaria }}
@@ -262,7 +298,11 @@ export function CarterasProvider({ children }) {
             value={{ CarteraPaymentTerms, setCarteraPaymentTerms }}
           >
             <CarteraPuertosContext.Provider value={{CarteraPuertos,setCarteraPuertos }}>
+              <CarteraPackingContext.Provider value={{CarteraPacking, setCarteraPacking}}>
+              <CarteraProductsContext.Provider value={{CarteraProducts, setCarteraProducts}}>
             {children}
+            </CarteraProductsContext.Provider>
+            </CarteraPackingContext.Provider>
             </CarteraPuertosContext.Provider>
           </CarteraPaymentTermsContext.Provider>
         </CarteraProveedoresContext.Provider>

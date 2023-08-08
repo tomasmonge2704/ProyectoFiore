@@ -1,72 +1,84 @@
 import {
-  Center,
-  Text,
-  Card,
-  CardBody,
-  Button,
-  Flex,
-  Stack,
+  Table,
+  TableContainer,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  IconButton,
   Input,
+  Card,
+  CardBody
 } from "@chakra-ui/react";
-import { useState } from "react";
-export const Puertos = ({CarteraPuertos}) => {
-  const [dirtyIndexes, setDirtyIndexes] = useState([]);
-  const handleInputChange = (value, index, field) => {
-    setDirtyIndexes((prevDirtyIndexes) => {
-      if (!prevDirtyIndexes.includes(index)) {
-        return [...prevDirtyIndexes, index];
+import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
+export const Puertos = ({ CarteraPuertos }) => {
+  const handleNewRow = (id) => {
+    const updatedProductos = [...productos, { id: id, amount: 0 }];
+    setProductos(updatedProductos);
+  };
+  const handleDeleteRow = (id) => {
+    const updatedProductos = productos.filter((e) => e.id !== id);
+    setProductos(updatedProductos);
+  };
+  const handleChangeInput = (event, id, parameter) => {
+    const updatedProductos = productos.map((producto) => {
+      if (producto.id === id) {
+        return { ...producto, [parameter]: event.target.value };
       }
-      return prevDirtyIndexes;
+      return producto;
     });
-    //aca deberia ir la logica para actualizar el campo
+    setProductos(updatedProductos);
   };
-  const handleConfirmChanges = (index) => {
-    setDirtyIndexes((prevDirtyIndexes) =>
-      prevDirtyIndexes.filter((dirtyIndex) => dirtyIndex !== index)
-    );
-  };
+
   return (
-    <Flex justify="space-evenly" mt={10} mb={10}>
-      {CarteraPuertos &&
-        CarteraPuertos.map((e, index) => (
-          <Card
-            maxW="300px"
-            key={index}
-            variant="elevated"
-            backgroundColor={e.empresa == "Duplo" ? "blue.300" : "blue.400"}
-          >
-            <CardBody>
-              <Stack spacing="2">
-                <Text as="b">Port</Text>
-                <Input
-                  variant="filled"
-                  defaultValue={e.port}
-                  onChange={(value) =>
-                    handleInputChange(value, index, "direccion")
-                  }
-                />
-                <Text as="b">Country</Text>
-                <Input
-                  variant="filled"
-                  defaultValue={e.country}
-                  onChange={(value) =>
-                    handleInputChange(value, index, "direccion2")
-                  }
-                />
-              </Stack>
-              {dirtyIndexes.includes(index) && (
-                <Center mt={7}>
-                  <Button
-                    colorScheme="orange"
-                    onClick={() => handleConfirmChanges(index)}
-                  >
-                    Guardar
-                  </Button>
-                </Center>
-              )}
-            </CardBody>
-          </Card>
-        ))}
-    </Flex>
+    <Card w="100%" mt={10} variant="elevated"><CardBody>
+    <TableContainer w="100%">
+      <Table variant="striped" colorScheme="orange">
+        <Thead>
+          <Tr>
+            <Th>PORT</Th>
+            <Th>COUNTRY</Th>
+            <Th>ACTIONS</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {CarteraPuertos.length &&
+            CarteraPuertos.map((e, index) => (
+              <Tr key={index}>
+                <Td>
+                  <Input
+                    variant="filled"
+                    value={e.port ? e.port : ""}
+                    onChange={(event) =>
+                      handleChangeInput(event, e.id, "quantity")
+                    }
+                  />
+                </Td>
+                <Td>
+                  <Input
+                    variant="filled"
+                    defaultValue={e.country && e.country}
+                    onChange={(event) =>
+                      handleChangeInput(event, e.id, "packing")
+                    }
+                  />
+                </Td>
+                <Td>
+                  <IconButton
+                    icon={index < 1 ? <PlusSquareIcon /> : <DeleteIcon />}
+                    onClick={
+                      index > 0
+                        ? () => handleDeleteRow(e.id)
+                        : () => handleNewRow(Math.random())
+                    }
+                  />
+                </Td>
+              </Tr>
+            ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
+    </CardBody></Card>
   );
 };
