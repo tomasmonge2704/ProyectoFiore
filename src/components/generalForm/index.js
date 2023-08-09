@@ -57,7 +57,7 @@ export default function GeneralForm({
                   setFields={setFields}
                   CarteraBancaria={CarteraBancaria}
                 />
-                               <SelectBanco
+                <SelectBanco
                   fields={fields}
                   setFields={setFields}
                   CarteraBancaria={CarteraBancaria}
@@ -95,7 +95,7 @@ export default function GeneralForm({
             </GridItem>
             <GridItem w="100%">
               <VStack spacing="7">
-              <OperationType fields={fields} setFields={setFields} />
+                <OperationType fields={fields} setFields={setFields} />
                 <Buyer fields={fields} setFields={setFields} />
                 <InputPersonalizado
                   type="text"

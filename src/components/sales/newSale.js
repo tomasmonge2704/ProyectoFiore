@@ -29,7 +29,7 @@ export default function SaleForm({
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">
-              <InputPersonalizado
+                <InputPersonalizado
                   label="BUYER REF. NUMBER"
                   type="text"
                   value={fields.buyer.refNumber}
@@ -85,7 +85,6 @@ export default function SaleForm({
                     })
                   }
                 />
-               
               </VStack>
             </GridItem>
             <GridItem w="100%">
@@ -121,7 +120,10 @@ export default function SaleForm({
                   onChange={(e) =>
                     setFields({
                       ...fields,
-                      empresa: { ...fields.empresa, direccion2: e.target.value },
+                      empresa: {
+                        ...fields.empresa,
+                        direccion2: e.target.value,
+                      },
                     })
                   }
                 />
@@ -136,73 +138,164 @@ export default function SaleForm({
                     })
                   }
                 />
-                <Text>BANK DETAILS</Text>
-                <InputPersonalizado
-                  label="Beneficiary Bank"
-                  type="text"
-                  value={
-                    fields.empresa.bank && fields.empresa.bank.beneficiaryBank
-                  }
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      empresa: { ...fields.empresa,bank:{...fields.empresa.bank,beneficiaryBank: e.target.value }},
-                    })
-                  }
-                />
-                <InputPersonalizado
-                  label="Bank Adress"
-                  type="text"
-                  value={fields.empresa.bank && fields.empresa.bank.bankAdress}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      empresa: { ...fields.empresa,bank:{...fields.empresa.bank,bankAdress: e.target.value }},
-                    })
-                  }
-                />
-                <InputPersonalizado
-                  label="Swift Code"
-                  type="text"
-                  value={fields.empresa.bank && fields.empresa.bank.swiftCode}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      empresa: { ...fields.empresa,bank:{...fields.empresa.bank,swiftCode: e.target.value }},
-                    })
-                  }
-                />
-                <InputPersonalizado
-                  label="Beneficiary Name"
-                  type="text"
-                  value={
-                    fields.empresa.bank && fields.empresa.bank.beneficiaryName
-                  }
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      empresa: { ...fields.empresa,bank:{...fields.empresa.bank,beneficiaryName: e.target.value }},
-                    })
-                  }
-                />
-                <InputPersonalizado
-                  label="Beneficiary Account Number"
-                  type="text"
-                  value={
-                    fields.empresa.bank &&
-                    fields.empresa.bank.beneficiaryAccountNumber
-                  }
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      empresa: { ...fields.empresa,bank:{...fields.empresa.bank,beneficiaryAccountNumber: e.target.value }},
-                    })
-                  }
-                />
               </VStack>
             </GridItem>
           </Grid>
-          <SaleTable productos={productos} setProductos={setProductos}/>
+          <Text>BANK DETAILS</Text>
+          <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
+            <GridItem w="100%">
+              <VStack spacing="7">
+              <InputPersonalizado
+            label="Beneficiary Bank"
+            type="text"
+            value={fields.empresa.bank && fields.empresa.bank.beneficiaryBank}
+            onChange={(e) =>
+              setFields({
+                ...fields,
+                empresa: {
+                  ...fields.empresa,
+                  bank: {
+                    ...fields.empresa.bank,
+                    beneficiaryBank: e.target.value,
+                  },
+                },
+              })
+            }
+          />
+          <InputPersonalizado
+            label="Bank Adress"
+            type="text"
+            value={fields.empresa.bank && fields.empresa.bank.bankAdress}
+            onChange={(e) =>
+              setFields({
+                ...fields,
+                empresa: {
+                  ...fields.empresa,
+                  bank: { ...fields.empresa.bank, bankAdress: e.target.value },
+                },
+              })
+            }
+          />
+          <InputPersonalizado
+            label="Swift Code"
+            type="text"
+            value={fields.empresa.bank && fields.empresa.bank.swiftCode}
+            onChange={(e) =>
+              setFields({
+                ...fields,
+                empresa: {
+                  ...fields.empresa,
+                  bank: { ...fields.empresa.bank, swiftCode: e.target.value },
+                },
+              })
+            }
+          />
+          <InputPersonalizado
+            label="Beneficiary Name"
+            type="text"
+            value={fields.empresa.bank && fields.empresa.bank.beneficiaryName}
+            onChange={(e) =>
+              setFields({
+                ...fields,
+                empresa: {
+                  ...fields.empresa,
+                  bank: {
+                    ...fields.empresa.bank,
+                    beneficiaryName: e.target.value,
+                  },
+                },
+              })
+            }
+          />
+          
+              </VStack>
+            </GridItem>
+            <GridItem w="100%">
+              <VStack spacing="7">
+              <InputPersonalizado
+            label="Beneficiary Account Number"
+            type="text"
+            value={
+              fields.empresa.bank &&
+              fields.empresa.bank.beneficiaryAccountNumber
+            }
+            onChange={(e) =>
+              setFields({
+                ...fields,
+                empresa: {
+                  ...fields.empresa,
+                  bank: {
+                    ...fields.empresa.bank,
+                    beneficiaryAccountNumber: e.target.value,
+                  },
+                },
+              })
+            }
+          />
+          <InputPersonalizado
+            label="Correspondent Bank"
+            type="text"
+            value={
+              fields.empresa.bank &&
+              fields.empresa.bank.correspondentBank
+            }
+            onChange={(e) =>
+              setFields({
+                ...fields,
+                empresa: {
+                  ...fields.empresa,
+                  bank: {
+                    ...fields.empresa.bank,
+                    correspondentBank: e.target.value,
+                  },
+                },
+              })
+            }
+          />
+          <InputPersonalizado
+            label="ABA"
+            type="text"
+            value={
+              fields.empresa.bank &&
+              fields.empresa.bank.ABA
+            }
+            onChange={(e) =>
+              setFields({
+                ...fields,
+                empresa: {
+                  ...fields.empresa,
+                  bank: {
+                    ...fields.empresa.bank,
+                    ABA: e.target.value,
+                  },
+                },
+              })
+            }
+          />
+          <InputPersonalizado
+            label="Swift"
+            type="text"
+            value={
+              fields.empresa.bank &&
+              fields.empresa.bank.swift
+            }
+            onChange={(e) =>
+              setFields({
+                ...fields,
+                empresa: {
+                  ...fields.empresa,
+                  bank: {
+                    ...fields.empresa.bank,
+                    swift: e.target.value,
+                  },
+                },
+              })
+            }
+          />
+              </VStack>
+            </GridItem>
+          </Grid>
+          <SaleTable productos={productos} setProductos={setProductos} fields={fields} />
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">
@@ -245,7 +338,8 @@ export default function SaleForm({
                   value={fields.productionDate ? fields.productionDate : ""}
                   onChange={(e) =>
                     setFields({
-                      ...fields,productionDate:e.target.value,
+                      ...fields,
+                      productionDate: e.target.value,
                     })
                   }
                 />
@@ -255,7 +349,8 @@ export default function SaleForm({
                   value={fields.shelfLife ? fields.shelfLife : ""}
                   onChange={(e) =>
                     setFields({
-                      ...fields,shelfLife:e.target.value,
+                      ...fields,
+                      shelfLife: e.target.value,
                     })
                   }
                 />
@@ -265,27 +360,21 @@ export default function SaleForm({
                   value={fields.destinationPort ? fields.destinationPort : ""}
                   onChange={(e) =>
                     setFields({
-                      ...fields,destinationPort:e.target.value,
+                      ...fields,
+                      destinationPort: e.target.value,
                     })
                   }
                 />
                 <InputPersonalizado
                   label="DESTINATION COUNTRY"
                   type="text"
-                  value={fields.destinationCountry ? fields.destinationCountry : ""}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,destinationCountry:e.target.value,
-                    })
+                  value={
+                    fields.destinationCountry ? fields.destinationCountry : ""
                   }
-                />
-                <InputPersonalizado
-                  label="QUANTITY"
-                  type="text"
-                  value={fields.quantity ? fields.quantity : ""}
                   onChange={(e) =>
                     setFields({
-                      ...fields,quantity:e.target.value,
+                      ...fields,
+                      destinationCountry: e.target.value,
                     })
                   }
                 />
@@ -295,7 +384,8 @@ export default function SaleForm({
                   value={fields.shipmentPeriod ? fields.shipmentPeriod : ""}
                   onChange={(e) =>
                     setFields({
-                      ...fields,shipmentPeriod:e.target.value,
+                      ...fields,
+                      shipmentPeriod: e.target.value,
                     })
                   }
                 />
@@ -311,7 +401,8 @@ export default function SaleForm({
                   }
                   onChange={(e) =>
                     setFields({
-                      ...fields,deliveryTermsSale:e.target.value,
+                      ...fields,
+                      deliveryTermsSale: e.target.value,
                     })
                   }
                 />
@@ -319,26 +410,6 @@ export default function SaleForm({
                   fields={fields}
                   setFields={setFields}
                   type="sale"
-                />
-                <InputPersonalizado
-                  label="TOTAL PURCHASE"
-                  type="text"
-                  value={fields.totalPurchase ? fields.totalPurchase : ""}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,totalPurchase:e.target.value,
-                    })
-                  }
-                />
-                <InputPersonalizado
-                  label="TOTAL NET WEIGHT"
-                  type="text"
-                  value={fields.totalWeight ? fields.totalWeight : ""}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,totalWeight:e.target.value,
-                    })
-                  }
                 />
                 <InputPersonalizado
                   label="COMISSION"

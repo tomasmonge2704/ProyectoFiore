@@ -1,56 +1,90 @@
 import {
-    Table,
-    TableContainer,
-    Thead,
-    Tr,
-    Th,
-    Tbody,
-    Td,
-    IconButton,
-    Input,
-    Card,
-    CardBody
-  } from "@chakra-ui/react";
-  import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
+  Table,
+  TableContainer,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  IconButton,
+  Input,
+  Card,
+  CardBody,
+  Flex,
+  InputGroup,
+  InputLeftElement,
+  Text,
+  ButtonGroup,
+} from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
+import Pagination from "@choc-ui/paginator";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
+import { FiSave } from "react-icons/fi";
 export const AjustesProductos = ({ CarteraProducts }) => {
-    const handleNewRow = (id) => {
-        const updatedProductos = [...productos, { id: id, amount: 0 }];
-        setProductos(updatedProductos);
-      };
-      const handleDeleteRow = (id) => {
-        const updatedProductos = productos.filter((e) => e.id !== id);
-        setProductos(updatedProductos);
-      };
-      const handleChangeInput = (event, id, parameter) => {
-        const updatedProductos = productos.map((producto) => {
-          if (producto.id === id) {
-            return { ...producto, [parameter]: event.target.value };
-          }
-          return producto;
-        });
-        setProductos(updatedProductos);
-      };
-    
-      return (
-        <Card w="100%" mt={10} variant="elevated"><CardBody>
-        <TableContainer w="100%">
-          <Table variant="striped" colorScheme="orange">
-            <Thead>
-              <Tr>
-                <Th>FAMILY</Th>
-                <Th>FAMILY 2</Th>
-                <Th w="40%">DESCRIPCION</Th>
-                <Th>ACTIONS</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {CarteraProducts.length &&
-                CarteraProducts.map((e, index) => (
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(CarteraProducts.length * 2);
+  const [searchResults, setSearchResults] = useState(CarteraProducts);
+  const [itemsToDisplay, setItemsToDisplay] = useState(CarteraProducts);
+  const [searchText, setSearchText] = useState("");
+  const itemsPerPage = 7;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value);
+    setCurrentPage(1); // Reset current page when search results change
+  };
+  const endIndex = startIndex + itemsPerPage;
+  const handleChangeInput = (event, id, parameter) => {
+    const updatedProductos = itemsToDisplay.map((producto) => {
+      if (producto.id === id) {
+        return { ...producto, modified: true };
+      }
+      return producto;
+    });
+    setItemsToDisplay(updatedProductos);
+  };
+  useEffect(() => {
+    setSearchResults(
+      CarteraProducts.filter((product) =>
+        product.description.toLowerCase().includes(searchText.toLowerCase())
+      )
+    );
+    setItemsToDisplay(searchResults.slice(startIndex, endIndex));
+    setTotalPages(searchResults.length * 2 - 10);
+  }, [currentPage, searchText]);
+  return (
+    <Card w="100%" mt={5} variant="elevated">
+      <CardBody>
+        <InputGroup>
+          <InputLeftElement pointerEvents="none">
+            <SearchIcon color="gray.300" />
+          </InputLeftElement>
+          <Input
+            type="text"
+            placeholder="Buscar..."
+            value={searchText}
+            onChange={handleSearchChange}
+            borderRadius="full"
+          />
+        </InputGroup>
+        {itemsToDisplay.length >= 1 ? (
+          <TableContainer w="100%">
+            <Table variant="striped" colorScheme="orange">
+              <Thead>
+                <Tr>
+                  <Th>FAMILY</Th>
+                  <Th>FAMILY 2</Th>
+                  <Th w="40%">DESCRIPCION</Th>
+                  <Th>ACTIONS</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {itemsToDisplay.map((e, index) => (
                   <Tr key={index}>
                     <Td>
                       <Input
                         variant="filled"
-                        value={e.family ? e.family : ""}
+                        defaultValue={e.family && e.family}
                         onChange={(event) =>
                           handleChangeInput(event, e.id, "quantity")
                         }
@@ -75,21 +109,46 @@ export const AjustesProductos = ({ CarteraProducts }) => {
                       />
                     </Td>
                     <Td>
-                      <IconButton
-                        icon={index < 1 ? <PlusSquareIcon /> : <DeleteIcon />}
-                        onClick={
-                          index > 0
-                            ? () => handleDeleteRow(e.id)
-                            : () => handleNewRow(Math.random())
-                        }
-                      />
+                        {e.modified ? (
+                          <IconButton
+                            colorScheme="blue"
+                            variant="solid"
+                            icon={<FiSave />}
+                            aria-label="save"
+                          />
+                        ) :  (
+                        <IconButton
+                          colorScheme="red"
+                          variant="solid"
+                          icon={<DeleteIcon />}
+                          aria-label="Delete"
+                        />)}
                     </Td>
                   </Tr>
                 ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-        </CardBody></Card>
-      );
-    };
-    
+              </Tbody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <Text mt={10}>No se han encontrado Resultados.</Text>
+        )}
+        <Flex w="full" p={50} alignItems="center" justifyContent="center">
+          <Pagination
+            defaultCurrent={currentPage}
+            onChange={(page) => setCurrentPage(page)}
+            total={totalPages}
+            paginationProps={{
+              display: "flex",
+            }}
+            activeStyles={{
+              bg: "orange.400",
+            }}
+            hoverStyles={{
+              bg: "cyan.300",
+            }}
+          />
+        </Flex>
+      </CardBody>
+    </Card>
+  );
+};

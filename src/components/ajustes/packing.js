@@ -48,7 +48,7 @@ export const AjustesPacking = ({ CarteraPacking }) => {
                     <Td>
                       <Input
                         variant="filled"
-                        value={e.nombre ? e.nombre : ""}
+                        value={e ? e : ""}
                         onChange={(event) =>
                           handleChangeInput(event, e.id, "quantity")
                         }

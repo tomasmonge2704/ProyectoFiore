@@ -11,8 +11,11 @@ import {
 } from "@chakra-ui/react";
 import { convertirAMoneda } from "@/utils/convertInt";
 import { DeliveryTerms } from "./deliveryTerms";
-import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { AiOutlinePlus } from "react-icons/ai";
 import InputPersonalizado from "@/utils/inputPersonalizado";
+import InputRightPersonalizado from "@/utils/inputRightAddon";
+import { SelectPacking } from "./packing";
 import { PaymentTerms } from "./paymentTerms";
 import { SelectProducts } from "./products";
 export default function TablaGeneral({ fields,setFields,productos, setProductos,operationType }) {
@@ -25,9 +28,10 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
     setProductos(updatedProductos);
   };
   const handleChangeInput = (event, id,parameter) => {
+    console.log(event.target.value)
     const updatedProductos = productos.map((producto) => {
       if (producto.id === id) {
-        return {...producto, [parameter]:event.target.value}
+        return {...producto, [parameter]:Number(event.target.value)}
       }
       return producto;
     });
@@ -39,9 +43,9 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
       <Table variant="striped" colorScheme="orange">
         <Thead>
           <Tr>
-            <Th w="11%">QUANTITY</Th>
-            <Th w="35%">PRODUCT</Th>
-            <Th>PACKING</Th>
+            <Th>QUANTITY</Th>
+            <Th w="40%">PRODUCT</Th>
+            <Th w="20%">PACKING</Th>
             <Th>UNIT PRICE PURCHASE</Th>
             <Th>UNIT PRICE SALE</Th>
             <Th></Th>
@@ -51,8 +55,9 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
           {productos.length && productos.map((e, index) => (
             <Tr key={index}>
               <Td>
-                <InputPersonalizado
+                <InputRightPersonalizado
                   label="MT"
+                  type="number"
                   value={e.quantity ? e.quantity : ""}
                   onChange={(event) => handleChangeInput(event, e.id,"quantity")}
                 />
@@ -61,12 +66,7 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
                 <SelectProducts productos={productos} setProductos={setProductos} id={e.id} index={index} />
                 </Td>
               <Td>
-                <InputPersonalizado
-                  defaultValue={e.packing && e.packing}
-                  type="number"
-                  label="KGS"
-                  onChange={(event) => handleChangeInput(event, e.id,"packing")}
-                />
+               <SelectPacking productos={productos} setProductos={setProductos} id={e.id} index={index} />
               </Td>
               <Td>
                 <InputPersonalizado
@@ -86,7 +86,9 @@ export default function TablaGeneral({ fields,setFields,productos, setProductos,
               </Td>
               <Td>
                 <IconButton
-                  icon={index < 1 ? <PlusSquareIcon /> : <DeleteIcon />}
+                  icon={index < 1 ? <AiOutlinePlus /> : <DeleteIcon />}
+                  variant="solid"
+                  colorScheme={index < 1 ? "orange" : "red"}
                   onClick={
                     index > 0
                       ? () => handleDeleteRow(e.id)

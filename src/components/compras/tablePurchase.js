@@ -11,8 +11,10 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { convertirAMoneda } from "@/utils/convertInt";
-import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { AiOutlinePlus } from "react-icons/ai";
 import InputPersonalizado from "@/utils/inputPersonalizado";
+import InputRightPersonalizado from "@/utils/inputRightAddon";
 export default function TablePurchase({ productos, setProductos,fields }) {
   const handleNewRow = (id) => {
     const updatedProductos = [...productos, { id: id, amount: 0 }];
@@ -37,8 +39,8 @@ export default function TablePurchase({ productos, setProductos,fields }) {
         <Thead>
           <Tr>
             <Th>QUANTITY</Th>
-            <Th>PRODUCT</Th>
-            <Th>PACKING</Th>
+            <Th w="30%">PRODUCT</Th>
+            <Th w="30%">PACKING</Th>
             <Th>UNIT PRICE</Th>
             <Th>AMOUNT</Th>
             <Th></Th>
@@ -48,7 +50,7 @@ export default function TablePurchase({ productos, setProductos,fields }) {
           {productos.length && productos.map((e, index) => (
             <Tr key={index}>
               <Td>
-                <InputPersonalizado
+                <InputRightPersonalizado
                   label="MT"
                   value={e.quantity ? e.quantity : ""}
                   onChange={(event) => handleChangeInput(event, e.id,"quantity")}
@@ -62,10 +64,9 @@ export default function TablePurchase({ productos, setProductos,fields }) {
                 />
               </Td>
               <Td>
-                <InputPersonalizado
+                <Input
+                variant="filled"
                   value={e.packing ? e.packing : ""}
-                  type="number"
-                  label="KGS"
                   onChange={(event) => handleChangeInput(event, e.id,"packing")}
                 />
               </Td>
@@ -78,11 +79,13 @@ export default function TablePurchase({ productos, setProductos,fields }) {
                 />
               </Td>
               <Td>
-                $ {e.unitPricePurchase * e.quantity || 0}
+                {convertirAMoneda(e.unitPricePurchase * e.quantity) || 0}
               </Td>
               <Td>
-                <IconButton
-                  icon={index < 1 ? <PlusSquareIcon /> : <DeleteIcon />}
+              <IconButton
+                  icon={index < 1 ? <AiOutlinePlus /> : <DeleteIcon />}
+                  variant="solid"
+                  colorScheme={index < 1 ? "orange" : "red"}
                   onClick={
                     index > 0
                       ? () => handleDeleteRow(e.id)
@@ -95,7 +98,7 @@ export default function TablePurchase({ productos, setProductos,fields }) {
         </Tbody>
         <Tfoot>
           <Tr>
-            <Th></Th>
+            <Th>{fields.totalWeight !== 0 && fields.totalWeight}</Th>
             <Th></Th>
             <Th></Th>
             <Th isNumeric>Total</Th>

@@ -49,7 +49,10 @@ export function CarterasProvider({ children }) {
         bankAdress:"777 SW 37th AVE. SUITE 100",
         swiftCode:"MIAMI, FL 33135, USA",
         beneficiaryName:"IFBKUS3M",
-        beneficiaryAccountNumber:"1200073959"
+        beneficiaryAccountNumber:"1200073959",
+        correspondentBank:"Wells Fargo bANK - New York, USA",
+        ABA:"026005092",
+        swift:"PNBPUS3NNYC"
       },{
         beneficiaryBank:"INTERNATIONAL FINANCE BANK 2",
         bankAdress:"777 SW 37th AVE. SUITE 100",
@@ -251,39 +254,39 @@ export function CarterasProvider({ children }) {
   },
   ]);
   const [CarteraPacking, setCarteraPacking] = useState([
-  {nombre:"10 kgs - bulk",weight:10},{nombre:"10 kgs - bulk",weight:10},{nombre:"10 kgs - bulk",weight:10},{nombre:"10 kgs - bulk",weight:10},{nombre:"10 kgs - bulk",weight:10}
+  "10 kgs - bulk","10 kgs - layer pack","15 kgs - bulk","20 x 1 kg - 20 kgs cartons","2 x 10 kgs - 20 kgs cartons"
   ]);
   const [CarteraProducts, setCarteraProducts] = useState([
-    { family: "Meat", famili2: "Beef Offals", description: "Frozen Beef Green Tripes" },
-    { family: "Meat", famili2: "Beef Offals", description: "Frozen Beef Kidneys" },
-    { family: "Meat", famili2: "Beef Offals", description: "Frozen Beef Lips" },
-    { family: "Meat", famili2: "Beef Offals", description: "Frozen Beef Tails" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Breast skinless, boneless, with innerfillet" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Breast skinless, boneless, without innerfillet" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Feet, A grade" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Feet, AB grade" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Feet, B grade" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Gizzards" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Grillers" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Hearts" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Leg Quarters, A grade" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Leg Quarters, B grade" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Livers" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken MDM" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Necks" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, A grade" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, A grade -Jumbo-" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, AB grade" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, B grade" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, BC grade" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, C grade" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Shanks" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Shawarma" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Wings, A grade" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Wings, AB grade" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Chicken Wings, B grade" },
-    { family: "Meat", famili2: "Chicken", description: "Frozen Heavy Hen Leg Quarters" },
-  ]);
+    { id: 1, family: "Meat", famili2: "Beef Offals", description: "Frozen Beef Green Tripes" },
+    { id: 2, family: "Meat", famili2: "Beef Offals", description: "Frozen Beef Kidneys" },
+    { id: 3, family: "Meat", famili2: "Beef Offals", description: "Frozen Beef Lips" },
+    { id: 4, family: "Meat", famili2: "Beef Offals", description: "Frozen Beef Tails" },
+    { id: 5, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Breast skinless, boneless, with innerfillet" },
+    { id: 6, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Breast skinless, boneless, without innerfillet" },
+    { id: 7, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Feet, A grade" },
+    { id: 8, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Feet, AB grade" },
+    { id: 9, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Feet, B grade" },
+    { id: 10, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Gizzards" },
+    { id: 11, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Grillers" },
+    { id: 12, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Hearts" },
+    { id: 13, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Leg Quarters, A grade" },
+    { id: 14, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Leg Quarters, B grade" },
+    { id: 15, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Livers" },
+    { id: 16, family: "Meat", famili2: "Chicken", description: "Frozen Chicken MDM" },
+    { id: 17, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Necks" },
+    { id: 18, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, A grade" },
+    { id: 19, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, A grade -Jumbo-" },
+    { id: 20, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, AB grade" },
+    { id: 21, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, B grade" },
+    { id: 22, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, BC grade" },
+    { id: 23, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Paws, C grade" },
+    { id: 24, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Shanks" },
+    { id: 25, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Shawarma" },
+    { id: 26, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Wings, A grade" },
+    { id: 27, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Wings, AB grade" },
+    { id: 28, family: "Meat", famili2: "Chicken", description: "Frozen Chicken Wings, B grade" },
+    { id: 29, family: "Meat", famili2: "Chicken", description: "Frozen Heavy Hen Leg Quarters" },
+]);
   return (
     <CarteraBancariaContext.Provider
       value={{ CarteraBancaria, setCarteraBancaria }}

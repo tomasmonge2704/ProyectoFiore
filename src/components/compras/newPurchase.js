@@ -136,14 +136,6 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                 />
                 <InputPersonalizado
                   type="text"
-                  label="QUANTITY"
-                  value={fields.quantity}
-                  onChange={(e) =>
-                    setFields({ ...fields, quantity: e.target.value })
-                  }
-                />
-                <InputPersonalizado
-                  type="text"
                   label="SHIPMENT PERIOD"
                   value={fields.shipmentPeriod}
                   onChange={(e) =>

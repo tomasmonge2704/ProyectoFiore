@@ -70,8 +70,7 @@ export function OperationProvider({ children }) {
         deliveryTermsPurchase: "",
         paymentTermsSale: "",
         paymentTermsPurchase: "",
-        exportTo: "",
-        totalWeight:0
+        exportTo: ""
       }
     },
     docs: { title: "Docs", completed: 0 },
@@ -103,7 +102,7 @@ export function OperationProvider({ children }) {
     for (let i = 0; i < productos.length; i++) {
       balanceSale += productos[i].unitPriceSale * productos[i].quantity;
       balancePurchase += productos[i].unitPricePurchase * productos[i].quantity;
-      totalWeight += productos[i].packing * productos[i].quantity;
+      totalWeight += Number(productos[i].quantity);
     }
     setFields((prevFields) => ({
       ...prevFields,
