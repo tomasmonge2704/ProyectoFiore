@@ -5,7 +5,6 @@ import {
   useColorModeValue,
   Drawer,
   DrawerContent,
-  Text,
   useDisclosure,
   Image,
 } from "@chakra-ui/react";
@@ -24,7 +23,7 @@ const LinkItems = [
   { name: "Trending", icon: FiTrendingUp, href: "/" },
   { name: "Cartera Clientes", icon: FiUser, href: "/cartera-clientes" },
   { name: "Cartera Proveedores", icon: FiBox, href: "/cartera-proveedores" },
-  { name: "Nueva Operacion", icon: FiArrowUp, href: "/nueva-operacion" },
+  { name: "Nueva Operacion", icon: FiArrowUp, href: "/operation" },
   { name: "Ajustes", icon: FiSettings, href: "/ajustes" }
 ];
 

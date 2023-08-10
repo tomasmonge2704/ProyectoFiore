@@ -1,6 +1,5 @@
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import {
-  Box,
   Grid,
   GridItem,
   Center,
@@ -14,8 +13,8 @@ import TablePurchase from "./tablePurchase";
 import { useContext } from "react";
 import { Buyer } from "./Buyer";
 import { Seller } from "./seller";
-import { PaymentTerms } from "../generalForm/paymentTerms";
-import { CarteraProveedoresContext } from "../context/carterasContext";
+import { PaymentTerms } from "../generales/paymentTerms";
+import { CarteraProveedoresContext } from "@/components/context/carterasContext";
 
 export default function PurchaseForm({ operation, fields, setFields,productos,setProductos }) {
   const { CarteraProveedores } = useContext(CarteraProveedoresContext);

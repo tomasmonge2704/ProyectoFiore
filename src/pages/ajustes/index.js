@@ -1,4 +1,3 @@
-import Layout from "@/components/Layouts/main";
 import {
   Center,
   TabList,
@@ -21,7 +20,6 @@ export default function Ajustes() {
   const { CarteraPacking } = useContext(CarteraPackingContext);
   const { CarteraProducts } = useContext(CarteraProductsContext);
   return (
-    <Layout title="Ajustes">
       <Tabs variant="soft-rounded" colorScheme="orange">
         <Center>
           <TabList>
@@ -50,6 +48,5 @@ export default function Ajustes() {
           </TabPanel>
         </TabPanels>
       </Tabs>
-    </Layout>
   );
 }

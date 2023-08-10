@@ -13,8 +13,7 @@ import {
   Flex,
   InputGroup,
   InputLeftElement,
-  Text,
-  ButtonGroup,
+  Text
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import Pagination from "@choc-ui/paginator";
@@ -84,7 +83,7 @@ export const AjustesProductos = ({ CarteraProducts }) => {
                     <Td>
                       <Input
                         variant="filled"
-                        defaultValue={e.family && e.family}
+                        defaultValue={e.family ? e.family : ""}
                         onChange={(event) =>
                           handleChangeInput(event, e.id, "quantity")
                         }
@@ -93,7 +92,7 @@ export const AjustesProductos = ({ CarteraProducts }) => {
                     <Td>
                       <Input
                         variant="filled"
-                        defaultValue={e.famili2 && e.famili2}
+                        defaultValue={e.famili2 ? e.famili2 : ""}
                         onChange={(event) =>
                           handleChangeInput(event, e.id, "packing")
                         }
@@ -102,7 +101,7 @@ export const AjustesProductos = ({ CarteraProducts }) => {
                     <Td>
                       <Input
                         variant="filled"
-                        defaultValue={e.description && e.description}
+                        defaultValue={e.description ? e.description : ""}
                         onChange={(event) =>
                           handleChangeInput(event, e.id, "packing")
                         }

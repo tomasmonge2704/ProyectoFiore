@@ -1,6 +1,5 @@
 import { OperationContext } from "@/components/context/operationContext";
-import Layout from "@/components/Layouts/main";
-import { ContenedorOperaciones } from "@/components/operacion/contenedor";
+import { ContenedorOperaciones } from "@/components/operacion";
 import {
   Step,
   StepDescription,
@@ -45,7 +44,7 @@ export default function NuevaOperacion() {
   });
   const [showStep, setShowStep] = useState("Comercial");
   return (
-    <Layout title="Operacion">
+    <>
       <Text fontSize="xl" fontWeight="bold">
         Status
         <Badge ml="1" fontSize="0.8em" colorScheme="green">
@@ -87,6 +86,6 @@ export default function NuevaOperacion() {
       <Box m={1} mt={12}>
         <ContenedorOperaciones show={showStep} operation={operation} fields={fields} setFields={setFields} productos={productos} setProductos={setProductos} />
       </Box>
-    </Layout>
+    </>
   );
 }

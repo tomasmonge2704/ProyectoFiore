@@ -1,5 +1,4 @@
 import {
-  Box,
   Grid,
   GridItem,
   Center,
@@ -11,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import SaleTable from "./saleTable";
 import InputPersonalizado from "@/utils/inputPersonalizado";
-import { PaymentTerms } from "../generalForm/paymentTerms";
+import { PaymentTerms } from "../generales/paymentTerms";
 
 export default function SaleForm({
   fields,

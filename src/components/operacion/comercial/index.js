@@ -6,10 +6,9 @@ import {
   TabPanels,
   Center,
 } from "@chakra-ui/react";
-import SaleForm from "@/components/sales/newSale";
-import PurchaseForm from "../compras/newPurchase";
-
-import GeneralForm from "../generalForm";
+import SaleForm from "@/components/operacion/comercial/confirmacionVenta";
+import PurchaseForm from "./ordenCompra";
+import GeneralForm from "./generales";
 export const Comercial = ({operation,fields,setFields,productos,setProductos}) => {
 
   return (

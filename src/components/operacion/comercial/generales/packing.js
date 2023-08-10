@@ -1,5 +1,5 @@
 import { Select } from "@chakra-ui/react";
-import { CarteraPackingContext } from "../context/carterasContext";
+import { CarteraPackingContext } from "@/components/context/carterasContext";
 import { useContext} from "react";
 export const SelectPacking = ({productos,setProductos,index,id}) => {
   const { CarteraPacking } = useContext(CarteraPackingContext);

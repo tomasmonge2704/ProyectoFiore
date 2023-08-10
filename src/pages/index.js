@@ -1,4 +1,3 @@
-import Layout from "@/components/Layouts/main";
 import {
   Grid,
   GridItem,
@@ -23,13 +22,12 @@ Td,
 Avatar
 } from "@chakra-ui/react";
 import { FiCalendar } from "react-icons/fi";
-import MyChart from "@/components/MyChart";
 import { useState } from "react";
 export default function Home() {
   const [display, changeDisplay] = useState('hide')
     const [value, changeValue] = useState(1)
   return (
-    <Layout title="Dashboard">
+    <>
       <Grid
         templateColumns="repeat(5, 1fr)"
         gap={4}
@@ -195,6 +193,6 @@ export default function Home() {
                         </Table>
                     </Flex>
                     </Flex>
-    </Layout>
+    </>
   );
 }

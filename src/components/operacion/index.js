@@ -1,5 +1,5 @@
 import { Comercial } from "./comercial";
-import { Contable } from "./contableFinanciera";
+import { Contable } from "./contable";
 import { Logistica } from "./logistica";
 import { Docs } from "./docs";
 export const ContenedorOperaciones = ({

@@ -1,5 +1,5 @@
 import { Select } from "@chakra-ui/react";
-import { CarteraPaymentTermsContext } from "../context/carterasContext";
+import { CarteraPaymentTermsContext } from "@/components/context/carterasContext";
 import { useContext,useState,useEffect } from "react";
 export const PaymentTerms = ({fields,setFields,type}) => {
   const { CarteraPaymentTerms } = useContext(CarteraPaymentTermsContext);

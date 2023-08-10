@@ -1,4 +1,3 @@
-import Layout from "@/components/Layouts/main";
 import React, { useState, useContext, useEffect } from "react";
 import {
   Card,
@@ -54,7 +53,7 @@ export default function CarteraClientes() {
   }
 
   return (
-    <Layout title="Cartea Clientes">
+    <>
       <Center>
         <InputGroup>
           <InputLeftElement pointerEvents="none">
@@ -143,6 +142,6 @@ export default function CarteraClientes() {
       ) : (
         <Text mt={10}>No se han encontrado Resultados.</Text>
       )}
-    </Layout>
+    </>
   );
 }

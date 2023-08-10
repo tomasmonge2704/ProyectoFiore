@@ -1,4 +1,4 @@
-import { CarteraClientesContext } from "../context/carterasContext";
+import { CarteraClientesContext } from "@/components/context/carterasContext";
 import { useContext, useState, useEffect } from "react";
 import { Select } from "@chakra-ui/react";
 import InputPersonalizado from "@/utils/inputPersonalizado";

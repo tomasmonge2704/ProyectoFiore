@@ -12,11 +12,8 @@ import TablaGeneral from "./tablaGeneral";
 import { useContext } from "react";
 import { Empresa } from "./empresa";
 import { Buyer } from "./buyer";
-import { Seller } from "../compras/seller";
-import {
-  CarteraProveedoresContext,
-  CarteraBancariaContext,
-} from "../context/carterasContext";
+import { Seller } from "../ordenCompra/seller";
+import { CarteraProveedoresContext,CarteraBancariaContext } from "@/components/context/carterasContext";
 import { OperationType } from "./operationType";
 import { DestinationPort } from "./destinationPort";
 import { ShelfLife } from "./shelfLife";
