@@ -14,27 +14,34 @@ import {
   Box,
   Badge,
   Text,
+  Center,
+  Spinner,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 export default function NuevaOperacion() {
-  const { operation, fields, setFields, productos, setProductos } = useContext(OperationContext);
+  const { operation, fields, setFields, productos, setProductos } =
+    useContext(OperationContext);
   const steps = [
     {
       title: "Comercial",
-      description: `${Math.floor(operation.comercial.completed)}% completado`,
+      description: `${
+        operation ? operation.comercial.completed : 0
+      }% completado`,
     },
     {
       title: "Docs",
-      description: `${operation.docs?.completed || 0}% completado`,
+      description: `${operation ? operation.docs.completed : 0}% completado`,
     },
     {
       title: "Logistica",
-      description: `${operation.logistica?.completed || 0}% completado`,
+      description: `${
+        operation ? operation.logistica.completed : 0
+      }% completado`,
     },
     {
       title: "Contable financiera",
       description: `${
-        operation.contableFinanciera?.completed || 0
+        operation ? operation.contableFinanciera.completed : 0
       }% completado`,
     },
   ];
@@ -45,10 +52,11 @@ export default function NuevaOperacion() {
   const [showStep, setShowStep] = useState("Comercial");
   return (
     <>
+    {operation ? (<>
       <Text fontSize="xl" fontWeight="bold">
         Status
         <Badge ml="1" fontSize="0.8em" colorScheme="green">
-          {operation.status}
+          {operation && operation.status}
         </Badge>
       </Text>
       <Box m={4}>
@@ -84,8 +92,24 @@ export default function NuevaOperacion() {
         </Stepper>
       </Box>
       <Box m={1} mt={12}>
-        <ContenedorOperaciones show={showStep} operation={operation} fields={fields} setFields={setFields} productos={productos} setProductos={setProductos} />
+        <ContenedorOperaciones
+          show={showStep}
+          operation={operation}
+          fields={fields}
+          setFields={setFields}
+          productos={productos}
+          setProductos={setProductos}
+        />
       </Box>
+    </>) : (<Center h="80vh">
+    <Spinner
+  thickness='4px'
+  speed='0.65s'
+  emptyColor='gray.200'
+  color='blue.500'
+  size='xl'
+/>
+    </Center>)}
     </>
   );
 }
