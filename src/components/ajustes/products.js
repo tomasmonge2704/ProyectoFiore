@@ -22,7 +22,7 @@ import { useEffect, useState } from "react";
 import { FiSave } from "react-icons/fi";
 export const AjustesProductos = ({ CarteraProducts }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(CarteraProducts.length * 2);
+  const [totalPages, setTotalPages] = useState(60);
   const [searchResults, setSearchResults] = useState(CarteraProducts);
   const [itemsToDisplay, setItemsToDisplay] = useState(CarteraProducts);
   const [searchText, setSearchText] = useState("");
@@ -43,13 +43,18 @@ export const AjustesProductos = ({ CarteraProducts }) => {
     setItemsToDisplay(updatedProductos);
   };
   useEffect(() => {
-    setSearchResults(
-      CarteraProducts.filter((product) =>
-        product.description.toLowerCase().includes(searchText.toLowerCase())
-      )
-    );
-    setItemsToDisplay(searchResults.slice(startIndex, endIndex));
-    setTotalPages(searchResults.length * 2 - 10);
+    if(searchText){
+      setSearchResults(
+        CarteraProducts.filter((product) =>
+          product.description.toLowerCase().includes(searchText.toLowerCase())
+        )
+      );
+      setItemsToDisplay(searchResults.slice(startIndex, endIndex));
+      setTotalPages(searchResults.length * 2 - 10);
+    }else{
+      setItemsToDisplay(CarteraProducts.slice(startIndex, endIndex))
+    }
+    
   }, [currentPage, searchText]);
   return (
     <Card w="100%" mt={5} variant="elevated">
@@ -66,7 +71,7 @@ export const AjustesProductos = ({ CarteraProducts }) => {
             borderRadius="full"
           />
         </InputGroup>
-        {itemsToDisplay.length >= 1 ? (
+        {itemsToDisplay.length > 0 ? (
           <TableContainer w="100%">
             <Table variant="striped" colorScheme="orange">
               <Thead>

@@ -43,7 +43,7 @@ export const Puertos = ({ CarteraPuertos }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {CarteraPuertos.length &&
+          {CarteraPuertos.length > 0 &&
             CarteraPuertos.map((e, index) => (
               <Tr key={index}>
                 <Td>

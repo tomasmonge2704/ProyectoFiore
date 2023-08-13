@@ -27,7 +27,7 @@ export const PaymentTerms = ({ CarteraPaymentTerms }) => {
   };
   return (
     <Flex justify="space-evenly" mt={10} mb={10}>
-      {CarteraPaymentTerms &&
+      {CarteraPaymentTerms.length > 0 &&
         CarteraPaymentTerms.map((e, index) => (
           <Card
             minW="40%"

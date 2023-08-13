@@ -42,7 +42,7 @@ export const AjustesPacking = ({ CarteraPacking }) => {
               </Tr>
             </Thead>
             <Tbody>
-              {CarteraPacking.length &&
+              {CarteraPacking.length > 0 &&
                 CarteraPacking.map((e, index) => (
                   <Tr key={index}>
                     <Td>

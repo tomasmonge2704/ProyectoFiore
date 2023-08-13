@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   Text,
@@ -14,10 +14,18 @@ import {
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import Pagination from "@choc-ui/paginator";
-import { CarteraProveedoresContext } from "@/components/context/carterasContext";
 export default function CarteraProveedores() {
+  useEffect(() => {
+    fetch(`${process.env.API_URL}/cartera-proveedores`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraProveedores(data);
+        setLoadData(true);
+      });
+  },[]);
+  const [loadData, setLoadData] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const { CarteraProveedores } = useContext(CarteraProveedoresContext);
+  const [CarteraProveedores, setCarteraProveedores] = useState([]);
   const [itemsToDisplay, setItemsToDisplay] = useState(CarteraProveedores);
   const [searchResults, setSearchResults] = useState(CarteraProveedores);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,22 +43,20 @@ export default function CarteraProveedores() {
         cliente.nombre.toLowerCase().includes(searchText.toLowerCase())
       )
     );
-    if(searchText && searchResults.length > 4){
+    if (searchText && searchResults.length > 4) {
       setItemsToDisplay(searchResults.slice(startIndex, endIndex));
       setTotalPages(searchResults.length * 3);
-    } 
-    if(searchText && searchResults.length <= 4){
+    }
+    if (searchText && searchResults.length <= 4) {
       setItemsToDisplay(searchResults);
       setTotalPages(1);
-    } 
-    if(searchText == ""){
+    }
+    if (searchText == "") {
       setItemsToDisplay(CarteraProveedores.slice(startIndex, endIndex));
       setTotalPages(CarteraProveedores.length * 3);
-    } 
-  }, [searchResults, currentPage]);
-  const handleInputChange = () => {
-    
-  }
+    }
+  }, [loadData,searchText, currentPage]);
+  const handleInputChange = () => {};
 
   return (
     <>
@@ -117,7 +123,7 @@ export default function CarteraProveedores() {
                         handleInputChange(value, index, "taxId")
                       }
                     />
-                     <Text as="b">Plant No.</Text>
+                    <Text as="b">Plant No.</Text>
                     <Input
                       variant="filled"
                       defaultValue={e.plantNumber}

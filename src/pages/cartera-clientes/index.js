@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   Text,
@@ -14,10 +14,18 @@ import {
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import Pagination from "@choc-ui/paginator";
-import { CarteraClientesContext } from "@/components/context/carterasContext";
 export default function CarteraClientes() {
+  useEffect(() => {
+    fetch(`${process.env.API_URL}/cartera-clientes`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraClientes(data);
+        setLoadData(true)
+      });
+  },[]);
+  const [loadData, setLoadData] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const { CarteraClientes } = useContext(CarteraClientesContext);
+  const [CarteraClientes, setCarteraClientes] = useState([]);
   const [itemsToDisplay, setItemsToDisplay] = useState(CarteraClientes);
   const [searchResults, setSearchResults] = useState(CarteraClientes);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,22 +43,20 @@ export default function CarteraClientes() {
         cliente.nombre.toLowerCase().includes(searchText.toLowerCase())
       )
     );
-    if(searchText && searchResults.length > 4){
+    if (searchText && searchResults.length > 4) {
       setItemsToDisplay(searchResults.slice(startIndex, endIndex));
       setTotalPages(searchResults.length * 3);
-    } 
-    if(searchText && searchResults.length <= 4){
+    }
+    if (searchText && searchResults.length <= 4) {
       setItemsToDisplay(searchResults);
       setTotalPages(1);
-    } 
-    if(searchText == ""){
+    }
+    if (searchText == "") {
       setItemsToDisplay(CarteraClientes.slice(startIndex, endIndex));
       setTotalPages(CarteraClientes.length * 3);
-    } 
-  }, [searchResults, currentPage]);
-  const handleInputChange = () => {
-    
-  }
+    }
+  }, [loadData,searchText, currentPage]);
+  const handleInputChange = () => {};
 
   return (
     <>

@@ -33,7 +33,7 @@ export const DatosBancarios = ({ CarteraBancaria }) => {
   };
   return (
     <Flex justify="space-evenly" mt={10} mb={10}>
-      {CarteraBancaria &&
+      {CarteraBancaria.length > 0 &&
         CarteraBancaria.map((e, index) => (
           <Card
             minW="47%"

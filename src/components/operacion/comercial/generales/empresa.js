@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Select } from "@chakra-ui/react";
 import InputPersonalizado from "@/utils/inputPersonalizado";
 export const Empresa = ({ fields,setFields, detailView,CarteraBancaria }) => {
-  
   const [indexCartera, setIndexCartera] = useState(undefined);
   const [nombre, setNombre] = useState(fields.empresa.nombre || "");
   const [direccion, setDireccion] = useState(fields.empresa.nombre || "");
