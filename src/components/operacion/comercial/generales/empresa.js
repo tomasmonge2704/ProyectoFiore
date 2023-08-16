@@ -65,19 +65,19 @@ export const Empresa = ({ fields,setFields, detailView,CarteraBancaria }) => {
           <InputPersonalizado
             type="text"
             label="Direccion"
-            value={direccion}
+            value={direccion ? direccion : ""}
             onChange={(e) => setDireccion(e.target.value)}
           />
           <InputPersonalizado
             type="text"
             label="Direccion2"
-            value={direccion2}
+            value={direccion2 ? direccion2 : ""}
             onChange={(e) => setDireccion2(e.target.value)}
           />
           <InputPersonalizado
             type="text"
             label="VAT NUMBER"
-            value={vatNumber}
+            value={vatNumber ? vatNumber : ""}
             onChange={(e) => setVatNumber(e.target.value)}
           />
         </>

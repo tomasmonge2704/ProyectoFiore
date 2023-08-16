@@ -31,7 +31,7 @@ export default function SaleForm({
                 <InputPersonalizado
                   label="BUYER REF. NUMBER"
                   type="text"
-                  value={fields.buyer.refNumber}
+                  value={fields.buyer ? fields.buyer.refNumber : ""}
                   onChange={(e) =>
                     setFields({
                       ...fields,
@@ -43,7 +43,7 @@ export default function SaleForm({
                 <InputPersonalizado
                   label="Name"
                   type="text"
-                  value={fields.buyer.nombre}
+                  value={fields.buyer ? fields.buyer.nombre : ""}
                   onChange={(e) =>
                     setFields({
                       ...fields,
@@ -54,7 +54,7 @@ export default function SaleForm({
                 <InputPersonalizado
                   label="Adress"
                   type="text"
-                  value={fields.buyer.direccion}
+                  value={fields.buyer ? fields.buyer.direccion : ""}
                   onChange={(e) =>
                     setFields({
                       ...fields,
@@ -65,7 +65,7 @@ export default function SaleForm({
                 <InputPersonalizado
                   label="City"
                   type="text"
-                  value={fields.buyer.direccion2}
+                  value={fields.buyer ? fields.buyer.direccion2 : ""}
                   onChange={(e) =>
                     setFields({
                       ...fields,
@@ -76,7 +76,7 @@ export default function SaleForm({
                 <InputPersonalizado
                   label="VAT Nr"
                   type="text"
-                  value={fields.buyer.vatNumber}
+                  value={fields.buyer ? fields.buyer.vatNumber : ""}
                   onChange={(e) =>
                     setFields({
                       ...fields,
@@ -93,7 +93,7 @@ export default function SaleForm({
                 <InputPersonalizado
                   label="Name"
                   type="text"
-                  value={fields.empresa.nombre}
+                  value={fields.empresa ? fields.empresa.nombre : ""}
                   onChange={(e) =>
                     setFields({
                       ...fields,
@@ -104,7 +104,7 @@ export default function SaleForm({
                 <InputPersonalizado
                   label="Adress"
                   type="text"
-                  value={fields.empresa.direccion}
+                  value={fields.empresa ? fields.empresa.direccion : ""}
                   onChange={(e) =>
                     setFields({
                       ...fields,
@@ -115,7 +115,7 @@ export default function SaleForm({
                 <InputPersonalizado
                   label="Adress 2"
                   type="text"
-                  value={fields.empresa.direccion2}
+                  value={fields.empresa ? fields.empresa.direccion2 : ""}
                   onChange={(e) =>
                     setFields({
                       ...fields,
@@ -129,7 +129,7 @@ export default function SaleForm({
                 <InputPersonalizado
                   label="VAT Nr"
                   type="text"
-                  value={fields.empresa.vatNumber}
+                  value={fields.empresa ? fields.empresa.vatNumber : ""}
                   onChange={(e) =>
                     setFields({
                       ...fields,
@@ -147,7 +147,7 @@ export default function SaleForm({
               <InputPersonalizado
             label="Beneficiary Bank"
             type="text"
-            value={fields.empresa.bank && fields.empresa.bank.beneficiaryBank}
+            value={fields.empresa.bank ? fields.empresa.bank.beneficiaryBank : ""}
             onChange={(e) =>
               setFields({
                 ...fields,
@@ -164,7 +164,7 @@ export default function SaleForm({
           <InputPersonalizado
             label="Bank Adress"
             type="text"
-            value={fields.empresa.bank && fields.empresa.bank.bankAdress}
+            value={fields.empresa.bank ? fields.empresa.bank.bankAdress : ""}
             onChange={(e) =>
               setFields({
                 ...fields,
@@ -178,7 +178,7 @@ export default function SaleForm({
           <InputPersonalizado
             label="Swift Code"
             type="text"
-            value={fields.empresa.bank && fields.empresa.bank.swiftCode}
+            value={fields.empresa.bank ? fields.empresa.bank.swiftCode : ""}
             onChange={(e) =>
               setFields({
                 ...fields,
@@ -192,7 +192,7 @@ export default function SaleForm({
           <InputPersonalizado
             label="Beneficiary Name"
             type="text"
-            value={fields.empresa.bank && fields.empresa.bank.beneficiaryName}
+            value={fields.empresa.bank ? fields.empresa.bank.beneficiaryName : ""}
             onChange={(e) =>
               setFields({
                 ...fields,
@@ -215,8 +215,8 @@ export default function SaleForm({
             label="Beneficiary Account Number"
             type="text"
             value={
-              fields.empresa.bank &&
-              fields.empresa.bank.beneficiaryAccountNumber
+              fields.empresa.bank ?
+              fields.empresa.bank.beneficiaryAccountNumber : ""
             }
             onChange={(e) =>
               setFields({
@@ -235,8 +235,8 @@ export default function SaleForm({
             label="Correspondent Bank"
             type="text"
             value={
-              fields.empresa.bank &&
-              fields.empresa.bank.correspondentBank
+              fields.empresa.bank ?
+              fields.empresa.bank.correspondentBank : ""
             }
             onChange={(e) =>
               setFields({
@@ -255,8 +255,8 @@ export default function SaleForm({
             label="ABA"
             type="text"
             value={
-              fields.empresa.bank &&
-              fields.empresa.bank.ABA
+              fields.empresa.bank ?
+              fields.empresa.bank.ABA : ""
             }
             onChange={(e) =>
               setFields({
@@ -275,8 +275,8 @@ export default function SaleForm({
             label="Swift"
             type="text"
             value={
-              fields.empresa.bank &&
-              fields.empresa.bank.swift
+              fields.empresa.bank ?
+              fields.empresa.bank.swift : ""
             }
             onChange={(e) =>
               setFields({
@@ -353,30 +353,7 @@ export default function SaleForm({
                     })
                   }
                 />
-                <InputPersonalizado
-                  label="DESTINATION PORT"
-                  type="text"
-                  value={fields.destinationPort ? fields.destinationPort : ""}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      destinationPort: e.target.value,
-                    })
-                  }
-                />
-                <InputPersonalizado
-                  label="DESTINATION COUNTRY"
-                  type="text"
-                  value={
-                    fields.destinationCountry ? fields.destinationCountry : ""
-                  }
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      destinationCountry: e.target.value,
-                    })
-                  }
-                />
+                
                 <InputPersonalizado
                   label="SHIPMENT PERIOD"
                   type="text"
@@ -411,19 +388,39 @@ export default function SaleForm({
                   type="sale"
                 />
                 <InputPersonalizado
+                  label="DESTINATION PORT"
+                  type="text"
+                  value={fields.destinationPort ? fields.destinationPort : ""}
+                  onChange={(e) =>
+                    setFields({
+                      ...fields,
+                      destinationPort: e.target.value,
+                    })
+                  }
+                />
+                <InputPersonalizado
+                  label="DESTINATION COUNTRY"
+                  type="text"
+                  value={
+                    fields.destinationCountry ? fields.destinationCountry : ""
+                  }
+                  onChange={(e) =>
+                    setFields({
+                      ...fields,
+                      destinationCountry: e.target.value,
+                    })
+                  }
+                />
+                <InputPersonalizado
                   label="COMISSION"
                   type="text"
                   value={fields.comision ? fields.comision : ""}
-                />
-                <InputPersonalizado
-                  label="SOLD BY"
-                  type="text"
-                  value={fields.exportTo ? fields.exportTo : ""}
-                />
-                <InputPersonalizado
-                  label="CONTACT NUMBER"
-                  type="text"
-                  value={fields.exportTo ? fields.exportTo : ""}
+                  onChange={(e) =>
+                    setFields({
+                      ...fields,
+                      comision: e.target.value,
+                    })
+                  }
                 />
               </VStack>
             </GridItem>

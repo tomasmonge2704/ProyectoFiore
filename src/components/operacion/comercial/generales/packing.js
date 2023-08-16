@@ -14,10 +14,10 @@ export const SelectPacking = ({productos,setProductos,index,id}) => {
   };
   return (
         <Select onChange={(e) => handleSelectChange(e)} value={productos[index].packing ? productos[index].packing : ""} variant="filled">
-        <option value="" disabled>Product Description</option>
+        <option value="" disabled>Packing</option>
           {CarteraPacking.map((e, index) => (
-            <option value={e} key={index}>
-              {e}
+            <option value={e.name} key={index}>
+              {e.name}
             </option>
           ))}
         </Select>

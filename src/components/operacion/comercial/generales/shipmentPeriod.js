@@ -23,7 +23,7 @@ export const ShipmentPeriod = ({ value, setFields,fields }) => {
           <InputPersonalizado
             type="date"
             label="SHIPMENT PERIOD FROM"
-            value={shipmentPeriodFrom}
+            value={shipmentPeriodFrom ? shipmentPeriodFrom : ""}
             onChange={(e) => setShipmentPeriodFrom(e.target.value)}
           />
           </GridItem>
@@ -31,7 +31,7 @@ export const ShipmentPeriod = ({ value, setFields,fields }) => {
           <InputPersonalizado
             type="date"
             label="SHIPMENT PERIOD TO"
-            value={shipmentPeriodTo}
+            value={shipmentPeriodTo ? shipmentPeriodTo : ""}
             onChange={(e) => setShipmentPeriodTo(e.target.value)}
           />
           </GridItem>

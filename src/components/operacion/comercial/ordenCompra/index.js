@@ -34,7 +34,7 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                 <InputPersonalizado
                   type="text"
                   label="SUPPLIER REF. NUMBER"
-                  value={fields.seller.refNumber}
+                  value={fields.seller ? fields.seller.refNumber : ""}
                   onChange={(e) =>
                     setFields({
                       ...fields,
@@ -56,7 +56,7 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                 <InputPersonalizado
                   type="date"
                   label="Date"
-                  value={fields.date}
+                  value={fields.date ? fields.date : ""}
                   onChange={(e) =>
                     setFields({ ...fields, date: e.target.value })
                   }
@@ -80,7 +80,7 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                 <InputPersonalizado
                   type="text"
                   label="ORIGIN"
-                  value={fields.seller.origin}
+                  value={fields.seller ? fields.seller.origin : ""}
                   onChange={(e) =>
                     setFields({ ...fields.seller, origin: e.target.value })
                   }
@@ -88,7 +88,7 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                 <InputPersonalizado
                   type="text"
                   label="PLANT NUMBER"
-                  value={fields.seller.plantNumber}
+                  value={fields.seller ? fields.seller.plantNumber : ""}
                   onChange={(e) =>
                     setFields({ ...fields.seller, plantNumber: e.target.value })
                   }
@@ -96,7 +96,7 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                 <InputPersonalizado
                   type="text"
                   label="BRAND"
-                  value={fields.seller.brand}
+                  value={fields.seller ? fields.seller.brand : ""}
                   onChange={(e) =>
                     setFields({ ...fields.seller, brand: e.target.value })
                   }
@@ -104,7 +104,7 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                 <InputPersonalizado
                   type="text"
                   label="PRODUCTION DATE"
-                  value={fields.productionDate}
+                  value={fields.productionDate ? fields.productionDate : ""}
                   onChange={(e) =>
                     setFields({ ...fields, productionDate: e.target.value })
                   }
@@ -112,7 +112,7 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                 <InputPersonalizado
                   type="text"
                   label="SHELF LIFE"
-                  value={fields.shelfLife}
+                  value={fields.shelfLife ? fields.shelfLife : ""}
                   onChange={(e) =>
                     setFields({ ...fields, shelfLife: e.target.value })
                   }
@@ -120,7 +120,7 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                 <InputPersonalizado
                   type="text"
                   label="DESTINATION PORT"
-                  value={fields.destinationPort}
+                  value={fields.destinationPort ? fields.destinationPort : ""}
                   onChange={(e) =>setFields({...fields,destinationPort:e.target.value,})}
                 />
               </VStack>
@@ -130,13 +130,13 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                 <InputPersonalizado
                   type="text"
                   label="DESTINATION COUNTRY"
-                  value={fields.destinationCountry}
+                  value={fields.destinationCountry ? fields.destinationCountry : ""}
                   onChange={(e) =>setFields({...fields,destinationCountry:e.target.value})}
                 />
                 <InputPersonalizado
                   type="text"
                   label="SHIPMENT PERIOD"
-                  value={fields.shipmentPeriod}
+                  value={fields.shipmentPeriod ? fields.shipmentPeriod : ""}
                   onChange={(e) =>
                     setFields({ ...fields, shipmentPeriod: e.target.value })
                   }
@@ -144,7 +144,7 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
                 <InputPersonalizado
                   type="text"
                   label="DELIVERY TERMS"
-                  value={fields.deliveryTermsPurchase}
+                  value={fields.deliveryTermsPurchase ? fields.deliveryTermsPurchase : ""}
                   onChange={(e) =>
                     setFields({ ...fields, deliveryTermsPurchase: e.target.value })
                   }
@@ -156,7 +156,7 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
           <InputPersonalizado
             type="text"
             label="INSPECTED, APPROVED & ELEGIBLE FOR EXPORT TO"
-            value={fields.exportTo}
+            value={fields.exportTo ? fields.exportTo : ""}
             onChange={(e) =>
               setFields({ ...fields, exportTo: e.target.value })
             }

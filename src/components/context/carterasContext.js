@@ -17,21 +17,41 @@ export function CarterasProvider({ children }) {
   const [CarteraPacking, setCarteraPacking] = useState([]);
   const [CarteraProducts, setCarteraProducts] = useState([]);
 useEffect(() => {
-  fetch(`${process.env.API_URL}/cartera-bancaria`)
-  .then((response) => response.json())
-    .then((data) => {
-      setCarteraBancaria(data);
-    });
     fetch(`${process.env.API_URL}/cartera-clientes`)
   .then((response) => response.json())
     .then((data) => {
       setCarteraClientes(data);
     });
-    fetch(`${process.env.API_URL}/cartera-proveedores`)
-  .then((response) => response.json())
-    .then((data) => {
-      setProveedores(data);
-    });
+    fetch(`${process.env.API_URL}/cartera-bancaria`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraBancaria(data);
+      });
+    fetch(`${process.env.API_URL}/catalogo-puertos`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraPuertos(data);
+      });
+    fetch(`${process.env.API_URL}/catalogo-payment-terms`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraPaymentTerms(data);
+      });
+    fetch(`${process.env.API_URL}/catalogo-packing`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraPacking(data);
+      });
+    fetch(`${process.env.API_URL}/catalogo-products`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraProducts(data);
+      });
+      fetch(`${process.env.API_URL}/cartera-proveedores`)
+      .then((response) => response.json())
+      .then((data) => {
+        setProveedores(data);
+      });
 },[])
   return (
     <CarteraBancariaContext.Provider

@@ -67,20 +67,20 @@ export const Buyer = ({ fields,setFields, detailView }) => {
         <>
           <InputPersonalizado
             type="text"
-            label="Direccion"
-            value={direccion}
+            label="ADDRESS"
+            value={direccion ? direccion : ""}
             onChange={(e) => setDireccion(e.target.value)}
           />
           <InputPersonalizado
             type="text"
-            label="Direccion2"
-            value={direccion2}
+            label="ADDRESS 2"
+            value={direccion2 ? direccion2 : ""}
             onChange={(e) => setDireccion2(e.target.value)}
           />
           <InputPersonalizado
             type="text"
             label="VAT NUMBER"
-            value={vatNumber}
+            value={vatNumber ? vatNumber : ""}
             onChange={(e) => setVatNumber(e.target.value)}
           />
         </>

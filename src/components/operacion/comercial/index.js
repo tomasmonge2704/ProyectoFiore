@@ -10,7 +10,6 @@ import SaleForm from "@/components/operacion/comercial/confirmacionVenta";
 import PurchaseForm from "./ordenCompra";
 import GeneralForm from "./generales";
 export const Comercial = ({operation,fields,setFields,productos,setProductos}) => {
-
   return (
     <Tabs variant="soft-rounded" colorScheme="orange">
       <Center width="100%">

@@ -1,84 +1,64 @@
-import {
-  Table,
-  TableContainer,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  IconButton,
-  Input,
-  Card,
-  CardBody
-} from "@chakra-ui/react";
-import { DeleteIcon, PlusSquareIcon } from "@chakra-ui/icons";
+import { TableAjustes } from "./table";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { FiSave } from "react-icons/fi";
+import { Tr, Td, IconButton, Input, Tbody } from "@chakra-ui/react";
 export const Puertos = ({ CarteraPuertos }) => {
-  const handleNewRow = (id) => {
-    const updatedProductos = [...productos, { id: id, amount: 0 }];
-    setProductos(updatedProductos);
-  };
-  const handleDeleteRow = (id) => {
-    const updatedProductos = productos.filter((e) => e.id !== id);
-    setProductos(updatedProductos);
-  };
-  const handleChangeInput = (event, id, parameter) => {
-    const updatedProductos = productos.map((producto) => {
-      if (producto.id === id) {
-        return { ...producto, [parameter]: event.target.value };
-      }
-      return producto;
-    });
-    setProductos(updatedProductos);
-  };
-
-  return (
-    <Card w="100%" mt={10} variant="elevated"><CardBody>
-    <TableContainer w="100%">
-      <Table variant="striped" colorScheme="orange">
-        <Thead>
-          <Tr>
-            <Th>PORT</Th>
-            <Th>COUNTRY</Th>
-            <Th>ACTIONS</Th>
+  const params = ["PORT", "COUNTRY", "ACTIONS"];
+  const Estructura = (itemsToDisplay, setItemsToDisplay) => {
+    const handleChangeInput = (event, id, parameter) => {
+      const updatedProductos = itemsToDisplay.map((producto) => {
+        if (producto.id === id) {
+          return { ...producto, modified: true };
+        }
+        return producto;
+      });
+      setItemsToDisplay(updatedProductos);
+    };
+    return (
+      <Tbody>
+        {itemsToDisplay.map((e) => (
+          <Tr key={e.port}>
+            <Td>
+              <Input
+                variant="filled"
+                value={e.port ? e.port : ""}
+                onChange={(event) => handleChangeInput(event, e.id, "quantity")}
+              />
+            </Td>
+            <Td>
+              <Input
+                variant="filled"
+                defaultValue={e.country && e.country}
+                onChange={(event) => handleChangeInput(event, e.id, "packing")}
+              />
+            </Td>
+            <Td>
+              {e.modified ? (
+                <IconButton
+                  colorScheme="blue"
+                  variant="solid"
+                  icon={<FiSave />}
+                  aria-label="save"
+                />
+              ) : (
+                <IconButton
+                  colorScheme="red"
+                  variant="solid"
+                  icon={<DeleteIcon />}
+                  aria-label="Delete"
+                />
+              )}
+            </Td>
           </Tr>
-        </Thead>
-        <Tbody>
-          {CarteraPuertos.length > 0 &&
-            CarteraPuertos.map((e, index) => (
-              <Tr key={index}>
-                <Td>
-                  <Input
-                    variant="filled"
-                    value={e.port ? e.port : ""}
-                    onChange={(event) =>
-                      handleChangeInput(event, e.id, "quantity")
-                    }
-                  />
-                </Td>
-                <Td>
-                  <Input
-                    variant="filled"
-                    defaultValue={e.country && e.country}
-                    onChange={(event) =>
-                      handleChangeInput(event, e.id, "packing")
-                    }
-                  />
-                </Td>
-                <Td>
-                  <IconButton
-                    icon={index < 1 ? <PlusSquareIcon /> : <DeleteIcon />}
-                    onClick={
-                      index > 0
-                        ? () => handleDeleteRow(e.id)
-                        : () => handleNewRow(Math.random())
-                    }
-                  />
-                </Td>
-              </Tr>
-            ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
-    </CardBody></Card>
+        ))}
+      </Tbody>
+    );
+  };
+  return (
+    <TableAjustes
+      data={CarteraPuertos}
+      params={params}
+      Estructura={Estructura}
+    />
   );
 };

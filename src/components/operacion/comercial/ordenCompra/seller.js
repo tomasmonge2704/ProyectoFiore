@@ -7,7 +7,7 @@ export const Seller = ({ fields,setFields, CarteraProveedores, detailView }) => 
   const [nombre, setNombre] = useState(fields.seller.nombre || "");
   const [direccion, setDireccion] = useState(fields.seller.direccion || "");
   const [direccion2, setDireccion2] = useState(fields.seller.direccion2 || "");
-  const [pais, setPais] = useState(fields.seller.pais || "");
+  const [pais, setPais] = useState(fields.seller.country || "");
   const [cuit, setCuit] = useState(fields.seller.cuit || "");
 
   const handleIndexChange = (e) => {
@@ -32,7 +32,7 @@ export const Seller = ({ fields,setFields, CarteraProveedores, detailView }) => 
     setNombre(initialSeller.nombre);
     setDireccion(initialSeller.direccion);
     setDireccion2(initialSeller.direccion2);
-    setPais(initialSeller.pais);
+    setPais(initialSeller.country);
     setCuit(initialSeller.cuit);
     setFields((prevPurchase) => ({
       ...prevPurchase,
@@ -72,32 +72,32 @@ export const Seller = ({ fields,setFields, CarteraProveedores, detailView }) => 
         <>
           <InputPersonalizado
             type="text"
-            label="Nombre"
-            value={nombre}
+            label="Company Name"
+            value={nombre ? nombre : ""}
             onChange={(e) => setNombre(e.target.value)}
           />
           <InputPersonalizado
             type="text"
-            label="Direccion"
-            value={direccion}
+            label="ADDRESS"
+            value={direccion ? direccion : ""}
             onChange={(e) => setDireccion(e.target.value)}
           />
           <InputPersonalizado
             type="text"
-            label="Direccion 2"
-            value={direccion2}
+            label="ADDRESS 2"
+            value={direccion2 ? direccion2 : ""}
             onChange={(e) => setDireccion2(e.target.value)}
           />
           <InputPersonalizado
             type="text"
-            label="Pais"
-            value={pais}
+            label="COUNTRY"
+            value={pais ? pais : ""}
             onChange={(e) => setPais(e.target.value)}
           />
           <InputPersonalizado
             type="text"
-            label="Cuit"
-            value={cuit}
+            label="Tax ID"
+            value={cuit ? cuit : ""}
             onChange={(e) => setCuit(e.target.value)}
           />
         </>
