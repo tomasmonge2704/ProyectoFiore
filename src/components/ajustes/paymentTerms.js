@@ -1,4 +1,4 @@
-import { TableAjustes } from "./table";
+import { TablePagination } from "@/utils/tablePagination";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { FiSave } from "react-icons/fi";
 import { Tr, Td, IconButton, Input,Tbody } from "@chakra-ui/react";
@@ -50,7 +50,7 @@ export const PaymentTerms = ({ CarteraPaymentTerms }) => {
     );
   };
   return (
-    <TableAjustes
+    <TablePagination
       data={CarteraPaymentTerms}
       params={params}
       Estructura={Estructura}

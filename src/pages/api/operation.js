@@ -50,12 +50,12 @@ const opertaion = {
           {
             id: "",
             description: "",
-            packing: null,
-            quantity: null,
-            unitPricePurchase: null,
-            unitPriceSale: null,
-            amountSale: null,
-            amountPurchase:null
+            packing: "",
+            quantity: "",
+            unitPricePurchase: "",
+            unitPriceSale: "",
+            amountSale: "",
+            amountPurchase:""
           },
         ],
         totalPurchase:0,

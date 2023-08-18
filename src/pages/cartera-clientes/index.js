@@ -1,153 +1,110 @@
-import React, { useState, useEffect } from "react";
-import {
-  Card,
-  Text,
-  Stack,
-  CardHeader,
-  Heading,
-  CardBody,
-  Center,
-  Flex,
-  Input,
-  InputGroup,
-  InputLeftElement,
-} from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
-import Pagination from "@choc-ui/paginator";
-export default function CarteraClientes() {
+import { TablePagination } from "@/utils/tablePagination";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { FiSave } from "react-icons/fi";
+import { Tr, Td, IconButton, Input, Tbody,Center,Spinner } from "@chakra-ui/react";
+import { useEffect,useState } from "react";
+export default function Proveedores () {
+  const params = ["Company Name", "Address Line 1", "Address Line 2", "Country","Tax ID","ACTIONS"];
+  const [CarteraClientes, setCarteraClientes] = useState(undefined);
+  const [loadData, setLoadData] = useState(false);
   useEffect(() => {
     fetch(`${process.env.API_URL}/cartera-clientes`)
       .then((response) => response.json())
       .then((data) => {
         setCarteraClientes(data);
-        setLoadData(true)
+        setLoadData(true);
       });
-  },[]);
-  const [loadData, setLoadData] = useState(false);
-  const [searchText, setSearchText] = useState("");
-  const [CarteraClientes, setCarteraClientes] = useState([]);
-  const [itemsToDisplay, setItemsToDisplay] = useState(CarteraClientes);
-  const [searchResults, setSearchResults] = useState(CarteraClientes);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(CarteraClientes.length * 3);
-  const itemsPerPage = 4;
-  const handleSearchChange = (event) => {
-    setSearchText(event.target.value);
-    setCurrentPage(1); // Reset current page when search results change
-  };
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  useEffect(() => {
-    setSearchResults(
-      CarteraClientes.filter((cliente) =>
-        cliente.nombre.toLowerCase().includes(searchText.toLowerCase())
-      )
+  }, []);
+  const Estructura = (itemsToDisplay, setItemsToDisplay) => {
+    const handleChangeInput = (event, id, parameter) => {
+      const updatedProductos = itemsToDisplay.map((producto) => {
+        if (producto.id === id) {
+          return { ...producto, modified: true };
+        }
+        return producto;
+      });
+      setItemsToDisplay(updatedProductos);
+    };
+    return (
+      <Tbody>
+        {itemsToDisplay.map((e) => (
+          <Tr key={e.id}>
+            <Td>
+              <Input
+                variant="filled"
+                defaultValue={e.nombre ? e.nombre : ""}
+                onChange={(event) => handleChangeInput(event, e.id, "nombre")}
+              />
+            </Td>
+            <Td>
+              <Input
+                variant="filled"
+                defaultValue={e.direccion ? e.direccion : ""}
+                onChange={(event) => handleChangeInput(event, e.id, "direccion")}
+              />
+            </Td>
+            <Td>
+              <Input
+                variant="filled"
+                defaultValue={e.direccion2 ? e.direccion2 : ""}
+                onChange={(event) => handleChangeInput(event, e.id, "direccion2")}
+              />
+            </Td>
+            <Td>
+              <Input
+                variant="filled"
+                defaultValue={e.country ? e.country : ""}
+                onChange={(event) => handleChangeInput(event, e.id, "country")}
+              />
+            </Td>
+            <Td>
+              <Input
+                variant="filled"
+                defaultValue={e.vatNumber ? e.vatNumber : ""}
+                onChange={(event) => handleChangeInput(event, e.id, "vatNumber")}
+              />
+            </Td>
+            <Td>
+              {e.modified ? (
+                <IconButton
+                  colorScheme="blue"
+                  variant="solid"
+                  icon={<FiSave />}
+                  aria-label="save"
+                />
+              ) : (
+                <IconButton
+                  colorScheme="red"
+                  variant="solid"
+                  icon={<DeleteIcon />}
+                  aria-label="Delete"
+                />
+              )}
+            </Td>
+          </Tr>
+        ))}
+      </Tbody>
     );
-    if (searchText && searchResults.length > 4) {
-      setItemsToDisplay(searchResults.slice(startIndex, endIndex));
-      setTotalPages(searchResults.length * 3);
-    }
-    if (searchText && searchResults.length <= 4) {
-      setItemsToDisplay(searchResults);
-      setTotalPages(1);
-    }
-    if (searchText == "") {
-      setItemsToDisplay(CarteraClientes.slice(startIndex, endIndex));
-      setTotalPages(CarteraClientes.length * 3);
-    }
-  }, [loadData,searchText, currentPage]);
-  const handleInputChange = () => {};
-
+  };
   return (
     <>
-      <Center>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none">
-            <SearchIcon color="gray.300" />
-          </InputLeftElement>
-          <Input
-            type="text"
-            placeholder="Buscar..."
-            value={searchText}
-            onChange={handleSearchChange}
-            borderRadius="full"
-          />
-        </InputGroup>
-      </Center>
-      {searchResults.length >= 1 ? (
-        <>
-          <Flex justify="space-evenly" mt={10} mb={10}>
-            {itemsToDisplay.map((e, index) => (
-              <Card
-                maxW="300px"
-                key={index}
-                variant="elevated"
-                backgroundColor="orange.300"
-              >
-                <CardHeader>
-                  <Center>
-                    <Heading size="md">{e.nombre}</Heading>
-                  </Center>
-                </CardHeader>
-                <CardBody>
-                  <Stack spacing="2">
-                    <Text as="b">Address Line</Text>
-                    <Input
-                      variant="filled"
-                      defaultValue={e.direccion}
-                      onChange={(value) =>
-                        handleInputChange(value, index, "direccion")
-                      }
-                    />
-                    <Text as="b">Address Line 2</Text>
-                    <Input
-                      variant="filled"
-                      defaultValue={e.direccion2}
-                      onChange={(value) =>
-                        handleInputChange(value, index, "direccion2")
-                      }
-                    />
-                    <Text as="b">Country</Text>
-                    <Input
-                      variant="filled"
-                      defaultValue={e.country}
-                      onChange={(value) =>
-                        handleInputChange(value, index, "country")
-                      }
-                    />
-                    <Text as="b">Tax Id</Text>
-                    <Input
-                      variant="filled"
-                      defaultValue={e.vatNumber}
-                      onChange={(value) =>
-                        handleInputChange(value, index, "vatNumber")
-                      }
-                    />
-                  </Stack>
-                </CardBody>
-              </Card>
-            ))}
-          </Flex>
-          <Flex w="full" p={50} alignItems="center" justifyContent="center">
-            <Pagination
-              defaultCurrent={currentPage}
-              onChange={(page) => setCurrentPage(page)}
-              total={totalPages}
-              paginationProps={{
-                display: "flex",
-              }}
-              activeStyles={{
-                bg: "orange.400",
-              }}
-              hoverStyles={{
-                bg: "cyan.300",
-              }}
-            />
-          </Flex>
-        </>
+      {loadData ? (
+        <TablePagination
+          data={CarteraClientes}
+          params={params}
+          Estructura={Estructura}
+        />
       ) : (
-        <Text mt={10}>No se han encontrado Resultados.</Text>
+        <Center h="80vh">
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
+        </Center>
       )}
     </>
   );
-}
+};

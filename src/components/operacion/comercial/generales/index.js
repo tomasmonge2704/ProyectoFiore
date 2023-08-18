@@ -41,7 +41,7 @@ export default function GeneralForm({
                 <InputPersonalizado
                   type="text"
                   label="REF. NUMBER"
-                  value={fields.empresaRefNumber ? fields.empresaRefNumber : ""}
+                  value={fields.empresaRefNumber}
                   onChange={(e) =>
                     setFields({
                       ...fields,
@@ -66,7 +66,7 @@ export default function GeneralForm({
                 <InputPersonalizado
                   type="date"
                   label="Date"
-                  value={fields.date ? fields.date : ""}
+                  value={fields.date}
                   onChange={(e) =>
                     setFields({ ...fields, date: e.target.value })
                   }
@@ -80,7 +80,7 @@ export default function GeneralForm({
                 <InputPersonalizado
                   type="text"
                   label="REF. NUMBER"
-                  value={fields.seller ? fields.seller.refNumber : ""}
+                  value={fields.seller.refNumber}
                   onChange={(e) =>
                     setFields({
                       ...fields,
@@ -97,7 +97,7 @@ export default function GeneralForm({
                 <InputPersonalizado
                   type="text"
                   label="REF. NUMBER"
-                  value={fields.buyer.refNumber ? fields.buyer : ""}
+                  value={fields.buyer ? fields.buyer.refNumber : ""}
                   onChange={(e) =>
                     setFields({
                       ...fields,
@@ -118,7 +118,7 @@ export default function GeneralForm({
           <InputPersonalizado
             type="text"
             label="PRODUCTION DATE"
-            value={fields.productionDate ? fields.productionDate :""}
+            value={fields.productionDate}
             onChange={(e) =>
               setFields({ ...fields, productionDate: e.target.value })
             }
@@ -135,7 +135,7 @@ export default function GeneralForm({
                 <InputPersonalizado
                   type="text"
                   label="DESTINATION COUNTRY"
-                  value={fields.destinationCountry ? fields.destinationCountry : ""}
+                  value={fields.destinationCountry}
                   onChange={(e) =>
                     setFields({ ...fields, destinationCountry: e.target.value })
                   }

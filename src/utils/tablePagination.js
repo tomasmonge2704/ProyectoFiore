@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import Pagination from "@choc-ui/paginator";
 
-export const TableAjustes = ({data,params,Estructura}) => {
+export const TablePagination = ({data,params,Estructura}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(10);
     const [searchResults, setSearchResults] = useState([]);
@@ -25,6 +25,7 @@ export const TableAjustes = ({data,params,Estructura}) => {
     const itemsPerPage = 6;
     const handleSearchChange = (event) => {
       setSearchText(event.target.value);
+      setCurrentPage(1);
     };
     let startIndex = (currentPage - 1) * itemsPerPage;
     let endIndex = startIndex + itemsPerPage;
@@ -78,7 +79,7 @@ export const TableAjustes = ({data,params,Estructura}) => {
         ) : (
           <Text mt={10}>No se han encontrado Resultados.</Text>
         )}
-        <Flex w="full" p={50} alignItems="center" justifyContent="center">
+        {data.length > 6 && <Flex w="full" p={50} alignItems="center" justifyContent="center">
           <Pagination
             current={currentPage}
             onChange={(page) => setCurrentPage(page)}
@@ -93,7 +94,7 @@ export const TableAjustes = ({data,params,Estructura}) => {
               bg: "cyan.300",
             }}
           />
-        </Flex>
+        </Flex>}
       </CardBody>
     </Card>
   );

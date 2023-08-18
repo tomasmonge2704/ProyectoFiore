@@ -5,20 +5,14 @@ import { Docs } from "./docs";
 export const ContenedorOperaciones = ({
   show,
   operation,
-  fields,
-  setFields,
-  productos,
-  setProductos,
+  setOperation
 }) => {
   return (
     <>
       {show == "Comercial" && (
         <Comercial
           operation={operation}
-          fields={fields}
-          setFields={setFields}
-          productos={productos}
-          setProductos={setProductos}
+          setOperation={setOperation}
         />
       )}
       {show == "Contable financiera" && <Contable />}

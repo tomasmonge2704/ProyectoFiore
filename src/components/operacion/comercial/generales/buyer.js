@@ -6,9 +6,9 @@ export const Buyer = ({ fields,setFields, detailView }) => {
   const { CarteraClientes } = useContext(CarteraClientesContext);
   const [indexCartera, setIndexCartera] = useState(undefined);
   const [nombre, setNombre] = useState(fields.buyer.nombre || "");
-  const [direccion, setDireccion] = useState(fields.buyer.nombre || "");
-  const [direccion2, setDireccion2] = useState(fields.buyer.nombre || "");
-  const [vatNumber, setVatNumber] = useState(fields.buyer.nombre || "");
+  const [direccion, setDireccion] = useState(fields.buyer.direccion || "");
+  const [direccion2, setDireccion2] = useState(fields.buyer.direccion2 || "");
+  const [vatNumber, setVatNumber] = useState(fields.buyer.vatNumber || "");
   const handleIndexChange = (e) => {
     const newIndex = parseInt(e.target.value);
     setIndexCartera(newIndex);
@@ -68,19 +68,19 @@ export const Buyer = ({ fields,setFields, detailView }) => {
           <InputPersonalizado
             type="text"
             label="Direccion"
-            value={direccion ? direccion : ""}
+            value={direccion}
             onChange={(e) => setDireccion(e.target.value)}
           />
           <InputPersonalizado
             type="text"
             label="Direccion2"
-            value={direccion2 ? direccion2 : ""}
+            value={direccion2}
             onChange={(e) => setDireccion2(e.target.value)}
           />
           <InputPersonalizado
             type="text"
             label="VAT NUMBER"
-            value={vatNumber ? vatNumber : ""}
+            value={vatNumber}
             onChange={(e) => setVatNumber(e.target.value)}
           />
         </>

@@ -1,4 +1,3 @@
-import { OperationContext } from "@/components/context/operationContext";
 import { ContenedorOperaciones } from "@/components/operacion";
 import {
   Step,
@@ -15,12 +14,20 @@ import {
   Badge,
   Text,
   Center,
-  Spinner,
+  Spinner
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useState,useEffect } from "react";
 export default function NuevaOperacion() {
-  const { operation, fields, setFields, productos, setProductos } =
-    useContext(OperationContext);
+  const [ operation, setOperation ] = useState(undefined);
+  const [loadData, setLoadData] = useState(false);
+  useEffect(() => {
+      fetch(`${process.env.API_URL}/operation`)
+      .then((response) => response.json())
+      .then((data) => {
+        setOperation(data);
+        setLoadData(true)
+      });
+  },[]);
   const steps = [
     {
       title: "Comercial",
@@ -52,7 +59,7 @@ export default function NuevaOperacion() {
   const [showStep, setShowStep] = useState("Comercial");
   return (
     <>
-    {operation ? (<>
+    {operation && loadData ? (<>
       <Text fontSize="xl" fontWeight="bold">
         Status
         <Badge ml="1" fontSize="0.8em" colorScheme="green">
@@ -92,13 +99,10 @@ export default function NuevaOperacion() {
         </Stepper>
       </Box>
       <Box m={1} mt={12}>
-        <ContenedorOperaciones
+       <ContenedorOperaciones
           show={showStep}
           operation={operation}
-          fields={fields}
-          setFields={setFields}
-          productos={productos}
-          setProductos={setProductos}
+          setOperation={setOperation}
         />
       </Box>
     </>) : (<Center h="80vh">
