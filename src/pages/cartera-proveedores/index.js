@@ -1,7 +1,7 @@
 import { TablePagination } from "@/utils/tablePagination";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { FiSave } from "react-icons/fi";
-import { Tr, Td, IconButton, Input, Tbody,Center,Spinner } from "@chakra-ui/react";
+import { Tr, Td, IconButton, Input, Tbody,Center,Spinner, VStack,Text } from "@chakra-ui/react";
 import { useEffect,useState } from "react";
 export default function Proveedores () {
   const params = ["Company Name", "Address Line 1", "Address Line 2", "Country","Tax ID","ACTIONS"];
@@ -87,7 +87,8 @@ export default function Proveedores () {
     );
   };
   return (
-    <>
+    <VStack alignItems="flex-start">
+      <Text as='b' fontSize='5xl'>SHIPPERS</Text>
       {loadData ? (
         <TablePagination
           data={CarteraProveedores}
@@ -105,6 +106,6 @@ export default function Proveedores () {
           />
         </Center>
       )}
-    </>
+    </VStack>
   );
 };

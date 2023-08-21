@@ -57,7 +57,7 @@ export default function Home() {
             </CardBody>
           </Card>
         </GridItem>
-        <GridItem colSpan={2} bg="papayawhip">
+        <GridItem colSpan={2}>
         <Card>
             <CardBody>
               <StatGroup>

@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import {
   FiHome,
-  FiTrendingUp,
   FiArrowUp,
   FiBox,
   FiUser,
@@ -18,13 +17,13 @@ import {
 } from "react-icons/fi";
 import { NavItem } from "./navItem";
 import { MobileNav } from "./mobileNav";
+import { useRouter } from "next/router";
 const LinkItems = [
   { name: "Home", icon: FiHome, href: "/" },
-  { name: "Trending", icon: FiTrendingUp, href: "/" },
-  { name: "Cartera Clientes", icon: FiUser, href: "/cartera-clientes" },
-  { name: "Cartera Proveedores", icon: FiBox, href: "/cartera-proveedores" },
-  { name: "Nueva Operacion", icon: FiArrowUp, href: "/operation" },
-  { name: "Ajustes", icon: FiSettings, href: "/ajustes" }
+  { name: "Buyers", icon: FiUser, href: "/cartera-clientes" },
+  { name: "Clients", icon: FiBox, href: "/cartera-proveedores" },
+  { name: "New operation", icon: FiArrowUp, href: "/operation" },
+  { name: "Configuration", icon: FiSettings, href: "/ajustes" }
 ];
 
 export default function SidebarWithHeader({ children }) {
@@ -57,6 +56,7 @@ export default function SidebarWithHeader({ children }) {
   );
 }
 const SidebarContent = ({ onClose, ...rest }) => {
+  const router = useRouter();
   return (
     <Box
       transition="3s ease"
@@ -74,14 +74,14 @@ const SidebarContent = ({ onClose, ...rest }) => {
         marginRight="5%"
       >
         <Flex h="20" alignItems="center" mx="8" mb={4} justifyContent="space-between">
-          <Image src="./logo.jpg" />
+          <Image src="./logo.png" />
           <CloseButton
             display={{ base: "flex", md: "none" }}
             onClick={onClose}
           />
         </Flex>
         {LinkItems.map((link) => (
-          <NavItem key={link.name} href={link.href} icon={link.icon}>
+          <NavItem key={link.name} href={link.href} active={link.href === router.pathname && true} icon={link.icon}>
             {link.name}
           </NavItem>
         ))}

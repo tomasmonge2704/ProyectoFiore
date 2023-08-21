@@ -67,7 +67,7 @@ export default function NuevaOperacion() {
         </Badge>
       </Text>
       <Box m={4}>
-        <Stepper size="lg" colorScheme="red" index={activeStep}>
+        <Stepper size="lg" colorScheme="orange" index={activeStep}>
           {steps.map((step, index) => (
             <Step
               key={index}

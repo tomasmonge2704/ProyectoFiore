@@ -4,7 +4,7 @@ import {
     Link
   } from '@chakra-ui/react';
 
-export const NavItem = ({ icon,href, children, ...rest }) => {
+export const NavItem = ({ icon,active,href, children, ...rest }) => {
     return (
       <Link href={href} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
         <Flex
@@ -14,6 +14,7 @@ export const NavItem = ({ icon,href, children, ...rest }) => {
           borderRadius="lg"
           role="group"
           cursor="pointer"
+          color={active && "rgb(234 93 63)"}
           _hover={{
             bg: 'rgb(234 93 63)',
             color: 'white',

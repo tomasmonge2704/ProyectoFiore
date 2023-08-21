@@ -3,7 +3,7 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { FiSave } from "react-icons/fi";
 import { Tr, Td, IconButton, Input,Tbody } from "@chakra-ui/react";
 export const AjustesPacking = ({ CarteraPacking }) => {
-  const params = ["NAME"];
+  const params = ["NAME","ACTIONS"];
   const Estructura = (itemsToDisplay,setItemsToDisplay) => {
     const handleChangeInput = (event, id, parameter) => {
       const updatedProductos = itemsToDisplay.map((producto) => {

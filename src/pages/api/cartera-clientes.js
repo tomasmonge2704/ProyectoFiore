@@ -1,6 +1,7 @@
 export default function handler(req, res) {
     res.status(200).json([
         {
+          id:"1",
           nombre: "test 1",
           direccion: "malagrino",
           direccion2: "1636",
@@ -8,6 +9,7 @@ export default function handler(req, res) {
           vatNumber: "2141241",
         },
         {
+          id:"2",
           nombre: "test 2",
           direccion: "malagrino",
           direccion2: "1636",
@@ -15,6 +17,7 @@ export default function handler(req, res) {
           vatNumber: "2141241",
         },
         {
+          id:"3",
           nombre: "Persona A",
           direccion: "Calle Principal",
           direccion2: "1234",
@@ -22,6 +25,7 @@ export default function handler(req, res) {
           vatNumber: "1234567",
         },
         {
+          id:"4",
           nombre: "Cliente B",
           direccion: "Avenida Central",
           direccion2: "987",
@@ -29,6 +33,7 @@ export default function handler(req, res) {
           vatNumber: "7654321",
         },
         {
+          id:"5",
           nombre: "Compañía Z",
           direccion: "Calle Industrial",
           direccion2: "555",
@@ -36,6 +41,7 @@ export default function handler(req, res) {
           vatNumber: "9876543",
         },
         {
+          id:"6",
           nombre: "test 3",
           direccion: "malagrino",
           direccion2: "1636",
@@ -43,6 +49,7 @@ export default function handler(req, res) {
           vatNumber: "2141241",
         },
         {
+          id:"7",
           nombre: "Persona A",
           direccion: "Calle Principal",
           direccion2: "1234",
@@ -50,6 +57,7 @@ export default function handler(req, res) {
           vatNumber: "1234567",
         },
         {
+          id:"8",
           nombre: "Cliente B",
           direccion: "Avenida Central",
           direccion2: "987",
@@ -57,12 +65,14 @@ export default function handler(req, res) {
           vatNumber: "7654321",
         },
         {
+          id:"9",
           nombre: "Compañía Y",
           direccion: "Calle Industrial",
           direccion2: "555",
           country: "usa",
           vatNumber: "9876543",
         },{
+          id:"10",
           nombre: "test 4",
           direccion: "malagrino",
           direccion2: "1636",
@@ -70,6 +80,7 @@ export default function handler(req, res) {
           vatNumber: "2141241",
         },
         {
+          id:"11",
           nombre: "Persona H",
           direccion: "Calle Principal",
           direccion2: "1234",
@@ -77,6 +88,7 @@ export default function handler(req, res) {
           vatNumber: "1234567",
         },
         {
+          id:"12",
           nombre: "Cliente B",
           direccion: "Avenida Central",
           direccion2: "987",
@@ -84,6 +96,7 @@ export default function handler(req, res) {
           vatNumber: "7654321",
         },
         {
+          id:"13",
           nombre: "test 5",
           direccion: "Calle Industrial",
           direccion2: "555",
