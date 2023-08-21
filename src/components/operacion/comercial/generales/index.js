@@ -4,9 +4,9 @@ import {
   GridItem,
   Center,
   Button,
-  Card,
-  CardBody,
   VStack,
+  Box,
+  useToast
 } from "@chakra-ui/react";
 import TablaGeneral from "./tablaGeneral";
 import { useContext } from "react";
@@ -28,12 +28,20 @@ export default function GeneralForm({
 }) {
   const { CarteraBancaria } = useContext(CarteraBancariaContext);
   const { CarteraProveedores } = useContext(CarteraProveedoresContext);
+  const toast = useToast()
   const saveFormHandler = () => {
     localStorage.setItem("operation", JSON.stringify(operation));
+    toast({
+      title: 'Operation - Comercial',
+      description: "Se ha guardado correctamente.",
+      status: 'success',
+      position:"top-right",
+      duration: 5000,
+      isClosable: true,
+    })
   };
   return (
-    <Card w="100%" p={4} variant="outline">
-      <CardBody>
+    <Box w="100%" boxShadow='2xl' p='6' rounded='md'>
         <VStack spacing="10">
           <Grid w="100%" templateColumns="repeat(3, 1fr)" gap={5}>
             <GridItem w="100%">
@@ -149,12 +157,11 @@ export default function GeneralForm({
             </GridItem>
           </Grid>
           <Center>
-            <Button colorScheme="orange" onClick={saveFormHandler}>
+            <Button colorScheme="orange" isDisabled={operation.comercial.completed !== 100 && true} onClick={saveFormHandler}>
               Guardar
             </Button>
           </Center>
         </VStack>
-      </CardBody>
-    </Card>
+    </Box>
   );
 }

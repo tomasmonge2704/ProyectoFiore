@@ -4,9 +4,7 @@ import {
   GridItem,
   Center,
   Text,
-  Button,
-  Card,
-  CardBody,
+  Box,
   VStack,
 } from "@chakra-ui/react";
 import TablePurchase from "./tablePurchase";
@@ -18,12 +16,8 @@ import { CarteraProveedoresContext } from "@/components/context/carterasContext"
 
 export default function PurchaseForm({ operation, fields, setFields,productos,setProductos }) {
   const { CarteraProveedores } = useContext(CarteraProveedoresContext);
-  const saveFormHandler = () => {
-    localStorage.setItem("operation", JSON.stringify(operation));
-  };
   return (
-    <Card w="100%" p={4} variant="outline">
-      <CardBody>
+<Box w="100%" boxShadow='2xl' p='6' rounded='md'>
         <VStack spacing="10">
           <Center w="100%">
             <Text fontSize="3xl">PURCHASE CONFIRMATION Nr. 123421</Text>
@@ -161,13 +155,7 @@ export default function PurchaseForm({ operation, fields, setFields,productos,se
               setFields({ ...fields, exportTo: e.target.value })
             }
           />
-          <Center>
-            <Button colorScheme="orange" onClick={saveFormHandler}>
-              Guardar
-            </Button>
-          </Center>
         </VStack>
-      </CardBody>
-    </Card>
+      </Box>
   );
 }

@@ -85,7 +85,7 @@ export default function Home() {
       </Grid>
       <Flex justifyContent="space-between" mt={8}>
                     <Flex align="flex-end">
-                        <Heading as="h2" size="lg" letterSpacing="tight">Transactions</Heading>
+                        <Heading as="h2" size="lg" letterSpacing="tight">Operations</Heading>
                     </Flex>
                     <IconButton icon={<FiCalendar />} />
                 </Flex>

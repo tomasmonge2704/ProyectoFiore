@@ -18,7 +18,7 @@ import { UserContext } from "../context/userContext";
 import { FiMenu, FiBell } from "react-icons/fi";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
-export const MobileNav = ({ onOpen, ...rest }) => {
+export const MobileNav = ({ onOpen,text, ...rest }) => {
   const {user} = useContext(UserContext); 
   const { colorMode, toggleColorMode } = useColorMode();
   const router = useRouter();
@@ -31,11 +31,8 @@ export const MobileNav = ({ onOpen, ...rest }) => {
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
       height="20"
-      mt="1%"
-      borderRadius="15px"
       alignItems="center"
-      bg={useColorModeValue("#ffffff40", "")}
-      justifyContent={{ base: "space-between", md: "flex-end" }}
+      justifyContent={{ base: "space-between" }}
       {...rest}
     >
       <IconButton
@@ -45,16 +42,7 @@ export const MobileNav = ({ onOpen, ...rest }) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-
-      <Text
-        display={{ base: "flex", md: "none" }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-      >
-        Logo
-      </Text>
-
+      <Text as="b" fontSize='4xl'>{text}</Text>
       <HStack spacing={{ base: "0", md: "6" }}>
         <IconButton size="lg"
           variant="ghost"

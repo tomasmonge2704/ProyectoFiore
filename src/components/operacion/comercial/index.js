@@ -15,7 +15,7 @@ export const Comercial = ({operation,setOperation}) => {
   const [ productos, setProductos] = useState(operation.comercial.fields.productos);
   useEffect(() => {
     if(operation){
-    let totalFields = 17;
+    let totalFields = 20;
     if(fields?.comision) totalFields = totalFields + 1;
     let completedFields = Object.values(fields).filter(Boolean).length;
     const completed = Math.floor((completedFields / totalFields) * 100);

@@ -2,11 +2,9 @@ import {
   Grid,
   GridItem,
   Center,
-  Text,
-  Card,
-  CardBody,
+  Text, 
+  Box,
   VStack,
-  Button,
 } from "@chakra-ui/react";
 import SaleTable from "./saleTable";
 import InputPersonalizado from "@/utils/inputPersonalizado";
@@ -19,8 +17,7 @@ export default function SaleForm({
   setProductos,
 }) {
   return (
-    <Card w="100%" p={4} variant="outline">
-      <CardBody>
+    <Box w="100%" boxShadow='2xl' p='6' rounded='md'>
         <VStack spacing="10">
           <Center w="100%">
             <Text fontSize="3xl">PROFORMA INVOICE Nr. 34532</Text>
@@ -425,11 +422,7 @@ export default function SaleForm({
               </VStack>
             </GridItem>
           </Grid>
-          <Center>
-            <Button colorScheme="orange">Finalizar</Button>
-          </Center>
         </VStack>
-      </CardBody>
-    </Card>
+      </Box>
   );
 }

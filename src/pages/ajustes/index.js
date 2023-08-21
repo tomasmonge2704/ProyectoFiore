@@ -15,27 +15,48 @@ import { AjustesPacking } from "@/components/ajustes/packing";
 import { AjustesProductos } from "@/components/ajustes/products";
 export default function Ajustes() {
   useEffect(() => {
-    fetch(`${process.env.API_URL}/cartera-bancaria`)
+    const token = localStorage.getItem("token");
+    fetch(`${process.env.API_URL}/empresa`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setCarteraBancaria(data);
       });
-    fetch(`${process.env.API_URL}/catalogo-puertos`)
+    fetch(`${process.env.API_URL}/puertos`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setCarteraPuertos(data);
       });
-    fetch(`${process.env.API_URL}/catalogo-payment-terms`)
+    fetch(`${process.env.API_URL}/catalogo-payment-terms`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setCarteraPaymentTerms(data);
       });
-    fetch(`${process.env.API_URL}/catalogo-packing`)
+    fetch(`${process.env.API_URL}/packing`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setCarteraPacking(data);
       });
-    fetch(`${process.env.API_URL}/catalogo-products`)
+    fetch(`${process.env.API_URL}/catalogo-products`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setCarteraProducts(data);

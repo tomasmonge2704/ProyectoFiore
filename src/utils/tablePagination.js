@@ -5,21 +5,18 @@ import {
   Tr,
   Th,
   Input,
-  Card,
-  CardBody,
+  Box,
   Flex,
   InputGroup,
   InputLeftElement,
   Text,
-  Button,
-  Grid,
-  GridItem,
+  Button
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import Pagination from "@choc-ui/paginator";
 
-export const TablePagination = ({ data, params, Estructura,handleModal }) => {
+export const TablePagination = ({ data, params, Estructura }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(10);
   const [searchResults, setSearchResults] = useState([]);
@@ -53,9 +50,11 @@ export const TablePagination = ({ data, params, Estructura,handleModal }) => {
       setItemsToDisplay(data.slice(startIndex, endIndex));
     }
   }, [currentPage, searchText]);
+  const handleCreate = () => {
+    setItemsToDisplay([...itemsToDisplay.slice(startIndex, endIndex - 1),{_id:Math.random() * 100,state:"nuevo"}])
+  }
   return (
-    <Card w="100%" mt={5} variant="elevated">
-      <CardBody>
+<Box w="100%" boxShadow='2xl' p='6' rounded='md'>
         <Flex justify="space-between">
             <InputGroup w="87%">
               <InputLeftElement pointerEvents="none">
@@ -70,7 +69,7 @@ export const TablePagination = ({ data, params, Estructura,handleModal }) => {
                 borderRadius="full"
               />
             </InputGroup>         
-          <Button w="12%" colorScheme="orange" onClick={handleModal}>Nuevo elemento</Button>
+          <Button w="12%" colorScheme="orange" onClick={handleCreate}>Nuevo elemento</Button>
           </Flex>
         {itemsToDisplay.length > 0 ? (
           <TableContainer w="100%">
@@ -108,7 +107,6 @@ export const TablePagination = ({ data, params, Estructura,handleModal }) => {
             />
           </Flex>
         )}
-      </CardBody>
-    </Card>
+      </Box>
   );
 };
