@@ -15,6 +15,7 @@ export default function SaleForm({
   setFields,
   productos,
   setProductos,
+  CarteraPaymentTerms
 }) {
   return (
     <Box w="100%" boxShadow='2xl' p='6' rounded='md'>
@@ -382,6 +383,7 @@ export default function SaleForm({
                 <PaymentTerms
                   fields={fields}
                   setFields={setFields}
+                  CarteraPaymentTerms={CarteraPaymentTerms}
                   type="sale"
                 />
                 <InputPersonalizado

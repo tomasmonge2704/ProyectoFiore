@@ -1,9 +1,7 @@
-import { CarteraClientesContext } from "@/components/context/carterasContext";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Select } from "@chakra-ui/react";
 import InputPersonalizado from "@/utils/inputPersonalizado";
-export const Buyer = ({ fields,setFields, detailView }) => {
-  const { CarteraClientes } = useContext(CarteraClientesContext);
+export const Buyer = ({ fields,setFields, detailView,CarteraClientes }) => {
   const [indexCartera, setIndexCartera] = useState(undefined);
   const [nombre, setNombre] = useState(fields.buyer.nombre || "");
   const [direccion, setDireccion] = useState(fields.buyer.direccion || "");

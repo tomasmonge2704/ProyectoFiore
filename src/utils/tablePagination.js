@@ -63,7 +63,7 @@ export const TablePagination = ({ data, params,url }) => {
       { _id: Math.random() * 100, state: "nuevo" },
     ]);
   };
-  const token = localStorage.getItem("token");
+  
   const handleChangeInput = (event, id, parameter) => {
     const updatedProductos = itemsToDisplay.map((producto) => {
       if (producto._id === id) {
@@ -78,6 +78,7 @@ export const TablePagination = ({ data, params,url }) => {
     setItemsToDisplay(updatedProductos);
   };
   const handleDelete = (id) => {
+    const token = localStorage.getItem("token");
     fetch(`${process.env.API_URL}/${url}/${id}`, {
       method: "DELETE",
       headers: {
@@ -101,6 +102,7 @@ export const TablePagination = ({ data, params,url }) => {
       });
   };
   const handleUpdate = (id) => {
+    const token = localStorage.getItem("token");
     const buscado = itemsToDisplay.find((element) => element._id === id);
     fetch(`${process.env.API_URL}/${url}/${id}`, {
       method: "PUT",
@@ -119,7 +121,7 @@ export const TablePagination = ({ data, params,url }) => {
       .then((data) => {
         toast({
           title: "Cliente",
-          description: `Se ha guardado correctamente ${data.nombre}.`,
+          description: `Se ha guardado correctamente ${data[params[0].param]}.`,
           status: "success",
           position: "top-right",
           duration: 5000,

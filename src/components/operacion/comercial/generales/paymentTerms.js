@@ -1,8 +1,6 @@
 import { Select } from "@chakra-ui/react";
-import { CarteraPaymentTermsContext } from "@/components/context/carterasContext";
-import { useContext,useState,useEffect } from "react";
-export const PaymentTerms = ({fields,setFields,type}) => {
-  const { CarteraPaymentTerms } = useContext(CarteraPaymentTermsContext);
+import { useState,useEffect } from "react";
+export const PaymentTerms = ({fields,setFields,type,CarteraPaymentTerms}) => {
   const [paymentTerms, setPaymentTerms] = useState(undefined);
     useEffect(() => {
       if(type == "sale"){

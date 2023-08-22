@@ -34,7 +34,7 @@ export default function Ajustes() {
       .then((data) => {
         setCarteraPuertos(data);
       });
-    fetch(`${process.env.API_URL}/catalogo-payment-terms`, {
+    fetch(`${process.env.API_URL}/payment-terms`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -52,7 +52,7 @@ export default function Ajustes() {
       .then((data) => {
         setCarteraPacking(data);
       });
-    fetch(`${process.env.API_URL}/catalogo-products`, {
+    fetch(`${process.env.API_URL}/products`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

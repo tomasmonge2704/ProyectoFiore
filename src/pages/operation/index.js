@@ -13,21 +13,87 @@ import {
   Box,
   Badge,
   Text,
-  Center,
-  Spinner
 } from "@chakra-ui/react";
-import { useState,useEffect } from "react";
+import { useState } from "react";
+
 export default function NuevaOperacion() {
-  const [ operation, setOperation ] = useState(undefined);
-  const [loadData, setLoadData] = useState(false);
-  useEffect(() => {
-      fetch(`${process.env.API_URL}/operation`)
-      .then((response) => response.json())
-      .then((data) => {
-        setOperation(data);
-        setLoadData(true)
-      });
-  },[]);
+  function obtenerFechaActual() {
+    const hoy = new Date();
+    const dia = hoy.getDate().toString().padStart(2, "0");
+    const mes = (hoy.getMonth() + 1).toString().padStart(2, "0"); // Los meses comienzan en 0 (enero=0, febrero=1, etc.)
+    const anio = hoy.getFullYear();
+
+    return `${anio}-${mes}-${dia}`;
+  }
+  const [operation, setOperation] = useState({
+    comercial: {
+      title: "Comercial",
+      completed: 0,
+      fields: {
+        orderNumber: "",
+        supplierRefNumber: "",
+        date: obtenerFechaActual(),
+        empresa: {
+          nombre: "",
+          empresa: "",
+          direccion: "",
+          direccion2: "",
+          vatNumber: "",
+          bank: {
+            beneficiaryBank: "",
+            bankAdress: "",
+            swiftCode: "",
+            beneficiaryName: "",
+            beneficiaryAccountNumber: "",
+          },
+        },
+        seller: {
+          nombre: "",
+          direccion: "",
+          direccion2: "",
+          pais: "",
+          cuit: "",
+          refNumber: "",
+        },
+        buyer: {
+          direccion: "",
+          direccion2: "",
+          vatNumber: "",
+          refNumber: "",
+        },
+        productos: [
+          {
+            id: "",
+            description: "",
+            packing: "",
+            quantity: "",
+            unitPricePurchase: "",
+            unitPriceSale: "",
+            amountSale: "",
+            amountPurchase: "",
+          },
+        ],
+        totalPurchase: 0,
+        totalSale: 0,
+        totalWeight: 0,
+        productionDate: "",
+        shelfLife: "",
+        destinationPort: "",
+        destinationCountry: "",
+        quantity: "",
+        shipmentPeriod: "",
+        deliveryTermsSale: "",
+        deliveryTermsPurchase: "",
+        paymentTermsSale: "",
+        paymentTermsPurchase: "",
+        exportTo: "",
+      },
+    },
+    docs: { title: "Docs", completed: 0 },
+    logistica: { title: "Logistica", completed: 0 },
+    contableFinanciera: { title: "Contable financiera", completed: 0 },
+    status: "New",
+  });
   const steps = [
     {
       title: "Comercial",
@@ -59,7 +125,6 @@ export default function NuevaOperacion() {
   const [showStep, setShowStep] = useState("Comercial");
   return (
     <>
-    {operation && loadData ? (<>
       <Text fontSize="xl" fontWeight="bold">
         Status
         <Badge ml="1" fontSize="0.8em" colorScheme="green">
@@ -99,21 +164,12 @@ export default function NuevaOperacion() {
         </Stepper>
       </Box>
       <Box m={1} mt={12}>
-       <ContenedorOperaciones
+        <ContenedorOperaciones
           show={showStep}
           operation={operation}
           setOperation={setOperation}
         />
       </Box>
-    </>) : (<Center h="80vh">
-    <Spinner
-  thickness='4px'
-  speed='0.65s'
-  emptyColor='gray.200'
-  color='blue.500'
-  size='xl'
-/>
-    </Center>)}
     </>
   );
 }

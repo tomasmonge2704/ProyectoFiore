@@ -1,8 +1,6 @@
 import { Select } from "@chakra-ui/react";
-import { useContext } from "react";
-import { CarteraPuertosContext } from "@/components/context/carterasContext";
-export const DestinationPort = ({ fields, setFields }) => {
-  const {CarteraPuertos} = useContext(CarteraPuertosContext);
+
+export const DestinationPort = ({ fields, setFields,CarteraPuertos }) => {
   const findCountryByPort = (port, portArray) => {
     const foundPort = portArray.find((item) => item.port === port);
     return foundPort ? foundPort.country : null;

@@ -13,6 +13,79 @@ import { useState,useEffect } from "react";
 export const Comercial = ({operation,setOperation}) => {
   const [ fields, setFields] = useState(operation.comercial.fields);
   const [ productos, setProductos] = useState(operation.comercial.fields.productos);
+  const [CarteraBancaria, setCarteraBancaria] = useState([]);
+  const [CarteraProveedores, setCarteraProveedores] = useState([]);
+  const [CarteraClients, setCarteraClients] = useState([]);
+  const [CarteraPuertos, setCarteraPuertos] = useState([]);
+  const [CarteraPaymentTerms, setCarteraPaymentTerms] = useState([]);
+  const [CarteraPacking, setCarteraPacking] = useState([]);
+  const [CarteraProducts, setCarteraProducts] = useState([]);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    fetch(`${process.env.API_URL}/proveedor`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraProveedores(data);
+      });
+    fetch(`${process.env.API_URL}/client`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraClients(data);
+      });
+    fetch(`${process.env.API_URL}/empresa`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraBancaria(data);
+      });
+    fetch(`${process.env.API_URL}/puertos`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraPuertos(data);
+      });
+    fetch(`${process.env.API_URL}/payment-terms`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraPaymentTerms(data);
+      });
+    fetch(`${process.env.API_URL}/packing`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraPacking(data);
+      });
+    fetch(`${process.env.API_URL}/products`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraProducts(data);
+      });
+  }, []);
   useEffect(() => {
     if(operation){
     let totalFields = 20;
@@ -65,11 +138,21 @@ export const Comercial = ({operation,setOperation}) => {
             setFields={setFields}
             productos={productos}
             setProductos={setProductos}
+            CarteraBancaria={CarteraBancaria}
+            CarteraProveedores={CarteraProveedores}
+            CarteraClientes={CarteraClients}
+            CarteraProducts={CarteraProducts}
+            CarteraPacking={CarteraPacking}
+            CarteraPaymentTerms={CarteraPaymentTerms}
+            CarteraPuertos={CarteraPuertos}
           />
         </TabPanel>
         <TabPanel>
           <PurchaseForm 
           operation={operation}
+          CarteraProveedores={CarteraProveedores}
+          CarteraBancaria={CarteraBancaria}
+          CarteraPaymentTerms={CarteraPaymentTerms}
           fields={fields}
           setFields={setFields}
           productos={productos}
@@ -82,6 +165,7 @@ export const Comercial = ({operation,setOperation}) => {
           setFields={setFields}
           productos={productos}
           setProductos={setProductos}
+          CarteraPaymentTerms={CarteraPaymentTerms}
           />
         </TabPanel>
       </TabPanels>

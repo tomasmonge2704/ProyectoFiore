@@ -1,8 +1,5 @@
 import { Select } from "@chakra-ui/react";
-import { CarteraProductsContext } from "@/components/context/carterasContext";
-import { useContext} from "react";
-export const SelectProducts = ({productos,setProductos,index,id}) => {
-  const { CarteraProducts } = useContext(CarteraProductsContext);
+export const SelectProducts = ({productos,setProductos,index,id,CarteraProducts}) => {
   const handleSelectChange = (event) => {
     const updatedProductos = productos.map((producto) => {
         if (producto.id === id) {

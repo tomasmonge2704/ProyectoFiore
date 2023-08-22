@@ -9,11 +9,9 @@ import {
   useToast
 } from "@chakra-ui/react";
 import TablaGeneral from "./tablaGeneral";
-import { useContext } from "react";
 import { Empresa } from "./empresa";
 import { Buyer } from "./buyer";
 import { Seller } from "../ordenCompra/seller";
-import { CarteraProveedoresContext,CarteraBancariaContext } from "@/components/context/carterasContext";
 import { OperationType } from "./operationType";
 import { DestinationPort } from "./destinationPort";
 import { ShelfLife } from "./shelfLife";
@@ -25,9 +23,14 @@ export default function GeneralForm({
   setFields,
   productos,
   setProductos,
+  CarteraBancaria,
+  CarteraProveedores,
+  CarteraClientes,
+  CarteraProducts,
+  CarteraPacking,
+  CarteraPaymentTerms,
+  CarteraPuertos
 }) {
-  const { CarteraBancaria } = useContext(CarteraBancariaContext);
-  const { CarteraProveedores } = useContext(CarteraProveedoresContext);
   const toast = useToast()
   const saveFormHandler = () => {
     localStorage.setItem("operation", JSON.stringify(operation));
@@ -101,7 +104,7 @@ export default function GeneralForm({
             <GridItem w="100%">
               <VStack spacing="7">
                 <OperationType fields={fields} setFields={setFields} />
-                <Buyer fields={fields} setFields={setFields} />
+                <Buyer fields={fields} setFields={setFields} CarteraClientes={CarteraClientes} />
                 <InputPersonalizado
                   type="text"
                   label="REF. NUMBER"
@@ -122,6 +125,9 @@ export default function GeneralForm({
             productos={productos}
             operationType={fields.operationType}
             setProductos={setProductos}
+            CarteraProducts={CarteraProducts}
+            CarteraPacking={CarteraPacking}
+            CarteraPaymentTerms={CarteraPaymentTerms}
           />
           <InputPersonalizado
             type="text"
@@ -139,7 +145,7 @@ export default function GeneralForm({
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
               <VStack spacing="7">
-                <DestinationPort fields={fields} setFields={setFields} />
+                <DestinationPort fields={fields} setFields={setFields} CarteraPuertos={CarteraPuertos} />
                 <InputPersonalizado
                   type="text"
                   label="DESTINATION COUNTRY"
