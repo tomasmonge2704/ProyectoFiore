@@ -28,6 +28,7 @@ export const MobileNav = ({ onOpen,text, ...rest }) => {
   }
   return (
       <Flex
+      display={{ base: "flex", md: "none" }}
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
       height="20"
@@ -42,7 +43,7 @@ export const MobileNav = ({ onOpen,text, ...rest }) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-      <Text as="b" fontSize='4xl'>{text}</Text>
+      <Text as="b" fontSize='4xl' display={{ base: "none", md: "initial" }}>{text}</Text>
       <HStack spacing={{ base: "0", md: "6" }}>
         <IconButton size="lg"
           variant="ghost"

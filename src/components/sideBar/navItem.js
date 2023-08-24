@@ -1,7 +1,8 @@
 import {
     Flex,
     Icon,
-    Link
+    Link,
+    Text
   } from '@chakra-ui/react';
 
 export const NavItem = ({ icon,active,href, children, ...rest }) => {
@@ -30,7 +31,9 @@ export const NavItem = ({ icon,active,href, children, ...rest }) => {
               as={icon}
             />
           )}
+          <Text display={{ base: "inherit", md: "none" }}>
           {children}
+          </Text>
         </Flex>
       </Link>
     );

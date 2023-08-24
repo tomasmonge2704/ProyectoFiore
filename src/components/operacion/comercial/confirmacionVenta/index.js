@@ -9,23 +9,26 @@ import {
 import SaleTable from "./saleTable";
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import { PaymentTerms } from "../generales/paymentTerms";
-
+import { Buyer } from "../generales/buyer";
+import { Empresa } from "../generales/empresa";
 export default function SaleForm({
   fields,
   setFields,
   productos,
   setProductos,
-  CarteraPaymentTerms
+  CarteraClientes,
+  CarteraPaymentTerms,
+  CarteraBancaria
 }) {
   return (
-    <Box w="100%" boxShadow='2xl' p='6' rounded='md'>
+    <Box w="100%">
         <VStack spacing="10">
           <Center w="100%">
             <Text fontSize="3xl">PROFORMA INVOICE Nr. 34532</Text>
           </Center>
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
-              <VStack spacing="7">
+              <VStack spacing="3">
                 <InputPersonalizado
                   label="BUYER REF. NUMBER"
                   type="text"
@@ -38,102 +41,18 @@ export default function SaleForm({
                   }
                 />
                 <Text>Buyer</Text>
-                <InputPersonalizado
-                  label="Name"
-                  type="text"
-                  value={fields.buyer ? fields.buyer.nombre : ""}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      buyer: { ...fields.buyer, nombre: e.target.value },
-                    })
-                  }
-                />
-                <InputPersonalizado
-                  label="Adress"
-                  type="text"
-                  value={fields.buyer ? fields.buyer.direccion : ""}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      buyer: { ...fields.buyer, direccion: e.target.value },
-                    })
-                  }
-                />
-                <InputPersonalizado
-                  label="City"
-                  type="text"
-                  value={fields.buyer ? fields.buyer.direccion2 : ""}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      buyer: { ...fields.buyer, direccion2: e.target.value },
-                    })
-                  }
-                />
-                <InputPersonalizado
-                  label="VAT Nr"
-                  type="text"
-                  value={fields.buyer ? fields.buyer.vatNumber : ""}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      buyer: { ...fields.buyer, vatNumber: e.target.value },
-                    })
-                  }
-                />
+              <Buyer fields={fields} setFields={setFields} CarteraClientes={CarteraClientes} detailView={true} />
               </VStack>
             </GridItem>
             <GridItem w="100%">
-              <VStack spacing="7">
+              <VStack spacing="3">
                 <InputPersonalizado label="Date" type="date" />
                 <Text>Seller</Text>
-                <InputPersonalizado
-                  label="Name"
-                  type="text"
-                  value={fields.empresa ? fields.empresa.nombre : ""}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      empresa: { ...fields.empresa, nombre: e.target.value },
-                    })
-                  }
-                />
-                <InputPersonalizado
-                  label="Adress"
-                  type="text"
-                  value={fields.empresa ? fields.empresa.direccion : ""}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      empresa: { ...fields.empresa, direccion: e.target.value },
-                    })
-                  }
-                />
-                <InputPersonalizado
-                  label="Adress 2"
-                  type="text"
-                  value={fields.empresa ? fields.empresa.direccion2 : ""}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      empresa: {
-                        ...fields.empresa,
-                        direccion2: e.target.value,
-                      },
-                    })
-                  }
-                />
-                <InputPersonalizado
-                  label="VAT Nr"
-                  type="text"
-                  value={fields.empresa ? fields.empresa.vatNumber : ""}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      empresa: { ...fields.empresa, vatNumber: e.target.value },
-                    })
-                  }
+                <Empresa
+                  fields={fields}
+                  setFields={setFields}
+                  CarteraBancaria={CarteraBancaria}
+                  detailView={true}
                 />
               </VStack>
             </GridItem>
@@ -141,7 +60,7 @@ export default function SaleForm({
           <Text>BANK DETAILS</Text>
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
-              <VStack spacing="7">
+              <VStack spacing="3">
               <InputPersonalizado
             label="Beneficiary Bank"
             type="text"
@@ -208,7 +127,7 @@ export default function SaleForm({
               </VStack>
             </GridItem>
             <GridItem w="100%">
-              <VStack spacing="7">
+              <VStack spacing="3">
               <InputPersonalizado
             label="Beneficiary Account Number"
             type="text"
@@ -293,9 +212,9 @@ export default function SaleForm({
             </GridItem>
           </Grid>
           <SaleTable productos={productos} setProductos={setProductos} fields={fields} />
-          <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
+          <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={2}>
             <GridItem w="100%">
-              <VStack spacing="7">
+              <VStack spacing="3">
                 <InputPersonalizado
                   label="Origin"
                   type="text"
@@ -366,7 +285,7 @@ export default function SaleForm({
               </VStack>
             </GridItem>
             <GridItem w="100%">
-              <VStack spacing="7">
+              <VStack spacing="3">
                 <InputPersonalizado
                   label="DELIVERY TERMS"
                   type="text"

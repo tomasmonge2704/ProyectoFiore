@@ -38,9 +38,9 @@ export default function TablePurchase({ productos, setProductos,fields }) {
       <Table variant="striped" colorScheme="orange">
         <Thead>
           <Tr>
+            <Th>PRODUCT</Th>
             <Th>QUANTITY</Th>
-            <Th w="30%">PRODUCT</Th>
-            <Th w="30%">PACKING</Th>
+            <Th>PACKING</Th>
             <Th>UNIT PRICE</Th>
             <Th>AMOUNT</Th>
             <Th></Th>
@@ -49,13 +49,6 @@ export default function TablePurchase({ productos, setProductos,fields }) {
         <Tbody>
           {productos.length && productos.map((e, index) => (
             <Tr key={index}>
-              <Td>
-                <InputRightPersonalizado
-                  label="MT"
-                  value={e.quantity ? e.quantity : ""}
-                  onChange={(event) => handleChangeInput(event, e.id,"quantity")}
-                />
-              </Td>
               <Td>
                 <Input
                   variant="filled"
@@ -66,14 +59,21 @@ export default function TablePurchase({ productos, setProductos,fields }) {
               <Td>
                 <Input
                 variant="filled"
+                  value={e.quantity ? e.quantity : ""}
+                  onChange={(event) => handleChangeInput(event, e.id,"quantity")}
+                />
+              </Td>
+              <Td>
+                <Input
+                variant="filled"
                   value={e.packing ? e.packing : ""}
                   onChange={(event) => handleChangeInput(event, e.id,"packing")}
                 />
               </Td>
               <Td>
-                <InputPersonalizado
+                <Input
+                variant="filled"
                   value={e.unitPricePurchase ? e.unitPricePurchase : ""}
-                  label="$"
                   type="number"
                   onChange={(event) => handleChangeInput(event, e.id,"unitPricePurchase")}
                 />
@@ -98,10 +98,10 @@ export default function TablePurchase({ productos, setProductos,fields }) {
         </Tbody>
         <Tfoot>
           <Tr>
-            <Th>{fields.totalWeight !== 0 && fields.totalWeight}</Th>
+            <Th>TOTAL</Th>
+            <Th isNumeric>{fields.totalWeight !== 0 && fields.totalWeight}</Th>
             <Th></Th>
             <Th></Th>
-            <Th isNumeric>Total</Th>
             <Th isNumeric>{convertirAMoneda(fields.totalPurchase)}</Th>
           </Tr>
         </Tfoot>

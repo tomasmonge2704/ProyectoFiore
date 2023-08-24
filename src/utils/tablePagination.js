@@ -144,7 +144,7 @@ export const TablePagination = ({ data, params,url }) => {
       });
   };
   return (
-    <Box w="100%" boxShadow="2xl" p="6" rounded="md">
+    <Box w="100%" boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)" p="6" rounded="md" minH="96vh">
       <Flex justify="space-between">
         <InputGroup w="87%">
           <InputLeftElement pointerEvents="none">

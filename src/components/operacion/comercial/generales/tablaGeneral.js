@@ -8,13 +8,13 @@ import {
   Td,
   Tfoot,
   IconButton,
+  Input
 } from "@chakra-ui/react";
 import { convertirAMoneda } from "@/utils/convertInt";
 import { DeliveryTerms } from "./deliveryTerms";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { AiOutlinePlus } from "react-icons/ai";
 import InputPersonalizado from "@/utils/inputPersonalizado";
-import InputRightPersonalizado from "@/utils/inputRightAddon";
 import { SelectPacking } from "./packing";
 import { PaymentTerms } from "./paymentTerms";
 import { SelectProducts } from "./products";
@@ -49,12 +49,12 @@ export default function TablaGeneral({
 
   return (
     <TableContainer w="100%">
-      <Table variant="striped" colorScheme="orange">
+      <Table variant="striped" colorScheme="orange" size="md">
         <Thead>
           <Tr>
-            <Th>QUANTITY</Th>
             <Th w="40%">PRODUCT</Th>
-            <Th w="20%">PACKING</Th>
+            <Th w="20%">QUANTITY</Th>
+            <Th w="25%">PACKING</Th>
             <Th>UNIT PRICE PURCHASE</Th>
             <Th>UNIT PRICE SALE</Th>
             <Th></Th>
@@ -65,22 +65,22 @@ export default function TablaGeneral({
             productos.map((e, index) => (
               <Tr key={index}>
                 <Td>
-                  <InputRightPersonalizado
-                    label="MT"
-                    type="number"
-                    value={e.quantity ? e.quantity : ""}
-                    onChange={(event) =>
-                      handleChangeInput(event, e.id, "quantity")
-                    }
-                  />
-                </Td>
-                <Td>
                   <SelectProducts
                     productos={productos}
                     setProductos={setProductos}
                     id={e.id}
                     index={index}
                     CarteraProducts={CarteraProducts}
+                  />
+                </Td>
+                <Td>
+                  <Input
+                    type="number"
+                    variant="filled"
+                    value={e.quantity ? e.quantity : ""}
+                    onChange={(event) =>
+                      handleChangeInput(event, e.id, "quantity")
+                    }
                   />
                 </Td>
                 <Td>
@@ -93,9 +93,9 @@ export default function TablaGeneral({
                   />
                 </Td>
                 <Td>
-                  <InputPersonalizado
+                  <Input
+                  variant="filled"
                     value={e.unitPricePurchase ? e.unitPricePurchase : ""}
-                    label="$"
                     type="number"
                     onChange={(event) =>
                       handleChangeInput(event, e.id, "unitPricePurchase")
@@ -103,9 +103,9 @@ export default function TablaGeneral({
                   />
                 </Td>
                 <Td>
-                  <InputPersonalizado
+                  <Input
+                  variant="filled"
                     defaultValue={e.unitPriceSale && e.unitPriceSale}
-                    label="$"
                     type="number"
                     onChange={(event) =>
                       handleChangeInput(event, e.id, "unitPriceSale")

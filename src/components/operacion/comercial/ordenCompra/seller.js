@@ -8,7 +8,7 @@ export const Seller = ({ fields,setFields, CarteraProveedores, detailView }) => 
   const [direccion, setDireccion] = useState(fields.seller.direccion || "");
   const [direccion2, setDireccion2] = useState(fields.seller.direccion2 || "");
   const [pais, setPais] = useState(fields.seller.country || "");
-  const [cuit, setCuit] = useState(fields.seller.cuit || "");
+  const [taxId, setTaxId] = useState(fields.seller.taxId || "");
 
   const handleIndexChange = (e) => {
     const newIndex = parseInt(e.target.value);
@@ -33,7 +33,7 @@ export const Seller = ({ fields,setFields, CarteraProveedores, detailView }) => 
     setDireccion(initialSeller.direccion);
     setDireccion2(initialSeller.direccion2);
     setPais(initialSeller.country);
-    setCuit(initialSeller.cuit);
+    setTaxId(initialSeller.taxId);
     setFields((prevPurchase) => ({
       ...prevPurchase,
       seller: initialSeller,
@@ -51,10 +51,10 @@ export const Seller = ({ fields,setFields, CarteraProveedores, detailView }) => 
         direccion,
         direccion2,
         pais,
-        cuit,
+        taxId,
       },
     }));
-  }, [nombre, direccion, direccion2, pais, cuit, setFields]);
+  }, [nombre, direccion, direccion2, pais, taxId, setFields]);
 
   return (
     <>
@@ -97,8 +97,8 @@ export const Seller = ({ fields,setFields, CarteraProveedores, detailView }) => 
           <InputPersonalizado
             type="text"
             label="Tax ID"
-            value={cuit ? cuit : ""}
-            onChange={(e) => setCuit(e.target.value)}
+            value={taxId ? taxId : ""}
+            onChange={(e) => setTaxId(e.target.value)}
           />
         </>
       )}

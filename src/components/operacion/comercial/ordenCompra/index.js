@@ -15,14 +15,14 @@ export default function PurchaseForm({
   setProductos,
 }) {
   return (
-    <Box w="100%" boxShadow="2xl" p="6" rounded="md">
+    <Box w="100%">
       <VStack spacing="10">
         <Center w="100%">
           <Text fontSize="3xl">PURCHASE CONFIRMATION Nr. 123421</Text>
         </Center>
-        <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
+        <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={2}>
           <GridItem w="100%">
-            <VStack spacing="7">
+            <VStack spacing="3">
               <InputPersonalizado
                 type="text"
                 label="SUPPLIER REF. NUMBER"
@@ -44,7 +44,7 @@ export default function PurchaseForm({
             </VStack>
           </GridItem>
           <GridItem w="100%">
-            <VStack spacing="7">
+            <VStack spacing="3">
               <InputPersonalizado
                 type="date"
                 label="Date"
@@ -58,21 +58,29 @@ export default function PurchaseForm({
             </VStack>
           </GridItem>
         </Grid>
-        <Text as="b">WE CONFIRM HAVING PURCHASED</Text>
         <TablePurchase
           productos={productos}
           setProductos={setProductos}
           fields={fields}
         />
-        <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
+        <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={2}>
           <GridItem w="100%">
-            <VStack spacing="7">
+            <VStack spacing="3">
+            <InputPersonalizado
+                type="text"
+                label="DESTINATION PORT"
+                value={fields.destinationPort ? fields.destinationPort : ""}
+                onChange={(e) =>
+                  setFields({ ...fields, destinationPort: e.target.value })
+                }
+              />
               <InputPersonalizado
                 type="text"
                 label="ORIGIN"
-                value={fields.seller ? fields.seller.origin : ""}
+                value={fields.seller ? fields.seller.country : ""}
                 onChange={(e) =>
-                  setFields({ ...fields.seller, origin: e.target.value })
+                  setFields({ ...fields,
+                    seller: { ...fields.seller, country: e.target.value },})
                 }
               />
               <InputPersonalizado
@@ -99,26 +107,10 @@ export default function PurchaseForm({
                   setFields({ ...fields, productionDate: e.target.value })
                 }
               />
-              <InputPersonalizado
-                type="text"
-                label="SHELF LIFE"
-                value={fields.shelfLife ? fields.shelfLife : ""}
-                onChange={(e) =>
-                  setFields({ ...fields, shelfLife: e.target.value })
-                }
-              />
-              <InputPersonalizado
-                type="text"
-                label="DESTINATION PORT"
-                value={fields.destinationPort ? fields.destinationPort : ""}
-                onChange={(e) =>
-                  setFields({ ...fields, destinationPort: e.target.value })
-                }
-              />
             </VStack>
           </GridItem>
           <GridItem w="100%">
-            <VStack spacing="7">
+            <VStack spacing="3">
               <InputPersonalizado
                 type="text"
                 label="DESTINATION COUNTRY"
@@ -157,6 +149,14 @@ export default function PurchaseForm({
                 setFields={setFields}
                 type="purchase"
                 CarteraPaymentTerms={CarteraPaymentTerms}
+              />
+              <InputPersonalizado
+                type="text"
+                label="SHELF LIFE"
+                value={fields.shelfLife ? fields.shelfLife : ""}
+                onChange={(e) =>
+                  setFields({ ...fields, shelfLife: e.target.value })
+                }
               />
             </VStack>
           </GridItem>

@@ -44,11 +44,11 @@ export default function GeneralForm({
     })
   };
   return (
-    <Box w="100%" boxShadow='2xl' p='6' rounded='md'>
-        <VStack spacing="10">
-          <Grid w="100%" templateColumns="repeat(3, 1fr)" gap={5}>
+    <Box w="100%">
+        <VStack spacing="3">
+          <Grid w="100%" templateColumns="repeat(3, 1fr)" gap={2}>
             <GridItem w="100%">
-              <VStack spacing="7">
+              <VStack spacing="3">
                 <InputPersonalizado
                   type="text"
                   label="REF. NUMBER"
@@ -73,7 +73,7 @@ export default function GeneralForm({
               </VStack>
             </GridItem>
             <GridItem w="100%">
-              <VStack spacing="7">
+              <VStack spacing="3">
                 <InputPersonalizado
                   type="date"
                   label="Date"
@@ -102,7 +102,7 @@ export default function GeneralForm({
               </VStack>
             </GridItem>
             <GridItem w="100%">
-              <VStack spacing="7">
+              <VStack spacing="3">
                 <OperationType fields={fields} setFields={setFields} />
                 <Buyer fields={fields} setFields={setFields} CarteraClientes={CarteraClientes} />
                 <InputPersonalizado
@@ -129,24 +129,20 @@ export default function GeneralForm({
             CarteraPacking={CarteraPacking}
             CarteraPaymentTerms={CarteraPaymentTerms}
           />
-          <InputPersonalizado
-            type="text"
-            label="PRODUCTION DATE"
-            value={fields.productionDate}
-            onChange={(e) =>
-              setFields({ ...fields, productionDate: e.target.value })
-            }
-          />
-          <ShipmentPeriod
+                    <ShipmentPeriod
             value={fields.shipmentPeriod}
             setFields={setFields}
             fields={fields}
           />
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
-              <VStack spacing="7">
+              <VStack spacing="3">
                 <DestinationPort fields={fields} setFields={setFields} CarteraPuertos={CarteraPuertos} />
-                <InputPersonalizado
+              </VStack>
+            </GridItem>
+            <GridItem w="100%">
+              <VStack spacing="3">
+              <InputPersonalizado
                   type="text"
                   label="DESTINATION COUNTRY"
                   value={fields.destinationCountry}
@@ -156,9 +152,24 @@ export default function GeneralForm({
                 />
               </VStack>
             </GridItem>
+          </Grid>
+          <InputPersonalizado
+            type="text"
+            label="PRODUCTION DATE"
+            value={fields.productionDate}
+            onChange={(e) =>
+              setFields({ ...fields, productionDate: e.target.value })
+            }
+          />
+          <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
-              <VStack spacing="7">
-                <ShelfLife setFields={setFields} fields={fields} />
+              <VStack spacing="3">
+              <ShelfLife setFields={setFields} fields={fields} />
+              </VStack>
+            </GridItem>
+            <GridItem w="100%">
+              <VStack spacing="3">
+              
               </VStack>
             </GridItem>
           </Grid>

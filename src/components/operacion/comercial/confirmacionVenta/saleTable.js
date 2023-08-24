@@ -13,7 +13,6 @@ import {
 import { DeleteIcon } from "@chakra-ui/icons";
 import { AiOutlinePlus } from "react-icons/ai";
 import { convertirAMoneda } from "@/utils/convertInt";
-import InputRightPersonalizado from "@/utils/inputRightAddon";
 export default function SaleTable({productos, setProductos,fields}) {
   const handleNewRow = (id) => {
     const updatedProductos = [...productos, { id: id, amount: 0 }];
@@ -38,8 +37,8 @@ export default function SaleTable({productos, setProductos,fields}) {
       <Table variant="striped" colorScheme='orange'>
         <Thead>
           <Tr>
-            <Th>QUANTITY</Th>
             <Th w="30%">PRODUCT</Th>
+            <Th>QUANTITY</Th>
             <Th w="30%">PACKING</Th>
             <Th>UNIT PRICE</Th>
             <Th>TOTAL AMOUNT</Th>
@@ -49,19 +48,19 @@ export default function SaleTable({productos, setProductos,fields}) {
         <Tbody>
           {productos.length && productos.map((e, index) => (
             <Tr key={index}>
-               <Td>
-                <InputRightPersonalizado
-                  label="MT"
-                  type="number"
-                  value={e.quantity ? e.quantity : ""}
-                  onChange={(event) => handleChangeInput(event, e.id,"quantity")}
-                />
-              </Td>
               <Td>
                 <Input
                   variant="filled"
                   value={e.description ? e.description : ""}
                   onChange={(event) => handleChangeInput(event, e.id,"description")}
+                />
+              </Td>
+              <Td>
+                <Input
+                  variant="filled"
+                  type="number"
+                  value={e.quantity ? e.quantity : ""}
+                  onChange={(event) => handleChangeInput(event, e.id,"quantity")}
                 />
               </Td>
               <Td>
@@ -100,10 +99,10 @@ export default function SaleTable({productos, setProductos,fields}) {
         </Tbody>
         <Tfoot>
           <Tr>
-            <Th>{fields.totalWeight && fields.totalWeight}</Th>
+            <Th>TOTAL</Th>
+            <Th isNumeric>{fields.totalWeight !== 0 && fields.totalWeight}</Th>
             <Th></Th>
             <Th></Th>
-            <Th isNumeric>TOTAL</Th>
             <Th isNumeric>{convertirAMoneda(fields.totalSale)}</Th>
           </Tr>
         </Tfoot>

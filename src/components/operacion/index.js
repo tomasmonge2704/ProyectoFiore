@@ -5,13 +5,15 @@ import { Docs } from "./docs";
 export const ContenedorOperaciones = ({
   show,
   operation,
-  setOperation
+  setOperation,
+  tabIndex
 }) => {
   return (
     <>
       {show == "Comercial" && (
         <Comercial
           operation={operation}
+          tabIndex={tabIndex}
           setOperation={setOperation}
         />
       )}

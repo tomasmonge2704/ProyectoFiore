@@ -10,7 +10,7 @@ import SaleForm from "@/components/operacion/comercial/confirmacionVenta";
 import PurchaseForm from "./ordenCompra";
 import GeneralForm from "./generales";
 import { useState,useEffect } from "react";
-export const Comercial = ({operation,setOperation}) => {
+export const Comercial = ({operation,setOperation,tabIndex}) => {
   const [ fields, setFields] = useState(operation.comercial.fields);
   const [ productos, setProductos] = useState(operation.comercial.fields.productos);
   const [CarteraBancaria, setCarteraBancaria] = useState([]);
@@ -122,14 +122,7 @@ export const Comercial = ({operation,setOperation}) => {
   }
   }, [productos]);
   return (
-    <Tabs variant="soft-rounded" colorScheme="orange">
-      <Center width="100%">
-        <TabList>
-          <Tab>Generales</Tab>
-          <Tab>Orden de Compra</Tab>
-          <Tab>Confirmación de Venta</Tab>
-        </TabList>
-      </Center>
+    <Tabs index={tabIndex}>
       <TabPanels>
         <TabPanel>
           <GeneralForm
@@ -161,10 +154,12 @@ export const Comercial = ({operation,setOperation}) => {
         </TabPanel>
         <TabPanel>
           <SaleForm 
+          CarteraClientes={CarteraClients}
           fields={fields}
           setFields={setFields}
           productos={productos}
           setProductos={setProductos}
+          CarteraBancaria={CarteraBancaria}
           CarteraPaymentTerms={CarteraPaymentTerms}
           />
         </TabPanel>
