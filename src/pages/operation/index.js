@@ -13,11 +13,6 @@ import {
   Box,
   Badge,
   Text,
-  Flex,
-  Tabs,
-  Tab,
-  TabList,
-  Center,
   Grid,
   GridItem,
 } from "@chakra-ui/react";
@@ -129,7 +124,6 @@ export default function NuevaOperacion() {
     index: 1,
     count: steps.length,
   });
-  const [tabIndex, setTabIndex] = useState(0);
   const [showStep, setShowStep] = useState("Comercial");
   return (
     <Box
@@ -139,44 +133,28 @@ export default function NuevaOperacion() {
     >
       <Grid w="100%" templateColumns="repeat(3, 1fr)" h={7} gap={4}>
         <GridItem w="100%">
-        <Text fontSize="xl" fontWeight="bold">
+        <Text fontSize="2xl" fontWeight="bold">
           Status
-          <Badge ml="1" fontSize="0.8em" colorScheme="green">
+          <Badge ml="1" fontSize="1em" colorScheme="green">
             {operation && operation.status}
           </Badge>
         </Text>
         </GridItem>
         <GridItem w="100%" display="flex" justifyContent="center">
-        {showStep == "Comercial" && (
-          <Tabs
-            onChange={(index) => setTabIndex(index)}
-            variant="soft-rounded"
-            colorScheme="orange"
-            size="md"
-          >
-            <Center width="100%">
-              <TabList>
-                <Tab>Generales</Tab>
-                <Tab>Purchase</Tab>
-                <Tab>Proforma</Tab>
-              </TabList>
-            </Center>
-          </Tabs>
-        )}
-        </GridItem>
-        <GridItem w="100%" display="flex" justifyContent="space-between">
         {operation.comercial.fields.empresaRefNumber && (
-          <Text fontSize="xl" fontWeight="bold">
+          <Text fontSize="2xl" fontWeight="bold">
             REF. Number
-            <Badge ml="1" fontSize="0.8em" colorScheme="green">
+            <Badge ml="1" fontSize="1em" colorScheme="green">
               {operation.comercial.fields.empresaRefNumber}
             </Badge>
           </Text>
         )}
+        </GridItem>
+        <GridItem w="100%" display="flex" justifyContent="center">
         {operation.comercial.fields.empresa.nombre && (
-          <Text fontSize="xl" fontWeight="bold">
-            Empresa
-            <Badge ml="1" fontSize="0.8em" colorScheme="green">
+          <Text fontSize="2xl" fontWeight="bold">
+            Company
+            <Badge ml="1" fontSize="1em" colorScheme="green">
               {operation.comercial.fields.empresa.nombre}
             </Badge>
           </Text>
@@ -222,7 +200,6 @@ export default function NuevaOperacion() {
           show={showStep}
           operation={operation}
           setOperation={setOperation}
-          tabIndex={tabIndex}
         />
       </Box>
     </Box>

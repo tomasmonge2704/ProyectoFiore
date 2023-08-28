@@ -10,7 +10,7 @@ import SaleForm from "@/components/operacion/comercial/confirmacionVenta";
 import PurchaseForm from "./ordenCompra";
 import GeneralForm from "./generales";
 import { useState,useEffect } from "react";
-export const Comercial = ({operation,setOperation,tabIndex}) => {
+export const Comercial = ({operation,setOperation}) => {
   const [ fields, setFields] = useState(operation.comercial.fields);
   const [ productos, setProductos] = useState(operation.comercial.fields.productos);
   const [CarteraBancaria, setCarteraBancaria] = useState([]);
@@ -122,7 +122,14 @@ export const Comercial = ({operation,setOperation,tabIndex}) => {
   }
   }, [productos]);
   return (
-    <Tabs index={tabIndex}>
+    <Tabs variant="soft-rounded" colorScheme="orange">
+    <Center width="100%">
+      <TabList>
+        <Tab>General</Tab>
+        <Tab>Purchase Confirmation</Tab>
+        <Tab>Proforma Invoice</Tab>
+      </TabList>
+    </Center>
       <TabPanels>
         <TabPanel>
           <GeneralForm

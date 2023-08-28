@@ -11,7 +11,7 @@ import {
 import TablaGeneral from "./tablaGeneral";
 import { Empresa } from "./empresa";
 import { Buyer } from "./buyer";
-import { Seller } from "../ordenCompra/seller";
+import { Seller } from "./seller";
 import { OperationType } from "./operationType";
 import { DestinationPort } from "./destinationPort";
 import { ShelfLife } from "./shelfLife";

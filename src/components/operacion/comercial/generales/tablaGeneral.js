@@ -8,7 +8,7 @@ import {
   Td,
   Tfoot,
   IconButton,
-  Input
+  Input,
 } from "@chakra-ui/react";
 import { convertirAMoneda } from "@/utils/convertInt";
 import { DeliveryTerms } from "./deliveryTerms";
@@ -26,7 +26,7 @@ export default function TablaGeneral({
   operationType,
   CarteraProducts,
   CarteraPacking,
-  CarteraPaymentTerms
+  CarteraPaymentTerms,
 }) {
   const handleNewRow = (id) => {
     const updatedProductos = [...productos, { id: id, amount: 0 }];
@@ -52,8 +52,8 @@ export default function TablaGeneral({
       <Table variant="striped" colorScheme="orange" size="md">
         <Thead>
           <Tr>
-            <Th w="40%">PRODUCT</Th>
             <Th w="20%">QUANTITY</Th>
+            <Th w="40%">PRODUCT</Th>
             <Th w="25%">PACKING</Th>
             <Th>UNIT PRICE PURCHASE</Th>
             <Th>UNIT PRICE SALE</Th>
@@ -65,15 +65,6 @@ export default function TablaGeneral({
             productos.map((e, index) => (
               <Tr key={index}>
                 <Td>
-                  <SelectProducts
-                    productos={productos}
-                    setProductos={setProductos}
-                    id={e.id}
-                    index={index}
-                    CarteraProducts={CarteraProducts}
-                  />
-                </Td>
-                <Td>
                   <Input
                     type="number"
                     variant="filled"
@@ -83,6 +74,16 @@ export default function TablaGeneral({
                     }
                   />
                 </Td>
+                <Td>
+                  <SelectProducts
+                    productos={productos}
+                    setProductos={setProductos}
+                    id={e.id}
+                    index={index}
+                    CarteraProducts={CarteraProducts}
+                  />
+                </Td>
+
                 <Td>
                   <SelectPacking
                     productos={productos}
@@ -94,7 +95,7 @@ export default function TablaGeneral({
                 </Td>
                 <Td>
                   <Input
-                  variant="filled"
+                    variant="filled"
                     value={e.unitPricePurchase ? e.unitPricePurchase : ""}
                     type="number"
                     onChange={(event) =>
@@ -104,7 +105,7 @@ export default function TablaGeneral({
                 </Td>
                 <Td>
                   <Input
-                  variant="filled"
+                    variant="filled"
                     defaultValue={e.unitPriceSale && e.unitPriceSale}
                     type="number"
                     onChange={(event) =>

@@ -1,8 +1,8 @@
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import { Grid, GridItem, Center, Text, Box, VStack } from "@chakra-ui/react";
 import TablePurchase from "./tablePurchase";
-import { Buyer } from "./Buyer";
-import { Seller } from "./seller";
+import { Empresa } from "../generales/empresa";
+import { Seller } from "../generales/seller";
 import { PaymentTerms } from "../generales/paymentTerms";
 
 export default function PurchaseForm({
@@ -52,7 +52,7 @@ export default function PurchaseForm({
                 onChange={(e) => setFields({ ...fields, date: e.target.value })}
               />
               <Text>Buyer</Text>
-              <Buyer fields={fields} setFields={setFields} detailView={true} CarteraBancaria={CarteraBancaria}/>
+              <Empresa fields={fields} setFields={setFields} detailView={true} CarteraBancaria={CarteraBancaria}/>
               <Text as="b">CONSIGNEE</Text>
               <Text>(DOCS INSTRUCTION WILL FOLLOW SHORTLY)</Text>
             </VStack>
