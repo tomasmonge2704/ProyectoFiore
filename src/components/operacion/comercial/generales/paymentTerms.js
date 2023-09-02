@@ -12,7 +12,7 @@ export const PaymentTerms = ({fields,setFields,type,CarteraPaymentTerms}) => {
     },[type,fields])
   const findElementByTitle = (name) => {
     const foundElement = CarteraPaymentTerms.find((item) => item.name === name);
-    return foundElement ? foundElement : null;
+    return foundElement ? foundElement.name : null;
   };
   const handleSelectChange = (event) => {
     if(type == "sale"){
@@ -24,7 +24,7 @@ export const PaymentTerms = ({fields,setFields,type,CarteraPaymentTerms}) => {
   };
 
   return (
-        <Select onChange={(e) => handleSelectChange(e)} value={paymentTerms ?  paymentTerms.name : ""}>
+        <Select onChange={(e) => handleSelectChange(e)} value={paymentTerms ?  paymentTerms : ""}>
         <option value="" disabled>Payment Terms</option>
           {CarteraPaymentTerms.map((e, index) => (
             <option value={e.name} key={index}>

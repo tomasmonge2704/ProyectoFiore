@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Select } from "@chakra-ui/react";
-import InputPersonalizado from "@/utils/inputPersonalizado";
-export const Empresa = ({ fields,setFields, detailView,CarteraBancaria }) => {
+export const Empresa = ({ fields,setFields,CarteraBancaria }) => {
   const [indexCartera, setIndexCartera] = useState(undefined);
   const [nombre, setNombre] = useState(fields.empresa.nombre || "");
   const [direccion, setDireccion] = useState(fields.empresa.nombre || "");
@@ -49,7 +48,6 @@ export const Empresa = ({ fields,setFields, detailView,CarteraBancaria }) => {
     }));
   }, [nombre, direccion, direccion2, vatNumber, setFields]);
   return (
-    <>
       <Select value={indexCartera || indexCartera == 0 ? indexCartera : ""} onChange={handleIndexChange}>
       <option value="" disabled>
         Empresa
@@ -60,28 +58,5 @@ export const Empresa = ({ fields,setFields, detailView,CarteraBancaria }) => {
           </option>
         ))}
       </Select>
-      {detailView && (
-        <>
-          <InputPersonalizado
-            type="text"
-            label="Direccion"
-            value={direccion ? direccion : ""}
-            onChange={(e) => setDireccion(e.target.value)}
-          />
-          <InputPersonalizado
-            type="text"
-            label="Direccion2"
-            value={direccion2 ? direccion2 : ""}
-            onChange={(e) => setDireccion2(e.target.value)}
-          />
-          <InputPersonalizado
-            type="text"
-            label="VAT NUMBER"
-            value={vatNumber ? vatNumber : ""}
-            onChange={(e) => setVatNumber(e.target.value)}
-          />
-        </>
-      )}
-    </>
   );
 };

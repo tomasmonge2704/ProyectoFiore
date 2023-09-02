@@ -17,6 +17,7 @@ import { DestinationPort } from "./destinationPort";
 import { ShelfLife } from "./shelfLife";
 import { ShipmentPeriod } from "./shipmentPeriod";
 import { SelectBanco } from "./banco";
+import { EmpleadoComponent } from "./empleado";
 export default function GeneralForm({
   operation,
   fields,
@@ -29,7 +30,8 @@ export default function GeneralForm({
   CarteraProducts,
   CarteraPacking,
   CarteraPaymentTerms,
-  CarteraPuertos
+  CarteraPuertos,
+  CarteraEmpleados
 }) {
   const toast = useToast()
   const saveFormHandler = () => {
@@ -168,11 +170,10 @@ export default function GeneralForm({
               </VStack>
             </GridItem>
             <GridItem w="100%">
-              <VStack spacing="3">
-              
-              </VStack>
+              <VStack spacing="3"/>
             </GridItem>
           </Grid>
+          <EmpleadoComponent fields={fields} setFields={setFields} CarteraEmpleados={CarteraEmpleados}/>
           <Center>
             <Button colorScheme="orange" isDisabled={operation.comercial.completed !== 100 && true} onClick={saveFormHandler}>
               Guardar

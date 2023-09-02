@@ -13,6 +13,7 @@ import { PaymentTerms } from "@/components/ajustes/paymentTerms";
 import { Puertos } from "@/components/ajustes/puertos";
 import { AjustesPacking } from "@/components/ajustes/packing";
 import { AjustesProductos } from "@/components/ajustes/products";
+import { AjustesEmpleados } from "@/components/ajustes/empleados";
 export default function Ajustes() {
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -24,7 +25,17 @@ export default function Ajustes() {
       .then((response) => response.json())
       .then((data) => {
         setCarteraBancaria(data);
-      });
+    });
+    fetch(`${process.env.API_URL}/empleados`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCarteraEmpleados(data);
+    });
+      
     fetch(`${process.env.API_URL}/puertos`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -67,6 +78,8 @@ export default function Ajustes() {
   const [CarteraPaymentTerms, setCarteraPaymentTerms] = useState([]);
   const [CarteraPacking, setCarteraPacking] = useState([]);
   const [CarteraProducts, setCarteraProducts] = useState([]);
+  const [CarteraEmpleados, setCarteraEmpleados] = useState([])
+
   return (
     <Tabs variant="soft-rounded" colorScheme="orange">
       <Center>
@@ -76,6 +89,7 @@ export default function Ajustes() {
           <Tab>Puertos</Tab>
           <Tab>Packing</Tab>
           <Tab>Products</Tab>
+          <Tab>Employees</Tab>
         </TabList>
       </Center>
       <TabPanels>
@@ -110,6 +124,13 @@ export default function Ajustes() {
         <TabPanel>
           {CarteraProducts.length > 0 ? (
             <AjustesProductos CarteraProducts={CarteraProducts} />
+          ) : (
+            <Loadder />
+          )}
+        </TabPanel>
+        <TabPanel>
+          {CarteraEmpleados.length > 0 ? (
+            <AjustesEmpleados CarteraEmpleados={CarteraEmpleados} />
           ) : (
             <Loadder />
           )}

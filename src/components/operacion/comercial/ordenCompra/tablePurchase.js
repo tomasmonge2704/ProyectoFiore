@@ -1,121 +1,31 @@
-import {
-  Table,
-  TableContainer,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  Tfoot,
-  IconButton,
-  Input,
-} from "@chakra-ui/react";
+import { View, Text } from "@react-pdf/renderer";
 import { convertirAMoneda } from "@/utils/convertInt";
-import { DeleteIcon } from "@chakra-ui/icons";
-import { AiOutlinePlus } from "react-icons/ai";
-
-export default function TablePurchase({ productos, setProductos, fields }) {
-  const handleNewRow = (id) => {
-    const updatedProductos = [...productos, { id: id, amount: 0 }];
-    setProductos(updatedProductos);
-  };
-  const handleDeleteRow = (id) => {
-    const updatedProductos = productos.filter((e) => e.id !== id);
-    setProductos(updatedProductos);
-  };
-  const handleChangeInput = (event, id, parameter) => {
-    const updatedProductos = productos.map((producto) => {
-      if (producto.id === id) {
-        return { ...producto, [parameter]: event.target.value };
-      }
-      return producto;
-    });
-    setProductos(updatedProductos);
-  };
+export default function TablePurchase({ productos, fields, styles }) {
   return (
-    <TableContainer w="100%">
-      <Table variant="striped" colorScheme="orange">
-        <Thead>
-          <Tr>
-            <Th>QUANTITY</Th>
-            <Th>PRODUCT</Th>
-
-            <Th>PACKING</Th>
-            <Th>UNIT PRICE</Th>
-            <Th>AMOUNT</Th>
-            <Th></Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {productos.length &&
-            productos.map((e, index) => (
-              <Tr key={index}>
-                <Td>
-                  <Input
-                    variant="filled"
-                    value={e.quantity ? e.quantity : ""}
-                    onChange={(event) =>
-                      handleChangeInput(event, e.id, "quantity")
-                    }
-                  />
-                </Td>
-                <Td>
-                  <Input
-                    variant="filled"
-                    value={e.description ? e.description : ""}
-                    onChange={(event) =>
-                      handleChangeInput(event, e.id, "description")
-                    }
-                  />
-                </Td>
-
-                <Td>
-                  <Input
-                    variant="filled"
-                    value={e.packing ? e.packing : ""}
-                    onChange={(event) =>
-                      handleChangeInput(event, e.id, "packing")
-                    }
-                  />
-                </Td>
-                <Td>
-                  <Input
-                    variant="filled"
-                    value={e.unitPricePurchase ? e.unitPricePurchase : ""}
-                    type="number"
-                    onChange={(event) =>
-                      handleChangeInput(event, e.id, "unitPricePurchase")
-                    }
-                  />
-                </Td>
-                <Td>
-                  {convertirAMoneda(e.unitPricePurchase * e.quantity) || 0}
-                </Td>
-                <Td>
-                  <IconButton
-                    icon={index < 1 ? <AiOutlinePlus /> : <DeleteIcon />}
-                    variant="solid"
-                    colorScheme={index < 1 ? "orange" : "red"}
-                    onClick={
-                      index > 0
-                        ? () => handleDeleteRow(e.id)
-                        : () => handleNewRow(Math.random())
-                    }
-                  />
-                </Td>
-              </Tr>
-            ))}
-        </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th>TOTAL {fields.totalWeight !== 0 && fields.totalWeight}</Th>
-            <Th></Th>
-            <Th></Th>
-            <Th></Th>
-            <Th isNumeric>{convertirAMoneda(fields.totalPurchase)}</Th>
-          </Tr>
-        </Tfoot>
-      </Table>
-    </TableContainer>
+    <View style={styles.tableContainer}>
+      <View style={styles.tableTitle}>
+          <View style={styles.borderTableTitle}><Text style={styles.negrita}>QUANTITY</Text></View>
+          <View style={{width:"150%"}}><View style={styles.borderTableTitle}><Text style={styles.negrita}>PRODUCT</Text></View></View>
+          <View style={styles.borderTableTitle}><Text style={styles.negrita}>PACKING</Text></View>
+          <View style={styles.borderTableTitle}><Text style={styles.negrita}>UNIT PRICE</Text></View>
+          <View style={styles.borderTableTitle}><Text style={styles.negrita}>TOTAL AMOUNT</Text></View>
+      </View>
+      {productos.length && productos.map((prod,index) => (
+        <View style={styles.tableRow} key={index}>
+          <View style={styles.borderTable}> <Text style={styles.textDato}>{prod.quantity} MT</Text></View>
+          <View style={{width:"150%"}}><View style={styles.borderTable}> <Text style={styles.textDato}>{prod.description}</Text></View></View>
+          <View style={styles.borderTable}> <Text style={styles.textDato}>{prod.packing}</Text></View>
+          <View style={styles.borderTable}> <Text style={styles.textDato}>USD {prod.unitPricePurchase} /MT</Text></View>
+          <View style={styles.borderTable}> <Text style={styles.textDato}>USD {convertirAMoneda(prod.unitPricePurchase * prod.quantity) || 0}</Text></View>
+        </View>
+      ))}
+      <View style={styles.tableRow}>
+          <View style={styles.borderTable}> <Text style={styles.textDato}>{fields.totalWeight !== 0 && fields.totalWeight} MT</Text></View>
+          <View style={{width:"150%"}}></View>
+          <View style={{width:"100%"}}></View>
+          <View style={{width:"100%"}}></View>
+          <View style={styles.borderTable}> <Text style={styles.textDato}>USD {convertirAMoneda(fields.totalPurchase)}</Text></View>
+        </View>
+    </View>
   );
 }

@@ -129,6 +129,7 @@ export default function NuevaOperacion() {
     <Box
       boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
       borderRadius={"15px"}
+      minHeight="96vh"
       p={2}
     >
       <Grid w="100%" templateColumns="repeat(3, 1fr)" h={7} gap={4}>

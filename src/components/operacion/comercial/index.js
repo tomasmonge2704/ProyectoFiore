@@ -20,6 +20,7 @@ export const Comercial = ({operation,setOperation}) => {
   const [CarteraPaymentTerms, setCarteraPaymentTerms] = useState([]);
   const [CarteraPacking, setCarteraPacking] = useState([]);
   const [CarteraProducts, setCarteraProducts] = useState([]);
+  const [CarteraEmpleados, setCarteraEmpleados] = useState([])
   useEffect(() => {
     const token = localStorage.getItem("token");
     fetch(`${process.env.API_URL}/proveedor`, {
@@ -145,29 +146,19 @@ export const Comercial = ({operation,setOperation}) => {
             CarteraPacking={CarteraPacking}
             CarteraPaymentTerms={CarteraPaymentTerms}
             CarteraPuertos={CarteraPuertos}
+            CarteraEmpleados={CarteraEmpleados}
           />
         </TabPanel>
         <TabPanel>
           <PurchaseForm 
-          operation={operation}
-          CarteraProveedores={CarteraProveedores}
-          CarteraBancaria={CarteraBancaria}
-          CarteraPaymentTerms={CarteraPaymentTerms}
           fields={fields}
-          setFields={setFields}
           productos={productos}
-          setProductos={setProductos}
           />
         </TabPanel>
         <TabPanel>
           <SaleForm 
-          CarteraClientes={CarteraClients}
           fields={fields}
-          setFields={setFields}
           productos={productos}
-          setProductos={setProductos}
-          CarteraBancaria={CarteraBancaria}
-          CarteraPaymentTerms={CarteraPaymentTerms}
           />
         </TabPanel>
       </TabPanels>
