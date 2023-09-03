@@ -12,11 +12,13 @@ import {
   Input,
   Grid,
   GridItem,
+  useToast
 } from "@chakra-ui/react";
 import { useState } from "react";
 export const DatosBancarios = ({ CarteraBancaria }) => {
   const [dirtyIndexes, setDirtyIndexes] = useState([]);
   const [datos, setDatos] = useState(CarteraBancaria);
+  const toast = useToast();
   const handleInputChange = (element, index, parametro, indexBank) => {
     setDirtyIndexes((prevDirtyIndexes) => {
       if (!prevDirtyIndexes.includes(index)) {
@@ -24,22 +26,23 @@ export const DatosBancarios = ({ CarteraBancaria }) => {
       }
       return prevDirtyIndexes;
     });
-    const newDatos = datos;
-    if (indexBank) {
-      newDatos[index].banks[indexBank][parametro] = element.target.value;
+    const newDatos = [...datos];
+    if (indexBank !== undefined) {
+      // Si se proporciona indexBank, se está modificando una propiedad dentro de banks
+      const updatedBank = { ...newDatos[index].banks[indexBank] };
+      updatedBank[parametro] = element.target.value;
+      newDatos[index].banks[indexBank] = updatedBank;
     } else {
+      // Si no se proporciona indexBank, se está modificando una propiedad directamente en el elemento
       newDatos[index][parametro] = element.target.value;
     }
     setDatos(newDatos)
   };
 
   const handleConfirmChanges = (index) => {
-    setDirtyIndexes((prevDirtyIndexes) =>
-      prevDirtyIndexes.filter((dirtyIndex) => dirtyIndex !== index)
-    );
     const token = localStorage.getItem("token");
-
-    fetch(`${process.env.API_URL}/empleados/${id}`, {
+    const buscado = datos[index];
+    fetch(`${process.env.API_URL}/empresa/${buscado._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -55,8 +58,8 @@ export const DatosBancarios = ({ CarteraBancaria }) => {
       })
       .then((data) => {
         toast({
-          title: "Cliente",
-          description: `Se ha guardado correctamente ${data[params[0].param]}.`,
+          title: "Empresa",
+          description: `Se ha guardado correctamente ${data.nombre}.`,
           status: "success",
           position: "top-right",
           duration: 5000,
@@ -75,11 +78,13 @@ export const DatosBancarios = ({ CarteraBancaria }) => {
         });
       })
       .finally(() => {
-        // Realizar tareas finales aquí, como limpiar estados o ejecutar acciones después de la solicitud
+        setDirtyIndexes((prevDirtyIndexes) =>
+          prevDirtyIndexes.filter((dirtyIndex) => dirtyIndex !== index)
+        );
       });
   };
   return (
-    <Flex justify="space-evenly" mt={10} mb={10}>
+    <Flex justify="space-evenly" mt={2} mb={5}>
       {datos.length > 0 &&
         datos.map((e, index) => (
           <Card
@@ -88,13 +93,13 @@ export const DatosBancarios = ({ CarteraBancaria }) => {
             variant="elevated"
             backgroundColor={e.empresa == "Duplo" ? "orange.200" : "orange.300"}
           >
-            <CardHeader>
+            <CardHeader h={5}>
               <Center>
                 <Heading size="md">{e.nombre}</Heading>
               </Center>
             </CardHeader>
             <CardBody>
-              <Stack spacing="2">
+              <Stack spacing="1">
                 <Text as="b">Direccion</Text>
                 <Input
                   variant="filled"
@@ -120,8 +125,8 @@ export const DatosBancarios = ({ CarteraBancaria }) => {
                   }
                 />
               </Stack>
-              <Divider mt={5} mb={5} />
-              <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
+              <Divider mt={2} mb={2} />
+              <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={2}>
                 {e.banks &&
                   e.banks.map((bank, indexBank) => (
                     <GridItem w="100%" key={indexBank}>
@@ -143,18 +148,49 @@ export const DatosBancarios = ({ CarteraBancaria }) => {
                         <Input
                           variant="filled"
                           defaultValue={bank.bankAdress}
+                          onChange={(element) =>
+                            handleInputChange(
+                              element,
+                              index,
+                              "bankAdress",
+                              indexBank
+                            )
+                          }
                         />
                         <Text as="b">Swift Code</Text>
-                        <Input variant="filled" defaultValue={bank.swiftCode} />
+                        <Input variant="filled" defaultValue={bank.swiftCode}  onChange={(element) =>
+                            handleInputChange(
+                              element,
+                              index,
+                              "swiftCode",
+                              indexBank
+                            )
+                          }/>
                         <Text as="b">Beneficiary Name</Text>
                         <Input
                           variant="filled"
                           defaultValue={bank.beneficiaryName}
+                          onChange={(element) =>
+                            handleInputChange(
+                              element,
+                              index,
+                              "beneficiaryName",
+                              indexBank
+                            )
+                          }
                         />
                         <Text as="b">Beneficiary Account Number</Text>
                         <Input
                           variant="filled"
                           defaultValue={bank.beneficiaryAccountNumber}
+                          onChange={(element) =>
+                            handleInputChange(
+                              element,
+                              index,
+                              "beneficiaryAccountNumber",
+                              indexBank
+                            )
+                          }
                         />
                       </Stack>
                     </GridItem>
