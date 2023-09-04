@@ -16,86 +16,11 @@ import {
   Grid,
   GridItem,
 } from "@chakra-ui/react";
-import { useState } from "react";
-
+import { useState,useEffect } from "react";
+import { useStore } from "@/store/operation";
 export default function NuevaOperacion() {
-  function obtenerFechaActual() {
-    const hoy = new Date();
-    const dia = hoy.getDate().toString().padStart(2, "0");
-    const mes = (hoy.getMonth() + 1).toString().padStart(2, "0"); // Los meses comienzan en 0 (enero=0, febrero=1, etc.)
-    const anio = hoy.getFullYear();
-
-    return `${anio}-${mes}-${dia}`;
-  }
-  const [operation, setOperation] = useState({
-    comercial: {
-      title: "Comercial",
-      completed: 0,
-      fields: {
-        orderNumber: "",
-        supplierRefNumber: "",
-        date: obtenerFechaActual(),
-        empresa: {
-          nombre: "",
-          empresa: "",
-          direccion: "",
-          direccion2: "",
-          vatNumber: "",
-          bank: {
-            beneficiaryBank: "",
-            bankAdress: "",
-            swiftCode: "",
-            beneficiaryName: "",
-            beneficiaryAccountNumber: "",
-          },
-        },
-        seller: {
-          nombre: "",
-          direccion: "",
-          direccion2: "",
-          pais: "",
-          cuit: "",
-          refNumber: "",
-        },
-        buyer: {
-          direccion: "",
-          direccion2: "",
-          vatNumber: "",
-          refNumber: "",
-        },
-        productos: [
-          {
-            id: "",
-            description: "",
-            packing: "",
-            quantity: "",
-            unitPricePurchase: "",
-            unitPriceSale: "",
-            amountSale: "",
-            amountPurchase: "",
-          },
-        ],
-        totalPurchase: 0,
-        totalSale: 0,
-        totalWeight: 0,
-        productionDate: "",
-        shelfLife: "",
-        destinationPort: "",
-        destinationCountry: "",
-        quantity: "",
-        shipmentPeriod: "",
-        deliveryTermsSale: "",
-        deliveryTermsPurchase: "",
-        paymentTermsSale: "",
-        paymentTermsPurchase: "",
-        exportTo: "",
-      },
-    },
-    docs: { title: "Docs", completed: 0 },
-    logistica: { title: "Logistica", completed: 0 },
-    contableFinanciera: { title: "Contable financiera", completed: 0 },
-    status: "New",
-  });
+  const operation = useStore((state) => state.operation);
+  const setOperation = useStore((state) => state.setOperation)
   const steps = [
     {
       title: "Comercial",
@@ -125,6 +50,43 @@ export default function NuevaOperacion() {
     count: steps.length,
   });
   const [showStep, setShowStep] = useState("Comercial");
+  const [ fields, setFields] = useState(operation.comercial.fields);
+  const [ productos, setProductos] = useState(operation.comercial.fields.productos);
+  useEffect(() => {
+    if(operation){
+    let totalFields = 20;
+    if(fields?.comision) totalFields = totalFields + 1;
+    let completedFields = Object.values(fields).filter(Boolean).length;
+    const completed = Math.floor((completedFields / totalFields) * 100);
+    setOperation({
+      ...operation,
+      comercial: {
+        ...operation.comercial,
+        completed,
+        fields: fields,
+      },
+    })
+  }
+  }, [fields]);
+  let balanceSale = 0;
+  let balancePurchase = 0;
+  let totalWeight = 0;
+  useEffect(() => {
+    if(productos){
+    for (let i = 0; i < productos.length; i++) {
+      balanceSale += productos[i].unitPriceSale * productos[i].quantity;
+      balancePurchase += productos[i].unitPricePurchase * productos[i].quantity;
+      totalWeight += Number(productos[i].quantity);
+    }
+    setFields((prevFields) => ({
+      ...prevFields,
+      productos: productos,
+      totalPurchase: balancePurchase,
+      totalSale: balanceSale,
+      totalWeight: totalWeight,
+    }));
+  }
+  }, [productos]);
   return (
     <Box
       boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
@@ -201,6 +163,10 @@ export default function NuevaOperacion() {
           show={showStep}
           operation={operation}
           setOperation={setOperation}
+          fields={fields}
+          setFields={setFields}
+          productos={productos}
+          setProductos={setProductos}
         />
       </Box>
     </Box>

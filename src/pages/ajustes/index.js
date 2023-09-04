@@ -7,7 +7,7 @@ import {
   TabPanels,
 } from "@chakra-ui/react";
 import { Loadder } from "@/utils/loadder";
-import { useState, useEffect } from "react";
+import useFetch from "@/hooks/useFetch";
 import { DatosBancarios } from "@/components/ajustes/datosBancarios";
 import { PaymentTerms } from "@/components/ajustes/paymentTerms";
 import { Puertos } from "@/components/ajustes/puertos";
@@ -15,70 +15,13 @@ import { AjustesPacking } from "@/components/ajustes/packing";
 import { AjustesProductos } from "@/components/ajustes/products";
 import { AjustesEmpleados } from "@/components/ajustes/empleados";
 export default function Ajustes() {
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    fetch(`${process.env.API_URL}/empresa`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraBancaria(data);
-    });
-    fetch(`${process.env.API_URL}/empleados`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraEmpleados(data);
-    });
-      
-    fetch(`${process.env.API_URL}/puertos`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraPuertos(data);
-      });
-    fetch(`${process.env.API_URL}/payment-terms`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraPaymentTerms(data);
-      });
-    fetch(`${process.env.API_URL}/packing`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraPacking(data);
-      });
-    fetch(`${process.env.API_URL}/products`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraProducts(data);
-      });
-  }, []);
-  const [CarteraBancaria, setCarteraBancaria] = useState([]);
-  const [CarteraPuertos, setCarteraPuertos] = useState([]);
-  const [CarteraPaymentTerms, setCarteraPaymentTerms] = useState([]);
-  const [CarteraPacking, setCarteraPacking] = useState([]);
-  const [CarteraProducts, setCarteraProducts] = useState([]);
-  const [CarteraEmpleados, setCarteraEmpleados] = useState([])
+  const [CarteraBancaria] = useFetch(`${process.env.API_URL}/empresa`,[]);
+  const [CarteraPuertos] = useFetch(`${process.env.API_URL}/puertos`,[]);
+  const [CarteraPaymentTerms] = useFetch(`${process.env.API_URL}/payment-terms`,[]);
+  const [CarteraPacking] = useFetch(`${process.env.API_URL}/packing`,[]);
+  const [CarteraProducts] = useFetch(`${process.env.API_URL}/products`,[]);
+  const [CarteraEmpleados] = useFetch(`${process.env.API_URL}/empresa`,[]);
+
 
   return (
     <Tabs variant="soft-rounded" colorScheme="orange">

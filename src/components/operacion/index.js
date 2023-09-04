@@ -6,20 +6,33 @@ export const ContenedorOperaciones = ({
   show,
   operation,
   setOperation,
-  tabIndex
+  fields,
+  setFields,
+  productos,
+  setProductos,
 }) => {
   return (
     <>
       {show == "Comercial" && (
         <Comercial
           operation={operation}
-          tabIndex={tabIndex}
           setOperation={setOperation}
+          fields={fields}
+          setFields={setFields}
+          productos={productos}
+          setProductos={setProductos}
         />
       )}
       {show == "Contable financiera" && <Contable />}
       {show == "Logistica" && <Logistica />}
-      {show == "Docs" && <Docs />}
+      {show == "Docs" && (
+        <Docs
+          operation={operation}
+          setOperation={setOperation}
+          fields={fields}
+          setFields={setFields}
+        />
+      )}
     </>
   );
 };

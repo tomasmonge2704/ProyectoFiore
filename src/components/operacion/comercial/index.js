@@ -9,119 +9,17 @@ import {
 import SaleForm from "@/components/operacion/comercial/confirmacionVenta";
 import PurchaseForm from "./ordenCompra";
 import GeneralForm from "./generales";
-import { useState,useEffect } from "react";
-export const Comercial = ({operation,setOperation}) => {
-  const [ fields, setFields] = useState(operation.comercial.fields);
-  const [ productos, setProductos] = useState(operation.comercial.fields.productos);
-  const [CarteraBancaria, setCarteraBancaria] = useState([]);
-  const [CarteraProveedores, setCarteraProveedores] = useState([]);
-  const [CarteraClients, setCarteraClients] = useState([]);
-  const [CarteraPuertos, setCarteraPuertos] = useState([]);
-  const [CarteraPaymentTerms, setCarteraPaymentTerms] = useState([]);
-  const [CarteraPacking, setCarteraPacking] = useState([]);
-  const [CarteraProducts, setCarteraProducts] = useState([]);
-  const [CarteraEmpleados, setCarteraEmpleados] = useState([])
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    fetch(`${process.env.API_URL}/proveedor`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraProveedores(data);
-      });
-    fetch(`${process.env.API_URL}/client`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraClients(data);
-      });
-    fetch(`${process.env.API_URL}/empresa`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraBancaria(data);
-      });
-    fetch(`${process.env.API_URL}/puertos`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraPuertos(data);
-      });
-    fetch(`${process.env.API_URL}/payment-terms`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraPaymentTerms(data);
-      });
-    fetch(`${process.env.API_URL}/packing`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraPacking(data);
-      });
-    fetch(`${process.env.API_URL}/products`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraProducts(data);
-      });
-  }, []);
-  useEffect(() => {
-    if(operation){
-    let totalFields = 20;
-    if(fields?.comision) totalFields = totalFields + 1;
-    let completedFields = Object.values(fields).filter(Boolean).length;
-    const completed = Math.floor((completedFields / totalFields) * 100);
-    setOperation({
-      ...operation,
-      comercial: {
-        ...operation.comercial,
-        completed,
-        fields: fields,
-      },
-    })
-  }
-  }, [fields]);
-  let balanceSale = 0;
-  let balancePurchase = 0;
-  let totalWeight = 0;
-  useEffect(() => {
-    if(productos){
-    for (let i = 0; i < productos.length; i++) {
-      balanceSale += productos[i].unitPriceSale * productos[i].quantity;
-      balancePurchase += productos[i].unitPricePurchase * productos[i].quantity;
-      totalWeight += Number(productos[i].quantity);
-    }
-    setFields((prevFields) => ({
-      ...prevFields,
-      productos: productos,
-      totalPurchase: balancePurchase,
-      totalSale: balanceSale,
-      totalWeight: totalWeight,
-    }));
-  }
-  }, [productos]);
+import useFetch from "@/hooks/useFetch";
+export const Comercial = ({operation,fields,setFields,productos,setProductos}) => {
+  const [CarteraBancaria] = useFetch(`${process.env.API_URL}/empresa`,[]);
+  const [CarteraProveedores] = useFetch(`${process.env.API_URL}/proveedor`,[]);
+  const [CarteraClients] = useFetch(`${process.env.API_URL}/client`,[]);
+  const [CarteraPuertos] = useFetch(`${process.env.API_URL}/puertos`,[]);
+  const [CarteraPaymentTerms] = useFetch(`${process.env.API_URL}/payment-terms`,[]);
+  const [CarteraPacking] = useFetch(`${process.env.API_URL}/packing`,[]);
+  const [CarteraProducts] = useFetch(`${process.env.API_URL}/products`,[]);
+  const [CarteraEmpleados] = useFetch(`${process.env.API_URL}/empresa`,[]);
+
   return (
     <Tabs variant="soft-rounded" colorScheme="orange">
     <Center width="100%">
