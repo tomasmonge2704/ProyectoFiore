@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
   },
   textDato: {
     fontSize: 7,
-    backgroundColor: "rgb(210, 214, 213)",
   },
   line:{
     backgroundColor:"grey",
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function PurchaseForm({fields,productos,}) {
+export default function PurchaseForm({fields,productos}) {
   const [loadPage, setloadPage] = useState(false);
   useEffect(() => {
     setloadPage(true);
@@ -125,18 +124,18 @@ export default function PurchaseForm({fields,productos,}) {
       <div style={{ marginTop: "20px" }}>
         {loadPage && (
           <PDFViewer style={{ width: "100%", height: 500 }}>
-            <Document title="proforma.pdf">
+            <Document title={"Purchase Conf " + fields.empresaRefNumber +".pdf"}>
               <Page size="A4" style={styles.page}>
                 <View style={styles.imageContainer}>
                   <Image style={styles.image} src="/logo.jpg" />
                 </View>
                 <View style={styles.section}>
-                  <Text style={styles.title}>PURCHASE CONFIRMATION NR.</Text>
+                  <Text style={styles.title}>PURCHASE CONFIRMATION NR. {fields.empresaRefNumber}</Text>
                   <View style={styles.grid}>
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>ORDER NUMBER:</Text>
                       <Text style={styles.textDato}>
-                        {fields.buyer.refNumber}
+                        {fields.empresaRefNumber}
                       </Text>
                     </View>
                     <View style={styles.grid2}>
@@ -331,18 +330,7 @@ export default function PurchaseForm({fields,productos,}) {
                       {fields.destinationCountry}
                     </Text>
                   </View>
-                  <View style={{marginTop:3}}>
-                      <Text style={styles.negrita}>
-                        - PRODUCTION / EXPIRATION DATE (DD/MM/YYYY) OR (MM/YYYY)
-                        FORMAT ARE REQUIRED ON ALL CARTONS
-                      </Text>
-                  </View>
-                  <View style={{marginTop:3}}>
-                      <Text style={styles.negrita}>- FLOOR LOADED</Text>
-                  </View>
-                  <View style={{marginTop:3}}>
-                      <Text style={styles.negrita}>- FOR MIX LOADS, HEAVY HEN LEG QUARTERS MUST BE AT THE DOOR OF THE CONTAINER</Text>
-                  </View>
+                 
                   <View style={styles.vSpacer}></View>
                   <View style={styles.vSpacer}></View>
                   <View style={styles.vSpacer}></View>

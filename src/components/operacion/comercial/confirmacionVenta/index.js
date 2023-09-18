@@ -40,8 +40,7 @@ const styles = StyleSheet.create({
     fontWeight:"ultrabold"
   },
   textDato: {
-    fontSize: 7,
-    backgroundColor: "rgb(210, 214, 213)",
+    fontSize: 7
   },
   image: {
     width: "120px",
@@ -122,18 +121,18 @@ export default function SaleForm({ fields, productos }) {
       <div style={{ marginTop: "20px" }}>
         {loadPage && (
           <PDFViewer style={{ width: "100%", height: 500 }}>
-            <Document title="proforma.pdf">
+            <Document title={"Proforma Inv " + fields.empresaRefNumber +".pdf"}>
               <Page size="A4" style={styles.page}>
                 <View style={styles.imageContainer}>
                   <Image style={styles.image} src="/logo.jpg" />
                 </View>
                 <View style={styles.section}>
-                  <Text style={styles.title}>PROFORMA INVOICE NR.</Text>
+                  <Text style={styles.title}>PROFORMA INVOICE NR. {fields.empresaRefNumber}</Text>
                   <View style={styles.grid}>
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>ORDER NUMBER:</Text>
                       <Text style={styles.textDato}>
-                        {fields.buyer.refNumber}
+                        {fields.empresaRefNumber}
                       </Text>
                     </View>
                     <View style={styles.grid2}>

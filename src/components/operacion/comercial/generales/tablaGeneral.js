@@ -37,7 +37,6 @@ export default function TablaGeneral({
     setProductos(updatedProductos);
   };
   const handleChangeInput = (event, id, parameter) => {
-    console.log(event.target.value);
     const updatedProductos = productos.map((producto) => {
       if (producto.id === id) {
         return { ...producto, [parameter]: Number(event.target.value) };

@@ -1,51 +1,50 @@
 export default function handler(req, res) {
-    res.status(200).json(opertaion)
+    res.status(200).json(operationObjet)
   }
-function obtenerFechaActual() {
+  function obtenerFechaActual() {
     const hoy = new Date();
-    const dia = hoy.getDate().toString().padStart(2, '0');
-    const mes = (hoy.getMonth() + 1).toString().padStart(2, '0'); // Los meses comienzan en 0 (enero=0, febrero=1, etc.)
+    const dia = hoy.getDate().toString().padStart(2, "0");
+    const mes = (hoy.getMonth() + 1).toString().padStart(2, "0"); // Los meses comienzan en 0 (enero=0, febrero=1, etc.)
     const anio = hoy.getFullYear();
   
     return `${anio}-${mes}-${dia}`;
-}
-const opertaion = {
+  }
+  const operationObjet = {
     comercial: {
       title: "Comercial",
       completed: 0,
-      fields:{
+      fields: {
         orderNumber: "",
         supplierRefNumber: "",
         date: obtenerFechaActual(),
         empresa: {
           nombre: "",
-          empresa:"",
+          empresa: "",
           direccion: "",
           direccion2: "",
           vatNumber: "",
-          bank:{
-            beneficiaryBank:"",
-            bankAdress:"",
-            swiftCode:"",
-            beneficiaryName:"",
-            beneficiaryAccountNumber:""
-          }
+          bank: {
+            beneficiaryBank: "",
+            bankAdress: "",
+            swiftCode: "",
+            beneficiaryName: "",
+            beneficiaryAccountNumber: "",
+          },
         },
-        seller:{
+        seller: {
           nombre: "",
           direccion: "",
           direccion2: "",
           pais: "",
           cuit: "",
-          refNumber:""
+          refNumber: "",
         },
-        buyer:{
+        buyer: {
           direccion: "",
           direccion2: "",
           vatNumber: "",
-          refNumber:""
-        }
-        ,
+          refNumber: "",
+        },
         productos: [
           {
             id: "",
@@ -55,12 +54,12 @@ const opertaion = {
             unitPricePurchase: "",
             unitPriceSale: "",
             amountSale: "",
-            amountPurchase:""
+            amountPurchase: "",
           },
         ],
-        totalPurchase:0,
-        totalSale:0,
-        totalWeight:0,
+        totalPurchase: 0,
+        totalSale: 0,
+        totalWeight: 0,
         productionDate: "",
         shelfLife: "",
         destinationPort: "",
@@ -71,11 +70,19 @@ const opertaion = {
         deliveryTermsPurchase: "",
         paymentTermsSale: "",
         paymentTermsPurchase: "",
-        exportTo: ""
-      }
+        exportTo: "",
+      },
     },
-    docs: { title: "Docs", completed: 0 },
+    docs: {
+      title: "Docs",
+      completed: 0,
+      fields: {
+        date: obtenerFechaActual(),
+        documentRequested: [],
+        instruccionsToIssue: "",
+      },
+    },
     logistica: { title: "Logistica", completed: 0 },
     contableFinanciera: { title: "Contable financiera", completed: 0 },
-    status:"New"
-  }
+    status: "New",
+  };

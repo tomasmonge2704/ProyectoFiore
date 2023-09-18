@@ -7,8 +7,9 @@ export default function GeneralDocs() {
     { label: "FACTURA", value: "FACTURA" },
     { label: "PACKING LIST", value: "PACKING LIST" },
     { label: "CERT. DE ORIGEN", value: "CERT. DE ORIGEN" },
-    { label: "BILL OF LADING - OBL -", value: "BILL OF LADING - OBL -" },
+    { label: "BILL OF LADING", value: "BILL OF LADING - OBL -" },
     { label: "CERT. SANITARIO", value: "CERT. SANITARIO" },
+    { label: "CERT. HALAL", value: "CERT. HALAL" }
   ];
   const optionsInstructions = [
     { label: "FACTURA", value: "FACTURA" },
@@ -16,6 +17,7 @@ export default function GeneralDocs() {
     { label: "CERT. DE ORIGEN", value: "CERT. DE ORIGEN" },
     { label: "BILL OF LADING - OBL -", value: "BILL OF LADING - OBL -" },
     { label: "CERT. SANITARIO", value: "CERT. SANITARIO" },
+    { label: "CERT. HALAL", value: "CERT. HALAL" }
   ]
   const operation = useStore((state) => state.operation);
   const fieldsComercial = operation.comercial.fields;
