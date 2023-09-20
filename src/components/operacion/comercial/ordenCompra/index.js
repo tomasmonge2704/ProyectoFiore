@@ -123,8 +123,8 @@ export default function PurchaseForm({fields,productos}) {
     <Box h="100%">
       <div style={{ marginTop: "20px" }}>
         {loadPage && (
-          <PDFViewer style={{ width: "100%", height: 500 }}>
-            <Document title={"Purchase Conf " + fields.empresaRefNumber +".pdf"}>
+          <PDFViewer style={{ width: "100%", height:"70vh"}}>
+            <Document title={`Purchase Conf${fields.empresaRefNumber && " " + fields.empresaRefNumber}.pdf`}>
               <Page size="A4" style={styles.page}>
                 <View style={styles.imageContainer}>
                   <Image style={styles.image} src="/logo.jpg" />

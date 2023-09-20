@@ -20,7 +20,7 @@ export default function Ajustes() {
   const [CarteraPaymentTerms] = useFetch(`${process.env.API_URL}/payment-terms`,[]);
   const [CarteraPacking] = useFetch(`${process.env.API_URL}/packing`,[]);
   const [CarteraProducts] = useFetch(`${process.env.API_URL}/products`,[]);
-  const [CarteraEmpleados] = useFetch(`${process.env.API_URL}/empresa`,[]);
+  const [CarteraEmpleados] = useFetch(`${process.env.API_URL}/empleados`,[]);
 
 
   return (

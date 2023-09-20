@@ -128,7 +128,7 @@ export default function PdfDocsIntructions() {
     <Box h="100%">
       <div style={{ marginTop: "20px" }}>
         {loadPage && (
-          <PDFViewer style={{ width: "100%", height: 500 }}>
+          <PDFViewer style={{ width: "100%", height:"70vh" }}>
             <Document title="proforma.pdf">
               <Page size="A4" style={styles.page}>
                 <View style={styles.imageContainer}>

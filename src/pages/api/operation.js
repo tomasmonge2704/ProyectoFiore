@@ -16,6 +16,7 @@ export default function handler(req, res) {
       fields: {
         orderNumber: "",
         supplierRefNumber: "",
+        empresaRefNumber:"",
         date: obtenerFechaActual(),
         empresa: {
           nombre: "",
@@ -80,6 +81,7 @@ export default function handler(req, res) {
         date: obtenerFechaActual(),
         documentRequested: [],
         instruccionsToIssue: "",
+        temperature:"- 18 °C "
       },
     },
     logistica: { title: "Logistica", completed: 0 },

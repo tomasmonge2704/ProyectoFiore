@@ -16,11 +16,17 @@ import {
   Grid,
   GridItem,
 } from "@chakra-ui/react";
-import { useState,useEffect } from "react";
+import useFetch from "@/hooks/useFetch";
+import { useEffect, useState } from "react";
 import { useStore } from "@/store/operation";
+import { Loadder } from "@/utils/loadder";
 export default function NuevaOperacion() {
-  const operation = useStore((state) => state.operation);
-  const setOperation = useStore((state) => state.setOperation)
+  const [newOperation] = useFetch("/api/operation", undefined);
+  const operation =  useStore((state) => state.operation);
+  const setOperation = useStore((state) => state.setOperation);
+  useEffect(() => {
+    setOperation(newOperation)
+  },[newOperation])
   const steps = [
     {
       title: "Comercial",
@@ -50,43 +56,6 @@ export default function NuevaOperacion() {
     count: steps.length,
   });
   const [showStep, setShowStep] = useState("Comercial");
-  const [ fields, setFields] = useState(operation.comercial.fields);
-  const [ productos, setProductos] = useState(operation.comercial.fields.productos);
-  useEffect(() => {
-    if(operation){
-    let totalFields = 20;
-    if(fields?.comision) totalFields = totalFields + 1;
-    let completedFields = Object.values(fields).filter(Boolean).length;
-    const completed = Math.floor((completedFields / totalFields) * 100);
-    setOperation({
-      ...operation,
-      comercial: {
-        ...operation.comercial,
-        completed,
-        fields: fields,
-      },
-    })
-  }
-  }, [fields]);
-  let balanceSale = 0;
-  let balancePurchase = 0;
-  let totalWeight = 0;
-  useEffect(() => {
-    if(productos){
-    for (let i = 0; i < productos.length; i++) {
-      balanceSale += productos[i].unitPriceSale * productos[i].quantity;
-      balancePurchase += productos[i].unitPricePurchase * productos[i].quantity;
-      totalWeight += Number(productos[i].quantity);
-    }
-    setFields((prevFields) => ({
-      ...prevFields,
-      productos: productos,
-      totalPurchase: balancePurchase,
-      totalSale: balanceSale,
-      totalWeight: totalWeight,
-    }));
-  }
-  }, [productos]);
   return (
     <Box
       boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
@@ -96,34 +65,33 @@ export default function NuevaOperacion() {
     >
       <Grid w="100%" templateColumns="repeat(3, 1fr)" h={7} gap={4}>
         <GridItem w="100%">
-        <Text fontSize="2xl" fontWeight="bold">
-          Status
-          <Badge ml="1" fontSize="1em" colorScheme="green">
-            {operation && operation.status}
-          </Badge>
-        </Text>
-        </GridItem>
-        <GridItem w="100%" display="flex" justifyContent="center">
-        {operation.comercial.fields.empresaRefNumber && (
           <Text fontSize="2xl" fontWeight="bold">
-            REF. Number
+            Status
             <Badge ml="1" fontSize="1em" colorScheme="green">
-              {operation.comercial.fields.empresaRefNumber}
+              {operation && operation.status}
             </Badge>
           </Text>
-        )}
         </GridItem>
         <GridItem w="100%" display="flex" justifyContent="center">
-        {operation.comercial.fields.empresa.nombre && (
-          <Text fontSize="2xl" fontWeight="bold">
-            Company
-            <Badge ml="1" fontSize="1em" colorScheme="green">
-              {operation.comercial.fields.empresa.nombre}
-            </Badge>
-          </Text>
-        )}
+          {operation && (
+            <Text fontSize="2xl" fontWeight="bold">
+              REF. Number
+              <Badge ml="1" fontSize="1em" colorScheme="green">
+                {operation.comercial.fields.empresaRefNumber}
+              </Badge>
+            </Text>
+          )}
         </GridItem>
-        
+        <GridItem w="100%" display="flex" justifyContent="center">
+          {operation && (
+            <Text fontSize="2xl" fontWeight="bold">
+              Company
+              <Badge ml="1" fontSize="1em" colorScheme="green">
+                {operation.comercial.fields.empresa.nombre}
+              </Badge>
+            </Text>
+          )}
+        </GridItem>
       </Grid>
 
       <Box mt={4}>
@@ -159,15 +127,13 @@ export default function NuevaOperacion() {
         </Stepper>
       </Box>
       <Box mt={5}>
-        <ContenedorOperaciones
-          show={showStep}
-          operation={operation}
-          setOperation={setOperation}
-          fields={fields}
-          setFields={setFields}
-          productos={productos}
-          setProductos={setProductos}
-        />
+        {operation ? (
+          <ContenedorOperaciones
+            show={showStep}
+            operation={operation}
+            setOperation={setOperation}
+          />
+        ) : <Loadder/>}
       </Box>
     </Box>
   );
