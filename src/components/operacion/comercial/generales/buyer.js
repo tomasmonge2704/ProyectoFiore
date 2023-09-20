@@ -1,7 +1,9 @@
 import { InputSearch } from "@/utils/inputSearch";
-export const Buyer = ({ setFields,CarteraClientes }) => {
+export const Buyer = ({ buyer,setFields, CarteraClientes }) => {
   const handleIndexChange = (e) => {
-    const index = CarteraClientes.findIndex((elemento) => elemento.nombre === e.target.value);
+    const index = CarteraClientes.findIndex(
+      (elemento) => elemento.nombre === e.target.value
+    );
     setFields((prevPurchase) => ({
       ...prevPurchase,
       buyer: CarteraClientes[index],
@@ -9,6 +11,12 @@ export const Buyer = ({ setFields,CarteraClientes }) => {
   };
 
   return (
-    <InputSearch cartera={CarteraClientes} searchParam="nombre" placeholder="Search buyer..."  selectChangeLogic={handleIndexChange} />
+    <InputSearch
+      cartera={CarteraClientes}
+      searchParam="nombre"
+      placeholder="Search buyer..."
+      selectChangeLogic={handleIndexChange}
+      defaultValue={buyer.nombre}
+    />
   );
 };

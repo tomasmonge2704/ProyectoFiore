@@ -63,9 +63,9 @@ export const TableBillOfLading = ({ operation }) => {
             <Td>CONTAINER TYPE</Td>
             <Td>
               <Select variant="filled">
-                <option value="40' refeer HC">40' refeer HC</option>
-                <option value="40' dry">40' dry</option>
-                <option value="20' refeer">20' refeer</option>
+                <option value="40' refeer HC">40&apos; refeer HC</option>
+                <option value="40' dry">40&apos; dry</option>
+                <option value="20' refeer">20&apos; refeer</option>
               </Select>
             </Td>
           </Tr>

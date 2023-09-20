@@ -21,6 +21,7 @@ export const DestinationPort = ({ fields, setFields, CarteraPuertos }) => {
       selectChangeLogic={handleIndexChange}
       placeholder="Search Port..."
       cartera={CarteraPuertos}
+      defaultValue={fields.destinationPort}
     />
   );
 };

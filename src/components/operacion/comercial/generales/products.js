@@ -14,12 +14,14 @@ export const SelectProducts = ({
     });
     setProductos(updatedProductos);
   }
+  const productoEncontrado = productos.find((e) => e.id === id);
   return (
     <InputSearch
     selectChangeLogic={selectChangeLogic}
       searchParam="description"
       placeholder="Search Product..."
       cartera={CarteraProducts}
+      defaultValue={productoEncontrado.description}
     />
   );
 };
