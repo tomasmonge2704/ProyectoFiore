@@ -15,7 +15,7 @@ import {
 export const TableBillOfLading = ({ operation }) => {
   return (
     <TableContainer w="100%">
-      <Table variant="striped" colorScheme="orange">
+      <Table variant="striped" colorScheme="orange" size="sm">
         <Thead>
           <Tr>
             <Th>INTRUCCIONES EMISIÓN: BILL OF LADING</Th>
@@ -42,7 +42,7 @@ export const TableBillOfLading = ({ operation }) => {
           </Tr>
           <Tr>
             <Td>DESCRIPTION OF GOODS</Td>
-            <Td><Textarea value={operation.comercial.fields.productos[0].description && operation.comercial.fields.productos.map((e) => (
+            <Td><Textarea defaultValue={operation.comercial.fields.productos[0].description && operation.comercial.fields.productos.map((e) => (
             e.description
             ))} variant="filled" /></Td>
           </Tr>
@@ -74,7 +74,7 @@ export const TableBillOfLading = ({ operation }) => {
             <Td>
               <Input
                 variant="filled"
-                value={operation.docs.fields.temperature}
+                defaultValue={operation.docs.fields.temperature}
               />
             </Td>
           </Tr>

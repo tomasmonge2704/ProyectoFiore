@@ -16,7 +16,7 @@ export default function handler(req, res) {
       fields: {
         orderNumber: "",
         supplierRefNumber: "",
-        empresaRefNumber:"",
+        empresaRefNumber:"21312",
         date: obtenerFechaActual(),
         empresa: {
           nombre: "",

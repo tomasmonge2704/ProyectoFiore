@@ -11,7 +11,7 @@ import {
 export const TableDocumentRequested = ({ data }) => {
   return (
     <TableContainer w="100%">
-      <Table variant="unstyled" colorScheme="orange">
+      <Table variant="unstyled" colorScheme="orange" size="sm">
         <Thead>
           <Tr>
             <Th>Document Requested</Th>

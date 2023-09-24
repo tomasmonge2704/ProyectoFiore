@@ -45,6 +45,9 @@ export default function GeneralForm({
       isClosable: true,
     })
   };
+  const handleInputChange = (elemnt) => {
+    setFields(elemnt);
+  }
   return (
     <Box w="100%">
         <VStack spacing="3">
@@ -54,13 +57,11 @@ export default function GeneralForm({
                 <InputPersonalizado
                   type="text"
                   label="REF. NUMBER"
-                  value={fields.empresaRefNumber}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      empresaRefNumber: e.target.value,
-                    })
-                  }
+                  defaultValue={fields.empresaRefNumber}
+                  onChange={(e) => handleInputChange({
+                    ...fields,
+                    empresaRefNumber: e.target.value,
+                  })}
                 />
                 <Empresa
                   fields={fields}
@@ -79,10 +80,8 @@ export default function GeneralForm({
                 <InputPersonalizado
                   type="date"
                   label="Date"
-                  value={fields.date}
-                  onChange={(e) =>
-                    setFields({ ...fields, date: e.target.value })
-                  }
+                  defaultValue={fields.date}
+                  onChange={(e) => handleInputChange({ ...fields, date: e.target.value})}
                 />
                 <Seller
                   seller={fields.seller}
@@ -93,13 +92,11 @@ export default function GeneralForm({
                 <InputPersonalizado
                   type="text"
                   label="REF. NUMBER"
-                  value={fields.seller.refNumber}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      seller: { ...fields.seller, refNumber: e.target.value },
-                    })
-                  }
+                  defaultValue={fields.seller.refNumber}
+                  onChange={(e) => handleInputChange({
+                    ...fields,
+                    seller: { ...fields.seller, refNumber: e.target.value },
+                  })}
                 />
               </VStack>
             </GridItem>
@@ -110,13 +107,11 @@ export default function GeneralForm({
                 <InputPersonalizado
                   type="text"
                   label="REF. NUMBER"
-                  value={fields.buyer ? fields.buyer.refNumber : ""}
-                  onChange={(e) =>
-                    setFields({
-                      ...fields,
-                      buyer: { ...fields.buyer, refNumber: e.target.value },
-                    })
-                  }
+                  defaultValue={fields.buyer.refNumber}
+                  onChange={(e) => handleInputChange({
+                    ...fields,
+                    buyer: { ...fields.buyer, refNumber: e.target.value },
+                  })}
                 />
               </VStack>
             </GridItem>
@@ -148,9 +143,7 @@ export default function GeneralForm({
                   type="text"
                   label="DESTINATION COUNTRY"
                   value={fields.destinationCountry}
-                  onChange={(e) =>
-                    setFields({ ...fields, destinationCountry: e.target.value })
-                  }
+                  onChange={(e) => handleInputChange({ ...fields, destinationCountry: e.target.value })}
                 />
               </VStack>
             </GridItem>
@@ -159,9 +152,7 @@ export default function GeneralForm({
             type="text"
             label="PRODUCTION DATE"
             value={fields.productionDate}
-            onChange={(e) =>
-              setFields({ ...fields, productionDate: e.target.value })
-            }
+            onChange={(e) => handleInputChange({ ...fields, productionDate: e.target.value })}
           />
           <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
