@@ -1,8 +1,19 @@
-import { Tabs,Tab,TabList,TabPanels,TabPanel,Center } from "@chakra-ui/react";
+import {
+  Tabs,
+  Tab,
+  TabList,
+  TabPanels,
+  TabPanel,
+  Center,
+} from "@chakra-ui/react";
 import GeneralDocs from "./general";
 import PdfDocsIntructions from "./pdf";
+import { useStore } from "@/store/operation";
 export const Docs = () => {
-
+  const operation = useStore((state) => state.operation);
+  const setFieldsDocs = useStore((state) => state.setFieldsDocs);
+  const fieldsComercial = operation.comercial.fields;
+  const fieldsDocs = operation.docs.fields;
   return (
     <Tabs variant="soft-rounded" colorScheme="orange">
       <Center width="100%">
@@ -13,10 +24,19 @@ export const Docs = () => {
       </Center>
       <TabPanels>
         <TabPanel>
-            <GeneralDocs/>
+          <GeneralDocs
+            operation={operation}
+            setFieldsDocs={setFieldsDocs}
+            fieldsComercial={fieldsComercial}
+            fieldsDocs={fieldsDocs}
+          />
         </TabPanel>
         <TabPanel>
-            <PdfDocsIntructions />
+          <PdfDocsIntructions
+            operation={operation}
+            fieldsComercial={fieldsComercial}
+            fieldsDocs={fieldsDocs}
+          />
         </TabPanel>
       </TabPanels>
     </Tabs>

@@ -4,115 +4,13 @@ import {
   Page,
   Text,
   View,
-  StyleSheet,
   PDFViewer,
   Image
 } from "@react-pdf/renderer";
 import { Box } from "@chakra-ui/react";
 import TablePurchase from "./tablePurchase";
+import { styles } from "@/utils/formsStyles";
 
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: "portrait",
-    width: 595.276, // Ancho en puntos (21.01 cm)
-    height: 841.89, // Alto en puntos (29.71 cm),
-    padding: 20,
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
-    display: "flex", // Usamos flexbox para alinear verticalmente el contenido
-    flexDirection: "column", // Alinear contenido en columna
-  },
-  title: {
-    fontSize: 15,
-    backgroundColor: "rgb(35 28 68)", // Corregido: separar valores RGB con comas
-    color: "white",
-    textAlign: "center",
-    marginBottom: 30,
-  },
-  text: {
-    fontSize: 7,
-  },
-  negrita: {
-    fontSize: 7,
-    fontWeight:"ultrabold"
-  },
-  textDato: {
-    fontSize: 7,
-  },
-  line:{
-    backgroundColor:"grey",
-    height:2,
-    marginBottom:2
-  },
-  footer:{
-    color:"grey",
-    textAlign:"center"
-  },
-  image: {
-    width: "120px",
-    height: "70px",
-  },
-  imageContainer: {
-    marginLeft: "75%",
-  },
-  grid: {
-    display: "flex", // Usamos flexbox para dividir en 2
-    flexDirection: "row", // División en fila
-    justifyContent: "space-between", // Espacio entre los elementos
-  },
-  grid2: {
-    display: "flex", // Usamos flexbox para dividir en 2
-    flexDirection: "row", // División en fila
-    gap: 10,
-    flexBasis: "50%", // Ancho de cada elemento en la división
-  },
-  vSpacer: {
-    height: 20,
-  },
-  vSpacerXs: {
-    height: 3,
-  },
-  vSpacerMd: {
-    height: 10,
-  },
-  borderTable: {
-    margin:0,
-    width: "100%",
-    textAlign: "center",
-    verticalAlign:"middle",
-    borderWidth: 1,
-    paddingTop: 5,
-    paddingBottom: 5,
-    borderColor: "black",
-    backgroundColor: "rgb(210, 214, 213)",
-  },
-  borderTableTitle: {
-    margin:0,
-    width: "100%",
-    textAlign: "center",
-    borderWidth: 1,
-    paddingTop: 5,
-    paddingBottom: 5,
-    borderColor: "black",
-  },
-  tableContainer: {
-    width: "100%",
-  },
-  tableRow: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    textAlign: "center",
-  },
-  tableTitle: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-  },
-});
 
 export default function PurchaseForm({fields,productos}) {
   const [loadPage, setloadPage] = useState(false);
@@ -127,7 +25,7 @@ export default function PurchaseForm({fields,productos}) {
             <Document title={`Purchase Conf${fields.empresaRefNumber && " " + fields.empresaRefNumber}.pdf`}>
               <Page size="A4" style={styles.page}>
                 <View style={styles.imageContainer}>
-                  <Image style={styles.image} src="/logo.jpg" />
+                <Image src={fields.empresa.empresa == "DPL" ? "/logo-DPL.png" : "/logo-Duplo.png"} />
                 </View>
                 <View style={styles.section}>
                   <Text style={styles.title}>PURCHASE CONFIRMATION NR. {fields.empresaRefNumber}</Text>
@@ -334,6 +232,7 @@ export default function PurchaseForm({fields,productos}) {
                   <View style={styles.vSpacer}></View>
                   <View style={styles.vSpacer}></View>
                   <View style={styles.vSpacer}></View>
+                  <Image style={styles.firma} src={fields.empresa.empresa == "DPL" ? "/Firma-DPL.png" : "/Firma-Duplo.png"} />
                   <View style={styles.vSpacer}></View>
                   <View style={styles.line}></View>
                   <View style={styles.footer}>

@@ -1,11 +1,10 @@
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import { MultiSelector } from "@/utils/multiSelector";
 import { Box, VStack, Grid, GridItem } from "@chakra-ui/react";
-import { useStore } from "@/store/operation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TableDocumentRequested } from "./tableDocumentRequested";
 import { TableBillOfLading } from "./billOfLading";
-export default function GeneralDocs() {
+export default function GeneralDocs({operation,setFieldsDocs,fieldsDocs,fieldsComercial}) {
   const options = [
     { label: "FACTURA", value: "FACTURA",copias:"1 Original + 1 Copia" },
     { label: "PACKING LIST", value: "PACKING LIST",copias:"1 Original + 3 Copias - Indicando fechas de Prod y Vto." },
@@ -14,10 +13,11 @@ export default function GeneralDocs() {
     { label: "CERT. SANITARIO", value: "CERT. SANITARIO",copias:"1 Original + 2 Copias" },
     { label: "CERT. HALAL", value: "CERT. HALAL",copias:"1" }
   ];
-  const [selected,setSelected] = useState([]);
-  const operation = useStore((state) => state.operation);
-  const fieldsComercial = operation.comercial.fields;
-  const fieldsDocs = operation.docs.fields;
+  const [selected,setSelected] = useState(fieldsDocs.documentRequested);
+  useEffect(() => {
+    setFieldsDocs({...fieldsDocs,documentRequested:selected});
+  },[selected])
+  
   return (
     <Box w="100%">
       <VStack spacing="3">
@@ -45,7 +45,7 @@ export default function GeneralDocs() {
             </VStack>
           </GridItem>
         </Grid>
-        {selected.length > 0 && <TableDocumentRequested data={selected} />}
+        {selected.length > 0 && <TableDocumentRequested data={selected} fields={fieldsDocs} setFieldsDocs={setFieldsDocs} />}
         <TableBillOfLading operation={operation} />
       </VStack>
     </Box>

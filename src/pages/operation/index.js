@@ -16,7 +16,7 @@ import {
   Grid,
   GridItem,
   Button,
-  Center,
+  Flex,
 } from "@chakra-ui/react";
 import useFetch from "@/hooks/useFetch";
 import { useState } from "react";
@@ -66,9 +66,10 @@ export default function NuevaOperacion() {
       p={2}
     >
       {!operation ? (
-        <Center>
+        <Flex h="70vh" align="center" justifyContent="center" flexDirection="column" flexWrap="wrap">
+          <Text marginBottom="1%">Desea crear una nueva operacion?</Text>
           <Button onClick={handleConfirm}>Confirmar</Button>
-        </Center>
+        </Flex>
       ) : (
         <>
           <Grid w="100%" templateColumns="repeat(3, 1fr)" h={7} gap={4}>

@@ -8,7 +8,16 @@ import {
   TableContainer,
   Input
 } from "@chakra-ui/react";
-export const TableDocumentRequested = ({ data }) => {
+export const TableDocumentRequested = ({ data,fields,setFieldsDocs }) => {
+  const handleInput = (event,label) => {
+    const updatedFields = data.map((element) => {
+      if (element.label === label) {
+        return {...element, copias:event.target.value}
+      }
+      return element;
+    });
+    setFieldsDocs({...fields,documentRequested:updatedFields});
+  }
   return (
     <TableContainer w="100%">
       <Table variant="unstyled" colorScheme="orange" size="sm">
@@ -22,7 +31,7 @@ export const TableDocumentRequested = ({ data }) => {
           {data.map((e, index) => (
             <Tr key={index}>
               <Td>{e.label}</Td>
-              <Td><Input value={e.copias} variant="filled"/>
+              <Td><Input defaultValue={e.copias} onChange={(event) => handleInput(event,e.label)} variant="filled"/>
               </Td>
             </Tr>
           ))}

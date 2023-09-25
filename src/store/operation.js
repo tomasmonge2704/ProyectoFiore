@@ -6,15 +6,23 @@ export const useStore = create((set) => ({
     set(() => ({
       operation: newOperation,
     })),
+    setFieldsDocs:(fields) => 
+    set((state) => ({
+      operation: {
+        ...state.operation,
+        docs: {
+          ...state.operation.docs,
+          fields:fields,
+        },
+      },
+    })),
   setFieldsComercial: (fields) =>
     set((state) => ({
       operation: {
         ...state.operation,
         comercial: {
           ...state.operation.comercial,
-          fields: {
-            fields
-          },
+          fields:fields,
         },
       },
     })),

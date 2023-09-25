@@ -21,6 +21,12 @@ import { FiSave } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import Pagination from "@choc-ui/paginator";
+const ObjectID = require('bson-objectid');
+
+function generateRandomObjectId() {
+  const objectId = new ObjectID();
+  return objectId.toString();
+}
 
 export const TablePagination = ({ data, params,url }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,9 +64,10 @@ export const TablePagination = ({ data, params,url }) => {
     }
   }, [currentPage, searchText]);
   const handleCreate = () => {
+    const randomId = generateRandomObjectId();
     setItemsToDisplay([
       ...itemsToDisplay.slice(startIndex, endIndex - 1),
-      { _id: Math.random() * 100, state: "nuevo" },
+      { _id:randomId},
     ]);
   };
   
