@@ -57,7 +57,7 @@ export default function PdfDocsIntructions({
                   <View style={styles.vSpacer}></View>
                   <View style={styles.grid}>
                     <Text style={styles.negrita}>DOCUMENT REQUESTED:</Text>
-                    <View style={styles.list}>
+                    <View>
                       {operation.docs.fields.documentRequested.map(
                         (e, index) => (
                           <Text key={index} style={styles.textDato}>
@@ -81,11 +81,89 @@ export default function PdfDocsIntructions({
                   <View style={styles.vSpacer}></View>
                   <View style={styles.vSpacer}></View>
                   <View style={styles.grid}>
-                  <Text style={styles.headingTable}>INTRUCCIONES EMISIÓN:   BILL OF LADING</Text>
+                    <Text style={styles.headingTable}>
+                      INTRUCCIONES EMISIÓN: BILL OF LADING
+                    </Text>
                   </View>
                   <View style={styles.vSpacer}></View>
                   <View style={styles.vSpacer}></View>
-                 
+                  <View style={styles.docsTable}>
+                    <View style={styles.docsTableRow}>
+                      <View style={styles.tableDocsLeft}>
+                        <Text style={styles.negrita}>SHIPPER</Text>
+                      </View>
+                      <View style={styles.tableDocsRight}>
+                        <Text style={styles.textDato}>
+                          {fieldsComercial.seller.nombre}
+                        </Text>
+                        <Text style={styles.textDato}>
+                          {fieldsComercial.seller.direccion}
+                        </Text>
+                        <Text style={styles.textDato}>
+                          {fieldsComercial.seller.direccion2}
+                        </Text>
+                        <Text style={styles.textDato}>
+                          {fieldsComercial.seller.plantNumber}
+                        </Text>
+                        <Text style={styles.textDato}>{}</Text>
+                        <Text style={styles.textDato}>{}</Text>
+                      </View>
+                    </View>
+                    <View style={styles.docsTableRow}>
+                      <View style={styles.tableDocsLeft}>
+                        <Text style={styles.negrita}>CONSIGNEE</Text>
+                      </View>
+                      <View style={styles.tableDocsRight}></View>
+                    </View>
+                    <View style={styles.docsTableRow}>
+                      <View style={styles.tableDocsLeft}>
+                        <Text style={styles.negrita}>NOTIFY</Text>
+                      </View>
+                      <View style={styles.tableDocsRight}></View>
+                    </View>
+                    <View style={styles.docsTableRow}>
+                      <View style={styles.tableDocsLeft}>
+                        <Text style={styles.negrita}>LUGAR DE EMISIÓN</Text>
+                      </View>
+                      <View style={styles.tableDocsRight}></View>
+                    </View>
+                    <View style={styles.docsTableRow}>
+                      <View style={styles.tableDocsLeft}>
+                        <Text style={styles.negrita}>PUERTO DE DESTINO</Text>
+                      </View>
+                      <View style={styles.tableDocsRight}>
+                      <Text style={styles.textDato}>{fieldsComercial.destinationPort}</Text>
+                      </View>
+                    </View>
+                    <View style={styles.docsTableRow}>
+                      <View style={styles.tableDocsLeft}>
+                        <Text style={styles.negrita}>TIPO CONTENEDOR</Text>
+                      </View>
+                      <View style={styles.tableDocsRight}>
+                      <Text style={styles.textDato}>{fieldsDocs.temperature}</Text>
+                      </View>
+                    </View>
+                    <View style={styles.docsTableRow}>
+                      <View style={styles.tableDocsLeft}>
+                        <Text style={styles.negrita}>TEMPERATURA</Text>
+                      </View>
+                      <View style={styles.tableDocsRight}>
+                        <Text style={styles.textDato}>{fieldsDocs.temperature}</Text>
+                      </View>
+                    </View>
+                    <View style={styles.docsTableRow}>
+                      <View style={styles.tableDocsLeft}>
+                        <Text style={styles.negrita}>TERMINOS DE FLETE</Text>
+                      </View>
+                      <View style={styles.tableDocsRight}></View>
+                    </View>
+                    <View style={styles.docsTableRow}>
+                      <View style={styles.tableDocsLeft}>
+                        <Text style={styles.negrita}>DESCRIPCIÓN MERCADERÍA</Text>
+                      </View>
+                      <View style={styles.tableDocsRight}></View>
+                    </View>
+                  </View>
                 </View>
               </Page>
             </Document>

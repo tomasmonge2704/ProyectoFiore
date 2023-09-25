@@ -110,5 +110,27 @@ export const styles = StyleSheet.create({
         padding:"2px",
         color:"#FFFF",
         fontSize: 10
+    },
+    docsTable:{
+        borderWidth:"1px",
+        borderColor:"black",
+        width:"100%"
+    },
+    docsTableRow:{
+        borderWidth:"1px",
+        borderColor:"black",
+        width:"100%",
+        display:"flex",
+        flexDirection:"row"
+    },
+    tableDocsLeft:{
+        width:"110px",
+        borderRightWidth:"1px",
+        borderColor:"black",
+        textAlign:"center",
+        padding:"3%"
+    },
+    tableDocsRight:{
+        padding:"1%"
     }
   });
