@@ -92,7 +92,7 @@ export default function NuevaOperacion() {
               )}
             </GridItem>
             <GridItem w="100%" display="flex" justifyContent="center">
-              {operation && (
+              {operation.comercial.fields.empresa.nombre && (
                 <Text fontSize="2xl" fontWeight="bold">
                   Company
                   <Badge ml="1" fontSize="1em" colorScheme="green">

@@ -55,7 +55,7 @@ export const InputSearch = ({
         value={searchText}
         onChange={handleSearchChange}
       />
-      <Box position="relative" w="100%">
+      <Box position="absolute" w="100%" zIndex="sticky">
         <Menu isOpen={isDropdownVisible && searchResults.length > 0}>
           <MenuList>
             {searchResults.length > 0 &&

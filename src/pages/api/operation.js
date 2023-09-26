@@ -85,10 +85,37 @@ export default function handler(req, res) {
         instruccionsToIssue: "",
         tipoContenedor:"",
         descriptionGoods:"",
-        temperature:"- 18 °C "
+        temperature:"- 18 °C ",
+        placeBLIssue:"",
+        comentarios:"",
+        comentariosSeller:"",
+        consignee:{
+          nombre:"",
+          direccion:"",
+          direccion2:"",
+          direccion3:"",
+          country:"",
+          taxId:""
+        },
+        notify:{
+          nombre:"",
+          direccion:"",
+          direccion2:"",
+          direccion3:"",
+          country:"",
+          taxId:""
+        },
+        consigneeRest:{
+          nombre:"",
+          direccion:"",
+          direccion2:"",
+          direccion3:"",
+          country:"",
+          taxId:""
+        }
       },
     },
-    logistica: { title: "Logistica", completed: 0 },
-    contableFinanciera: { title: "Contable financiera", completed: 0 },
+    logistica: { title: "Logistica", completed: 0,fields:{} },
+    contableFinanciera: { title: "Contable financiera", completed: 0,fields:{} },
     status: "New",
   };

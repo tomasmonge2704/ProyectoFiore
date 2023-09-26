@@ -12,10 +12,15 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
-export const TableBillOfLading = ({ operation, setFieldsDocs }) => {
+import { InputConsignee } from "./inputConsignee";
+export const TableBillOfLading = ({
+  operation,
+  setFieldsDocs,
+  CarteraConsignee,
+}) => {
   return (
     <TableContainer w="100%">
-      <Table variant="striped" colorScheme="orange" size="sm">
+      <Table variant="unstyled" size="sm">
         <Thead>
           <Tr>
             <Th>INTRUCCIONES EMISIÓN: BILL OF LADING</Th>
@@ -24,28 +29,60 @@ export const TableBillOfLading = ({ operation, setFieldsDocs }) => {
         </Thead>
         <Tbody>
           <Tr>
-            <Td>SHIPPER</Td>
+            <Td>
+              <Text as="b">SHIPPER</Text>
+            </Td>
             <Td>
               <VStack>
                 <Text>{operation.comercial.fields.seller.nombre}</Text>
                 <Textarea
                   placeholder="Comentarios..."
-                  size="sm"
                   variant="filled"
+                  onChange={(e) =>
+                    setFieldsDocs({
+                      ...operation.docs.fields,
+                      comentariosSeller: e.target.value,
+                    })
+                  }
+                  defaultValue={operation.docs.fields.comentariosSeller}
                 />
               </VStack>
             </Td>
           </Tr>
           <Tr>
-            <Td>CONSIGNEE</Td>
-            <Td></Td>
+            <Td>
+              <Text as="b">CONSIGNEE</Text>
+            </Td>
+            <Td>
+              <InputConsignee
+                placeholder="Search consignee..."
+                param="consignee"
+                fields={operation.docs.fields}
+                defaultValue={operation.docs.fields.consignee.nombre}
+                setFields={setFieldsDocs}
+                Cartera={CarteraConsignee}
+              />
+            </Td>
           </Tr>
           <Tr>
-            <Td>NOTIFY</Td>
-            <Td></Td>
+            <Td>
+              <Text as="b">NOTIFY</Text>
+            </Td>
+            <Td>
+              <InputConsignee
+                placeholder="Search notify..."
+                Cartera={CarteraConsignee}
+                param="notify"
+                fields={operation.docs.fields}
+                defaultValue={operation.docs.fields.notify.nombre}
+                setFields={setFieldsDocs}
+              />
+            </Td>
           </Tr>
           <Tr>
-            <Td>DESCRIPTION OF GOODS</Td>
+            <Td>
+              <Text as="b">DESCRIPTION OF GOODS</Text>
+            </Td>
             <Td>
               <Textarea
                 defaultValue={
@@ -55,7 +92,6 @@ export const TableBillOfLading = ({ operation, setFieldsDocs }) => {
                         (e) => e.description
                       )
                 }
-                size="xs"
                 onChange={(e) =>
                   setFieldsDocs({
                     ...operation.docs.fields,
@@ -67,31 +103,48 @@ export const TableBillOfLading = ({ operation, setFieldsDocs }) => {
             </Td>
           </Tr>
           <Tr>
-            <Td>PLACE OF B/L ISSUE</Td>
             <Td>
-              <Select variant="filled" 
-              value={operation.docs.fields.placeBLIssue}
-              onChange={(e) =>
-                setFieldsDocs({
-                  ...operation.docs.fields,
-                  placeBLIssue: e.target.value,
-                })
-              }>
-                <option value="" disabled>PLACE OF B/L ISSUE</option>
+              <Text as="b">PLACE OF B/L ISSUE</Text>
+            </Td>
+            <Td>
+              <Select
+                variant="filled"
+                value={operation.docs.fields.placeBLIssue}
+                onChange={(e) =>
+                  setFieldsDocs({
+                    ...operation.docs.fields,
+                    placeBLIssue: e.target.value,
+                  })
+                }
+              >
+                <option value="" disabled>
+                  PLACE OF B/L ISSUE
+                </option>
                 <option value="OBL">OBL</option>
                 <option value="TELEX RELEASE">TELEX RELEASE</option>
               </Select>
             </Td>
           </Tr>
           <Tr>
-            <Td>PORT</Td>
-            <Td>{operation.comercial.fields.destinationPort}</Td>
+            <Td>
+              <Text as="b">PORT</Text>
+            </Td>
+            <Td>
+              <Input
+                defaultValue={operation.comercial.fields.destinationPort}
+                variant="filled"
+                readOnly
+              />
+            </Td>
           </Tr>
           <Tr>
-            <Td>CONTAINER TYPE</Td>
+            <Td>
+              <Text as="b">CONTAINER TYPE</Text>
+            </Td>
             <Td>
               <Select
                 variant="filled"
+                value={operation.docs.fields.tipoContenedor}
                 onChange={(e) =>
                   setFieldsDocs({
                     ...operation.docs.fields,
@@ -99,6 +152,7 @@ export const TableBillOfLading = ({ operation, setFieldsDocs }) => {
                   })
                 }
               >
+                <option value="">CONTAINER TYPE</option>
                 <option value="40' refeer HC">40&apos; refeer HC</option>
                 <option value="40' dry">40&apos; dry</option>
                 <option value="20' refeer">20&apos; refeer</option>
@@ -106,7 +160,9 @@ export const TableBillOfLading = ({ operation, setFieldsDocs }) => {
             </Td>
           </Tr>
           <Tr>
-            <Td>TEMPERATURE</Td>
+            <Td>
+              <Text as="b">TEMPERATURE</Text>
+            </Td>
             <Td>
               <Input
                 variant="filled"

@@ -45,7 +45,7 @@ export default function PdfDocsIntructions({
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>ORDER NUMBER:</Text>
                       <Text style={styles.textDato}>
-                        {fields.buyer.refNumber}
+                        {fields.seller.refNumber}
                       </Text>
                     </View>
                     <View style={styles.grid2}>
@@ -54,7 +54,7 @@ export default function PdfDocsIntructions({
                     </View>
                   </View>
                   <View style={styles.vSpacerXs}></View>
-                  <View style={styles.vSpacer}></View>
+                  <View style={styles.vSpacerXs}></View>
                   <View style={styles.grid}>
                     <Text style={styles.negrita}>DOCUMENT REQUESTED:</Text>
                     <View>
@@ -79,14 +79,12 @@ export default function PdfDocsIntructions({
                     </View>
                   </View>
                   <View style={styles.vSpacer}></View>
-                  <View style={styles.vSpacer}></View>
                   <View style={styles.grid}>
                     <Text style={styles.headingTable}>
                       INTRUCCIONES EMISIÓN: BILL OF LADING
                     </Text>
                   </View>
-                  <View style={styles.vSpacer}></View>
-                  <View style={styles.vSpacer}></View>
+                  <View style={styles.vSpacerXs}></View>
                   <View style={styles.docsTable}>
                     <View style={styles.docsTableRow}>
                       <View style={styles.tableDocsLeft}>
@@ -103,23 +101,32 @@ export default function PdfDocsIntructions({
                           {fieldsComercial.seller.direccion2}
                         </Text>
                         <Text style={styles.textDato}>
-                          {fieldsComercial.seller.plantNumber}
+                          {fieldsComercial.seller.taxId && "CUIT: " + fieldsComercial.seller.taxId}
                         </Text>
-                        <Text style={styles.textDato}>{}</Text>
-                        <Text style={styles.textDato}>{}</Text>
+                        <Text style={styles.mercaderiaText}>{fieldsDocs.comentariosSeller}</Text>
                       </View>
                     </View>
                     <View style={styles.docsTableRow}>
                       <View style={styles.tableDocsLeft}>
                         <Text style={styles.negrita}>CONSIGNEE</Text>
                       </View>
-                      <View style={styles.tableDocsRight}></View>
+                      <View style={styles.tableDocsRight}>
+                        <Text style={styles.textDato}>{operation.docs.fields.consignee.nombre}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.consignee.direccion}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.consignee.direccion2}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.consignee.direccion3}</Text>
+                      </View>
                     </View>
                     <View style={styles.docsTableRow}>
                       <View style={styles.tableDocsLeft}>
                         <Text style={styles.negrita}>NOTIFY</Text>
                       </View>
-                      <View style={styles.tableDocsRight}></View>
+                      <View style={styles.tableDocsRight}>
+                      <Text style={styles.textDato}>{operation.docs.fields.notify.nombre}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.notify.direccion}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.notify.direccion2}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.notify.direccion3}</Text>
+                      </View>
                     </View>
                     <View style={styles.docsTableRow}>
                       <View style={styles.tableDocsLeft}>
@@ -161,15 +168,93 @@ export default function PdfDocsIntructions({
 
                       </View>
                     </View>
-                    <View style={styles.docsTableRow}>
+                    <View style={styles.docsTableRowMercaderia}>
                       <View style={styles.tableDocsLeft}>
                         <Text style={styles.negrita}>DESCRIPCIÓN MERCADERÍA</Text>
                       </View>
                       <View style={styles.tableDocsRight}>
-                      <Text style={styles.textDato}>{fieldsDocs.descriptionGoods}</Text>
+                      <Text style={styles.mercaderiaText}>{ operation.docs.fields.descriptionGoods !== ""
+                    ? operation.docs.fields.descriptionGoods
+                    : operation.comercial.fields.productos.map(
+                        (e) => e.description
+                      )}</Text>
                       </View>
                     </View>
                   </View>
+                  <View style={styles.vSpacer}></View>
+                  <View style={styles.grid}>
+                    <Text style={styles.headingTable}>
+                    INTRUCCIONES EMISIÓN: RESTO DE LOS DOCS
+                    </Text>
+                  </View>
+                  <View style={styles.vSpacerXs}></View>
+                  <View style={styles.docsTable}>
+                    <View style={styles.docsTableRow}>
+                      <View style={styles.tableDocsLeft}>
+                        <Text style={styles.negrita}>CONSIGNEE</Text>
+                      </View>
+                      <View style={styles.tableDocsRight}>
+                      <Text style={styles.textDato}>{operation.docs.fields.consigneeRest.nombre}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.consigneeRest.direccion}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.consigneeRest.direccion2}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.consigneeRest.direccion3}</Text>
+                      </View>
+                    </View>
+                    <View style={styles.docsTableRowMercaderia}>
+                      <View style={styles.tableDocsLeft}>
+                        <Text style={styles.negrita}>DESCRIPCIÓN MERCADERÍA</Text>
+                      </View>
+                      <View style={styles.tableDocsRight}>
+                      <Text style={styles.mercaderiaText}>{ operation.docs.fields.descriptionGoods !== ""
+                    ? operation.docs.fields.descriptionGoods
+                    : operation.comercial.fields.productos.map(
+                        (e) => e.description
+                      )}</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={styles.vSpacer}></View>
+                  <View style={styles.grid}>
+                    <Text style={styles.headingTable}>
+                    INTRUCCIONES EMISIÓN: FACTURA COMERCIAL
+                    </Text>
+                  </View>
+                  <View style={styles.vSpacerXs}></View>
+                  <View style={styles.docsTable}>
+                    <View style={styles.docsTableRow}>
+                      <View style={styles.tableDocsLeft}>
+                        <Text style={styles.negrita}>CONSIGNEE</Text>
+                      </View>
+                      <View style={styles.tableDocsRight}>
+                        <View style={styles.tableDocsRight}>
+                        <Text style={styles.textDato}>{operation.comercial.fields.empresa.nombre}</Text>
+                        <Text style={styles.textDato}>{operation.comercial.fields.empresa.direccion}</Text>
+                        <Text style={styles.textDato}>{operation.comercial.fields.empresa.direccion2}</Text>
+                        <Text style={styles.textDato}>TAX ID: {operation.comercial.fields.empresa.vatNumber}</Text>
+                        </View>
+                      </View>
+                    </View>
+                    <View style={styles.docsTableRowMercaderia}>
+                      <View style={styles.tableDocsLeft}>
+                        <Text style={styles.negrita}>DESCRIPCIÓN MERCADERÍA</Text>
+                      </View>
+                      <View style={styles.tableDocsRight}>
+                      <Text style={styles.mercaderiaText}>{ operation.docs.fields.descriptionGoods !== ""
+                    ? operation.docs.fields.descriptionGoods
+                    : operation.comercial.fields.productos.map(
+                        (e) => e.description
+                      )}</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={styles.vSpacer}></View>
+                  <View style={styles.grid}>
+                    <Text style={styles.headingTable}>
+                    INSTRUCCIONES ESPECIALES:
+                    </Text>
+                  </View>
+                  <View style={styles.vSpacerXs}></View>
+                  <Text style={styles.textDato}>{operation.docs.fields.comentarios}</Text>
                 </View>
               </Page>
             </Document>

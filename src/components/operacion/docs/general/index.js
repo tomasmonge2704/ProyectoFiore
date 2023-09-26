@@ -1,23 +1,57 @@
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import { MultiSelector } from "@/utils/multiSelector";
-import { Box, VStack, Grid, GridItem } from "@chakra-ui/react";
+import {
+  Box,
+  VStack,
+  Grid,
+  GridItem,
+  Divider,
+  Textarea,
+  Text,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { TableDocumentRequested } from "./tableDocumentRequested";
 import { TableBillOfLading } from "./billOfLading";
-export default function GeneralDocs({operation,setFieldsDocs,fieldsDocs,fieldsComercial}) {
+import { TableRestDocs } from "./restDocs";
+import { TableComercialInvoice } from "./comercialInvoice";
+import useFetch from "@/hooks/useFetch";
+export default function GeneralDocs({
+  operation,
+  setFieldsComercial,
+  setFieldsDocs,
+  fieldsDocs,
+  fieldsComercial,
+}) {
   const options = [
-    { label: "FACTURA", value: "FACTURA",copias:"1 Original + 1 Copia" },
-    { label: "PACKING LIST", value: "PACKING LIST",copias:"1 Original + 3 Copias - Indicando fechas de Prod y Vto." },
-    { label: "CERT. DE ORIGEN", value: "CERT. DE ORIGEN",copias:"1 Original + 3 Copias" },
-    { label: "BILL OF LADING", value: "BILL OF LADING - OBL -",copias:"3 Originales + 3 Copias" },
-    { label: "CERT. SANITARIO", value: "CERT. SANITARIO",copias:"1 Original + 2 Copias" },
-    { label: "CERT. HALAL", value: "CERT. HALAL",copias:"1" }
+    { label: "FACTURA", value: "FACTURA", copias: "1 Original + 1 Copia" },
+    {
+      label: "PACKING LIST",
+      value: "PACKING LIST",
+      copias: "1 Original + 3 Copias - Indicando fechas de Prod y Vto.",
+    },
+    {
+      label: "CERT. DE ORIGEN",
+      value: "CERT. DE ORIGEN",
+      copias: "1 Original + 3 Copias",
+    },
+    {
+      label: "BILL OF LADING",
+      value: "BILL OF LADING - OBL -",
+      copias: "3 Originales + 3 Copias",
+    },
+    {
+      label: "CERT. SANITARIO",
+      value: "CERT. SANITARIO",
+      copias: "1 Original + 2 Copias",
+    },
+    { label: "CERT. HALAL", value: "CERT. HALAL", copias: "1" },
   ];
-  const [selected,setSelected] = useState(fieldsDocs.documentRequested);
+  const [selected, setSelected] = useState(fieldsDocs.documentRequested);
   useEffect(() => {
-    setFieldsDocs({...fieldsDocs,documentRequested:selected});
-  },[selected])
-  
+    setFieldsDocs({ ...fieldsDocs, documentRequested: selected });
+  }, [selected]);
+  const [CarteraConsignee] = useFetch(`${process.env.API_URL}/consignee`, []);
+
   return (
     <Box w="100%">
       <VStack spacing="3">
@@ -25,10 +59,24 @@ export default function GeneralDocs({operation,setFieldsDocs,fieldsDocs,fieldsCo
           <GridItem w="100%">
             <VStack spacing="3">
               <InputPersonalizado
-                value={fieldsComercial.seller.refNumber}
+                defaultValue={fieldsComercial.seller.refNumber}
                 label="Sup Ref. Number"
+                onChange={(e) =>
+                  setFieldsComercial({
+                    ...fieldsComercial,
+                    seller: {
+                      ...fieldsComercial.seller,
+                      refNumber: e.target.value,
+                    },
+                  })
+                }
               />
-              <MultiSelector options={options} value={selected} onChange={setSelected} labelledBy="Select"/>
+              <MultiSelector
+                options={options}
+                value={selected}
+                onChange={setSelected}
+                labelledBy="Select"
+              />
             </VStack>
           </GridItem>
           <GridItem w="100%">
@@ -37,16 +85,44 @@ export default function GeneralDocs({operation,setFieldsDocs,fieldsDocs,fieldsCo
                 value={fieldsDocs.date}
                 label="Date"
                 type="date"
-                onChange={(e) => setFields({...fieldsDocs,date:e.target.value})}
+                onChange={(e) =>
+                  setFields({ ...fieldsDocs, date: e.target.value })
+                }
               />
-              <InputPersonalizado
-                label="Responsable"
-              />
+              <InputPersonalizado label="Responsable" />
             </VStack>
           </GridItem>
         </Grid>
-        {selected.length > 0 && <TableDocumentRequested data={selected} fields={fieldsDocs} setFieldsDocs={setFieldsDocs} />}
-        <TableBillOfLading operation={operation} setFieldsDocs={setFieldsDocs} />
+        {selected.length > 0 && (
+          <TableDocumentRequested
+            data={selected}
+            fields={fieldsDocs}
+            setFieldsDocs={setFieldsDocs}
+          />
+        )}
+        <Divider orientation="horizontal" />
+        <TableBillOfLading
+          operation={operation}
+          setFieldsDocs={setFieldsDocs}
+          CarteraConsignee={CarteraConsignee}
+        />
+        <Divider orientation="horizontal" />
+        <TableRestDocs operation={operation} setFieldsDocs={setFieldsDocs} />
+        <Divider orientation="horizontal" />
+        <TableComercialInvoice
+          operation={operation}
+          setFieldsDocs={setFieldsDocs}
+          CarteraConsignee={CarteraConsignee}
+        />
+        <Divider orientation="horizontal" />
+        <Text as="b">Comentarios adicionales</Text>
+        <Textarea
+          placeholder="Comentarios..."
+          variant="filled"
+          onChange={(e) =>
+            setFieldsDocs({ ...fieldsDocs, comentarios: e.target.value })
+          }
+        />
       </VStack>
     </Box>
   );

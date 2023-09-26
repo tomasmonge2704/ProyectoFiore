@@ -1,4 +1,5 @@
 import { StyleSheet } from "@react-pdf/renderer";
+import { color } from "framer-motion";
 export const styles = StyleSheet.create({
     page: {
       flexDirection: "portrait",
@@ -123,12 +124,25 @@ export const styles = StyleSheet.create({
         display:"flex",
         flexDirection:"row"
     },
+    docsTableRowMercaderia:{
+      borderWidth:"1px",
+      borderColor:"black",
+      width:"100%",
+      display:"flex",
+      flexDirection:"row",
+      backgroundColor:"#feebc8"
+  },
+  mercaderiaText:{
+    fontSize: 10,
+    fontWeight: "ultrabold",
+    color:"#0987A0"
+  },
     tableDocsLeft:{
-        width:"110px",
+        width:"120px",
         borderRightWidth:"1px",
         borderColor:"black",
         textAlign:"center",
-        padding:"3%"
+        padding:"2%"
     },
     tableDocsRight:{
         padding:"1%"

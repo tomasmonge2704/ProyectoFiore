@@ -12,6 +12,7 @@ import { useStore } from "@/store/operation";
 export const Docs = () => {
   const operation = useStore((state) => state.operation);
   const setFieldsDocs = useStore((state) => state.setFieldsDocs);
+  const setFieldsComercial = useStore((state) => state.setFieldsComercial);
   const fieldsComercial = operation.comercial.fields;
   const fieldsDocs = operation.docs.fields;
   return (
@@ -27,6 +28,7 @@ export const Docs = () => {
           <GeneralDocs
             operation={operation}
             setFieldsDocs={setFieldsDocs}
+            setFieldsComercial={setFieldsComercial}
             fieldsComercial={fieldsComercial}
             fieldsDocs={fieldsDocs}
           />
