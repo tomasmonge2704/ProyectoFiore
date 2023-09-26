@@ -46,7 +46,7 @@ export default function GeneralDocs({operation,setFieldsDocs,fieldsDocs,fieldsCo
           </GridItem>
         </Grid>
         {selected.length > 0 && <TableDocumentRequested data={selected} fields={fieldsDocs} setFieldsDocs={setFieldsDocs} />}
-        <TableBillOfLading operation={operation} />
+        <TableBillOfLading operation={operation} setFieldsDocs={setFieldsDocs} />
       </VStack>
     </Box>
   );

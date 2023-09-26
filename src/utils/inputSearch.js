@@ -51,7 +51,6 @@ export const InputSearch = ({
     <div ref={inputRef} style={{width:"100%"}}>
       <Input
         placeholder={placeholder}
-        defaultValue={defaultValue}
         variant="filled"
         value={searchText}
         onChange={handleSearchChange}

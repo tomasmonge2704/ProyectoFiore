@@ -125,7 +125,9 @@ export default function PdfDocsIntructions({
                       <View style={styles.tableDocsLeft}>
                         <Text style={styles.negrita}>LUGAR DE EMISIÓN</Text>
                       </View>
-                      <View style={styles.tableDocsRight}></View>
+                      <View style={styles.tableDocsRight}>
+                      <Text style={styles.textDato}>{fieldsDocs.placeBLIssue}</Text>
+                      </View>
                     </View>
                     <View style={styles.docsTableRow}>
                       <View style={styles.tableDocsLeft}>
@@ -140,7 +142,7 @@ export default function PdfDocsIntructions({
                         <Text style={styles.negrita}>TIPO CONTENEDOR</Text>
                       </View>
                       <View style={styles.tableDocsRight}>
-                      <Text style={styles.textDato}>{fieldsDocs.temperature}</Text>
+                      <Text style={styles.textDato}>{fieldsDocs.tipoContenedor}</Text>
                       </View>
                     </View>
                     <View style={styles.docsTableRow}>
@@ -155,13 +157,17 @@ export default function PdfDocsIntructions({
                       <View style={styles.tableDocsLeft}>
                         <Text style={styles.negrita}>TERMINOS DE FLETE</Text>
                       </View>
-                      <View style={styles.tableDocsRight}></View>
+                      <View style={styles.tableDocsRight}>
+
+                      </View>
                     </View>
                     <View style={styles.docsTableRow}>
                       <View style={styles.tableDocsLeft}>
                         <Text style={styles.negrita}>DESCRIPCIÓN MERCADERÍA</Text>
                       </View>
-                      <View style={styles.tableDocsRight}></View>
+                      <View style={styles.tableDocsRight}>
+                      <Text style={styles.textDato}>{fieldsDocs.descriptionGoods}</Text>
+                      </View>
                     </View>
                   </View>
                 </View>

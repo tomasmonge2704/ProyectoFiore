@@ -10,7 +10,13 @@ import SaleForm from "@/components/operacion/comercial/confirmacionVenta";
 import PurchaseForm from "./ordenCompra";
 import GeneralForm from "./generales";
 import useFetch from "@/hooks/useFetch";
-export const Comercial = ({operation,fields,setFields,productos,setProductos}) => {
+import { useStore } from "@/store/operation";
+export const Comercial = () => {
+  const operation = useStore((state) => state.operation);
+  const setFields = useStore((state) => state.setFieldsComercial);
+  const fields = operation.comercial.fields;
+  const productos = operation.comercial.fields.productos;
+  const setProductos = useStore((state) => state.setProductsComercial);
   const [CarteraBancaria] = useFetch(`${process.env.API_URL}/empresa`,[]);
   const [CarteraProveedores] = useFetch(`${process.env.API_URL}/proveedor`,[]);
   const [CarteraClients] = useFetch(`${process.env.API_URL}/client`,[]);

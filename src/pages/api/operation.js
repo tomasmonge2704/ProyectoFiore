@@ -83,6 +83,8 @@ export default function handler(req, res) {
         date: obtenerFechaActual(),
         documentRequested: [],
         instruccionsToIssue: "",
+        tipoContenedor:"",
+        descriptionGoods:"",
         temperature:"- 18 °C "
       },
     },

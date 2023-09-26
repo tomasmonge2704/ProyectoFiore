@@ -137,11 +137,7 @@ export default function NuevaOperacion() {
           </Box>
           <Box mt={5}>
             {operation ? (
-              <ContenedorOperaciones
-                show={showStep}
-                operation={operation}
-                setOperation={setOperation}
-              />
+              <ContenedorOperaciones show={showStep}/>
             ) : (
               <Loadder />
             )}

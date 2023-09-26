@@ -1,14 +1,14 @@
 import { InputSearch } from "@/utils/inputSearch";
 
-export const Seller = ({ setFields, CarteraProveedores,seller }) => {
+export const Seller = ({ fields,setFields, CarteraProveedores,seller }) => {
   const handleIndexChange = (e) => {
     const index = CarteraProveedores.findIndex(
       (elemento) => elemento.nombre === e.target.value
     );
-    setFields((prevPurchase) => ({
-      ...prevPurchase,
+    setFields({
+      ...fields,
       seller: CarteraProveedores[index],
-    }));
+    });
   };
 
   return (

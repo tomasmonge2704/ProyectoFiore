@@ -27,25 +27,25 @@ export const Empresa = ({ fields,setFields,CarteraBancaria }) => {
     setDireccion(initialSeller.direccion);
     setDireccion2(initialSeller.direccion2);
     setVatNumber(initialSeller.vatNumber);
-    setFields((prevPurchase) => ({
-      ...prevPurchase,
+    setFields({
+      ...fields,
       empresa: initialSeller,
-    }));
+    });
   }
   }, [indexCartera, CarteraBancaria, setFields]);
 
   // useEffect para actualizar 'empresa' cuando cambian los inputs
   useEffect(() => {
-    setFields((prevPurchase) => ({
-      ...prevPurchase,
+    setFields({
+      ...fields,
       empresa: {
-        ...prevPurchase.empresa,
+        ...fields.empresa,
         nombre,
         direccion,
         direccion2,
         vatNumber,
       },
-    }));
+    });
   }, [nombre, direccion, direccion2, vatNumber, setFields]);
   return (
       <Select value={indexCartera || indexCartera == 0 ? indexCartera : ""} onChange={handleIndexChange}>

@@ -12,7 +12,7 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
-export const TableBillOfLading = ({ operation }) => {
+export const TableBillOfLading = ({ operation, setFieldsDocs }) => {
   return (
     <TableContainer w="100%">
       <Table variant="striped" colorScheme="orange" size="sm">
@@ -28,7 +28,11 @@ export const TableBillOfLading = ({ operation }) => {
             <Td>
               <VStack>
                 <Text>{operation.comercial.fields.seller.nombre}</Text>
-                <Textarea placeholder="Comentarios..." variant="filled" />
+                <Textarea
+                  placeholder="Comentarios..."
+                  size="sm"
+                  variant="filled"
+                />
               </VStack>
             </Td>
           </Tr>
@@ -42,14 +46,38 @@ export const TableBillOfLading = ({ operation }) => {
           </Tr>
           <Tr>
             <Td>DESCRIPTION OF GOODS</Td>
-            <Td><Textarea defaultValue={operation.comercial.fields.productos[0].description && operation.comercial.fields.productos.map((e) => (
-            e.description
-            ))} variant="filled" /></Td>
+            <Td>
+              <Textarea
+                defaultValue={
+                  operation.docs.fields.descriptionGoods !== ""
+                    ? operation.docs.fields.descriptionGoods
+                    : operation.comercial.fields.productos.map(
+                        (e) => e.description
+                      )
+                }
+                size="xs"
+                onChange={(e) =>
+                  setFieldsDocs({
+                    ...operation.docs.fields,
+                    descriptionGoods: e.target.value,
+                  })
+                }
+                variant="filled"
+              />
+            </Td>
           </Tr>
           <Tr>
             <Td>PLACE OF B/L ISSUE</Td>
             <Td>
-                <Select variant="filled">
+              <Select variant="filled" 
+              value={operation.docs.fields.placeBLIssue}
+              onChange={(e) =>
+                setFieldsDocs({
+                  ...operation.docs.fields,
+                  placeBLIssue: e.target.value,
+                })
+              }>
+                <option value="" disabled>PLACE OF B/L ISSUE</option>
                 <option value="OBL">OBL</option>
                 <option value="TELEX RELEASE">TELEX RELEASE</option>
               </Select>
@@ -62,7 +90,15 @@ export const TableBillOfLading = ({ operation }) => {
           <Tr>
             <Td>CONTAINER TYPE</Td>
             <Td>
-              <Select variant="filled">
+              <Select
+                variant="filled"
+                onChange={(e) =>
+                  setFieldsDocs({
+                    ...operation.docs.fields,
+                    tipoContenedor: e.target.value,
+                  })
+                }
+              >
                 <option value="40' refeer HC">40&apos; refeer HC</option>
                 <option value="40' dry">40&apos; dry</option>
                 <option value="20' refeer">20&apos; refeer</option>
@@ -75,6 +111,12 @@ export const TableBillOfLading = ({ operation }) => {
               <Input
                 variant="filled"
                 defaultValue={operation.docs.fields.temperature}
+                onChange={(e) =>
+                  setFieldsDocs({
+                    ...operation.docs.fields,
+                    temperature: e.target.value,
+                  })
+                }
               />
             </Td>
           </Tr>

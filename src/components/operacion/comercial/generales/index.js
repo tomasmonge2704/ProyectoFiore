@@ -103,7 +103,7 @@ export default function GeneralForm({
             <GridItem w="100%">
               <VStack spacing="3">
                 <OperationType fields={fields} setFields={setFields} />
-                <Buyer buyer={fields.buyer} setFields={setFields} CarteraClientes={CarteraClientes} />
+                <Buyer buyer={fields.buyer} fields={fields} setFields={setFields} CarteraClientes={CarteraClientes} />
                 <InputPersonalizado
                   type="text"
                   label="REF. NUMBER"
