@@ -35,16 +35,44 @@ export default function GeneralForm({
 }) {
   const toast = useToast();
   const saveFormHandler = () => {
-    localStorage.setItem("operation", JSON.stringify(operation));
-    toast({
-      title: "Operation - Comercial",
-      description: "Se ha guardado correctamente.",
-      status: "success",
-      position: "top-right",
-      duration: 5000,
-      isClosable: true,
-    });
+    const token = localStorage.getItem("token");
+    fetch(`${process.env.API_URL}/operation/by-ref/${operation.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(operation),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("La solicitud no fue exitosa");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        toast({
+          title: "Operation",
+          description: `Se ha guardado correctamente (${data.id}).`,
+          status: "success",
+          position: "top-right",
+          duration: 5000,
+          isClosable: true,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        toast({
+          title: "Operation",
+          description: `Se ha producido un error.`,
+          status: "error",
+          position: "top-right",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
   };
+  
   const handleInputChange = (elemnt) => {
     setFields(elemnt);
   };
@@ -201,7 +229,6 @@ export default function GeneralForm({
         <Center>
           <Button
             colorScheme="orange"
-            isDisabled={operation.comercial.completed !== 100 && true}
             onClick={saveFormHandler}
           >
             Guardar

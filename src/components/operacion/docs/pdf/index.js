@@ -16,11 +16,15 @@ export default function PdfDocsIntructions({
   fieldsDocs,
 }) {
   const fields = operation.comercial.fields;
-  const productos = operation.comercial.fields.productos;
   const [loadPage, setloadPage] = useState(false);
   useEffect(() => {
     setloadPage(true);
   }, []);
+  const descriptionOfGoods = operation.docs.fields.descriptionGoods !== ""
+  ? operation.docs.fields.descriptionGoods
+  : operation.comercial.fields.productos
+  .map((e) => `-${e.description}`)
+  .join("\n");
   return (
     <Box h="100%">
       <div style={{ marginTop: "20px" }}>
@@ -39,7 +43,7 @@ export default function PdfDocsIntructions({
                 </View>
                 <View style={styles.section}>
                   <Text style={styles.title}>
-                    INSTRUCCIONES PARA DOCUMENTOS
+                    INSTRUCCIONES PARA DOCUMENTOS {operation.id}
                   </Text>
                   <View style={styles.grid}>
                     <View style={styles.grid2}>
@@ -173,11 +177,7 @@ export default function PdfDocsIntructions({
                         <Text style={styles.negrita}>DESCRIPCIÓN MERCADERÍA</Text>
                       </View>
                       <View style={styles.tableDocsRight}>
-                      <Text style={styles.mercaderiaText}>{ operation.docs.fields.descriptionGoods !== ""
-                    ? operation.docs.fields.descriptionGoods
-                    : operation.comercial.fields.productos.map(
-                        (e) => e.description
-                      )}</Text>
+                      <Text style={styles.mercaderiaText}>{descriptionOfGoods}</Text>
                       </View>
                     </View>
                   </View>
@@ -205,11 +205,7 @@ export default function PdfDocsIntructions({
                         <Text style={styles.negrita}>DESCRIPCIÓN MERCADERÍA</Text>
                       </View>
                       <View style={styles.tableDocsRight}>
-                      <Text style={styles.mercaderiaText}>{ operation.docs.fields.descriptionGoods !== ""
-                    ? operation.docs.fields.descriptionGoods
-                    : operation.comercial.fields.productos.map(
-                        (e) => e.description
-                      )}</Text>
+                      <Text style={styles.mercaderiaText}>{descriptionOfGoods}</Text>
                       </View>
                     </View>
                   </View>
@@ -239,11 +235,7 @@ export default function PdfDocsIntructions({
                         <Text style={styles.negrita}>DESCRIPCIÓN MERCADERÍA</Text>
                       </View>
                       <View style={styles.tableDocsRight}>
-                      <Text style={styles.mercaderiaText}>{ operation.docs.fields.descriptionGoods !== ""
-                    ? operation.docs.fields.descriptionGoods
-                    : operation.comercial.fields.productos.map(
-                        (e) => e.description
-                      )}</Text>
+                      <Text style={styles.mercaderiaText}>{descriptionOfGoods}</Text>
                       </View>
                     </View>
                   </View>

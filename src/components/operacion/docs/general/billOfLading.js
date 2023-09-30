@@ -18,6 +18,12 @@ export const TableBillOfLading = ({
   setFieldsDocs,
   CarteraConsignee,
 }) => {
+  const descriptionOfGoods = operation.docs.fields.descriptionGoods !== ""
+  ? operation.docs.fields.descriptionGoods
+  : operation.comercial.fields.productos
+  .map((e) => `-${e.description}`)
+  .join("\n");
+  console.log(descriptionOfGoods)
   return (
     <TableContainer w="100%">
       <Table variant="unstyled" size="sm">
@@ -85,13 +91,7 @@ export const TableBillOfLading = ({
             </Td>
             <Td>
               <Textarea
-                defaultValue={
-                  operation.docs.fields.descriptionGoods !== ""
-                    ? operation.docs.fields.descriptionGoods
-                    : operation.comercial.fields.productos.map(
-                        (e) => e.description
-                      )
-                }
+                defaultValue={descriptionOfGoods}
                 onChange={(e) =>
                   setFieldsDocs({
                     ...operation.docs.fields,

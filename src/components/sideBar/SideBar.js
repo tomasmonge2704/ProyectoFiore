@@ -109,7 +109,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
         h="full"
         borderRightColor={useColorModeValue("gray.200", "gray.700")}
       >
-        <Image src="./logo.jpg" p={2} display={{ base: "none", md: "inherit" }} />
+        <Image src="/logo.jpg" p={2} display={{ base: "none", md: "inherit" }} />
         <Flex
           h="20"
           display={{ base: "flex", md: "none" }}

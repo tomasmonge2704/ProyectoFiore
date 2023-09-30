@@ -1,198 +1,189 @@
+import React, { useEffect, useState } from "react";
 import {
-  Grid,
-  GridItem,
-  Stat,
-  StatGroup,
-  StatHelpText,
-  StatNumber,
-  StatLabel,
-  StatArrow,
-  Card,
-  CardBody,
   Flex,
-  Text,
   Heading,
-  Table,
+  Text,
   IconButton,
-Thead,
-Tr,
-Th,
-Tbody,
-Td,
-Avatar
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Divider,
+  Badge,
+  Center,
+  Image,
+  useToast
 } from "@chakra-ui/react";
-import { FiCalendar } from "react-icons/fi";
-import { useState } from "react";
-export default function Home() {
-  const [display, changeDisplay] = useState('hide')
-    const [value, changeValue] = useState(1)
+import { DeleteIcon } from "@chakra-ui/icons";
+import Link from "next/link";
+import { FiCalendar, FiChevronDown, FiChevronUp } from "react-icons/fi";
+import MyChart from "../components/MyChart";
+import { Loadder } from "@/utils/loadder";
+import useFetch from "@/hooks/useFetch";
+export default function Dashboard() {
+  const [displayMode, setDisplayMode] = useState("reduced");
+  const [operations, setOperations] = useState([]);
+  const toast = useToast();
+  const [ListOperations] = useFetch(
+    `${process.env.API_URL}/operation/listado`,
+    undefined
+  );
+  useEffect(() => {
+    if(ListOperations) setOperations(ListOperations);
+  },[ListOperations])
+  const displayedOperations =
+    displayMode === "reduced" && operations
+      ? operations.slice(0, 5)
+      : operations;
+  const handleDelete = (id) => {
+    const token = localStorage.getItem("token");
+    fetch(`${process.env.API_URL}/operation/by-ref/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        toast({
+          title: "Cliente",
+          description: `Se ha borrado correctamente.`,
+          status: "success",
+          position: "top-right",
+          duration: 5000,
+          isClosable: true,
+        });
+      })
+      .finally(() => {
+        const filtered = operations.filter((e) => e.refNumber !== id);
+        setOperations(filtered);
+      });
+  };
   return (
-    <>
-      <Grid
-        templateColumns="repeat(5, 1fr)"
-        gap={4}
+    <Flex
+      h={[null, "100vh"]}
+      maxW="2000px"
+      flexDir={["column", "row"]}
+      overflow="hidden"
+    >
+      <Flex
+        w={"100%"}
+        p="3%"
+        flexDir="column"
+        className="noScrollBar"
+        overflow="auto"
+        minH="100vh"
       >
-        <GridItem w='100%'>
-          <Card>
-            <CardBody>
-              <StatGroup>
-                <Stat>
-                  <StatLabel>Sent</StatLabel>
-                  <StatNumber>345,670</StatNumber>
-                  <StatHelpText>
-                    <StatArrow type="increase" />
-                    23.36%
-                  </StatHelpText>
-                </Stat>
-
-                <Stat>
-                  <StatLabel>Clicked</StatLabel>
-                  <StatNumber>45</StatNumber>
-                  <StatHelpText>
-                    <StatArrow type="decrease" />
-                    9.05%
-                  </StatHelpText>
-                </Stat>
-              </StatGroup>
-            </CardBody>
-          </Card>
-        </GridItem>
-        <GridItem colSpan={2}>
-        <Card>
-            <CardBody>
-              <StatGroup>
-                <Stat>
-                  <StatLabel>Sent</StatLabel>
-                  <StatNumber>345,670</StatNumber>
-                  <StatHelpText>
-                    <StatArrow type="increase" />
-                    23.36%
-                  </StatHelpText>
-                </Stat>
-
-                <Stat>
-                  <StatLabel>Clicked</StatLabel>
-                  <StatNumber>45</StatNumber>
-                  <StatHelpText>
-                    <StatArrow type="decrease" />
-                    9.05%
-                  </StatHelpText>
-                </Stat>
-              </StatGroup>
-            </CardBody>
-          </Card>
-        </GridItem>
-      </Grid>
-      <Flex justifyContent="space-between" mt={8}>
-                    <Flex align="flex-end">
-                        <Heading as="h2" size="lg" letterSpacing="tight">Operations</Heading>
-                    </Flex>
-                    <IconButton icon={<FiCalendar />} />
-                </Flex>
-                <Flex flexDir="column">
-                    <Flex overflow="auto">
-                        <Table variant="unstyled" mt={4}>
-                            <Thead>
-                                <Tr color="gray">
-                                    <Th>Name of transaction</Th>
-                                    <Th>Category</Th>
-                                    <Th isNumeric>Cashback</Th>
-                                    <Th isNumeric>Amount</Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
-                                <Tr>
-                                    <Td>
-                                        <Flex align="center">
-                                            <Avatar size="sm" mr={2} src="amazon.jpeg" />
-                                            <Flex flexDir="column">
-                                                <Heading size="sm" letterSpacing="tight">Amazon</Heading>
-                                                <Text fontSize="sm" color="gray">Apr 24, 2021 at 1:40pm</Text>
-                                            </Flex>
-                                        </Flex>
-                                    </Td>
-                                    <Td>Electronic Devices</Td>
-                                    <Td isNumeric>+$2</Td>
-                                    <Td isNumeric><Text fontWeight="bold" display="inline-table">-$242</Text>.00</Td>
-                                </Tr>
-                                <Tr>
-                                    <Td>
-                                        <Flex align="center">
-                                            <Avatar size="sm" mr={2} src="starbucks.png" />
-                                            <Flex flexDir="column">
-                                                <Heading size="sm" letterSpacing="tight">Starbucks</Heading>
-                                                <Text fontSize="sm" color="gray">Apr 22, 2021 at 2:43pm</Text>
-                                            </Flex>
-                                        </Flex>
-                                    </Td>
-                                    <Td>Cafe and restaurant</Td>
-                                    <Td isNumeric>+$23</Td>
-                                    <Td isNumeric><Text fontWeight="bold" display="inline-table">-$32</Text>.00</Td>
-                                </Tr>
-                                <Tr>
-                                    <Td>
-                                        <Flex align="center">
-                                            <Avatar size="sm" mr={2} src="youtube.png" />
-                                            <Flex flexDir="column">
-                                                <Heading size="sm" letterSpacing="tight">YouTube</Heading>
-                                                <Text fontSize="sm" color="gray">Apr 13, 2021 at 11:23am</Text>
-                                            </Flex>
-                                        </Flex>
-                                    </Td>
-                                    <Td>Social Media</Td>
-                                    <Td isNumeric>+$4</Td>
-                                    <Td isNumeric><Text fontWeight="bold" display="inline-table">-$112</Text>.00</Td>
-                                </Tr>
-                                {display == 'show' &&
-                                    <>
-                                        <Tr>
-                                            <Td>
-                                                <Flex align="center">
-                                                    <Avatar size="sm" mr={2} src="amazon.jpeg" />
-                                                    <Flex flexDir="column">
-                                                        <Heading size="sm" letterSpacing="tight">Amazon</Heading>
-                                                        <Text fontSize="sm" color="gray">Apr 12, 2021 at 9:40pm</Text>
-                                                    </Flex>
-                                                </Flex>
-                                            </Td>
-                                            <Td>Electronic Devices</Td>
-                                            <Td isNumeric>+$2</Td>
-                                            <Td isNumeric><Text fontWeight="bold" display="inline-table">-$242</Text>.00</Td>
-                                        </Tr>
-                                        <Tr>
-                                            <Td>
-                                                <Flex align="center">
-                                                    <Avatar size="sm" mr={2} src="starbucks.png" />
-                                                    <Flex flexDir="column">
-                                                        <Heading size="sm" letterSpacing="tight">Starbucks</Heading>
-                                                        <Text fontSize="sm" color="gray">Apr 10, 2021 at 2:10pm</Text>
-                                                    </Flex>
-                                                </Flex>
-                                            </Td>
-                                            <Td>Cafe and restaurant</Td>
-                                            <Td isNumeric>+$23</Td>
-                                            <Td isNumeric><Text fontWeight="bold" display="inline-table">-$32</Text>.00</Td>
-                                        </Tr>
-                                        <Tr>
-                                            <Td>
-                                                <Flex align="center">
-                                                    <Avatar size="sm" mr={2} src="youtube.png" />
-                                                    <Flex flexDir="column">
-                                                        <Heading size="sm" letterSpacing="tight">YouTube</Heading>
-                                                        <Text fontSize="sm" color="gray">Apr 7, 2021 at 9:03am</Text>
-                                                    </Flex>
-                                                </Flex>
-                                            </Td>
-                                            <Td>Social Media</Td>
-                                            <Td isNumeric>+$4</Td>
-                                            <Td isNumeric><Text fontWeight="bold" display="inline-table">-$112</Text>.00</Td>
-                                        </Tr>
-                                    </>
-                                }
-                            </Tbody>
-                        </Table>
-                    </Flex>
-                    </Flex>
-    </>
+        <Flex justifyContent="space-between">
+          <Flex align="flex-end">
+            <Heading as="h2" size="lg" letterSpacing="tight">
+              Operations
+            </Heading>
+          </Flex>
+        </Flex>
+        <Flex flexDir="column">
+          <Flex overflow="auto">
+            {operations ? (
+              <Table variant="unstyled">
+                <Thead>
+                  <Tr color="gray">
+                    <Th>Ref Number</Th>
+                    <Th>Status</Th>
+                    <Th>Shipper</Th>
+                    <Th>Buyer</Th>
+                    <Th>Pay</Th>
+                    <Th>Charged</Th>
+                    <Th>Time to arrival</Th>
+                    <Th>
+                      <IconButton icon={<FiCalendar />} />
+                    </Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {displayedOperations.map((e, index) => (
+                    <Tr key={index}>
+                      <Td>
+                        <Link href={"/operation/" + e.refNumber}>
+                          <Flex align="center" justifyContent="center">
+                            {e.empresa &&
+                            <Image
+                            mr={2}
+                            maxW={20}
+                            src={
+                              e.empresa == "Duplo"
+                                ? "logo-Duplo.png"
+                                : "Logo-DPL.png"
+                            }
+                            alt={e.refNumber}
+                          />}
+                            
+                            <Flex flexDir="column">
+                              <Heading size="sm" letterSpacing="tight">
+                                {e.refNumber}
+                              </Heading>
+                              <Text fontSize="sm" color="gray">
+                                {e.empleado}
+                              </Text>
+                            </Flex>
+                          </Flex>
+                        </Link>
+                      </Td>
+                      <Td>
+                        <Badge ml="1" fontSize="1em" colorScheme="green">
+                          {e.state}
+                        </Badge>
+                      </Td>
+                      <Td>{e.shipper ? e.shipper : <Text>Empty</Text>}</Td>
+                      <Td>{e.buyer ? e.buyer : <Text>Empty</Text>}</Td>
+                      <Td>{e.pay ? e.pay : <Text>Empty</Text>}</Td>
+                      <Td>{e.charged ? e.charged : <Text>Empty</Text>}</Td>
+                      <Td>
+                        {e.timeToArrival ? e.timeToArrival : <Text>Empty</Text>}
+                      </Td>
+                      <Td>
+                        <IconButton
+                          colorScheme="red"
+                          variant="solid"
+                          icon={<DeleteIcon />}
+                          aria-label="Delete"
+                          onClick={() => handleDelete(e.refNumber)}
+                        />
+                      </Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            ) : (
+              <Center w="100%">
+                <Loadder />
+              </Center>
+            )}
+          </Flex>
+          <Flex align="center">
+            <Divider />
+            <IconButton
+              icon={
+                displayMode === "reduced" ? <FiChevronDown /> : <FiChevronUp />
+              }
+              onClick={() => {
+                setDisplayMode(
+                  displayMode === "reduced" ? "expanded" : "reduced"
+                );
+              }}
+            />
+            <Divider />
+          </Flex>
+          <Text color="gray" fontSize="sm">
+            My Balance
+          </Text>
+          <Text fontWeight="bold" fontSize="2xl">
+            $5,750.20
+          </Text>
+          <MyChart />
+        </Flex>
+      </Flex>
+    </Flex>
   );
 }

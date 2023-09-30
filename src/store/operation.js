@@ -6,18 +6,28 @@ export const useStore = create((set) => ({
     set(() => ({
       operation: newOperation,
     })),
-  setFieldsDocs: (fields) =>
+  setFieldsDocs: (fields) => {
+    let totalFields = 12;
+    let completedFields = Object.values(fields).filter(Boolean).length;
+    if(fields.documentRequested.length > 0) {
+      completedFields = completedFields + 1;
+    }
+    if(fields.placeBLIssue == ""){
+      completedFields = completedFields - 1;
+    }
+    const completed = Math.floor((completedFields / totalFields) * 100);
     set((state) => ({
       operation: {
         ...state.operation,
         docs: {
           ...state.operation.docs,
           fields: fields,
+          completed:completed
         },
       },
-    })),
+    }))},
   setFieldsComercial: (fields) => {
-    let totalFields = 20;
+    let totalFields = 22;
     if(fields?.comision) totalFields = totalFields + 1;
     let completedFields = Object.values(fields).filter(Boolean).length;
     const completed = Math.floor((completedFields / totalFields) * 100);

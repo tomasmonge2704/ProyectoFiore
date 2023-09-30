@@ -6,8 +6,17 @@ export const ShipmentPeriod = ({ value, setFields,fields }) => {
   const [shipmentPeriodFrom, setShipmentPeriodFrom ] = useState(undefined);
   const [shipmentPeriodTo, setShipmentPeriodTo ] = useState(undefined);
   useEffect(() => {
-    if(shipmentPeriodFrom && shipmentPeriodTo) setFields({...fields,shipmentPeriod:`${shipmentPeriodFrom} - ${shipmentPeriodTo}`})
-  },[shipmentPeriodFrom,shipmentPeriodTo])
+    if (shipmentPeriodFrom && shipmentPeriodTo) {
+      console.log(shipmentPeriodFrom + " " + shipmentPeriodTo)
+      const dateFormatRegex = /^(200[1-9]|20[1-9]\d)-\d{2}-\d{2}$/; // Expresión regular para el formato "año-mes-día"
+      if (dateFormatRegex.test(shipmentPeriodFrom) && dateFormatRegex.test(shipmentPeriodTo)) {
+        setFields({...fields, shipmentPeriod: `${shipmentPeriodFrom} - ${shipmentPeriodTo}`});
+      }
+    }
+  }, [shipmentPeriodFrom, shipmentPeriodTo]);
+  
+  
+  
   return (
     <>
       {value ? (

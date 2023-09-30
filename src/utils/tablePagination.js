@@ -171,8 +171,8 @@ export const TablePagination = ({ data, params,url }) => {
         </Button>
       </Flex>
       {itemsToDisplay.length > 0 ? (
-        <TableContainer w="100%">
-          <Table variant="striped" colorScheme="orange">
+        <TableContainer w="100%" >
+          <Table variant="striped" colorScheme="orange" size="lg">
             <Thead>
               <Tr>
                 {params.map((e, index) => (
@@ -190,6 +190,7 @@ export const TablePagination = ({ data, params,url }) => {
                     <Td key={index}>
                       <Input
                         variant="filled"
+                        w="max-content"
                         defaultValue={e[param.param] ? e[param.param] : ""}
                         onChange={(event) =>
                           handleChangeInput(event, e._id, param.param)

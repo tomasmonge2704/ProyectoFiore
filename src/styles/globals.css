@@ -1,0 +1,8 @@
+.noScrollBar {
+     /* Oculta la barra de desplazamiento */
+  scrollbar-width: none; /* Para navegadores Firefox */
+  -ms-overflow-style: none; /* Para navegadores Internet Explorer/Edge */
+}
+.noScrollBar::-webkit-scrollbar {
+    width: 0rem; /* Ancho de la barra de desplazamiento */
+}

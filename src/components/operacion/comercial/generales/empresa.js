@@ -3,9 +3,9 @@ import { Select } from "@chakra-ui/react";
 export const Empresa = ({ fields,setFields,CarteraBancaria }) => {
   const [indexCartera, setIndexCartera] = useState(undefined);
   const [nombre, setNombre] = useState(fields.empresa.nombre || "");
-  const [direccion, setDireccion] = useState(fields.empresa.nombre || "");
-  const [direccion2, setDireccion2] = useState(fields.empresa.nombre || "");
-  const [vatNumber, setVatNumber] = useState(fields.empresa.nombre || "");
+  const [direccion, setDireccion] = useState(fields.empresa.direccion || "");
+  const [direccion2, setDireccion2] = useState(fields.empresa.direccion2 || "");
+  const [vatNumber, setVatNumber] = useState(fields.empresa.vatNumber || "");
   const handleIndexChange = (e) => {
     const newIndex = parseInt(e.target.value);
     setIndexCartera(newIndex);
