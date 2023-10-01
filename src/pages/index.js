@@ -131,7 +131,7 @@ export default function Dashboard() {
                         </Link>
                       </Td>
                       <Td>
-                        <Badge ml="1" fontSize="1em" colorScheme="green">
+                        <Badge ml="1" fontSize="1em" colorScheme={e.state == "new" ? "green" : "blue"}>
                           {e.state}
                         </Badge>
                       </Td>

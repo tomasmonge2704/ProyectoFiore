@@ -7,14 +7,15 @@ import {
   GridItem,
   Divider,
   Textarea,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { TableDocumentRequested } from "./tableDocumentRequested";
 import { TableBillOfLading } from "./billOfLading";
 import { TableRestDocs } from "./restDocs";
-import { TableComercialInvoice } from "./comercialInvoice";
+import { TableFacturaComercial } from "./facturaComercial";
 import useFetch from "@/hooks/useFetch";
+import { ConfirmButton } from "@/utils/saveForm";
 export default function GeneralDocs({
   operation,
   setFieldsComercial,
@@ -22,6 +23,7 @@ export default function GeneralDocs({
   fieldsDocs,
   fieldsComercial,
 }) {
+  
   const options = [
     { label: "FACTURA", value: "FACTURA", copias: "1 Original + 1 Copia" },
     {
@@ -36,7 +38,7 @@ export default function GeneralDocs({
     },
     {
       label: "BILL OF LADING",
-      value: "BILL OF LADING - OBL -",
+      value: "BILL OF LADING",
       copias: "3 Originales + 3 Copias",
     },
     {
@@ -96,8 +98,7 @@ export default function GeneralDocs({
         {selected.length > 0 && (
           <TableDocumentRequested
             data={selected}
-            fields={fieldsDocs}
-            setFieldsDocs={setFieldsDocs}
+            setSelected={setSelected}
           />
         )}
         <Divider orientation="horizontal" />
@@ -105,15 +106,16 @@ export default function GeneralDocs({
           operation={operation}
           setFieldsDocs={setFieldsDocs}
           CarteraConsignee={CarteraConsignee}
+          setSelected={setSelected}
         />
         <Divider orientation="horizontal" />
-        <TableRestDocs operation={operation} setFieldsDocs={setFieldsDocs} />
-        <Divider orientation="horizontal" />
-        <TableComercialInvoice
+        <TableRestDocs
           operation={operation}
           setFieldsDocs={setFieldsDocs}
           CarteraConsignee={CarteraConsignee}
         />
+        <Divider orientation="horizontal" />
+        <TableFacturaComercial operation={operation} setFieldsDocs={setFieldsDocs} />
         <Divider orientation="horizontal" />
         <Text as="b">Comentarios adicionales</Text>
         <Textarea
@@ -123,6 +125,7 @@ export default function GeneralDocs({
             setFieldsDocs({ ...fieldsDocs, comentarios: e.target.value })
           }
         />
+        <ConfirmButton operation={operation} />
       </VStack>
     </Box>
   );

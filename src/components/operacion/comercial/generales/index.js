@@ -2,11 +2,8 @@ import InputPersonalizado from "@/utils/inputPersonalizado";
 import {
   Grid,
   GridItem,
-  Center,
-  Button,
   VStack,
   Box,
-  useToast,
 } from "@chakra-ui/react";
 import TablaGeneral from "./tablaGeneral";
 import { Empresa } from "./empresa";
@@ -18,6 +15,7 @@ import { ShelfLife } from "./shelfLife";
 import { ShipmentPeriod } from "./shipmentPeriod";
 import { SelectBanco } from "./banco";
 import { EmpleadoComponent } from "./empleado";
+import { ConfirmButton } from "@/utils/saveForm";
 export default function GeneralForm({
   operation,
   fields,
@@ -33,46 +31,6 @@ export default function GeneralForm({
   CarteraPuertos,
   CarteraEmpleados,
 }) {
-  const toast = useToast();
-  const saveFormHandler = () => {
-    const token = localStorage.getItem("token");
-    fetch(`${process.env.API_URL}/operation/by-ref/${operation.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(operation),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("La solicitud no fue exitosa");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        toast({
-          title: "Operation",
-          description: `Se ha guardado correctamente (${data.id}).`,
-          status: "success",
-          position: "top-right",
-          duration: 5000,
-          isClosable: true,
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-        toast({
-          title: "Operation",
-          description: `Se ha producido un error.`,
-          status: "error",
-          position: "top-right",
-          duration: 5000,
-          isClosable: true,
-        });
-      });
-  };
-  
   const handleInputChange = (elemnt) => {
     setFields(elemnt);
   };
@@ -94,13 +52,14 @@ export default function GeneralForm({
                 }
               />
               <Empresa
-                fields={fields}
+                fields={operation.comercial.fields}
                 setFields={setFields}
                 CarteraBancaria={CarteraBancaria}
               />
               <SelectBanco
-                fields={fields}
+                fields={operation.comercial.fields}
                 setFields={setFields}
+                empresa={operation.comercial.fields.empresa.empresa}
                 CarteraBancaria={CarteraBancaria}
               />
             </VStack>
@@ -222,18 +181,11 @@ export default function GeneralForm({
           </GridItem>
         </Grid>
         <EmpleadoComponent
-          fields={fields}
+          fields={operation.comercial.fields}
           setFields={setFields}
           CarteraEmpleados={CarteraEmpleados}
         />
-        <Center>
-          <Button
-            colorScheme="orange"
-            onClick={saveFormHandler}
-          >
-            Guardar
-          </Button>
-        </Center>
+        <ConfirmButton operation={operation} />
       </VStack>
     </Box>
   );

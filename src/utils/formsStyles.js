@@ -142,7 +142,7 @@ export const styles = StyleSheet.create({
         borderRightWidth:"1px",
         borderColor:"black",
         textAlign:"center",
-        padding:"2%"
+        padding:"1%"
     },
     tableDocsRight:{
         padding:"1%"

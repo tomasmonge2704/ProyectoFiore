@@ -17,13 +17,28 @@ export const TableBillOfLading = ({
   operation,
   setFieldsDocs,
   CarteraConsignee,
+  setSelected
 }) => {
   const descriptionOfGoods = operation.docs.fields.descriptionGoods !== ""
   ? operation.docs.fields.descriptionGoods
   : operation.comercial.fields.productos
   .map((e) => `-${e.description}`)
   .join("\n");
-  console.log(descriptionOfGoods)
+  const handleplaceBlChange = (event) => {
+    if(event.target.value == "TELEX RELEASE"){
+      const updatedFields = operation.docs.fields.documentRequested.map((element) => {
+        if (element.label === "BILL OF LADING") {
+          return {...element, copias:"TELEX RELEASE"}
+        }
+        return element;
+      });
+      setSelected(updatedFields);
+    }
+    setFieldsDocs({
+      ...operation.docs.fields,
+      placeBLIssue: event.target.value,
+    })
+  }
   return (
     <TableContainer w="100%">
       <Table variant="unstyled" size="sm">
@@ -110,12 +125,7 @@ export const TableBillOfLading = ({
               <Select
                 variant="filled"
                 value={operation.docs.fields.placeBLIssue}
-                onChange={(e) =>
-                  setFieldsDocs({
-                    ...operation.docs.fields,
-                    placeBLIssue: e.target.value,
-                  })
-                }
+                onChange={(e) => handleplaceBlChange(e)}
               >
                 <option value="" disabled>
                   PLACE OF B/L ISSUE
@@ -171,6 +181,23 @@ export const TableBillOfLading = ({
                   setFieldsDocs({
                     ...operation.docs.fields,
                     temperature: e.target.value,
+                  })
+                }
+              />
+            </Td>
+          </Tr>
+          <Tr>
+            <Td>
+              <Text as="b">TERMINOS DE FLETE</Text>
+            </Td>
+            <Td>
+              <Input
+                variant="filled"
+                defaultValue={operation.docs.fields.terminosFlete}
+                onChange={(e) =>
+                  setFieldsDocs({
+                    ...operation.docs.fields,
+                    terminosFlete: e.target.value,
                   })
                 }
               />

@@ -25,6 +25,11 @@ export default function PdfDocsIntructions({
   : operation.comercial.fields.productos
   .map((e) => `-${e.description}`)
   .join("\n");
+  const descriptionOfGoods2 = operation.docs.fields.descriptionGoods2 !== ""
+  ? operation.docs.fields.descriptionGoods2
+  : operation.comercial.fields.productos
+  .map((e) => `-${e.description}`)
+  .join("\n");
   return (
     <Box h="100%">
       <div style={{ marginTop: "20px" }}>
@@ -169,7 +174,7 @@ export default function PdfDocsIntructions({
                         <Text style={styles.negrita}>TERMINOS DE FLETE</Text>
                       </View>
                       <View style={styles.tableDocsRight}>
-
+                      <Text style={styles.textDato}>{fieldsDocs.terminosFlete}</Text>
                       </View>
                     </View>
                     <View style={styles.docsTableRowMercaderia}>
@@ -205,7 +210,7 @@ export default function PdfDocsIntructions({
                         <Text style={styles.negrita}>DESCRIPCIÓN MERCADERÍA</Text>
                       </View>
                       <View style={styles.tableDocsRight}>
-                      <Text style={styles.mercaderiaText}>{descriptionOfGoods}</Text>
+                      <Text style={styles.mercaderiaText}>{descriptionOfGoods2}</Text>
                       </View>
                     </View>
                   </View>
@@ -235,7 +240,7 @@ export default function PdfDocsIntructions({
                         <Text style={styles.negrita}>DESCRIPCIÓN MERCADERÍA</Text>
                       </View>
                       <View style={styles.tableDocsRight}>
-                      <Text style={styles.mercaderiaText}>{descriptionOfGoods}</Text>
+                      <Text style={styles.mercaderiaText}>{descriptionOfGoods2}</Text>
                       </View>
                     </View>
                   </View>

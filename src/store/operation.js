@@ -7,7 +7,7 @@ export const useStore = create((set) => ({
       operation: newOperation,
     })),
   setFieldsDocs: (fields) => {
-    let totalFields = 12;
+    let totalFields = 13;
     let completedFields = Object.values(fields).filter(Boolean).length;
     if(fields.documentRequested.length > 0) {
       completedFields = completedFields + 1;
@@ -27,7 +27,7 @@ export const useStore = create((set) => ({
       },
     }))},
   setFieldsComercial: (fields) => {
-    let totalFields = 22;
+    let totalFields = 23;
     if(fields?.comision) totalFields = totalFields + 1;
     let completedFields = Object.values(fields).filter(Boolean).length;
     const completed = Math.floor((completedFields / totalFields) * 100);
