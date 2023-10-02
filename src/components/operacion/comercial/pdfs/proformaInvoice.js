@@ -5,14 +5,13 @@ import {
   Text,
   View,
   PDFViewer,
-  Image
+  Image,
 } from "@react-pdf/renderer";
 import { Box } from "@chakra-ui/react";
-import TablePurchase from "./tablePurchase";
 import { styles } from "@/utils/formsStyles";
+import { convertirAMoneda } from "@/utils/convertInt";
 
-
-export default function PurchaseForm({fields,productos}) {
+export default function SaleForm({ fields, productos }) {
   const [loadPage, setloadPage] = useState(false);
   useEffect(() => {
     setloadPage(true);
@@ -21,14 +20,26 @@ export default function PurchaseForm({fields,productos}) {
     <Box h="100%">
       <div style={{ marginTop: "20px" }}>
         {loadPage && (
-          <PDFViewer style={{ width: "100%", height:"70vh"}}>
-            <Document title={`Purchase Conf${fields.empresaRefNumber && " " + fields.empresaRefNumber}.pdf`}>
+          <PDFViewer style={{ width: "100%", height: "70vh" }}>
+            <Document
+              title={`Proforma Inv${
+                fields.empresaRefNumber && " " + fields.empresaRefNumber
+              }.pdf`}
+            >
               <Page size="A4" style={styles.page}>
                 <View style={styles.imageContainer}>
-                <Image src={fields.empresa.empresa == "DPL" ? "/logo-DPL.png" : "/logo-Duplo.png"} />
+                  <Image
+                    src={
+                      fields.empresa.empresa == "DPL"
+                        ? "/logo-DPL.png"
+                        : "/logo-Duplo.png"
+                    }
+                  />
                 </View>
                 <View style={styles.section}>
-                  <Text style={styles.title}>PURCHASE CONFIRMATION NR. {fields.empresaRefNumber}</Text>
+                  <Text style={styles.title}>
+                    PROFORMA INVOICE NR. {fields.empresaRefNumber}
+                  </Text>
                   <View style={styles.grid}>
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>ORDER NUMBER:</Text>
@@ -44,22 +55,22 @@ export default function PurchaseForm({fields,productos}) {
                   <View style={styles.vSpacerXs}></View>
                   <View style={styles.grid}>
                     <View style={styles.grid2}>
-                      <Text style={styles.negrita}>SUPPLIER REF. NUMBER:</Text>
+                      <Text style={styles.negrita}>PO NUMBER:</Text>
                       <Text style={styles.textDato}>
-                        {fields.seller.refNumber}
+                        {fields.buyer.refNumber}
                       </Text>
                     </View>
                     <View style={styles.grid2}></View>
                   </View>
                   <View style={styles.vSpacer}></View>
                   <View style={styles.grid}>
-                    <Text style={styles.negrita}>SHIPPER:</Text>
+                    <Text style={styles.negrita}>BUYER:</Text>
                     <View style={styles.grid2}>
-                      <Text style={styles.negrita}>BUYER:</Text>
+                      <Text style={styles.negrita}>SELLER:</Text>
                     </View>
                   </View>
                   <View style={styles.grid}>
-                    <Text style={styles.textDato}>{fields.seller.nombre}</Text>
+                    <Text style={styles.negrita}>{fields.buyer.nombre}</Text>
                     <View style={styles.grid2}>
                       <Text style={styles.textDato}>
                         {fields.empresa.nombre}
@@ -67,7 +78,7 @@ export default function PurchaseForm({fields,productos}) {
                     </View>
                   </View>
                   <View style={styles.grid}>
-                    <Text style={styles.textDato}>{fields.seller.direccion}</Text>
+                    <Text style={styles.text}>{fields.buyer.direccion}</Text>
                     <View style={styles.grid2}>
                       <Text style={styles.textDato}>
                         {fields.empresa.direccion}
@@ -75,7 +86,7 @@ export default function PurchaseForm({fields,productos}) {
                     </View>
                   </View>
                   <View style={styles.grid}>
-                    <Text style={styles.textDato}>{fields.seller.direccion2}</Text>
+                    <Text style={styles.text}>{fields.buyer.direccion2}</Text>
                     <View style={styles.grid2}>
                       <Text style={styles.textDato}>
                         {fields.empresa.direccion2}
@@ -83,25 +94,27 @@ export default function PurchaseForm({fields,productos}) {
                     </View>
                   </View>
                   <View style={styles.grid}>
-                    <Text style={styles.textDato}>{fields.seller.taxId}</Text>
+                    <Text style={styles.text}>{fields.buyer.vatNumber}</Text>
                     <View style={styles.grid2}>
                       <Text style={styles.textDato}>
                         VAT NUMBER: {fields.empresa.vatNumber}
                       </Text>
                     </View>
                   </View>
-                  <View style={styles.vSpacerMd}></View>
+                  <View style={styles.vSpacer}></View>
                   <View style={styles.grid}>
                     <View></View>
                     <View style={styles.grid2}>
-                      <Text style={styles.negrita}>CONSIGNEE:</Text>
+                      <Text style={styles.negrita}>BANK DETAILS:</Text>
                     </View>
                   </View>
                   <View style={styles.grid}>
                     <View></View>
                     <View style={styles.grid2}>
                       <Text style={styles.textDato}>
-                      TO BE CONFIRMED
+                        Beneficiary Bank:{" "}
+                        {fields.empresa.bank &&
+                          fields.empresa.bank.beneficiaryBank}
                       </Text>
                     </View>
                   </View>
@@ -109,7 +122,45 @@ export default function PurchaseForm({fields,productos}) {
                     <View></View>
                     <View style={styles.grid2}>
                       <Text style={styles.textDato}>
-                      (DOCS INSTRUCTION WILL FOLLOW SHORTLY)
+                        Bank Address:{" "}
+                        {fields.empresa.bank && fields.empresa.bank.bankAdress}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.grid}>
+                    <View></View>
+                    <View style={styles.grid2}>
+                      <Text style={styles.textDato}>
+                        Swift Code:{" "}
+                        {fields.empresa.bank && fields.empresa.bank.swiftCode}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.grid}>
+                    <View></View>
+                    <View style={styles.grid2}>
+                      <Text style={styles.textDato}>
+                        Beneficiary Name:{" "}
+                        {fields.empresa.bank &&
+                          fields.empresa.bank.beneficiaryName}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.grid}>
+                    <View></View>
+                    <View style={styles.grid2}>
+                      <Text style={styles.textDato}>
+                        Beneficiary Account Number:{" "}
+                        {fields.empresa.bank &&
+                          fields.empresa.bank.beneficiaryAccountNumber}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.grid}>
+                    <View></View>
+                    <View style={styles.grid2}>
+                      <Text style={styles.textDato}>
+                        Correspondent Bank: FALTA
                       </Text>
                     </View>
                   </View>
@@ -117,17 +168,88 @@ export default function PurchaseForm({fields,productos}) {
                   <View style={styles.grid}>
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>
-                      WE CONFIRM HAVING PURCHASED:
+                        WE CONFIRM HAVING SOLD:
                       </Text>
                     </View>
                     <View></View>
                   </View>
                   <View style={styles.vSpacer}></View>
-                  <TablePurchase
-                    productos={productos}
-                    fields={fields}
-                    styles={styles}
-                  />
+                  <View style={styles.tableContainer}>
+                    <View style={styles.tableTitle}>
+                      <View style={styles.borderTableTitle}>
+                        <Text style={styles.negrita}>QUANTITY</Text>
+                      </View>
+                      <View style={{ width: "150%" }}>
+                        <View style={styles.borderTableTitle}>
+                          <Text style={styles.negrita}>PRODUCT</Text>
+                        </View>
+                      </View>
+                      <View style={styles.borderTableTitle}>
+                        <Text style={styles.negrita}>PACKING</Text>
+                      </View>
+                      <View style={styles.borderTableTitle}>
+                        <Text style={styles.negrita}>UNIT PRICE</Text>
+                      </View>
+                      <View style={styles.borderTableTitle}>
+                        <Text style={styles.negrita}>TOTAL AMOUNT</Text>
+                      </View>
+                    </View>
+                    {productos.length &&
+                      productos.map((prod, index) => (
+                        <View style={styles.tableRow} key={index}>
+                          <View style={styles.borderTable}>
+                            {" "}
+                            <Text style={styles.textDato}>
+                              {prod.quantity} MT
+                            </Text>
+                          </View>
+                          <View style={{ width: "150%" }}>
+                            <View style={styles.borderTable}>
+                              {" "}
+                              <Text style={styles.textDato}>
+                                {prod.description}
+                              </Text>
+                            </View>
+                          </View>
+                          <View style={styles.borderTable}>
+                            {" "}
+                            <Text style={styles.textDato}>{prod.packing}</Text>
+                          </View>
+                          <View style={styles.borderTable}>
+                            {" "}
+                            <Text style={styles.textDato}>
+                              USD {prod.unitPriceSale} /MT
+                            </Text>
+                          </View>
+                          <View style={styles.borderTable}>
+                            {" "}
+                            <Text style={styles.textDato}>
+                              USD{" "}
+                              {convertirAMoneda(
+                                prod.unitPriceSale * prod.quantity
+                              ) || 0}
+                            </Text>
+                          </View>
+                        </View>
+                      ))}
+                    <View style={styles.tableRow}>
+                      <View style={styles.borderTable}>
+                        {" "}
+                        <Text style={styles.textDato}>
+                          {fields.totalWeight !== 0 && fields.totalWeight} MT
+                        </Text>
+                      </View>
+                      <View style={{ width: "150%" }}></View>
+                      <View style={{ width: "100%" }}></View>
+                      <View style={{ width: "100%" }}></View>
+                      <View style={styles.borderTable}>
+                        {" "}
+                        <Text style={styles.textDato}>
+                          USD {convertirAMoneda(fields.totalSale)}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
                   <View style={styles.vSpacer}></View>
                   <View style={styles.vSpacer}></View>
                   <View style={styles.grid}>
@@ -204,7 +326,7 @@ export default function PurchaseForm({fields,productos}) {
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>DELIVERY TERMS:</Text>
                       <Text style={styles.textDato}>
-                        {fields.deliveryTermsPurchase}
+                        {fields.deliveryTermsSale}
                       </Text>
                     </View>
                     <View></View>
@@ -213,7 +335,7 @@ export default function PurchaseForm({fields,productos}) {
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>PAYMENT TERMS:</Text>
                       <Text style={styles.textDato}>
-                        {fields.paymentTermsPurchase}
+                        {fields.paymentTermsSale}
                       </Text>
                     </View>
                     <View></View>
@@ -221,23 +343,42 @@ export default function PurchaseForm({fields,productos}) {
                   <View style={styles.vSpacer}></View>
                   <View style={styles.vSpacer}></View>
                   <View
-                    style={{display: "flex",flexDirection: "row", gap: 10}}>
-                    <Text style={styles.negrita}>- INSPECTED, APPROVED & ELEGIBLE FOR EXPORT TO:
+                    style={{ display: "flex", flexDirection: "row", gap: 10 }}
+                  >
+                    <Text style={styles.negrita}>
+                      - INSPECTED, APPROVED & ELEGIBLE FOR EXPORT TO:
                     </Text>
                     <Text style={styles.textDato}>
                       {fields.destinationCountry}
                     </Text>
                   </View>
-                 
+                  <View style={{ marginTop: 3 }}>
+                    <Text style={styles.negrita}>
+                      - PRODUCTION / EXPIRATION DATE (DD/MM/YYYY) OR (MM/YYYY)
+                      FORMAT ARE REQUIRED ON ALL CARTONS
+                    </Text>
+                  </View>
+                  <View style={{ marginTop: 3 }}>
+                    <Text style={styles.negrita}>- FLOOR LOADED</Text>
+                  </View>
                   <View style={styles.vSpacer}></View>
                   <View style={styles.vSpacer}></View>
                   <View style={styles.vSpacer}></View>
-                  <Image style={styles.firma} src={fields.empresa.empresa == "DPL" ? "/Firma-DPL.png" : "/Firma-Duplo.png"} />
+                  <Image
+                    style={styles.firma}
+                    src={
+                      fields.empresa.empresa == "DPL"
+                        ? "/Firma-DPL.png"
+                        : "/Firma-Duplo.png"
+                    }
+                  />
                   <View style={styles.vSpacer}></View>
                   <View style={styles.line}></View>
                   <View style={styles.footer}>
                     <Text style={styles.text}>{fields.empresa.nombre}</Text>
-                    <Text style={styles.text}>{fields.empresa.direccion} (CP {fields.empresa.vatNumber})</Text>
+                    <Text style={styles.text}>
+                      {fields.empresa.direccion} (CP {fields.empresa.vatNumber})
+                    </Text>
                   </View>
                 </View>
               </Page>

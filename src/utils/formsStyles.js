@@ -146,5 +146,25 @@ export const styles = StyleSheet.create({
     },
     tableDocsRight:{
         padding:"1%"
+    },
+    tableShipment:{
+      width:"100vw",
+      height:"100%"
+    },
+    tableShipmentRow:{
+      display:"flex",
+      flexDirection:"row"
+    },
+    tableShipmentLeft:{
+      textAlign:"center",
+      backgroundColor:"black",
+      color:"white",
+      width:"35%"
+    },
+    tableShipmentRight:{
+      width:"60%",
+      textAlign:"center",
+      borderColor:"black",
+      borderWidth:"2px"
     }
   });

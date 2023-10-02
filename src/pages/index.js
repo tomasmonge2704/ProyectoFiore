@@ -14,7 +14,7 @@ import {
   Badge,
   Center,
   Image,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import Link from "next/link";
@@ -25,17 +25,18 @@ import useFetch from "@/hooks/useFetch";
 export default function Dashboard() {
   const [displayMode, setDisplayMode] = useState("reduced");
   const [operations, setOperations] = useState([]);
+  const [filter, setFilter] = useState("");
   const toast = useToast();
   const [ListOperations] = useFetch(
     `${process.env.API_URL}/operation/listado`,
     undefined
   );
   useEffect(() => {
-    if(ListOperations) setOperations(ListOperations);
-  },[ListOperations])
+    if (ListOperations) setOperations(ListOperations);
+  }, [ListOperations]);
   const displayedOperations =
     displayMode === "reduced" && operations
-      ? operations.slice(0, 5)
+      ? operations.slice(0, 7)
       : operations;
   const handleDelete = (id) => {
     const token = localStorage.getItem("token");
@@ -60,6 +61,17 @@ export default function Dashboard() {
         const filtered = operations.filter((e) => e.refNumber !== id);
         setOperations(filtered);
       });
+  };
+  const handleOrderBy = (param) => {
+    const token = localStorage.getItem("token");
+    setFilter(param);
+    fetch(`${process.env.API_URL}/operation/orderBy/${param}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setOperations(data));
   };
   return (
     <Flex
@@ -89,14 +101,34 @@ export default function Dashboard() {
               <Table variant="unstyled">
                 <Thead>
                   <Tr color="gray">
-                    <Th>Ref Number</Th>
+                    <Th
+                      onClick={() => handleOrderBy("refNumber")}
+                      color={filter == "refNumber" && "orange"}
+                    >
+                      Ref Number
+                    </Th>
                     <Th>Status</Th>
-                    <Th>Shipper</Th>
-                    <Th>Buyer</Th>
+                    <Th
+                      onClick={() => handleOrderBy("shipper")}
+                      color={filter == "shipper" && "orange"}
+                    >
+                      Shipper
+                    </Th>
+                    <Th
+                      onClick={() => handleOrderBy("buyer")}
+                      color={filter == "buyer" && "orange"}
+                    >
+                      Buyer
+                    </Th>
                     <Th>Pay</Th>
                     <Th>Charged</Th>
-                    <Th>Time to arrival</Th>
-                    <Th>
+                    <Th
+                      onClick={() => handleOrderBy("timeToArrival")}
+                      color={filter == "timeToArrival" && "orange"}
+                    >
+                      Time to arrival
+                    </Th>
+                    <Th onClick={() => handleOrderBy("date")}>
                       <IconButton icon={<FiCalendar />} />
                     </Th>
                   </Tr>
@@ -107,18 +139,19 @@ export default function Dashboard() {
                       <Td>
                         <Link href={"/operation/" + e.refNumber}>
                           <Flex align="center" justifyContent="center">
-                            {e.empresa &&
-                            <Image
-                            mr={2}
-                            maxW={20}
-                            src={
-                              e.empresa == "Duplo"
-                                ? "logo-Duplo.png"
-                                : "Logo-DPL.png"
-                            }
-                            alt={e.refNumber}
-                          />}
-                            
+                            {e.empresa && (
+                              <Image
+                                mr={2}
+                                maxW={20}
+                                src={
+                                  e.empresa == "Duplo"
+                                    ? "logo-Duplo.png"
+                                    : "Logo-DPL.png"
+                                }
+                                alt={e.refNumber}
+                              />
+                            )}
+
                             <Flex flexDir="column">
                               <Heading size="sm" letterSpacing="tight">
                                 {e.refNumber}
@@ -131,17 +164,25 @@ export default function Dashboard() {
                         </Link>
                       </Td>
                       <Td>
-                        <Badge ml="1" fontSize="1em" colorScheme={e.state == "new" ? "green" : "blue"}>
+                        <Badge
+                          ml="1"
+                          fontSize="1em"
+                          colorScheme={
+                            e.state == "new"
+                              ? "purple"
+                              : e.state == "completed"
+                              ? "green"
+                              : "blue"
+                          }
+                        >
                           {e.state}
                         </Badge>
                       </Td>
-                      <Td>{e.shipper ? e.shipper : <Text>Empty</Text>}</Td>
-                      <Td>{e.buyer ? e.buyer : <Text>Empty</Text>}</Td>
-                      <Td>{e.pay ? e.pay : <Text>Empty</Text>}</Td>
-                      <Td>{e.charged ? e.charged : <Text>Empty</Text>}</Td>
-                      <Td>
-                        {e.timeToArrival ? e.timeToArrival : <Text>Empty</Text>}
-                      </Td>
+                      <Td>{e.shipper && e.shipper}</Td>
+                      <Td>{e.buyer && e.buyer}</Td>
+                      <Td>{e.pay && e.pay}</Td>
+                      <Td>{e.charged && e.charged}</Td>
+                      <Td>{e.timeToArrival && e.timeToArrival}</Td>
                       <Td>
                         <IconButton
                           colorScheme="red"
@@ -175,13 +216,6 @@ export default function Dashboard() {
             />
             <Divider />
           </Flex>
-          <Text color="gray" fontSize="sm">
-            My Balance
-          </Text>
-          <Text fontWeight="bold" fontSize="2xl">
-            $5,750.20
-          </Text>
-          <MyChart />
         </Flex>
       </Flex>
     </Flex>

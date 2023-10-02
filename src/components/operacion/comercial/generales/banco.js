@@ -1,6 +1,5 @@
-import { Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-
+import { SelectComponent } from "@/utils/select";
 export const SelectBanco = ({ fields, setFields,empresa,CarteraBancaria }) => {
   const [carteraIndex, setCarteraIndex] = useState(undefined);
   useEffect(() => {
@@ -14,15 +13,12 @@ export const SelectBanco = ({ fields, setFields,empresa,CarteraBancaria }) => {
     setFields({ ...fields, empresa:{...fields.empresa,bank:bank}});
   };
   return (
-      <Select value={fields.empresa.bank.beneficiaryBank} onChange={(e) => handleIndexChange(e)}>
-      <option value="" disabled>
-        Banco
-      </option>
-      {carteraIndex >= 0 && CarteraBancaria[carteraIndex].banks.map((e, index) => (
-          <option value={e.beneficiaryBank} key={index}>
-            {e.beneficiaryBank}
-          </option>
-        ))}
-      </Select>
+    <SelectComponent
+    options={carteraIndex >= 0 ? CarteraBancaria[carteraIndex].banks : []}
+    value={fields.empresa.bank ?  fields.empresa.bank.beneficiaryBank : ""}
+    handleIndexChange={handleIndexChange}
+    textDefault="Banco"
+    param="beneficiaryBank"
+  />
   );
 };

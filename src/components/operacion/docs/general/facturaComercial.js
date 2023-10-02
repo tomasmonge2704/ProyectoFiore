@@ -9,7 +9,7 @@ import {
     Text,
     Textarea
   } from "@chakra-ui/react";
-  export const TableFacturaComercial = ({ operation }) => {
+  export const TableFacturaComercial = ({ operation,setFieldsDocs }) => {
     const descriptionOfGoods =
     operation.docs.fields.descriptionGoods !== ""
       ? operation.docs.fields.descriptionGoods

@@ -1,4 +1,3 @@
-import InputPersonalizado from "@/utils/inputPersonalizado";
 import { Select } from "@chakra-ui/react";
 
 export const OperationType = ({ fields, setFields }) => {

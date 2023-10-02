@@ -15,8 +15,6 @@ import {
   Text,
   Grid,
   GridItem,
-  Button,
-  Flex,
   Center,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -146,7 +144,7 @@ export default function NuevaOperacion() {
                   </StepIndicator>
                   <Box flexShrink="0">
                     <StepTitle>{step.title}</StepTitle>
-                    <StepDescription>{step.description}</StepDescription>
+                    <StepDescription>{step.description !== "0% completado" && step.description}</StepDescription>
                   </Box>
                   <StepSeparator />
                 </Step>

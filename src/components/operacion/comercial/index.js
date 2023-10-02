@@ -6,8 +6,8 @@ import {
   TabPanels,
   Center,
 } from "@chakra-ui/react";
-import SaleForm from "@/components/operacion/comercial/confirmacionVenta";
-import PurchaseForm from "./ordenCompra";
+import PurchaseForm from "./pdfs/ordenCompra";
+import SaleForm from "./pdfs/proformaInvoice";
 import GeneralForm from "./generales";
 import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store/operation";
