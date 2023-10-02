@@ -120,8 +120,8 @@ export default function Dashboard() {
                     >
                       Buyer
                     </Th>
-                    <Th>Pay</Th>
-                    <Th>Charged</Th>
+                    <Th>Paid</Th>
+                    <Th>Collection</Th>
                     <Th
                       onClick={() => handleOrderBy("timeToArrival")}
                       color={filter == "timeToArrival" && "orange"}

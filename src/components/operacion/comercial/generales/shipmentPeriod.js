@@ -19,14 +19,7 @@ export const ShipmentPeriod = ({ value, setFields,fields }) => {
   
   return (
     <>
-      {value ? (
-        <InputPersonalizado
-          type="text"
-          label="SHIPMENT PERIOD"
-          value={value}
-          onChange={(e) => setFields({...fields,shipmentPeriod:e.target.value})}
-        />
-      ) : (
+      
         <Grid  w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
             <GridItem w="100%">
           <InputPersonalizado
@@ -45,7 +38,7 @@ export const ShipmentPeriod = ({ value, setFields,fields }) => {
           />
           </GridItem>
         </Grid>
-      )}
+
     </>
   );
 };

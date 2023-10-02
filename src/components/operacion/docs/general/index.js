@@ -29,7 +29,7 @@ export default function GeneralDocs({
     {
       label: "PACKING LIST",
       value: "PACKING LIST",
-      copias: "1 Original + 3 Copias - Indicando fechas de Prod y Vto.",
+      copias: "1 Original + 3 Copias",
     },
     {
       label: "CERT. DE ORIGEN",
@@ -46,7 +46,7 @@ export default function GeneralDocs({
       value: "CERT. SANITARIO",
       copias: "1 Original + 2 Copias",
     },
-    { label: "CERT. HALAL", value: "CERT. HALAL", copias: "1" },
+    { label: "CERT. HALAL", value: "CERT. HALAL", copias: "1 Original + 1 Copia" },
   ];
   const [selected, setSelected] = useState(fieldsDocs.documentRequested);
   useEffect(() => {

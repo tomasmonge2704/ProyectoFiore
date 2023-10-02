@@ -44,7 +44,7 @@ export default function NuevaOperacion() {
   }, [router.query]);
   const steps = [
     {
-      title: "Comercial",
+      title: "Commercial",
       description: `${
         operation ? operation.comercial.completed : 0
       }% completado`,
@@ -54,13 +54,13 @@ export default function NuevaOperacion() {
       description: `${operation ? operation.docs.completed : 0}% completado`,
     },
     {
-      title: "Logistica",
+      title: "Logistics",
       description: `${
         operation ? operation.logistica.completed : 0
       }% completado`,
     },
     {
-      title: "Contable financiera",
+      title: "Finance",
       description: `${
         operation ? operation.contableFinanciera.completed : 0
       }% completado`,

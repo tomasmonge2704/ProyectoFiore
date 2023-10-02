@@ -70,50 +70,6 @@ export const Logistica = () => {
                       textDefault="Freight Forwarder"
                       param="label"
                     />
-                    <InputPersonalizado
-                      type="text"
-                      label="Booking Nr"
-                      defaultValue={operation.logistica.fields.bookingNr}
-                      onChange={(event) =>
-                        handleInputChange(event, "bookingNr")
-                      }
-                    />
-                    {(operation.comercial.fields.deliveryTermsSale === "CFR" ||
-                      operation.comercial.fields.deliveryTermsSale ===
-                        "CIF") && (
-                      <InputPersonalizado
-                        type="number"
-                        label="Freight Amount"
-                        defaultValue={operation.logistica.fields.freightAmount}
-                        onChange={(event) =>
-                          handleInputChange(event, "freightAmount")
-                        }
-                      />
-                    )}
-                    <InputPersonalizado
-                      type="date"
-                      label="ETD"
-                      defaultValue={operation.logistica.fields.etd}
-                      onChange={(event) => handleInputChange(event, "etd")}
-                    />
-                    <InputPersonalizado
-                      type="text"
-                      label="Vessel Name"
-                      defaultValue={operation.logistica.fields.vesselName}
-                      onChange={(event) =>
-                        handleInputChange(event, "vesselName")
-                      }
-                    />
-                    <InputPersonalizado
-                      type="text"
-                      label="Seals"
-                      defaultValue={operation.logistica.fields.seals}
-                      onChange={(event) => handleInputChange(event, "seals")}
-                    />
-                  </VStack>
-                </GridItem>
-                <GridItem w="100%">
-                  <VStack spacing="3">
                     <SelectComponent
                       options={fletesInternacionales}
                       value={operation.logistica.fields.ShippingLine}
@@ -125,23 +81,39 @@ export const Logistica = () => {
                     />
                     <InputPersonalizado
                       type="text"
+                      label="Booking Nr"
+                      defaultValue={operation.logistica.fields.bookingNr}
+                      onChange={(event) =>
+                        handleInputChange(event, "bookingNr")
+                      }
+                    />
+                    <InputPersonalizado
+                      type="text"
+                      label="Vessel Name"
+                      defaultValue={operation.logistica.fields.vesselName}
+                      onChange={(event) =>
+                        handleInputChange(event, "vesselName")
+                      }
+                    />
+                    <InputPersonalizado
+                      type="text"
                       label="Voyage Nr"
                       defaultValue={operation.logistica.fields.voyageNr}
                       onChange={(event) => handleInputChange(event, "voyageNr")}
                     />
-                    {operation.comercial.fields.deliveryTermsSale === "CIF" && (
-                      <InputPersonalizado
-                        type="number"
-                        label="Insurance Amount"
-                        defaultValue={
-                          operation.logistica.fields.insuranceAmount
-                        }
-                        onChange={(event) =>
-                          handleInputChange(event, "insuranceAmount")
-                        }
-                      />
-                    )}
                     <InputPersonalizado
+                      type="date"
+                      label="ETD"
+                      defaultValue={operation.logistica.fields.etd}
+                      onChange={(event) => handleInputChange(event, "etd")}
+                    />
+                     
+                    
+                  </VStack>
+                </GridItem>
+                <GridItem w="100%">
+                  <VStack spacing="3">
+                  <InputPersonalizado
                       type="date"
                       label="ETA"
                       defaultValue={operation.logistica.fields.eta}
@@ -157,10 +129,40 @@ export const Logistica = () => {
                     />
                     <InputPersonalizado
                       type="text"
+                      label="Seals"
+                      defaultValue={operation.logistica.fields.seals}
+                      onChange={(event) => handleInputChange(event, "seals")}
+                    />
+                    <InputPersonalizado
+                      type="text"
                       label="B/L Nr"
                       defaultValue={operation.logistica.fields.blNr}
                       onChange={(event) => handleInputChange(event, "blNr")}
                     />
+                    {(operation.comercial.fields.deliveryTermsSale === "CFR" ||
+                      operation.comercial.fields.deliveryTermsSale ===
+                        "CIF") && (
+                      <InputPersonalizado
+                        type="number"
+                        label="Freight Amount"
+                        defaultValue={operation.logistica.fields.freightAmount}
+                        onChange={(event) =>
+                          handleInputChange(event, "freightAmount")
+                        }
+                      />
+                    )}
+                    {operation.comercial.fields.deliveryTermsSale === "CIF" && (
+                      <InputPersonalizado
+                        type="number"
+                        label="Insurance Amount"
+                        defaultValue={
+                          operation.logistica.fields.insuranceAmount
+                        }
+                        onChange={(event) =>
+                          handleInputChange(event, "insuranceAmount")
+                        }
+                      />
+                    )}
                   </VStack>
                 </GridItem>
               </Grid>
@@ -208,14 +210,14 @@ export const Logistica = () => {
                   />
                 </GridItem>
                 <GridItem w="100%">
-                <InputPersonalizado
+                { operation.docs.fields.placeBLIssue !== "OBL" && <InputPersonalizado
                     type="text"
                     label="Telex Release"
                     defaultValue={operation.logistica.fields.telexRelease}
                     onChange={(event) =>
                       handleInputChange(event, "telexRelease")
                     }
-                  />
+                  />}
                 </GridItem>
               </Grid>
               <ConfirmButton operation={operation} />
