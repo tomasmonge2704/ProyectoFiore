@@ -210,7 +210,7 @@ export const Logistica = () => {
                   />
                 </GridItem>
                 <GridItem w="100%">
-                { operation.docs.fields.placeBLIssue !== "OBL" && <InputPersonalizado
+                { operation.docs.fields.placeBLIssue == "TELEX RELEASE" && <InputPersonalizado
                     type="text"
                     label="Telex Release"
                     defaultValue={operation.logistica.fields.telexRelease}

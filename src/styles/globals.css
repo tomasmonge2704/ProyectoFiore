@@ -6,3 +6,6 @@
 .noScrollBar::-webkit-scrollbar {
     width: 0rem; /* Ancho de la barra de desplazamiento */
 }
+.selected-item {
+  background-color: #f0f0f0; /* Cambia el fondo de la opción seleccionada */
+}

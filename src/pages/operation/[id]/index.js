@@ -70,7 +70,7 @@ export default function NuevaOperacion() {
     index: 1,
     count: steps.length,
   });
-  const [showStep, setShowStep] = useState("Comercial");
+  const [showStep, setShowStep] = useState("Commercial");
 
   return (
     <Box
@@ -144,7 +144,7 @@ export default function NuevaOperacion() {
                   </StepIndicator>
                   <Box flexShrink="0">
                     <StepTitle>{step.title}</StepTitle>
-                    <StepDescription>{step.description !== "0% completado" && step.description}</StepDescription>
+                    <StepDescription>{step.description}</StepDescription>
                   </Box>
                   <StepSeparator />
                 </Step>
