@@ -11,17 +11,15 @@ import {
   Th,
   Td,
   Divider,
-  Badge,
   Center,
   Image,
   useToast,
 } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
 import Link from "next/link";
-import { FiCalendar, FiChevronDown, FiChevronUp } from "react-icons/fi";
-import MyChart from "../components/MyChart";
+import { FiCalendar, FiChevronDown, FiChevronUp, FiCopy } from "react-icons/fi";
 import { Loadder } from "@/utils/loadder";
 import useFetch from "@/hooks/useFetch";
+import { StateSelector } from "@/utils/stateSelector";
 export default function Dashboard() {
   const [displayMode, setDisplayMode] = useState("reduced");
   const [operations, setOperations] = useState([]);
@@ -38,29 +36,17 @@ export default function Dashboard() {
     displayMode === "reduced" && operations
       ? operations.slice(0, 7)
       : operations;
-  const handleDelete = (id) => {
+  const handleDuplicate = (id) => {
     const token = localStorage.getItem("token");
-    fetch(`${process.env.API_URL}/operation/by-ref/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        toast({
-          title: "Cliente",
-          description: `Se ha borrado correctamente.`,
-          status: "success",
-          position: "top-right",
-          duration: 5000,
-          isClosable: true,
-        });
+      fetch(`${process.env.API_URL}/operation/duplicate/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .finally(() => {
-        const filtered = operations.filter((e) => e.refNumber !== id);
-        setOperations(filtered);
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.error)setOperations([...operations,data])
+        })
   };
   const handleOrderBy = (param) => {
     const token = localStorage.getItem("token");
@@ -164,19 +150,7 @@ export default function Dashboard() {
                         </Link>
                       </Td>
                       <Td>
-                        <Badge
-                          ml="1"
-                          fontSize="1em"
-                          colorScheme={
-                            e.state == "new"
-                              ? "purple"
-                              : e.state == "completed"
-                              ? "green"
-                              : "blue"
-                          }
-                        >
-                          {e.state}
-                        </Badge>
+                        <StateSelector selected={e.state} refNumber={e.refNumber} />
                       </Td>
                       <Td>{e.shipper && e.shipper}</Td>
                       <Td>{e.buyer && e.buyer}</Td>
@@ -185,11 +159,11 @@ export default function Dashboard() {
                       <Td>{e.timeToArrival && e.timeToArrival}</Td>
                       <Td>
                         <IconButton
-                          colorScheme="red"
+                          colorScheme="blue"
                           variant="solid"
-                          icon={<DeleteIcon />}
+                          icon={<FiCopy/>}
                           aria-label="Delete"
-                          onClick={() => handleDelete(e.refNumber)}
+                          onClick={() => handleDuplicate(e.refNumber)}
                         />
                       </Td>
                     </Tr>
@@ -202,7 +176,7 @@ export default function Dashboard() {
               </Center>
             )}
           </Flex>
-          <Flex align="center">
+          {displayedOperations.length > 6 && <Flex align="center">
             <Divider />
             <IconButton
               icon={
@@ -215,7 +189,7 @@ export default function Dashboard() {
               }}
             />
             <Divider />
-          </Flex>
+          </Flex>}
         </Flex>
       </Flex>
     </Flex>

@@ -7,10 +7,11 @@ export const useStore = create((set) => ({
       operation: newOperation,
     })),
   setFieldsDocs: (fields) => {
-    let totalFields = 11;
+    let totalFields = 10;
     let completedFields = 0;
     if(fields.documentRequested.length > 0 ) completedFields += 1; 
     if(fields.date) completedFields += 1; 
+    if(fields.responsable) completedFields += 1; 
     if(fields.terminosFlete) completedFields += 1; 
     if(fields.descriptionGoods) completedFields += 1; 
     if(fields.descriptionGoods2) completedFields += 1; 
@@ -32,7 +33,7 @@ export const useStore = create((set) => ({
       },
     }))},
   setFieldsComercial: (fields) => {
-    let totalFields = 23;
+    let totalFields = 25;
     if(fields?.comision) totalFields = totalFields + 1;
     let completedFields = Object.values(fields).filter(Boolean).length;
     const completed = Math.floor((completedFields / totalFields) * 100);
@@ -48,7 +49,7 @@ export const useStore = create((set) => ({
     }));
   },
   setFieldsLogistica: (fields) => {
-    let totalFields = 23;
+    let totalFields = 13;
     let completedFields = Object.values(fields).filter(Boolean).length;
     const completed = Math.floor((completedFields / totalFields) * 100);
     set((state) => ({
@@ -65,11 +66,15 @@ export const useStore = create((set) => ({
   setProductsComercial: (productos) => {
     let balanceSale = 0;
     let balancePurchase = 0;
-    let totalWeight = 0;
+    let totalNetWeight = 0;
+    let totalGrossWeight= 0;
+    let totalQuantityCartons = 0;
     for (let i = 0; i < productos.length; i++) {
       balanceSale += productos[i].unitPriceSale * productos[i].quantity;
       balancePurchase += productos[i].unitPricePurchase * productos[i].quantity;
-      totalWeight += Number(productos[i].quantity);
+      totalNetWeight += Number(productos[i].netWeight);
+      totalGrossWeight += Number(productos[i].grossWeight);
+      totalQuantityCartons += Number(productos[i].quantityCartons);
     }
     set((state) => ({
       operation: {
@@ -81,7 +86,9 @@ export const useStore = create((set) => ({
             productos: productos,
             totalPurchase: balancePurchase,
             totalSale: balanceSale,
-            totalWeight: totalWeight,
+            totalGrossWeight: totalGrossWeight,
+            totalNetWeight:totalNetWeight,
+            totalQuantityCartons:totalQuantityCartons
           },
         },
       },

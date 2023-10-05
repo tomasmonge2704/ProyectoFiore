@@ -14,7 +14,7 @@ import {
     operation.docs.fields.descriptionGoods !== ""
       ? operation.docs.fields.descriptionGoods
       : operation.comercial.fields.productos
-          .map((e) => `-${e.description}`)
+          .map((e) => `${e.description}`)
           .join("\n");
     return (
       <TableContainer w="100%">

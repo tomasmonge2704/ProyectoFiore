@@ -7,9 +7,10 @@ import {
   GridItem,
   Divider,
   Textarea,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { SelectComponent } from "@/utils/select";
 import { TableDocumentRequested } from "./tableDocumentRequested";
 import { TableBillOfLading } from "./billOfLading";
 import { TableRestDocs } from "./restDocs";
@@ -23,7 +24,6 @@ export default function GeneralDocs({
   fieldsDocs,
   fieldsComercial,
 }) {
-  
   const options = [
     { label: "FACTURA", value: "FACTURA", copias: "1 Original + 1 Copia" },
     {
@@ -46,14 +46,24 @@ export default function GeneralDocs({
       value: "CERT. SANITARIO",
       copias: "1 Original + 2 Copias",
     },
-    { label: "CERT. HALAL", value: "CERT. HALAL", copias: "1 Original + 1 Copia" },
+    {
+      label: "CERT. HALAL",
+      value: "CERT. HALAL",
+      copias: "1 Original + 1 Copia",
+    },
   ];
+  const handleIndexChangeResponsable = (event) => {
+    const buscado = CarteraEmpleados.find(
+      (e) => e.nombre == event.target.value
+    );
+    setFieldsDocs({ ...fieldsDocs, responsable: buscado.nombre });
+  };
   const [selected, setSelected] = useState(fieldsDocs.documentRequested);
   useEffect(() => {
     setFieldsDocs({ ...fieldsDocs, documentRequested: selected });
   }, [selected]);
   const [CarteraConsignee] = useFetch(`${process.env.API_URL}/consignee`, []);
-
+  const [CarteraEmpleados] = useFetch(`${process.env.API_URL}/empleados`,[]);
   return (
     <Box w="100%">
       <VStack spacing="3">
@@ -91,15 +101,18 @@ export default function GeneralDocs({
                   setFields({ ...fieldsDocs, date: e.target.value })
                 }
               />
-              <InputPersonalizado label="Responsable" />
+              <SelectComponent
+                options={CarteraEmpleados}
+                value={fieldsDocs.responsable}
+                handleIndexChange={handleIndexChangeResponsable}
+                textDefault="Employee"
+                param="nombre"
+              />
             </VStack>
           </GridItem>
         </Grid>
         {selected.length > 0 && (
-          <TableDocumentRequested
-            data={selected}
-            setSelected={setSelected}
-          />
+          <TableDocumentRequested data={selected} setSelected={setSelected} />
         )}
         <Divider orientation="horizontal" />
         <TableBillOfLading
@@ -115,12 +128,16 @@ export default function GeneralDocs({
           CarteraConsignee={CarteraConsignee}
         />
         <Divider orientation="horizontal" />
-        <TableFacturaComercial operation={operation} setFieldsDocs={setFieldsDocs} />
+        <TableFacturaComercial
+          operation={operation}
+          setFieldsDocs={setFieldsDocs}
+        />
         <Divider orientation="horizontal" />
         <Text as="b">Comentarios adicionales</Text>
         <Textarea
           placeholder="Comentarios..."
           variant="filled"
+          defaultValue={fieldsDocs.comentarios}
           onChange={(e) =>
             setFieldsDocs({ ...fieldsDocs, comentarios: e.target.value })
           }

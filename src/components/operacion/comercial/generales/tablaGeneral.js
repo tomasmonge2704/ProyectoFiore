@@ -29,7 +29,19 @@ export default function TablaGeneral({
   CarteraPaymentTerms,
 }) {
   const handleNewRow = (id) => {
-    const updatedProductos = [...productos, { id: id, amount: 0 }];
+    const updatedProductos = [...productos, {
+      id:id,
+      description: "",
+      packing: "",
+      quantity:0,
+      quantityCartons:0,
+      netWeight:0,
+      grossWeight:0,
+      unitPricePurchase:0,
+      unitPriceSale:0,
+      amountSale: "",
+      amountPurchase: "",
+    }];
     setProductos(updatedProductos);
   };
   const handleDeleteRow = (id) => {
@@ -51,7 +63,7 @@ export default function TablaGeneral({
       <Table variant="striped" colorScheme="orange" size="md">
         <Thead>
           <Tr>
-            <Th w="20%">QUANTITY</Th>
+            <Th w="20%">Net Weight (MT)</Th>
             <Th w="40%">PRODUCT</Th>
             <Th w="25%">PACKING</Th>
             <Th>UNIT PRICE PURCHASE</Th>
@@ -95,7 +107,7 @@ export default function TablaGeneral({
                 <Td>
                   <Input
                     variant="filled"
-                    value={e.unitPricePurchase ? e.unitPricePurchase : ""}
+                    defaultValue={e.unitPricePurchase}
                     type="number"
                     onChange={(event) =>
                       handleChangeInput(event, e.id, "unitPricePurchase")
@@ -105,7 +117,7 @@ export default function TablaGeneral({
                 <Td>
                   <Input
                     variant="filled"
-                    defaultValue={e.unitPriceSale && e.unitPriceSale}
+                    defaultValue={e.unitPriceSale}
                     type="number"
                     onChange={(event) =>
                       handleChangeInput(event, e.id, "unitPriceSale")

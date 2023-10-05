@@ -16,10 +16,12 @@ import { SelectComponent } from "@/utils/select";
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import SaleForm from "./pdfs/invoice";
 import ShipmentPeriodPDF from "./pdfs/shipmentDetails";
+import TablaLogistica from "./table";
 
 export const Logistica = () => {
   const operation = useStore((state) => state.operation);
   const setFieldsLogistica = useStore((state) => state.setFieldsLogistica);
+  const setProductos = useStore((state) => state.setProductsComercial);
   const fieldsComercial = operation.comercial.fields;
   const handleIndexChange = (event, param) => {
     setFieldsLogistica({
@@ -163,44 +165,7 @@ export const Logistica = () => {
                         }
                       />
                     )}
-                  </VStack>
-                </GridItem>
-              </Grid>
-              <Grid w="100%" templateColumns="repeat(3, 1fr)" gap={2}>
-                <GridItem w="100%">
-                  <InputPersonalizado
-                    type="number"
-                    label="Quantity (cartons)"
-                    defaultValue={operation.logistica.fields.quantityCartons}
-                    onChange={(event) =>
-                      handleInputChange(event, "quantityCartons")
-                    }
-                  />
-                </GridItem>
-                <GridItem w="100%">
-                <InputPersonalizado
-                    type="number"
-                    label="Net weight"
-                    defaultValue={operation.logistica.fields.netWeight}
-                    onChange={(event) =>
-                      handleInputChange(event, "netWeight")
-                    }
-                  />
-                </GridItem>
-                <GridItem w="100%">
-                <InputPersonalizado
-                    type="number"
-                    label="Gross weight"
-                    defaultValue={operation.logistica.fields.grossWeight}
-                    onChange={(event) =>
-                      handleInputChange(event, "grossWeight")
-                    }
-                  />
-                </GridItem>
-              </Grid>
-              <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={2}>
-                <GridItem w="100%">
-                <InputPersonalizado
+                    <InputPersonalizado
                     type="text"
                     label="AWB Nr"
                     defaultValue={operation.logistica.fields.awbNr}
@@ -208,9 +173,7 @@ export const Logistica = () => {
                       handleInputChange(event, "awbNr")
                     }
                   />
-                </GridItem>
-                <GridItem w="100%">
-                { operation.docs.fields.placeBLIssue == "TELEX RELEASE" && <InputPersonalizado
+                  { operation.docs.fields.placeBLIssue == "TELEX RELEASE" && <InputPersonalizado
                     type="text"
                     label="Telex Release"
                     defaultValue={operation.logistica.fields.telexRelease}
@@ -218,13 +181,16 @@ export const Logistica = () => {
                       handleInputChange(event, "telexRelease")
                     }
                   />}
+                  </VStack>
                 </GridItem>
               </Grid>
+              <TablaLogistica fields={fieldsComercial} productos={fieldsComercial.productos} setProductos={setProductos}/>
+              <Box h={5} />
               <ConfirmButton operation={operation} />
             </VStack>
           </Box>
         </TabPanel>
-        <TabPanel><ShipmentPeriodPDF operation={operation}/></TabPanel>
+        <TabPanel><ShipmentPeriodPDF operation={operation} fields={fieldsComercial} productos={fieldsComercial.productos}/></TabPanel>
         <TabPanel><SaleForm operation={operation} fields={fieldsComercial} productos={fieldsComercial.productos}/></TabPanel>
       </TabPanels>
     </Tabs>

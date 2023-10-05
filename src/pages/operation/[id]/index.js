@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 import { useStore } from "@/store/operation";
 import { Loadder } from "@/utils/loadder";
 import { useRouter } from "next/router";
-
+import { StateSelector } from "@/utils/stateSelector";
 export default function NuevaOperacion() {
   const operation = useStore((state) => state.operation);
   const setOperation = useStore((state) => state.setOperation);
@@ -94,9 +94,7 @@ export default function NuevaOperacion() {
             <GridItem w="100%">
               <Text fontSize="2xl" fontWeight="bold">
                 Status
-                <Badge ml="1" fontSize="1em" colorScheme="green">
-                  {operation.status}
-                </Badge>
+                <StateSelector selected={operation.status} refNumber={operation.id} />
               </Text>
             </GridItem>
             <GridItem w="100%" display="flex" justifyContent="center">
