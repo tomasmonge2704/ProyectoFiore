@@ -12,8 +12,7 @@ import {
   Td,
   Divider,
   Center,
-  Image,
-  useToast,
+  Image
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { FiCalendar, FiChevronDown, FiChevronUp, FiCopy } from "react-icons/fi";
@@ -24,7 +23,6 @@ export default function Dashboard() {
   const [displayMode, setDisplayMode] = useState("reduced");
   const [operations, setOperations] = useState([]);
   const [filter, setFilter] = useState("");
-  const toast = useToast();
   const [ListOperations] = useFetch(
     `${process.env.API_URL}/operation/listado`,
     undefined
@@ -83,7 +81,7 @@ export default function Dashboard() {
         </Flex>
         <Flex flexDir="column">
           <Flex overflow="auto">
-            {operations ? (
+            {ListOperations ? (
               <Table variant="unstyled">
                 <Thead>
                   <Tr color="gray">

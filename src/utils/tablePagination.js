@@ -44,7 +44,7 @@ export const TablePagination = ({ data, params,url }) => {
   let endIndex = startIndex + itemsPerPage;
 
   useEffect(() => {
-    setTotalPages((data.length * 10) / itemsPerPage);
+    if(data) setTotalPages((data.length * 10) / itemsPerPage);
   }, [data]);
   useEffect(() => {
     if (searchText) {
@@ -60,7 +60,7 @@ export const TablePagination = ({ data, params,url }) => {
       setTotalPages(Math.ceil((searchResults.length * 10) / itemsPerPage));
       setItemsToDisplay(searchResults.slice(startIndex, endIndex));
     } else {
-      setItemsToDisplay(data.slice(startIndex, endIndex));
+      if(data) setItemsToDisplay(data.slice(startIndex, endIndex));
     }
   }, [currentPage, searchText]);
   const handleCreate = () => {
@@ -190,7 +190,6 @@ export const TablePagination = ({ data, params,url }) => {
                     <Td key={index}>
                       <Input
                         variant="filled"
-                        w="max-content"
                         defaultValue={e[param.param] ? e[param.param] : ""}
                         onChange={(event) =>
                           handleChangeInput(event, e._id, param.param)
