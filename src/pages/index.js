@@ -12,51 +12,29 @@ import {
   Td,
   Divider,
   Center,
-  Image
+  Image,
+  useToast
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { FiCalendar, FiChevronDown, FiChevronUp, FiCopy } from "react-icons/fi";
 import { Loadder } from "@/utils/loadder";
 import useFetch from "@/hooks/useFetch";
 import { StateSelector } from "@/utils/stateSelector";
+import { handleDuplicateOperation,handleOrderBy } from "@/utils/functions";
 export default function Dashboard() {
   const [displayMode, setDisplayMode] = useState("reduced");
   const [operations, setOperations] = useState([]);
   const [filter, setFilter] = useState("");
-  const [ListOperations] = useFetch(
-    `${process.env.API_URL}/operation/listado`,
-    undefined
-  );
+  const [ListOperations] = useFetch(`${process.env.API_URL}/operation/listado`,undefined);
   useEffect(() => {
-    if (ListOperations) setOperations(ListOperations);
+    if (ListOperations && !ListOperations.error) setOperations(ListOperations);
   }, [ListOperations]);
   const displayedOperations =
     displayMode === "reduced" && operations
       ? operations.slice(0, 7)
       : operations;
-  const handleDuplicate = (id) => {
-    const token = localStorage.getItem("token");
-      fetch(`${process.env.API_URL}/operation/duplicate/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (!data.error)setOperations([...operations,data])
-        })
-  };
-  const handleOrderBy = (param) => {
-    const token = localStorage.getItem("token");
-    setFilter(param);
-    fetch(`${process.env.API_URL}/operation/orderBy/${param}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setOperations(data));
-  };
+
+  const toast = useToast();
   return (
     <Flex
       h={[null, "100vh"]}
@@ -86,20 +64,23 @@ export default function Dashboard() {
                 <Thead>
                   <Tr color="gray">
                     <Th
-                      onClick={() => handleOrderBy("refNumber")}
+                      onClick={() => handleOrderBy("refNumber",setFilter,setOperations)}
                       color={filter == "refNumber" && "orange"}
                     >
                       Ref Number
                     </Th>
-                    <Th>Status</Th>
                     <Th
-                      onClick={() => handleOrderBy("shipper")}
+                    onClick={() => handleOrderBy("status",setFilter,setOperations)}
+                    color={filter == "status" && "orange"}
+                    >Status</Th>
+                    <Th
+                      onClick={() => handleOrderBy("shipper",setFilter,setOperations)}
                       color={filter == "shipper" && "orange"}
                     >
                       Shipper
                     </Th>
                     <Th
-                      onClick={() => handleOrderBy("buyer")}
+                      onClick={() => handleOrderBy("buyer",setFilter,setOperations)}
                       color={filter == "buyer" && "orange"}
                     >
                       Buyer
@@ -107,12 +88,12 @@ export default function Dashboard() {
                     <Th>Paid</Th>
                     <Th>Collection</Th>
                     <Th
-                      onClick={() => handleOrderBy("timeToArrival")}
+                      onClick={() => handleOrderBy("timeToArrival",setFilter,setOperations)}
                       color={filter == "timeToArrival" && "orange"}
                     >
                       Time to arrival
                     </Th>
-                    <Th onClick={() => handleOrderBy("date")}>
+                    <Th onClick={() => handleOrderBy("date",setFilter,setOperations)}>
                       <IconButton icon={<FiCalendar />} />
                     </Th>
                   </Tr>
@@ -148,7 +129,7 @@ export default function Dashboard() {
                         </Link>
                       </Td>
                       <Td>
-                        <StateSelector selected={e.state} refNumber={e.refNumber} />
+                        <StateSelector selected={e.status} refNumber={e.refNumber} />
                       </Td>
                       <Td>{e.shipper && e.shipper}</Td>
                       <Td>{e.buyer && e.buyer}</Td>
@@ -161,7 +142,7 @@ export default function Dashboard() {
                           variant="solid"
                           icon={<FiCopy/>}
                           aria-label="Delete"
-                          onClick={() => handleDuplicate(e.refNumber)}
+                          onClick={() => handleDuplicateOperation(e.refNumber,setOperations,operations,toast)}
                         />
                       </Td>
                     </Tr>
