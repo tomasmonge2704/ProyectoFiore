@@ -13,6 +13,7 @@ import {
   VStack,
   Avatar,
   useDisclosure,
+  AvatarBadge,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
@@ -133,12 +134,13 @@ export const GridCards = ({ data, params, url }) => {
               shadow="md"
               variant="elevated"
               _hover={{ shadow: "xl", bottom: "1", bgColor: "orange.200" }}
-              bgColor="orange.100"
               onClick={() => handleOpenModal(e)}
             >
               <CardBody>
                 <VStack spacing={2} textAlign="center">
-                  {e.emoji ? <Text fontSize="4xl">{countries.find((country) => country.value == e.emoji).emoji}</Text> : <Avatar />}
+                  <Avatar size="lg" name={e.nombre}>
+                    <AvatarBadge boxSize='1.25em' bg="white"><span className="emoji">{e.emoji && countries.find((country) => country.value == e.emoji).emoji}</span></AvatarBadge>
+                  </Avatar>
                   <Heading size="sm">{e._id ? e.nombre.slice(0, 15) : "New CLient"}</Heading>
                   {e._id && params.slice(1,3).map((param,index) => (
                     <Text as="samp" key={index}>{e[param.param].slice(0, 15)}</Text>

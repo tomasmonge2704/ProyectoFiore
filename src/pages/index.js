@@ -110,7 +110,7 @@ export default function Dashboard() {
                                 maxW={20}
                                 src={
                                   e.empresa == "Duplo"
-                                    ? "logo-Duplo.png"
+                                    ? "Logo-Duplo.png"
                                     : "Logo-DPL.png"
                                 }
                                 alt={e.refNumber}
