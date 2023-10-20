@@ -81,7 +81,7 @@ export default function Ajustes() {
           )}
         </TabPanel>
         <TabPanel>
-          {CarteraEmpleados ? (
+          {CarteraConsignee ? (
             <AjustesConsignee CarteraConsignee={CarteraConsignee} />
           ) : (
             <Loadder />

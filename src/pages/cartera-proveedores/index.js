@@ -1,5 +1,4 @@
-import { TablePagination } from "@/utils/tablePagination";
-import {Center,Spinner} from "@chakra-ui/react";
+import { GridCards } from "@/utils/gridCards";
 import { useState,useEffect } from "react";
 export default function Proveedores () {
   const params = [
@@ -12,7 +11,6 @@ export default function Proveedores () {
     {label:"Brand",param:"brand"},
   ];
   const [CarteraProveedores, setCarteraProveedores] = useState(undefined);
-  const [loadData, setLoadData] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem("token");
     fetch(`${process.env.API_URL}/proveedor`, {
@@ -23,28 +21,9 @@ export default function Proveedores () {
       .then((response) => response.json())
       .then((data) => {
         setCarteraProveedores(data);
-        setLoadData(true);
       });
   }, []);
   return (
-    <>
-      {loadData ? (
-        <TablePagination
-          data={CarteraProveedores}
-          params={params}
-          url="proveedor"
-        />
-      ) : (
-        <Center h="80vh">
-          <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="blue.500"
-            size="xl"
-          />
-        </Center>
-      )}
-    </>
+    <GridCards data={CarteraProveedores} params={params} url="proveedor"  />
   );
 };
