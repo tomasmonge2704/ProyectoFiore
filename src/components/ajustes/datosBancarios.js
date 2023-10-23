@@ -192,6 +192,45 @@ export const DatosBancarios = ({ CarteraBancaria }) => {
                             )
                           }
                         />
+                        <Text as="b">Correspondent Bank</Text>
+                        <Input
+                          variant="filled"
+                          defaultValue={bank.correspondentBank}
+                          onChange={(element) =>
+                            handleInputChange(
+                              element,
+                              index,
+                              "correspondentBank",
+                              indexBank
+                            )
+                          }
+                        />
+                         <Text as="b">ABA</Text>
+                        <Input
+                          variant="filled"
+                          defaultValue={bank.ABA}
+                          onChange={(element) =>
+                            handleInputChange(
+                              element,
+                              index,
+                              "ABA",
+                              indexBank
+                            )
+                          }
+                        />
+                         <Text as="b">SWIFT Code</Text>
+                        <Input
+                          variant="filled"
+                          defaultValue={bank.swift}
+                          onChange={(element) =>
+                            handleInputChange(
+                              element,
+                              index,
+                              "swift",
+                              indexBank
+                            )
+                          }
+                        />
                       </Stack>
                     </GridItem>
                   ))}

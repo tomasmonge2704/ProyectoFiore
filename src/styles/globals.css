@@ -10,5 +10,5 @@
   background-color: #f0f0f0; /* Cambia el fondo de la opción seleccionada */
 }
 .emoji {
-  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", "EmojiSymbols", "Android Emoji", "Segoe UI Symbol", "Symbola", "Sans-Serif";
+  font-family: "EmojiSymbols-Regular";
 }

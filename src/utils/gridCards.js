@@ -19,6 +19,12 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import { EditModal } from "./editModal";
 import { countries } from "./countries";
+const ObjectID = require('bson-objectid');
+
+function generateRandomObjectId() {
+  const objectId = new ObjectID();
+  return objectId.toString();
+}
 export const GridCards = ({ data, params, url }) => {
   const [searchText, setSearchText] = useState("");
   const [itemsToDisplay, setItemsToDisplay] = useState(data);
@@ -44,7 +50,7 @@ export const GridCards = ({ data, params, url }) => {
     setSearchText(event.target.value);
   };
   const handleCreate = () => {
-    setItemsToDisplay([{}, ...itemsToDisplay]);
+    setItemsToDisplay([{_id:generateRandomObjectId()}, ...itemsToDisplay]);
   };
   const handleUpdate = (element) => {
     const token = localStorage.getItem("token");
@@ -141,8 +147,8 @@ export const GridCards = ({ data, params, url }) => {
                   <Avatar size="lg" name={e.nombre}>
                     <AvatarBadge boxSize='1.25em' bg="white"><span className="emoji">{e.emoji && countries.find((country) => country.value == e.emoji).emoji}</span></AvatarBadge>
                   </Avatar>
-                  <Heading size="sm">{e._id ? e.nombre.slice(0, 15) : "New CLient"}</Heading>
-                  {e._id && params.slice(1,3).map((param,index) => (
+                  <Heading size="sm">{e.nombre ? e.nombre.slice(0, 15) : "New CLient"}</Heading>
+                  {e.nombre && params.slice(1,3).map((param,index) => (
                     <Text as="samp" key={index}>{e[param.param].slice(0, 15)}</Text>
                   ))}                  
                 </VStack>
