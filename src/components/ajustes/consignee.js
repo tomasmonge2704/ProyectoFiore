@@ -1,5 +1,8 @@
 import { TablePagination } from "@/utils/tablePagination";
-export const AjustesConsignee = ({ CarteraConsignee }) => {
+import useFetch from "@/hooks/useFetch";
+
+export const AjustesConsignee = () => {
+  const [CarteraConsignee,setCartera] = useFetch(`${process.env.API_URL}/consignee`,undefined);
   const params = [
     { label: "NOMBRE", param: "nombre" },
     { label: "DIRECCION", param: "direccion" },
@@ -9,6 +12,6 @@ export const AjustesConsignee = ({ CarteraConsignee }) => {
     { label: "TAX ID", param: "taxId" },
   ];
   return (
-    <TablePagination data={CarteraConsignee} params={params} url="consignee" />
+    <TablePagination data={CarteraConsignee} params={params} url="consignee" modalTitle="Edit Consignee" setData={setCartera} />
   );
 };

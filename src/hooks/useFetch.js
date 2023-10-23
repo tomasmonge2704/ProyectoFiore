@@ -13,7 +13,7 @@ const useFetch = (url,initialState) => {
       .then((data) => setData(data));
   }, []);
 
-  return [data];
+  return [data,setData];
 };
 
 export default useFetch;

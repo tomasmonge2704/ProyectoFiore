@@ -9,115 +9,82 @@ import {
   Flex,
   InputGroup,
   InputLeftElement,
-  Text,
   Button,
   Td,
   IconButton,
   Tbody,
-  useToast,
+  Skeleton,
+  useDisclosure,
+  Text,
 } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
-import { FiSave } from "react-icons/fi";
+import { EditIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import Pagination from "@choc-ui/paginator";
-const ObjectID = require('bson-objectid');
+import { EditModal } from "./editModal";
+const ObjectID = require("bson-objectid");
 
 function generateRandomObjectId() {
   const objectId = new ObjectID();
   return objectId.toString();
 }
 
-export const TablePagination = ({ data, params,url }) => {
+export const TablePagination = ({ data, setData, params, url, modalTitle }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(10);
-  const [searchResults, setSearchResults] = useState([]);
-  const [itemsToDisplay, setItemsToDisplay] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [itemsToDisplay, setItemsToDisplay] = useState([]);
+  const [selected, setSelected] = useState(undefined);
+  const [response, setResponse] = useState(undefined);
   const itemsPerPage = 6;
-  const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const handleOpenModal = (element) => {
+    setSelected(element);
+    onOpen();
+  };
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
     setCurrentPage(1);
   };
   let startIndex = (currentPage - 1) * itemsPerPage;
   let endIndex = startIndex + itemsPerPage;
-
   useEffect(() => {
-    if(data) setTotalPages((data.length * 10) / itemsPerPage);
+    if (data) {
+      setItemsToDisplay(data.slice(0, itemsPerPage));
+      setTotalPages((data.length * 10) / itemsPerPage);
+    }
   }, [data]);
   useEffect(() => {
-    if (searchText) {
-      setSearchResults(
-        data.filter((product) =>
-          Object.values(product).some(
-            (param) =>
-              typeof param === "string" &&
-              param.toLowerCase().includes(searchText.toLowerCase())
-          )
+    if (data) setItemsToDisplay(data.slice(startIndex, endIndex));
+  }, [currentPage]);
+  useEffect(() => {
+    if (data) {
+      const filteredData = data.filter((product) =>
+        Object.values(product).some(
+          (param) =>
+            typeof param === "string" &&
+            param.toLowerCase().includes(searchText.toLowerCase())
         )
       );
-      setTotalPages(Math.ceil((searchResults.length * 10) / itemsPerPage));
-      setItemsToDisplay(searchResults.slice(startIndex, endIndex));
-    } else {
-      if(data) setItemsToDisplay(data.slice(startIndex, endIndex));
+      setItemsToDisplay(filteredData);
+      setTotalPages((filteredData.length * 10) / itemsPerPage);
     }
-  }, [currentPage, searchText]);
+  }, [searchText]);
   const handleCreate = () => {
-    const randomId = generateRandomObjectId();
-    setItemsToDisplay([
-      ...itemsToDisplay.slice(startIndex, endIndex - 1),
-      { _id:randomId},
-    ]);
+    const newElement = { _id: generateRandomObjectId() };
+    setData([newElement, ...data.slice(startIndex, endIndex - 1)]);
+    handleOpenModal(newElement);
   };
-  
-  const handleChangeInput = (event, id, parameter) => {
-    const updatedProductos = itemsToDisplay.map((producto) => {
-      if (producto._id === id) {
-        return {
-          ...producto,
-          modified: true,
-          [parameter]: event.target.value,
-        };
-      }
-      return producto;
-    });
-    setItemsToDisplay(updatedProductos);
-  };
-  const handleDelete = (id) => {
+
+  const handleUpdate = (element) => {
     const token = localStorage.getItem("token");
-    fetch(`${process.env.API_URL}/${url}/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        toast({
-          title: "Cliente",
-          description: `Se ha borrado correctamente.`,
-          status: "success",
-          position: "top-right",
-          duration: 5000,
-          isClosable: true,
-        });
-      })
-      .finally(() => {
-        const filtered = itemsToDisplay.filter((e) => e._id !== id);
-        setItemsToDisplay(filtered);
-      });
-  };
-  const handleUpdate = (id) => {
-    const token = localStorage.getItem("token");
-    const buscado = itemsToDisplay.find((element) => element._id === id);
-    fetch(`${process.env.API_URL}/${url}/${id}`, {
+    fetch(`${process.env.API_URL}/${url}/${element._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(buscado),
+      body: JSON.stringify(element),
     })
       .then((response) => {
         if (!response.ok) {
@@ -125,33 +92,38 @@ export const TablePagination = ({ data, params,url }) => {
         }
         return response.json();
       })
-      .then((data) => {
-        toast({
-          title: "Cliente",
-          description: `Se ha guardado correctamente ${data[params[0].param]}.`,
+      .then((res) => {
+        const newArray = data.map((existingElement) => {
+          if (existingElement._id === res._id) return res;
+          return existingElement;
+        });
+        setData(newArray);
+        setResponse({
           status: "success",
-          position: "top-right",
-          duration: 5000,
-          isClosable: true,
+          message: `Se actualizo con exito ${res[params[0].param]}!`,
         });
       })
       .catch((error) => {
-        console.error(error);
-        toast({
-          title: "Error",
-          description: "Se ha producido un error en la solicitud.",
-          status: "error",
-          position: "top-right",
-          duration: 5000,
-          isClosable: true,
-        });
-      })
-      .finally(() => {
-        // Realizar tareas finales aquí, como limpiar estados o ejecutar acciones después de la solicitud
+        setResponse({ status: "error", message: error });
       });
   };
   return (
-    <Box w="100%" boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)" p="6" rounded="md" minH="96vh">
+    <Box
+      w="100%"
+      boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+      p="6"
+      rounded="md"
+      minH="96vh"
+    >
+      <EditModal
+        response={response}
+        title={modalTitle}
+        onSave={handleUpdate}
+        params={params}
+        onClose={onClose}
+        isOpen={isOpen}
+        element={selected}
+      />
       <Flex justify="space-between">
         <InputGroup w="87%">
           <InputLeftElement pointerEvents="none">
@@ -170,61 +142,67 @@ export const TablePagination = ({ data, params,url }) => {
           Nuevo elemento
         </Button>
       </Flex>
-      {itemsToDisplay.length > 0 ? (
-        <TableContainer w="100%" >
-          <Table variant="striped" colorScheme="orange" size="lg">
-            <Thead>
-              <Tr>
-                {params.map((e, index) => (
-                  <Th w={e.label == "DESCRIPCION" && "50%"} key={index}>
-                    {e.label}
-                  </Th>
-                ))}
-                <Th>ACTIONS</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {itemsToDisplay.map((e) => (
-                <Tr key={e._id}>
+      <TableContainer w="100%">
+        <Table size="lg">
+          <Thead>
+            <Tr>
+              {params.map((e, index) => (
+                <Th w={e.label == "DESCRIPCION" && "50%"} key={index}>
+                  {e.label}
+                </Th>
+              ))}
+              <Th></Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {data ? (
+              itemsToDisplay.length > 0 &&
+              itemsToDisplay.map((e) => (
+                <Tr key={e._id} w="full">
                   {params.map((param, index) => (
                     <Td key={index}>
-                      <Input
-                        variant="filled"
-                        defaultValue={e[param.param] ? e[param.param] : ""}
-                        onChange={(event) =>
-                          handleChangeInput(event, e._id, param.param)
-                        }
-                      />
+                      <Text as="b">{e[param.param]}</Text>
                     </Td>
                   ))}
                   <Td>
-                    {e.modified ? (
-                      <IconButton
-                        colorScheme="blue"
-                        variant="solid"
-                        icon={<FiSave />}
-                        aria-label="save"
-                        onClick={() => handleUpdate(e._id)}
-                      />
-                    ) : (
-                      <IconButton
-                        colorScheme="red"
-                        variant="solid"
-                        icon={<DeleteIcon />}
-                        aria-label="Delete"
-                        onClick={() => handleDelete(e._id)}
-                      />
-                    )}
+                    <IconButton
+                      colorScheme="orange"
+                      variant="solid"
+                      icon={<EditIcon />}
+                      aria-label="save"
+                      onClick={() => handleOpenModal(e)}
+                    />
                   </Td>
                 </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      ) : (
-        <Text mt={10}>No se han encontrado Resultados.</Text>
-      )}
-      {itemsToDisplay.length > 0 && (
+              ))
+            ) : (
+              <>
+                <Tr>
+                  {params.map((e, index) => (
+                    <Td key={index}>
+                      <Skeleton h={10} />
+                    </Td>
+                  ))}
+                  <Td>
+                    <Skeleton h={10} />
+                  </Td>
+                </Tr>
+                <Tr>
+                  {params.map((e, index) => (
+                    <Td key={index}>
+                      <Skeleton h={10} />
+                    </Td>
+                  ))}
+                  <Td>
+                    <Skeleton h={10} />
+                  </Td>
+                </Tr>
+              </>
+            )}
+          </Tbody>
+        </Table>
+      </TableContainer>
+      {itemsToDisplay && (
         <Flex w="full" p={50} alignItems="center" justifyContent="center">
           <Pagination
             current={currentPage}

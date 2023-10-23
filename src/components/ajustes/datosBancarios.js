@@ -14,10 +14,12 @@ import {
   GridItem,
   useToast
 } from "@chakra-ui/react";
+import useFetch from "@/hooks/useFetch";
 import { useState } from "react";
-export const DatosBancarios = ({ CarteraBancaria }) => {
+import { Loadder } from "@/utils/loadder";
+export const DatosBancarios = () => {
+  const [CarteraBancaria,setCarteraBancaria] = useFetch(`${process.env.API_URL}/empresa`,undefined);
   const [dirtyIndexes, setDirtyIndexes] = useState([]);
-  const [datos, setDatos] = useState(CarteraBancaria);
   const toast = useToast();
   const handleInputChange = (element, index, parametro, indexBank) => {
     setDirtyIndexes((prevDirtyIndexes) => {
@@ -26,7 +28,7 @@ export const DatosBancarios = ({ CarteraBancaria }) => {
       }
       return prevDirtyIndexes;
     });
-    const newDatos = [...datos];
+    const newDatos = [...CarteraBancaria];
     if (indexBank !== undefined) {
       // Si se proporciona indexBank, se está modificando una propiedad dentro de banks
       const updatedBank = { ...newDatos[index].banks[indexBank] };
@@ -36,12 +38,12 @@ export const DatosBancarios = ({ CarteraBancaria }) => {
       // Si no se proporciona indexBank, se está modificando una propiedad directamente en el elemento
       newDatos[index][parametro] = element.target.value;
     }
-    setDatos(newDatos)
+    setCarteraBancaria(newDatos)
   };
 
   const handleConfirmChanges = (index) => {
     const token = localStorage.getItem("token");
-    const buscado = datos[index];
+    const buscado = CarteraBancaria[index];
     fetch(`${process.env.API_URL}/empresa/${buscado._id}`, {
       method: "PUT",
       headers: {
@@ -85,8 +87,8 @@ export const DatosBancarios = ({ CarteraBancaria }) => {
   };
   return (
     <Flex justify="space-evenly" mt={2} mb={5}>
-      {datos.length > 0 &&
-        datos.map((e, index) => (
+      {CarteraBancaria ?
+        CarteraBancaria.map((e, index) => (
           <Card
             minW="47%"
             key={index}
@@ -247,7 +249,7 @@ export const DatosBancarios = ({ CarteraBancaria }) => {
               )}
             </CardBody>
           </Card>
-        ))}
+        )) : <Center><Loadder/></Center>}
     </Flex>
   );
 };
