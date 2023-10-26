@@ -29,7 +29,7 @@ export const StateSelector = ({ selected, refNumber }) => {
   const [selectedValue, setSelectedValue] = useState(selected);
   const [isLoading, setIsLoading] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-
+  const color = useColorModeValue('black','white');
   const handleChange = (event, refNumber) => {
     setIsLoading(true);
     const token = localStorage.getItem("token");
@@ -85,7 +85,7 @@ export const StateSelector = ({ selected, refNumber }) => {
               onChange={(e) => handleChange(e, refNumber)}
             >
               {options.map((e) => (
-                <option key={e} value={e} style={{color:useColorModeValue('black','white')}}>
+                <option key={e} value={e} style={{color:color}}>
                     {e}
                 </option>
               ))}
