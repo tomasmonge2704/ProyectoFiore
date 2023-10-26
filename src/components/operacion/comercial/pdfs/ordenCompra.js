@@ -31,8 +31,8 @@ export default function PurchaseForm({ fields, productos }) {
                   <Image
                     src={
                       fields.empresa.empresa == "DPL"
-                        ? "/logo-DPL.png"
-                        : "/logo-Duplo.png"
+                        ? "/Logo-DPL.png"
+                        : "/Logo-Duplo.png"
                     }
                   />
                 </View>
@@ -162,7 +162,7 @@ export default function PurchaseForm({ fields, productos }) {
                           <View style={styles.borderTable}>
                             {" "}
                             <Text style={styles.textDato}>
-                              {prod.quantity} MT
+                              {prod.netWeight} MT
                             </Text>
                           </View>
                           <View style={{ width: "150%" }}>
@@ -188,7 +188,7 @@ export default function PurchaseForm({ fields, productos }) {
                             <Text style={styles.textDato}>
                               USD{" "}
                               {convertirAMoneda(
-                                prod.unitPricePurchase * prod.quantity
+                                prod.unitPricePurchase * prod.netWeight
                               ) || 0}
                             </Text>
                           </View>
@@ -198,7 +198,7 @@ export default function PurchaseForm({ fields, productos }) {
                       <View style={styles.borderTable}>
                         {" "}
                         <Text style={styles.textDato}>
-                          {fields.totalWeight !== 0 && fields.totalWeight} MT
+                          {fields.totalNetWeight} MT
                         </Text>
                       </View>
                       <View style={{ width: "150%" }}></View>
@@ -218,7 +218,7 @@ export default function PurchaseForm({ fields, productos }) {
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>ORIGIN:</Text>
                       <Text style={styles.textDato}>
-                        {fields.seller && fields.seller.origin}
+                        {fields.seller && fields.seller.country}
                       </Text>
                     </View>
                     <View></View>

@@ -33,7 +33,7 @@ export default function TablaGeneral({
       id:id,
       description: "",
       packing: "",
-      quantity:0,
+      quantity:1,
       quantityCartons:0,
       netWeight:0,
       grossWeight:0,
@@ -79,9 +79,9 @@ export default function TablaGeneral({
                   <Input
                     type="number"
                     variant="filled"
-                    value={e.quantity ? e.quantity : ""}
+                    value={e.netWeight ? e.netWeight : ""}
                     onChange={(event) =>
-                      handleChangeInput(event, e.id, "quantity")
+                      handleChangeInput(event, e.id, "netWeight")
                     }
                   />
                 </Td>

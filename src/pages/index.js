@@ -103,11 +103,12 @@ export default function Dashboard() {
                     <Tr key={index}>
                       <Td>
                         <Link href={"/operation/" + e.refNumber}>
-                          <Flex align="center" justifyContent="center">
+                          <Flex align="center" justifyContent="flex-start">
                             {e.empresa && (
                               <Image
                                 mr={2}
                                 maxW={20}
+                                maxH={6}
                                 src={
                                   e.empresa == "Duplo"
                                     ? "Logo-Duplo.png"

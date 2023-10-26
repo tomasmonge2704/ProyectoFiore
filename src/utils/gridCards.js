@@ -137,19 +137,19 @@ export const GridCards = ({ data, params, url }) => {
             <Card
               w="56"
               key={index}
-              shadow="md"
-              variant="elevated"
-              _hover={{ shadow: "xl", bottom: "1", bgColor: "orange.200" }}
+              shadow="sm"
+              variant="filled"
+              _hover={{ shadow: "xl", bottom: "1",cursor:"pointer"}}
               onClick={() => handleOpenModal(e)}
             >
               <CardBody>
                 <VStack spacing={2} textAlign="center">
                   <Avatar size="lg" name={e.nombre}>
-                    <AvatarBadge boxSize='1.25em' bg="white"><span className="emoji">{e.emoji && countries.find((country) => country.value == e.emoji).emoji}</span></AvatarBadge>
+                    <AvatarBadge boxSize='1.25em' border="0px" bg="transparent" backdropFilter="blur(20px) saturate(1.5)"><span className="emoji">{e.emoji && countries.find((country) => country.value == e.emoji).emoji}</span></AvatarBadge>
                   </Avatar>
                   <Heading size="sm">{e.nombre ? e.nombre.slice(0, 15) : "New CLient"}</Heading>
                   {e.nombre && params.slice(1,3).map((param,index) => (
-                    <Text as="samp" key={index}>{e[param.param].slice(0, 15)}</Text>
+                    <Text as="p" key={index}>{e[param.param].slice(0, 15)}</Text>
                   ))}                  
                 </VStack>
               </CardBody>

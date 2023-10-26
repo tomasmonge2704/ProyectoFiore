@@ -26,8 +26,8 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                   <Image
                     src={
                       fields.empresa.empresa == "DPL"
-                        ? "/logo-DPL.png"
-                        : "/logo-Duplo.png"
+                        ? "/Logo-DPL.png"
+                        : "/Logo-Duplo.png"
                     }
                   />
                 </View>
@@ -78,7 +78,7 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                           </View>
                           <View style={styles.borderTable}>
                             {" "}
-                            <Text style={styles.textDato}>{prod.quantity}</Text>
+                            <Text style={styles.textDato}>{prod.quantityCartons}</Text>
                           </View>
 
                           <View style={styles.borderTable}>

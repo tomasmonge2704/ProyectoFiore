@@ -70,8 +70,8 @@ export const useStore = create((set) => ({
     let totalGrossWeight= 0;
     let totalQuantityCartons = 0;
     for (let i = 0; i < productos.length; i++) {
-      balanceSale += productos[i].unitPriceSale * productos[i].quantity;
-      balancePurchase += productos[i].unitPricePurchase * productos[i].quantity;
+      balanceSale += productos[i].unitPriceSale * productos[i].netWeight;
+      balancePurchase += productos[i].unitPricePurchase * productos[i].netWeight;
       totalNetWeight += Number(productos[i].netWeight);
       totalGrossWeight += Number(productos[i].grossWeight);
       totalQuantityCartons += Number(productos[i].quantityCartons);

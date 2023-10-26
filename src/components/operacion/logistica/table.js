@@ -85,7 +85,7 @@ import {
                   <Td>
                     <Input
                       variant="filled"
-                      defaultValue={e.netWeight ? e.netWeight : e.quantity}
+                      defaultValue={e.netWeight}
                       type="number"
                       onChange={(event) =>
                         handleChangeInput(event, e.id, "netWeight")

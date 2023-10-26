@@ -41,8 +41,8 @@ export default function PdfDocsIntructions({
                   <Image
                     src={
                       operation.comercial.fields.empresa.empresa == "DPL"
-                        ? "/logo-DPL.png"
-                        : "/logo-Duplo.png"
+                        ? "/Logo-DPL.png"
+                        : "/Logo-Duplo.png"
                     }
                   />
                 </View>

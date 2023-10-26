@@ -9,6 +9,7 @@ import {
   PopoverCloseButton,
   Badge,
   Select,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { Loadder } from "./loadder";
 
@@ -66,24 +67,26 @@ export const StateSelector = ({ selected, refNumber }) => {
       closeOnBlur={false}
     >
       <PopoverTrigger>
-        <Badge ml="1" fontSize="1em" colorScheme={colorMap[selectedValue]}>
+        <Badge ml="1" fontSize="1em" colorScheme={colorMap[selectedValue]} _hover={{cursor:"pointer"}}>
           {selectedValue}
         </Badge>
       </PopoverTrigger>
-      <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
+      <PopoverContent bg="transparent" backdropFilter="blur(20px) saturate(1.5)" border="1px" borderColor="Background" shadow="md" >
         <PopoverHeader pt={4} fontWeight="bold" border="0">
         </PopoverHeader>
-        <PopoverArrow bg="blue.800" />
+        <PopoverArrow bg="transparent"/>
         <PopoverCloseButton onClick={() => setIsPopoverOpen(false)}/>
         <PopoverBody>
           {!isLoading ? (
             <Select
               value={selectedValue}
+              variant="filled"
+              mt={4}
               onChange={(e) => handleChange(e, refNumber)}
             >
               {options.map((e) => (
-                <option key={e} value={e}>
-                  {e}
+                <option key={e} value={e} style={{color:useColorModeValue('black','white')}}>
+                    {e}
                 </option>
               ))}
             </Select>
