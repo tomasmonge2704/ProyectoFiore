@@ -42,18 +42,18 @@ export const EditModal = ({
         <ModalCloseButton />
         <ModalBody>
           <VStack>
-        {countries && <Select defaultValue={newElement && newElement.emoji} onChange={(event) => handleChange(event,"emoji")}>
+        {countries && <Select defaultValue={element && element.emoji} onChange={(event) => handleChange(event,"emoji")}>
             <option>Emoji</option>
             {countries.map((country,index) => 
             <option value={country.value} key={index}>{country.emoji} {country.value}</option>
             )}
         </Select>}
-            {newElement &&
+            {element &&
               params.map((e, index) => (
                 <InputPersonalizado
                   label={e.label}
                   key={index}
-                  defaultValue={newElement[e.param]}
+                  defaultValue={element[e.param]}
                   onChange={(event) => handleChange(event,e.param)}
                 />
               ))}
