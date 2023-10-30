@@ -188,7 +188,7 @@ export default function TablaGeneral({
               <Th></Th>
               <Th></Th>
               <Th>
-                <InputPersonalizado label="$" type="number" />
+                <InputPersonalizado label="$" type="number" defaultValue={fields.comisionMarketing} onChange={(e) => setFields({...fields,comisionMarketing:e.target.value})} />
               </Th>
               <Th></Th>
               <Th></Th>
@@ -200,10 +200,10 @@ export default function TablaGeneral({
               <Th></Th>
               <Th></Th>
               <Th>
-                <InputPersonalizado label="$" type="number" />
+                <InputPersonalizado label="$" type="number" defaultValue={fields.comisionPurchase} onChange={(e) => setFields({...fields,comisionPurchase:e.target.value})} />
               </Th>
               <Th>
-                <InputPersonalizado label="$" type="number" />
+                <InputPersonalizado label="$" type="number" defaultValue={fields.comisionSale} onChange={(e) => setFields({...fields,comisionSale:e.target.value})} />
               </Th>
               <Th></Th>
             </Tr>

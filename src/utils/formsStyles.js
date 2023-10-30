@@ -43,9 +43,13 @@ export const styles = StyleSheet.create({
     image: {
       width: "120px",
       height: "70px",
+      objectFit:"contain"
     },
     imageContainer: {
-      marginLeft: "75%",
+      display:"flex",
+      flexDirection:"row",
+      justifyContent:"flex-end",
+      width:"97%"
     },
     grid: {
       display: "flex", // Usamos flexbox para dividir en 2

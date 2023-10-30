@@ -35,11 +35,11 @@ import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 const LinkItems = [
   { name: "Home", icon: FiHome, href: "/", text: "" },
-  { name: "Buyers", icon: FiUser, href: "/cartera-clientes", text: "BUYERS" },
+  { name: "Buyers", icon: FiUser, href: "/Buyers", text: "BUYERS" },
   {
     name: "Shippers",
     icon: FiBox,
-    href: "/cartera-proveedores",
+    href: "/Shippers",
     text: "SHIPPERS",
   },
   { name: "New operation", icon: FiArrowUp, href: "/operation", text: "" },

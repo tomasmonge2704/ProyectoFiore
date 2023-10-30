@@ -19,12 +19,7 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import { EditModal } from "./editModal";
 import { countries } from "./countries";
-const ObjectID = require('bson-objectid');
 
-function generateRandomObjectId() {
-  const objectId = new ObjectID();
-  return objectId.toString();
-}
 export const GridCards = ({ data, params, url }) => {
   const [searchText, setSearchText] = useState("");
   const [itemsToDisplay, setItemsToDisplay] = useState(data);
@@ -49,9 +44,6 @@ export const GridCards = ({ data, params, url }) => {
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
-  const handleCreate = () => {
-    setItemsToDisplay([{_id:generateRandomObjectId()}, ...itemsToDisplay]);
-  };
   const handleUpdate = (element) => {
     const token = localStorage.getItem("token");
     fetch(`${process.env.API_URL}/${url}/${element._id}`, {
@@ -64,7 +56,7 @@ export const GridCards = ({ data, params, url }) => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error en la solicitud");
+          throw new Error(response);
         }
         return response.json();
       })
@@ -118,7 +110,7 @@ export const GridCards = ({ data, params, url }) => {
             borderRadius="full"
           />
         </InputGroup>
-        <Button w="12%" colorScheme="orange" onClick={handleCreate}>
+        <Button w="12%" colorScheme="orange" onClick={() => handleOpenModal({_id:"new"})}>
           Nuevo elemento
         </Button>
       </Flex>

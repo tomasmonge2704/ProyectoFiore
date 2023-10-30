@@ -3,11 +3,10 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 export const ShipmentPeriod = ({ value, setFields,fields }) => {
-  const [shipmentPeriodFrom, setShipmentPeriodFrom ] = useState(undefined);
-  const [shipmentPeriodTo, setShipmentPeriodTo ] = useState(undefined);
+  const [shipmentPeriodFrom, setShipmentPeriodFrom ] = useState(value ? value.slice(0,10) : undefined);
+  const [shipmentPeriodTo, setShipmentPeriodTo ] = useState(value ? value.slice(13,23) : undefined);
   useEffect(() => {
     if (shipmentPeriodFrom && shipmentPeriodTo) {
-      console.log(shipmentPeriodFrom + " " + shipmentPeriodTo)
       const dateFormatRegex = /^(200[1-9]|20[1-9]\d)-\d{2}-\d{2}$/; // Expresión regular para el formato "año-mes-día"
       if (dateFormatRegex.test(shipmentPeriodFrom) && dateFormatRegex.test(shipmentPeriodTo)) {
         setFields({...fields, shipmentPeriod: `${shipmentPeriodFrom} - ${shipmentPeriodTo}`});
@@ -25,7 +24,7 @@ export const ShipmentPeriod = ({ value, setFields,fields }) => {
           <InputPersonalizado
             type="date"
             label="SHIPMENT PERIOD FROM"
-            value={shipmentPeriodFrom ? shipmentPeriodFrom : ""}
+            defaultValue={shipmentPeriodFrom}
             onChange={(e) => setShipmentPeriodFrom(e.target.value)}
           />
           </GridItem>
@@ -33,7 +32,7 @@ export const ShipmentPeriod = ({ value, setFields,fields }) => {
           <InputPersonalizado
             type="date"
             label="SHIPMENT PERIOD TO"
-            value={shipmentPeriodTo ? shipmentPeriodTo : ""}
+            defaultValue={shipmentPeriodTo}
             onChange={(e) => setShipmentPeriodTo(e.target.value)}
           />
           </GridItem>

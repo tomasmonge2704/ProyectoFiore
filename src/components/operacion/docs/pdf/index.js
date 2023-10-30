@@ -39,6 +39,7 @@ export default function PdfDocsIntructions({
               <Page size="A4" style={styles.page}>
                 <View style={styles.imageContainer}>
                   <Image
+                  style={styles.image}
                     src={
                       operation.comercial.fields.empresa.empresa == "DPL"
                         ? "/Logo-DPL.png"

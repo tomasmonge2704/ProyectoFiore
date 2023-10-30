@@ -12,6 +12,7 @@ import {
   AlertIcon,
   Select
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import InputPersonalizado from "./inputPersonalizado";
 export const EditModal = ({
   isOpen,
@@ -23,11 +24,15 @@ export const EditModal = ({
   response,
   countries
 }) => {
+  const [newElement,setNewElement] = useState(element);
+  useEffect(() => {
+    setNewElement(element)
+  },[element])
   const hanleSave = () => {
-    onSave(element);
+    onSave(newElement);
   };
   const handleChange = (event,param) => {
-    element = {...element,[param]:event.target.value};
+    setNewElement({...newElement,[param]:event.target.value});
   }
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -37,18 +42,18 @@ export const EditModal = ({
         <ModalCloseButton />
         <ModalBody>
           <VStack>
-        {countries && <Select defaultValue={element && element.emoji} onChange={(event) => handleChange(event,"emoji")}>
+        {countries && <Select defaultValue={newElement && newElement.emoji} onChange={(event) => handleChange(event,"emoji")}>
             <option>Emoji</option>
             {countries.map((country,index) => 
             <option value={country.value} key={index}>{country.emoji} {country.value}</option>
             )}
         </Select>}
-            {element &&
+            {newElement &&
               params.map((e, index) => (
                 <InputPersonalizado
                   label={e.label}
                   key={index}
-                  defaultValue={element[e.param]}
+                  defaultValue={newElement[e.param]}
                   onChange={(event) => handleChange(event,e.param)}
                 />
               ))}

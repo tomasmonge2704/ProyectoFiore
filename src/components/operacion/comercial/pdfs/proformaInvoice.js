@@ -29,6 +29,7 @@ export default function SaleForm({ fields, productos }) {
               <Page size="A4" style={styles.page}>
                 <View style={styles.imageContainer}>
                   <Image
+                  style={styles.image}
                     src={
                       fields.empresa.empresa == "DPL"
                         ? "/Logo-DPL.png"
@@ -160,7 +161,7 @@ export default function SaleForm({ fields, productos }) {
                     <View></View>
                     <View style={styles.grid2}>
                       <Text style={styles.textDato}>
-                        Correspondent Bank: FALTA
+                        Correspondent Bank: {fields.empresa.bank && fields.empresa.bank.correspondentBank}
                       </Text>
                     </View>
                   </View>

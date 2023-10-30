@@ -24,6 +24,7 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
               <Page size="A4" style={styles.page}>
                 <View style={styles.imageContainer}>
                   <Image
+                  style={styles.image}
                     src={
                       fields.empresa.empresa == "DPL"
                         ? "/Logo-DPL.png"
