@@ -38,7 +38,7 @@ export const EditModal = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{title}</ModalHeader>
+        <ModalHeader>{element ? "Edit " : "Create "}{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <VStack>
@@ -48,12 +48,11 @@ export const EditModal = ({
             <option value={country.value} key={index}>{country.emoji} {country.value}</option>
             )}
         </Select>}
-            {element &&
-              params.map((e, index) => (
+            {params.map((e, index) => (
                 <InputPersonalizado
                   label={e.label}
                   key={index}
-                  defaultValue={element[e.param]}
+                  defaultValue={element && element[e.param]}
                   onChange={(event) => handleChange(event,e.param)}
                 />
               ))}

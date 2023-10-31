@@ -1,18 +1,18 @@
-import { TablePagination } from "@/utils/tablePagination";
+import { ContenedorTablas } from "@/utils/contenedorTablas";
 import useFetch from "@/hooks/useFetch";
 export const AjustesProductos = () => {
   const params = [
+    {label:"DESCRIPTION",param:"description"},
     {label:"FAMILY ",param:"family"},
     {label:"FAMILY 2",param:"famili2"},
-    {label:"DESCRIPTION",param:"description"},
   ];
-  const [CarteraProducts, setCartera] = useFetch(`${process.env.API_URL}/products`,undefined);
+  const [CarteraProducts] = useFetch(`${process.env.API_URL}/products`,undefined);
 
   return (
-    <TablePagination
+    <ContenedorTablas
+      variant="table"
       data={CarteraProducts}
-      setData={setCartera}
-      modalTitle="Edit Product"
+      modalTitle="Product"
       params={params}
       url="products"
     />

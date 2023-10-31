@@ -1,4 +1,4 @@
-import { TablePagination } from "@/utils/tablePagination";
+import { ContenedorTablas } from "@/utils/contenedorTablas";
 import useFetch from "@/hooks/useFetch";
 export const Puertos = () => {
   const params = [
@@ -7,15 +7,15 @@ export const Puertos = () => {
     {label:"COUNTRY",param:"country"},
     {label:"REGION",param:"region"}
   ];
-  const [CarteraPuertos, setCartera] = useFetch(`${process.env.API_URL}/puertos`,undefined);
+  const [CarteraPuertos] = useFetch(`${process.env.API_URL}/puertos`,undefined);
 
   return (
-    <TablePagination
+    <ContenedorTablas
+      variant="table"
       data={CarteraPuertos}
-      setData={setCartera}
       params={params}
       url="puertos"
-      modalTitle="Edit Ports"
+      modalTitle="Ports"
     />
   );
 };

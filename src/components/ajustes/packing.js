@@ -1,16 +1,16 @@
-import { TablePagination } from "@/utils/tablePagination";
+import { ContenedorTablas } from "@/utils/contenedorTablas";
 import useFetch from "@/hooks/useFetch";
 
 export const AjustesPacking = () => {
   const params = [{label:"NAME",param:"name"}];
-  const [CarteraPacking,setCartera] = useFetch(`${process.env.API_URL}/packing`,undefined);
+  const [CarteraPacking] = useFetch(`${process.env.API_URL}/packing`,undefined);
 
   return (
-    <TablePagination
+    <ContenedorTablas
+      variant="table"
       data={CarteraPacking}
-      setData={setCartera}
       params={params}
-      modalTitle="Edit Packing"
+      modalTitle="Packing"
       url="packing"
     />
   );

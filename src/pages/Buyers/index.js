@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { GridCards } from "@/utils/gridCards";
+import { ContenedorTablas } from "@/utils/contenedorTablas";
+import useFetch from "@/hooks/useFetch";
 export default function Proveedores() {
   const params = [
     {label:"Company Name",param:"nombre"},
@@ -8,21 +8,9 @@ export default function Proveedores() {
     {label:"Country",param:"country"},
     {label:"Tax ID",param:"vatNumber"},
   ];
-  const [CarteraClientes, setCarteraClientes] = useState(undefined);
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    fetch(`${process.env.API_URL}/client`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCarteraClientes(data);
-      });
-  }, []);
+  const [CarteraClientes, setCarteraClientes] = useFetch(`${process.env.API_URL}/client`,undefined);
 
   return (
-    <GridCards data={CarteraClientes} params={params} url="client" />
+    <ContenedorTablas modalTitle="Buyer" variant="grid" data={CarteraClientes} setData={setCarteraClientes} params={params} url="client" />
   );
 }

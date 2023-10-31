@@ -1,14 +1,14 @@
-import { TablePagination } from "@/utils/tablePagination";
+import { ContenedorTablas } from "@/utils/contenedorTablas";
 import useFetch from "@/hooks/useFetch";
 export const AjustesEmpleados = () => {
-  const [CarteraEmpleados,setCartera] = useFetch(`${process.env.API_URL}/empleados`,undefined);
+  const [CarteraEmpleados] = useFetch(`${process.env.API_URL}/empleados`,undefined);
   const params = [{label:"NOMBRE",param:"nombre"},{label:"APELLIDO",param:"apellido"},{label:"CELULAR",param:"celular"},{label:"MAIL",param:"mail"}];
   return (
-    <TablePagination
+    <ContenedorTablas
+      variant="table"
       data={CarteraEmpleados}
       params={params}
-      setData={setCartera}
-      modalTitle="Edit Employee"
+      modalTitle="Employee"
       url="empleados"
     />
   );

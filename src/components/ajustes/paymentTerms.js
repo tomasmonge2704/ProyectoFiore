@@ -1,15 +1,15 @@
-import { TablePagination } from "@/utils/tablePagination";
+import { ContenedorTablas } from "@/utils/contenedorTablas";
 import useFetch from "@/hooks/useFetch";
 export const PaymentTerms = () => {
   const params = [{label:"NAME",param:"name"}];
-  const [CarteraPaymentTerms,setCartera] = useFetch(`${process.env.API_URL}/payment-terms`,undefined);
+  const [CarteraPaymentTerms] = useFetch(`${process.env.API_URL}/payment-terms`,undefined);
 
   return (
-    <TablePagination
+    <ContenedorTablas
+      variant="table"
       data={CarteraPaymentTerms}
-      setData={setCartera}
       params={params}
-      modalTitle="Edit Payment Term"
+      modalTitle="Payment Term"
       url="payment-terms"
     />
   );

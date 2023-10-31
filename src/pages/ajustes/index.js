@@ -26,6 +26,7 @@ export default function Ajustes() {
           <Tab>Products</Tab>
           <Tab>Employees</Tab>
           <Tab>Consignee</Tab>
+          <Tab>Forwarders</Tab>
         </TabList>
       </Center>
       <TabPanels>
