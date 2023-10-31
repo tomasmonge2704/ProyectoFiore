@@ -1,10 +1,5 @@
 import InputPersonalizado from "@/utils/inputPersonalizado";
-import {
-  Grid,
-  GridItem,
-  VStack,
-  Box,
-} from "@chakra-ui/react";
+import { Grid, GridItem, VStack, Box, Textarea } from "@chakra-ui/react";
 import TablaGeneral from "./tablaGeneral";
 import { Empresa } from "./empresa";
 import { Buyer } from "./buyer";
@@ -184,6 +179,14 @@ export default function GeneralForm({
           fields={operation.comercial.fields}
           setFields={setFields}
           CarteraEmpleados={CarteraEmpleados}
+        />
+        <Textarea
+          onChange={(e) =>
+            setFields({ ...fields, comentarios: e.target.value })
+          }
+          placeholder="Comentarios..."
+          defaultValue={fields.comentarios}
+          variant="filled"
         />
         <ConfirmButton operation={operation} />
       </VStack>

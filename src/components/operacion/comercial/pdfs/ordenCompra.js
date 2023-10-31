@@ -190,7 +190,7 @@ export default function PurchaseForm({ fields, productos }) {
                               USD{" "}
                               {convertirAMoneda(
                                 prod.unitPricePurchase * prod.netWeight
-                              ) || 0}
+                              ).slice(1) || 0}
                             </Text>
                           </View>
                         </View>
@@ -208,7 +208,7 @@ export default function PurchaseForm({ fields, productos }) {
                       <View style={styles.borderTable}>
                         {" "}
                         <Text style={styles.textDato}>
-                          USD {convertirAMoneda(fields.totalPurchase)}
+                          USD {convertirAMoneda(fields.totalPurchase).slice(1)}
                         </Text>
                       </View>
                     </View>
@@ -315,7 +315,11 @@ export default function PurchaseForm({ fields, productos }) {
                       {fields.destinationCountry}
                     </Text>
                   </View>
-
+                  <View style={{ marginTop: 3 }}>
+                    <Text style={styles.mercaderiaText}>
+                    {fields.comentarios && `- ${fields.comentarios}`}
+                    </Text>
+                  </View>
                   <View style={styles.vSpacer}></View>
                   <View style={styles.vSpacer}></View>
                   <View style={styles.vSpacer}></View>

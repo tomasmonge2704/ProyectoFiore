@@ -14,14 +14,14 @@ import {
 import { Loadder } from "./loadder";
 
 export const StateSelector = ({ selected, refNumber }) => {
-  const options = ["New", "Pending Shipment","Draft","Originals", "finished","Canceled"];
+  const options = ["New", "Pending Shipment","Draft","Originals", "Finished","Canceled"];
   // Objeto que mapea opciones a colores
   const colorMap = {
     New: "purple",
     "Pending Shipment": "blue",
     "Draft":"yellow",
     "Originals":"orange",
-    finished: "green",
+    Finished: "green",
     "Canceled":"red"
   };
 

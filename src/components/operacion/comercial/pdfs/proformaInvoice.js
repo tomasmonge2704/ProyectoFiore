@@ -228,7 +228,7 @@ export default function SaleForm({ fields, productos }) {
                               USD{" "}
                               {convertirAMoneda(
                                 prod.unitPriceSale * prod.netWeight
-                              ) || 0}
+                              ).slice(1) || 0}
                             </Text>
                           </View>
                         </View>
@@ -246,7 +246,7 @@ export default function SaleForm({ fields, productos }) {
                       <View style={styles.borderTable}>
                         {" "}
                         <Text style={styles.textDato}>
-                          USD {convertirAMoneda(fields.totalSale)}
+                          USD {convertirAMoneda(fields.totalSale).slice(1)}
                         </Text>
                       </View>
                     </View>
@@ -354,13 +354,9 @@ export default function SaleForm({ fields, productos }) {
                     </Text>
                   </View>
                   <View style={{ marginTop: 3 }}>
-                    <Text style={styles.negrita}>
-                      - PRODUCTION / EXPIRATION DATE (DD/MM/YYYY) OR (MM/YYYY)
-                      FORMAT ARE REQUIRED ON ALL CARTONS
+                    <Text style={styles.mercaderiaText}>
+                    {fields.comentarios && `- ${fields.comentarios}`}
                     </Text>
-                  </View>
-                  <View style={{ marginTop: 3 }}>
-                    <Text style={styles.negrita}>- FLOOR LOADED</Text>
                   </View>
                   <View style={styles.vSpacer}></View>
                   <View style={styles.vSpacer}></View>
