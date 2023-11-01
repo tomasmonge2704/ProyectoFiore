@@ -57,24 +57,22 @@ export const ContenedorTablas = ({
       body: JSON.stringify(element),
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error(response);
-        }
         return response.json();
       })
       .then((data) => {
-        setItemsToDisplay([data,...itemsToDisplay]);
-        setResponse({
-          status: "success",
-          message: `Se creo con exito ${data.nombre}`,
-        });
+        if(data.error){
+          setResponse({
+            status: "error",
+            message: data.error,
+          });
+        }else{
+          setItemsToDisplay([data,...itemsToDisplay]);
+          setResponse({
+            status: "success",
+            message: `Se creo con exito ${data.nombre}`,
+          });
+        }
       })
-      .catch((error) => {
-        setResponse({
-          status: "error",
-          message: "Ocurrio un error en la creacion",
-        });
-      });
   }
   const handleUpdate = (element) => {
     const token = localStorage.getItem("token");
@@ -87,29 +85,27 @@ export const ContenedorTablas = ({
       body: JSON.stringify(element),
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error(response);
-        }
         return response.json();
+      }).then((data) => {
+        if(data.error){
+          setResponse({
+            status: "error",
+            message: data.error,
+          });
+        }else{
+          const newArray = itemsToDisplay.map((existingElement) => {
+            if (existingElement._id === data._id) return data;
+            return existingElement;
+          });
+          setItemsToDisplay(newArray);
+          setResponse({
+            status: "success",
+            message: `Se actualizó con éxito (${data.nombre})!`,
+          });
+        }
       })
-      .then((data) => {
-        const newArray = itemsToDisplay.map((existingElement) => {
-          if (existingElement._id === data._id) return data;
-          return existingElement;
-        });
-        setItemsToDisplay(newArray);
-        setResponse({
-          status: "success",
-          message: `Se actualizo con exito (${data.nombre})!`,
-        });
-      })
-      .catch((error) => {
-        setResponse({
-          status: "error",
-          message: "Ocurrio un error en la actualizacion",
-        });
-      });
   };
+  
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleOpenModal = (element) => {
     setSelectedCard(element);

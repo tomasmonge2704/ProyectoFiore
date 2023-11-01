@@ -354,8 +354,8 @@ export default function SaleForm({ fields, productos }) {
                     </Text>
                   </View>
                   <View style={{ marginTop: 3 }}>
-                    <Text style={styles.mercaderiaText}>
-                    {fields.comentarios && `- ${fields.comentarios}`}
+                    <Text style={styles.textDato}>
+                    {fields.comentarios && fields.comentarios}
                     </Text>
                   </View>
                   <View style={styles.vSpacer}></View>

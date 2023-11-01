@@ -36,6 +36,7 @@ export const useStore = create((set) => ({
     let totalFields = 25;
     if(fields?.comision) totalFields = totalFields + 1;
     let completedFields = Object.values(fields).filter(Boolean).length;
+    if(fields.comentarios) completedFields -= 1;
     const completed = Math.floor((completedFields / totalFields) * 100);
     set((state) => ({
       operation: {
