@@ -17,7 +17,7 @@ import InputPersonalizado from "@/utils/inputPersonalizado";
 import SaleForm from "./pdfs/invoice";
 import ShipmentPeriodPDF from "./pdfs/shipmentDetails";
 import TablaLogistica from "./table";
-
+import useFetch from "@/hooks/useFetch";
 export const Logistica = () => {
   const operation = useStore((state) => state.operation);
   const setFieldsLogistica = useStore((state) => state.setFieldsLogistica);
@@ -35,18 +35,9 @@ export const Logistica = () => {
       [param]: event.target.value,
     });
   };
-  const fletesInternacionales = [
-    { label: "opcion 1" },
-    { label: "opcion 2" },
-    { label: "opcion 3" },
-    { label: "opcion 4" },
-    { label: "opcion 5" },
-    { label: "opcion 6" },
-    { label: "opcion 7" },
-    { label: "opcion 8" },
-    { label: "opcion 9" },
-    { label: "opcion 10" },
-  ];
+  const [CarteraForwarder] = useFetch(`${process.env.API_URL}/forwarder`,[]);
+  const [CarteraMaritima] = useFetch(`${process.env.API_URL}/shipping-line`,[]);
+
   return (
     <Tabs variant="soft-rounded" colorScheme="orange">
       <Center width="100%">
@@ -64,22 +55,22 @@ export const Logistica = () => {
                 <GridItem w="100%">
                   <VStack spacing="3">
                     <SelectComponent
-                      options={fletesInternacionales}
+                      options={CarteraForwarder}
                       value={operation.logistica.fields.freightForwarder}
                       handleIndexChange={(e) =>
                         handleIndexChange(e, "freightForwarder")
                       }
                       textDefault="Freight Forwarder"
-                      param="label"
+                      param="name"
                     />
                     <SelectComponent
-                      options={fletesInternacionales}
+                      options={CarteraMaritima}
                       value={operation.logistica.fields.ShippingLine}
                       handleIndexChange={(e) =>
                         handleIndexChange(e, "ShippingLine")
                       }
                       textDefault="Shipping Line"
-                      param="label"
+                      param="name"
                     />
                     <InputPersonalizado
                       type="text"

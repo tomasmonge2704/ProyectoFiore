@@ -10,7 +10,7 @@ import {
 import { Box } from "@chakra-ui/react";
 import { styles } from "@/utils/formsStyles";
 import { convertirAMoneda } from "@/utils/convertInt";
-
+import { transformDate } from "@/utils/functions";
 export default function PurchaseForm({ fields, productos }) {
   const [loadPage, setloadPage] = useState(false);
   useEffect(() => {
@@ -280,7 +280,7 @@ export default function PurchaseForm({ fields, productos }) {
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>SHIPMENT PERIOD:</Text>
                       <Text style={styles.textDato}>
-                        {fields.shipmentPeriod}
+                        {fields.shipmentPeriodTo && transformDate(fields.shipmentPeriodTo)}{fields.shipmentPeriodFrom && ` to ${transformDate(fields.shipmentPeriodFrom)}`}
                       </Text>
                     </View>
                     <View></View>

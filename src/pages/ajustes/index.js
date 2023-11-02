@@ -13,6 +13,8 @@ import { AjustesPacking } from "@/components/ajustes/packing";
 import { AjustesProductos } from "@/components/ajustes/products";
 import { AjustesEmpleados } from "@/components/ajustes/empleados";
 import { AjustesConsignee } from "@/components/ajustes/consignee";
+import { Forwarders } from "@/components/ajustes/forwarders";
+import { ShippingLine } from "@/components/ajustes/maritimas";
 export default function Ajustes() {
 
   return (
@@ -27,6 +29,7 @@ export default function Ajustes() {
           <Tab>Employees</Tab>
           <Tab>Consignee</Tab>
           <Tab>Forwarders</Tab>
+          <Tab>Maritimas</Tab>
         </TabList>
       </Center>
       <TabPanels>
@@ -50,6 +53,12 @@ export default function Ajustes() {
         </TabPanel>
         <TabPanel>
           <AjustesConsignee />
+        </TabPanel>
+        <TabPanel>
+          <Forwarders/>
+        </TabPanel>
+        <TabPanel>
+          <ShippingLine/>
         </TabPanel>
       </TabPanels>
     </Tabs>

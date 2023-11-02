@@ -13,6 +13,6 @@ export default function Proveedores () {
   const [CarteraProveedores, setCarteraProveedores] = useFetch(`${process.env.API_URL}/proveedor`,undefined);
 
   return (
-    <ContenedorTablas modalTitle="Shipper" variant="grid" data={CarteraProveedores} setData={setCarteraProveedores} params={params} url="proveedor"  />
+    <ContenedorTablas hasCountries={true} modalTitle="Shipper" variant="grid" data={CarteraProveedores} setData={setCarteraProveedores} params={params} url="proveedor"  />
   );
 };

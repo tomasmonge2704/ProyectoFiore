@@ -7,7 +7,6 @@ import { Seller } from "./seller";
 import { OperationType } from "./operationType";
 import { DestinationPort } from "./destinationPort";
 import { ShelfLife } from "./shelfLife";
-import { ShipmentPeriod } from "./shipmentPeriod";
 import { SelectBanco } from "./banco";
 import { EmpleadoComponent } from "./empleado";
 import { ConfirmButton } from "@/utils/saveForm";
@@ -121,11 +120,24 @@ export default function GeneralForm({
           CarteraPacking={CarteraPacking}
           CarteraPaymentTerms={CarteraPaymentTerms}
         />
-        <ShipmentPeriod
-          value={fields.shipmentPeriod}
-          setFields={setFields}
-          fields={fields}
-        />
+        <Grid  w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
+            <GridItem w="100%">
+          <InputPersonalizado
+            type="date"
+            label="SHIPMENT PERIOD FROM"
+            defaultValue={fields.shipmentPeriodFrom}
+            onChange={(e) => setFields({...fields,shipmentPeriodFrom:e.target.value})}
+          />
+          </GridItem>
+          <GridItem w="100%">
+          <InputPersonalizado
+            type="date"
+            label="SHIPMENT PERIOD TO"
+            defaultValue={fields.shipmentPeriodTo}
+            onChange={(e) => setFields({...fields,shipmentPeriodTo:e.target.value})}
+          />
+          </GridItem>
+        </Grid>
         <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
           <GridItem w="100%">
             <VStack spacing="3">

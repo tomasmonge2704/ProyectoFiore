@@ -21,6 +21,7 @@ export const ContenedorTablas = ({
   params,
   url,
   modalTitle,
+  hasCountries
 }) => {
   const [type, setType] = useState(variant);
   const [searchText, setSearchText] = useState("");
@@ -69,7 +70,7 @@ export const ContenedorTablas = ({
           setItemsToDisplay([data,...itemsToDisplay]);
           setResponse({
             status: "success",
-            message: `Se creo con exito ${data.nombre}`,
+            message: `Se creo con exito ${data[params[0].param]}`,
           });
         }
       })
@@ -100,7 +101,7 @@ export const ContenedorTablas = ({
           setItemsToDisplay(newArray);
           setResponse({
             status: "success",
-            message: `Se actualizó con éxito (${data.nombre})!`,
+            message: `Se actualizó con éxito (${data[params[0].param]})!`,
           });
         }
       })
@@ -122,7 +123,7 @@ export const ContenedorTablas = ({
     >
       <EditModal
         response={response}
-        countries={countries}
+        countries={hasCountries && countries}
         title={modalTitle}
         onSave={selectedCard ? handleUpdate : handleCreate}
         params={params}

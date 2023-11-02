@@ -16,11 +16,12 @@ import {
   useToast
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { FiCalendar, FiChevronDown, FiChevronUp, FiCopy } from "react-icons/fi";
+import { FiCalendar, FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { Loadder } from "@/utils/loadder";
 import useFetch from "@/hooks/useFetch";
 import { StateSelector } from "@/utils/stateSelector";
-import { handleDuplicateOperation,handleOrderBy } from "@/utils/functions";
+import { handleOrderBy } from "@/utils/functions";
+import { ConfirmDuplicate } from "@/utils/confirmDuplicate";
 export default function Dashboard() {
   const [displayMode, setDisplayMode] = useState("reduced");
   const [operations, setOperations] = useState([]);
@@ -138,13 +139,7 @@ export default function Dashboard() {
                       <Td>{e.charged && e.charged}</Td>
                       <Td>{e.timeToArrival && e.timeToArrival}</Td>
                       <Td>
-                        <IconButton
-                          colorScheme="blue"
-                          variant="solid"
-                          icon={<FiCopy/>}
-                          aria-label="Delete"
-                          onClick={() => handleDuplicateOperation(e.refNumber,setOperations,operations,toast)}
-                        />
+                        <ConfirmDuplicate refNumber={e.refNumber} operations={operations} setOperations={setOperations} toast={toast} />
                       </Td>
                     </Tr>
                   ))}
