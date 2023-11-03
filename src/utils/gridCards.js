@@ -21,11 +21,13 @@ export const GridCards = ({ data, params,handleOpenModal }) => {
             <Skeleton h="40" w="48" />
             <Skeleton h="40" w="48" />
             <Skeleton h="40" w="48" />
+            <Skeleton h="40" w="48" />
+            <Skeleton h="40" w="48" />
           </>
         ) : (
           data.map((e, index) => (
             <Card
-              w="56"
+            w="13%"
               key={index}
               shadow="sm"
               variant="filled"

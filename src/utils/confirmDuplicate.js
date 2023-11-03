@@ -9,7 +9,6 @@ import {
   PopoverCloseButton,
   IconButton,
   Text,
-  useColorModeValue,
   VStack,
   Button,
 } from "@chakra-ui/react";
@@ -25,7 +24,6 @@ export const ConfirmDuplicate = ({
   const initialFocusRef = React.useRef();
   const [isLoading, setIsLoading] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const color = useColorModeValue("black", "white");
   return (
     <Popover
       isOpen={isPopoverOpen}
@@ -44,7 +42,7 @@ export const ConfirmDuplicate = ({
       </PopoverTrigger>
       <PopoverContent
         bg="transparent"
-        backdropFilter="blur(15px) saturate(1.5)"
+        backdropFilter="blur(30px) saturate(1.5)"
         border="1px"
         borderColor="Background"
         shadow="md"
@@ -54,8 +52,8 @@ export const ConfirmDuplicate = ({
         <PopoverCloseButton onClick={() => setIsPopoverOpen(false)} />
         <PopoverBody>
           {!isLoading ? (
-            <VStack spacing={5} mt={2}>
-              <Text>Esta seguro de duplicar esta operacion?</Text>
+            <VStack spacing={5} mt={2} textAlign="center">
+              <Text>Esta seguro de duplicar esta operacion ({refNumber})?</Text>
               <Button
                 onClick={() =>
                   handleDuplicateOperation(
