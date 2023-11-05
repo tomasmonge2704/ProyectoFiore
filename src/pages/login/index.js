@@ -25,7 +25,7 @@ export default function SimpleCard() {
     setIsLoggingIn(true); // Deshabilitar el botón de login al iniciar sesión
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_KEY}/api/login`, {
+      const response = await fetch(`${process.env.API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

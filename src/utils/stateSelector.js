@@ -54,7 +54,7 @@ export const StateSelector = ({ selected, refNumber }) => {
       })
       .catch((err) => {
         setIsLoading(false);
-        alert(err)
+        console.log(err)
       });
   };
 

@@ -14,7 +14,7 @@ export function handleDuplicateOperation(id, setOperations, operations, toast) {
   })
     .then((res) => res.json())
     .then((data) => {
-      if (!data.error) setOperations([...operations, data]);
+      if (!data.error) setOperations([data,...operations]);
       toast({
         title: "Operation",
         description: `Se ha duplicado correctamente la operacion ${data.refNumber}.`,
@@ -51,3 +51,30 @@ export const handleOrderBy = (param, setFilter, setData) => {
       // Aquí puedes agregar código para manejar el error, como mostrar un mensaje al usuario.
     });
 };
+
+function calcularDiasHastaFecha(fecha) {
+  if(!fecha) return "No tiene fecha ETA";
+  const fechaObjetivo = new Date(fecha);
+  const fechaActual = new Date();
+  const diferenciaEnMilisegundos = fechaObjetivo - fechaActual;
+  const diasRestantes = Math.ceil(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
+  if(diasRestantes < 0) return "Ya arrivo"
+  if (diasRestantes <= 30) {
+    return `${diasRestantes} días`;
+  } else {
+    // Calcula los meses restantes (aproximadamente)
+    const mesesRestantes = Math.floor(diasRestantes / 30);
+    return `${mesesRestantes} meses`;
+  }
+}
+export function getListado(objetos) {
+  return objetos.map((elemento) => ({
+    status: elemento.status,
+    refNumber: elemento.id,
+    empleado: elemento.comercial.fields.empleadoBuyer,
+    shipper: elemento.comercial.fields.seller.nombre,
+    buyer: elemento.comercial.fields.buyer.nombre,
+    empresa: elemento.comercial.fields.empresa.empresa,
+    timeToArrival:calcularDiasHastaFecha(elemento.logistica.fields.eta)
+  }));
+}
