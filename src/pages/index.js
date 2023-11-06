@@ -140,7 +140,7 @@ export default function Dashboard() {
             </Thead>
             <Tbody>
               {itemsToDisplay.slice(slice.start,slice.end).map((e, index) => (
-                <Tr key={index}>
+                <Tr key={index} _hover={{shadow:"lg",borderLeft:"5px solid",borderColor:"orange"}}>
                   <Td>
                     <Link href={"/operation/" + e.refNumber}>
                       <Flex align="center" justifyContent="flex-start">
