@@ -7,9 +7,12 @@ export const useStore = create((set) => ({
       operation: newOperation,
     })),
   setFieldsDocs: (fields) => {
-    let totalFields = 10;
+    let totalFields = 11;
     let completedFields = 0;
-    if(fields.documentRequested.length > 0 ) completedFields += 1; 
+    if(fields.documentRequested.length > 0 ) {
+      completedFields += 1;
+      totalFields += 1;
+    } 
     if(fields.date) completedFields += 1; 
     if(fields.responsable) completedFields += 1; 
     if(fields.terminosFlete) completedFields += 1; 
@@ -37,6 +40,7 @@ export const useStore = create((set) => ({
     if(fields?.comision) totalFields = totalFields + 1;
     let completedFields = Object.values(fields).filter(Boolean).length;
     if(fields.comentarios) completedFields -= 1;
+    if(fields.shipmentPeriod) completedFields -= 1;
     const completed = Math.floor((completedFields / totalFields) * 100);
     set((state) => ({
       operation: {
