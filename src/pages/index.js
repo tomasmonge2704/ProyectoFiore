@@ -18,6 +18,7 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
+  Avatar,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { FiCalendar } from "react-icons/fi";

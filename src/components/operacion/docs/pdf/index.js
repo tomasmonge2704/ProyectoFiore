@@ -111,7 +111,10 @@ export default function PdfDocsIntructions({
                           {fieldsComercial.seller.direccion2}
                         </Text>
                         <Text style={styles.textDato}>
-                          {fieldsComercial.seller.taxId && "CUIT: " + fieldsComercial.seller.taxId}
+                          {fieldsComercial.seller.country && fieldsComercial.seller.country}
+                        </Text>
+                        <Text style={styles.textDato}>
+                          {fieldsComercial.seller.taxId && fieldsComercial.seller.taxId}
                         </Text>
                         <Text style={styles.mercaderiaText}>{fieldsDocs.comentariosSeller}</Text>
                       </View>

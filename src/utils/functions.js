@@ -59,13 +59,7 @@ function calcularDiasHastaFecha(fecha) {
   const diferenciaEnMilisegundos = fechaObjetivo - fechaActual;
   const diasRestantes = Math.ceil(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
   if(diasRestantes < 0) return "Ya arrivo"
-  if (diasRestantes <= 30) {
     return `${diasRestantes} días`;
-  } else {
-    // Calcula los meses restantes (aproximadamente)
-    const mesesRestantes = Math.floor(diasRestantes / 30);
-    return `${mesesRestantes} meses`;
-  }
 }
 export function getListado(objetos) {
   return objetos.map((elemento) => ({

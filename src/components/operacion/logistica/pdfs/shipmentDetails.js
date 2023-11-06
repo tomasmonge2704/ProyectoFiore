@@ -59,7 +59,7 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                         <Text style={styles.negrita}>NET WEIGHT (KGS)</Text>
                       </View>
                       <View style={styles.borderTableTitle}>
-                        <Text style={styles.negrita}>GROSS WEIGHT(MT)</Text>
+                        <Text style={styles.negrita}>GROSS WEIGHT(KGS)</Text>
                       </View>
                     </View>
                     {productos.length &&
@@ -124,6 +124,15 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                   </View>
                   <View style={styles.grid}>
                     <View style={styles.grid2}>
+                      <Text style={styles.negrita}>SALES ORDER:</Text>
+                      <Text style={styles.textDato}>
+                        {operation.logistica.fields.seals}
+                      </Text>
+                    </View>
+                    <View></View>
+                  </View>
+                  <View style={styles.grid}>
+                    <View style={styles.grid2}>
                       <Text style={styles.negrita}>SHIPPER:</Text>
                       <Text style={styles.textDato}>
                         {fields.seller.nombre}
@@ -176,15 +185,7 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                     </View>
                     <View></View>
                   </View>
-                  <View style={styles.grid}>
-                    <View style={styles.grid2}>
-                      <Text style={styles.negrita}>SALES ORDER:</Text>
-                      <Text style={styles.textDato}>
-                        {operation.logistica.fields.seals}
-                      </Text>
-                    </View>
-                    <View></View>
-                  </View>
+                  
                   
                   <View style={styles.grid}>
                     <View style={styles.grid2}>

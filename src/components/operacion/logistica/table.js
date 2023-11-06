@@ -69,7 +69,7 @@ import {
                     <Input
                       type="number"
                       variant="filled"
-                      value={e.quantityCartons}
+                      defaultValue={e.quantityCartons}
                       onChange={(event) =>
                         handleChangeInput(event, e.id, "quantityCartons")
                       }
