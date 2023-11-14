@@ -11,6 +11,7 @@ import SaleForm from "./pdfs/proformaInvoice";
 import GeneralForm from "./generales";
 import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store/operation";
+import ContenedoPDFs from "@/components/contenedorPDFs";
 export const Comercial = () => {
   const operation = useStore((state) => state.operation);
   const setFields = useStore((state) => state.setFieldsComercial);
@@ -54,16 +55,20 @@ export const Comercial = () => {
           />
         </TabPanel>
         <TabPanel>
+          <ContenedoPDFs>
           <PurchaseForm 
           fields={fields}
           productos={productos}
           />
+          </ContenedoPDFs>
         </TabPanel>
         <TabPanel>
+          <ContenedoPDFs>
           <SaleForm 
           fields={fields}
           productos={productos}
           />
+          </ContenedoPDFs>
         </TabPanel>
       </TabPanels>
     </Tabs>

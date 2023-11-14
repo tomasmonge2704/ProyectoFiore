@@ -9,6 +9,7 @@ import {
   TabPanels,
   TabPanel,
   Tab,
+  Button,
 } from "@chakra-ui/react";
 import { ConfirmButton } from "@/utils/saveForm";
 import { useStore } from "@/store/operation";
@@ -18,6 +19,8 @@ import SaleForm from "./pdfs/invoice";
 import ShipmentPeriodPDF from "./pdfs/shipmentDetails";
 import TablaLogistica from "./table";
 import useFetch from "@/hooks/useFetch";
+import ContenedoPDFs from "@/components/contenedorPDFs";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 export const Logistica = () => {
   const operation = useStore((state) => state.operation);
   const setFieldsLogistica = useStore((state) => state.setFieldsLogistica);
@@ -35,9 +38,11 @@ export const Logistica = () => {
       [param]: event.target.value,
     });
   };
-  const [CarteraForwarder] = useFetch(`${process.env.API_URL}/forwarder`,[]);
-  const [CarteraMaritima] = useFetch(`${process.env.API_URL}/shipping-line`,[]);
-
+  const [CarteraForwarder] = useFetch(`${process.env.API_URL}/forwarder`, []);
+  const [CarteraMaritima] = useFetch(
+    `${process.env.API_URL}/shipping-line`,
+    []
+  );
   return (
     <Tabs variant="soft-rounded" colorScheme="orange">
       <Center width="100%">
@@ -100,13 +105,11 @@ export const Logistica = () => {
                       defaultValue={operation.logistica.fields.etd}
                       onChange={(event) => handleInputChange(event, "etd")}
                     />
-                     
-                    
                   </VStack>
                 </GridItem>
                 <GridItem w="100%">
                   <VStack spacing="3">
-                  <InputPersonalizado
+                    <InputPersonalizado
                       type="date"
                       label="ETA"
                       defaultValue={operation.logistica.fields.eta}
@@ -157,32 +160,78 @@ export const Logistica = () => {
                       />
                     )}
                     <InputPersonalizado
-                    type="text"
-                    label="AWB Nr"
-                    defaultValue={operation.logistica.fields.awbNr}
-                    onChange={(event) =>
-                      handleInputChange(event, "awbNr")
-                    }
-                  />
-                  { operation.docs.fields.placeBLIssue == "TELEX RELEASE" && <InputPersonalizado
-                    type="text"
-                    label="Telex Release"
-                    defaultValue={operation.logistica.fields.telexRelease}
-                    onChange={(event) =>
-                      handleInputChange(event, "telexRelease")
-                    }
-                  />}
+                      type="text"
+                      label="AWB Nr"
+                      defaultValue={operation.logistica.fields.awbNr}
+                      onChange={(event) => handleInputChange(event, "awbNr")}
+                    />
+                    {operation.docs.fields.placeBLIssue == "TELEX RELEASE" && (
+                      <InputPersonalizado
+                        type="text"
+                        label="Telex Release"
+                        defaultValue={operation.logistica.fields.telexRelease}
+                        onChange={(event) =>
+                          handleInputChange(event, "telexRelease")
+                        }
+                      />
+                    )}
                   </VStack>
                 </GridItem>
               </Grid>
-              <TablaLogistica fields={fieldsComercial} productos={fieldsComercial.productos} setProductos={setProductos}/>
+              <TablaLogistica
+                fields={fieldsComercial}
+                productos={fieldsComercial.productos}
+                setProductos={setProductos}
+              />
               <Box h={5} />
-              <ConfirmButton operation={operation} />
+              <Center w="full">
+                <ConfirmButton operation={operation} />
+                <PDFDownloadLink
+                  document={
+                    <ShipmentPeriodPDF
+                      operation={operation}
+                      fields={fieldsComercial}
+                      productos={fieldsComercial.productos}
+                    />
+                  }
+                  fileName={"Shipment Details " + operation.id +".pdf"}
+                >
+                  <Button colorScheme="red" ml={5}>{"Shipment Details " + operation.id +".pdf"}</Button>
+                </PDFDownloadLink>
+                <PDFDownloadLink
+                  document={
+                    <SaleForm
+                    operation={operation}
+                    fields={fieldsComercial}
+                    productos={fieldsComercial.productos}
+                  />
+                  }
+                  fileName="Invoice.pdf"
+                >
+                  <Button colorScheme="red" ml={5}>Invoice.pdf</Button>
+                </PDFDownloadLink>
+              </Center>
             </VStack>
           </Box>
         </TabPanel>
-        <TabPanel><ShipmentPeriodPDF operation={operation} fields={fieldsComercial} productos={fieldsComercial.productos}/></TabPanel>
-        <TabPanel><SaleForm operation={operation} fields={fieldsComercial} productos={fieldsComercial.productos}/></TabPanel>
+        <TabPanel>
+          <ContenedoPDFs>
+            <ShipmentPeriodPDF
+              operation={operation}
+              fields={fieldsComercial}
+              productos={fieldsComercial.productos}
+            />
+          </ContenedoPDFs>
+        </TabPanel>
+        <TabPanel>
+          <ContenedoPDFs>
+            <SaleForm
+              operation={operation}
+              fields={fieldsComercial}
+              productos={fieldsComercial.productos}
+            />
+          </ContenedoPDFs>
+        </TabPanel>
       </TabPanels>
     </Tabs>
   );

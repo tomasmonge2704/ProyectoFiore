@@ -8,6 +8,8 @@ import {
   Divider,
   Textarea,
   Text,
+  Center,
+  Button,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { SelectComponent } from "@/utils/select";
@@ -17,6 +19,8 @@ import { TableRestDocs } from "./restDocs";
 import { TableFacturaComercial } from "./facturaComercial";
 import useFetch from "@/hooks/useFetch";
 import { ConfirmButton } from "@/utils/saveForm";
+import PdfDocsIntructions from "../pdf";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 export default function GeneralDocs({
   operation,
   setFieldsComercial,
@@ -94,11 +98,11 @@ export default function GeneralDocs({
           <GridItem w="100%">
             <VStack spacing="3">
               <InputPersonalizado
-                value={fieldsDocs.date}
+                defaultValue={fieldsDocs.date}
                 label="Date"
                 type="date"
                 onChange={(e) =>
-                  setFields({ ...fieldsDocs, date: e.target.value })
+                  setFieldsDocs({ ...fieldsDocs, date: e.target.value })
                 }
               />
               <SelectComponent
@@ -142,7 +146,16 @@ export default function GeneralDocs({
             setFieldsDocs({ ...fieldsDocs, comentarios: e.target.value })
           }
         />
+        <Center>
         <ConfirmButton operation={operation} />
+        <PDFDownloadLink document={<PdfDocsIntructions
+            operation={operation}
+            fieldsComercial={fieldsComercial}
+            fieldsDocs={fieldsDocs}
+          />} fileName={"DOCS INSTRUCTIONS " + operation.id}>
+            <Button colorScheme="red" ml={5}>DOCS INSTRUCTIONS {operation.id}</Button>
+        </PDFDownloadLink>
+        </Center>
       </VStack>
     </Box>
   );

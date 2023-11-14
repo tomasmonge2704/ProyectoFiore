@@ -1,4 +1,4 @@
-import { Center, useToast, Button } from "@chakra-ui/react";
+import { useToast, Button } from "@chakra-ui/react";
 export const ConfirmButton = ({ operation }) => {
   const toast = useToast();
   const saveFormHandler = () => {
@@ -40,10 +40,8 @@ export const ConfirmButton = ({ operation }) => {
       });
   };
   return (
-    <Center>
       <Button colorScheme="orange" onClick={saveFormHandler}>
         Guardar
       </Button>
-    </Center>
   );
 };

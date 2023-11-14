@@ -1,26 +1,16 @@
-import React, { useEffect, useState } from "react";
 import {
   Document,
   Page,
   Text,
   View,
-  PDFViewer,
   Image,
 } from "@react-pdf/renderer";
-import { Box } from "@chakra-ui/react";
 import { styles } from "@/utils/formsStyles";
 import { convertirAMoneda } from "@/utils/convertInt";
 import { transformDate } from "@/utils/functions";
 export default function SaleForm({ fields, productos }) {
-  const [loadPage, setloadPage] = useState(false);
-  useEffect(() => {
-    setloadPage(true);
-  }, []);
+
   return (
-    <Box h="100%">
-      <div style={{ marginTop: "20px" }}>
-        {loadPage && (
-          <PDFViewer style={{ width: "100%", height: "70vh" }}>
             <Document
               title={`Proforma Inv${
                 fields.empresaRefNumber && " " + fields.empresaRefNumber
@@ -334,7 +324,7 @@ export default function SaleForm({ fields, productos }) {
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>SHIPMENT PERIOD:</Text>
                       <Text style={styles.textDato}>
-                      {fields.shipmentPeriodTo && transformDate(fields.shipmentPeriodTo)}{fields.shipmentPeriodFrom && ` to ${transformDate(fields.shipmentPeriodFrom)}`}
+                      {fields.shipmentPeriodFrom && transformDate(fields.shipmentPeriodFrom)}{fields.shipmentPeriodTo && ` to ${transformDate(fields.shipmentPeriodTo)}`}
                       </Text>
                     </View>
                     <View></View>
@@ -396,9 +386,5 @@ export default function SaleForm({ fields, productos }) {
                 </View>
               </Page>
             </Document>
-          </PDFViewer>
-        )}
-      </div>
-    </Box>
   );
 }

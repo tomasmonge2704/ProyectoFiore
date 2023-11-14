@@ -1,27 +1,16 @@
-import React, { useEffect, useState } from "react";
 import {
   Document,
   Page,
   Text,
   View,
-  PDFViewer,
   Image,
 } from "@react-pdf/renderer";
-import { Box } from "@chakra-ui/react";
 import { styles } from "@/utils/formsStyles";
 import { convertirAMoneda } from "@/utils/convertInt";
 
 export default function SaleForm({ operation, fields, productos }) {
-  const [loadPage, setloadPage] = useState(false);
-  useEffect(() => {
-    setloadPage(true);
-  }, []);
-  
+
   return (
-    <Box h="100%">
-      <div style={{ marginTop: "20px" }}>
-        {loadPage && (
-          <PDFViewer style={{ width: "100%", height: "70vh" }}>
             <Document
               title="Invoice.pdf"
             >
@@ -47,7 +36,7 @@ export default function SaleForm({ operation, fields, productos }) {
                     </View>
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>DATE:</Text>
-                      <Text style={styles.textDato}>{fields.date}</Text>
+                      <Text style={styles.textDato}>{operation.logistica.fields.etd}</Text>
                     </View>
                   </View>
                   <View style={styles.vSpacerXs}></View>
@@ -302,9 +291,5 @@ export default function SaleForm({ operation, fields, productos }) {
                 </View>
               </Page>
             </Document>
-          </PDFViewer>
-        )}
-      </div>   
-    </Box>
   );
 }

@@ -1,25 +1,15 @@
-import React, { useEffect, useState } from "react";
 import {
   Document,
   Page,
   Text,
   View,
-  PDFViewer,
   Image,
 } from "@react-pdf/renderer";
-import { Box } from "@chakra-ui/react";
 import { styles } from "@/utils/formsStyles";
 
 export default function ShipmentPeriodPDF({ operation, fields, productos }) {
-  const [loadPage, setloadPage] = useState(false);
-  useEffect(() => {
-    setloadPage(true);
-  }, []);
+
   return (
-    <Box h="100%">
-      <div style={{ marginTop: "20px" }}>
-        {loadPage && (
-          <PDFViewer style={{ width: "100%", height: "70vh" }}>
             <Document title={"Shipment Details " + operation.id +".pdf"}>
               <Page size="A4" style={styles.page}>
                 <View style={styles.imageContainer}>
@@ -218,9 +208,5 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                 </View>
               </Page>
             </Document>
-          </PDFViewer>
-        )}
-      </div>
-    </Box>
   );
 }

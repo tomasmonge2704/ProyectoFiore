@@ -1,5 +1,13 @@
 import InputPersonalizado from "@/utils/inputPersonalizado";
-import { Grid, GridItem, VStack, Box, Textarea } from "@chakra-ui/react";
+import {
+  Grid,
+  GridItem,
+  VStack,
+  Box,
+  Textarea,
+  Center,
+  Button,
+} from "@chakra-ui/react";
 import TablaGeneral from "./tablaGeneral";
 import { Empresa } from "./empresa";
 import { Buyer } from "./buyer";
@@ -10,6 +18,9 @@ import { ShelfLife } from "./shelfLife";
 import { SelectBanco } from "./banco";
 import { EmpleadoComponent } from "./empleado";
 import { ConfirmButton } from "@/utils/saveForm";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PurchaseForm from "../pdfs/ordenCompra";
+import SaleForm from "../pdfs/proformaInvoice";
 export default function GeneralForm({
   operation,
   fields,
@@ -120,22 +131,26 @@ export default function GeneralForm({
           CarteraPacking={CarteraPacking}
           CarteraPaymentTerms={CarteraPaymentTerms}
         />
-        <Grid  w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
-            <GridItem w="100%">
-          <InputPersonalizado
-            type="date"
-            label="SHIPMENT PERIOD FROM"
-            defaultValue={fields.shipmentPeriodFrom}
-            onChange={(e) => setFields({...fields,shipmentPeriodFrom:e.target.value})}
-          />
+        <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
+          <GridItem w="100%">
+            <InputPersonalizado
+              type="date"
+              label="SHIPMENT PERIOD FROM"
+              defaultValue={fields.shipmentPeriodFrom}
+              onChange={(e) =>
+                setFields({ ...fields, shipmentPeriodFrom: e.target.value })
+              }
+            />
           </GridItem>
           <GridItem w="100%">
-          <InputPersonalizado
-            type="date"
-            label="SHIPMENT PERIOD TO"
-            defaultValue={fields.shipmentPeriodTo}
-            onChange={(e) => setFields({...fields,shipmentPeriodTo:e.target.value})}
-          />
+            <InputPersonalizado
+              type="date"
+              label="SHIPMENT PERIOD TO"
+              defaultValue={fields.shipmentPeriodTo}
+              onChange={(e) =>
+                setFields({ ...fields, shipmentPeriodTo: e.target.value })
+              }
+            />
           </GridItem>
         </Grid>
         <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={5}>
@@ -200,7 +215,29 @@ export default function GeneralForm({
           defaultValue={fields.comentarios}
           variant="filled"
         />
-        <ConfirmButton operation={operation} />
+        <Center>
+          <ConfirmButton operation={operation} />
+          <PDFDownloadLink
+            document={<PurchaseForm fields={fields} productos={productos} />}
+            fileName={`Purchase Confirmation${
+              fields.empresaRefNumber && " " + fields.empresaRefNumber
+            }.pdf`}
+          >
+            <Button ml={5} colorScheme="red">
+              Purchase Confirmation {fields.empresaRefNumber}.pdf
+            </Button>
+          </PDFDownloadLink>
+          <PDFDownloadLink
+            document={<SaleForm fields={fields} productos={productos} />}
+            fileName={`Proforma Invoice${
+              fields.empresaRefNumber && " " + fields.empresaRefNumber
+            }.pdf`}
+          >
+            <Button ml={5} colorScheme="red">
+              Proforma Invoice {fields.empresaRefNumber}.pdf
+            </Button>
+          </PDFDownloadLink>
+        </Center>
       </VStack>
     </Box>
   );

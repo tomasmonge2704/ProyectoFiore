@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
 import {
   Document,
   Page,
   Text,
   View,
-  PDFViewer,
   Image,
 } from "@react-pdf/renderer";
-import { Box } from "@chakra-ui/react";
 import { styles } from "@/utils/formsStyles";
 
 export default function PdfDocsIntructions({
@@ -16,10 +13,6 @@ export default function PdfDocsIntructions({
   fieldsDocs,
 }) {
   const fields = operation.comercial.fields;
-  const [loadPage, setloadPage] = useState(false);
-  useEffect(() => {
-    setloadPage(true);
-  }, []);
   const descriptionOfGoods = operation.docs.fields.descriptionGoods !== ""
   ? operation.docs.fields.descriptionGoods
   : operation.comercial.fields.productos
@@ -31,10 +24,6 @@ export default function PdfDocsIntructions({
   .map((e) => `-${e.description}`)
   .join("\n");
   return (
-    <Box h="100%">
-      <div style={{ marginTop: "20px" }}>
-        {loadPage && (
-          <PDFViewer style={{ width: "100%", height: "70vh" }}>
             <Document title="Docs Instructions.pdf">
               <Page size="A4" style={styles.page}>
                 <View style={styles.imageContainer}>
@@ -49,7 +38,7 @@ export default function PdfDocsIntructions({
                 </View>
                 <View style={styles.section}>
                   <Text style={styles.title}>
-                    INSTRUCCIONES PARA DOCUMENTOS {operation.id}
+                    DOCS INSTRUCTIONS {operation.id}
                   </Text>
                   <View style={styles.grid}>
                     <View style={styles.grid2}>
@@ -60,7 +49,7 @@ export default function PdfDocsIntructions({
                     </View>
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>DATE:</Text>
-                      <Text style={styles.textDato}>{fields.date}</Text>
+                      <Text style={styles.textDato}>{fieldsDocs.date}</Text>
                     </View>
                   </View>
                   <View style={styles.vSpacerXs}></View>
@@ -259,9 +248,5 @@ export default function PdfDocsIntructions({
                 </View>
               </Page>
             </Document>
-          </PDFViewer>
-        )}
-      </div>
-    </Box>
   );
 }

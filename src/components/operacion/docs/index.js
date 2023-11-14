@@ -9,6 +9,7 @@ import {
 import GeneralDocs from "./general";
 import PdfDocsIntructions from "./pdf";
 import { useStore } from "@/store/operation";
+import ContenedoPDFs from "@/components/contenedorPDFs";
 export const Docs = () => {
   const operation = useStore((state) => state.operation);
   const setFieldsDocs = useStore((state) => state.setFieldsDocs);
@@ -34,11 +35,13 @@ export const Docs = () => {
           />
         </TabPanel>
         <TabPanel>
+          <ContenedoPDFs>
           <PdfDocsIntructions
             operation={operation}
             fieldsComercial={fieldsComercial}
             fieldsDocs={fieldsDocs}
           />
+          </ContenedoPDFs>
         </TabPanel>
       </TabPanels>
     </Tabs>
