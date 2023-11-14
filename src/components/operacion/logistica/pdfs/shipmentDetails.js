@@ -56,10 +56,10 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                       </View>
 
                       <View style={styles.borderTableTitle}>
-                        <Text style={styles.negrita}>NET WEIGHT (KGS)</Text>
+                        <Text style={styles.negrita}>NET WEIGHT (MT)</Text>
                       </View>
                       <View style={styles.borderTableTitle}>
-                        <Text style={styles.negrita}>GROSS WEIGHT(KGS)</Text>
+                        <Text style={styles.negrita}>GROSS WEIGHT(MT)</Text>
                       </View>
                     </View>
                     {productos.length &&
