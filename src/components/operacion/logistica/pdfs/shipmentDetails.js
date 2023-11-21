@@ -74,12 +74,12 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
 
                           <View style={styles.borderTable}>
                             <Text style={styles.textDato}>
-                              {prod.netWeight}
+                              {prod.netWeightLogistica} MT
                             </Text>
                           </View>
                           <View style={styles.borderTable}>
                             <Text style={styles.textDato}>
-                              {prod.grossWeight}
+                              {prod.grossWeight} MT
                             </Text>
                           </View>
                         </View>
@@ -93,11 +93,11 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                       </View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{operation.comercial.fields.totalNetWeight}</Text>
+                        <Text style={styles.textDato}>{operation.comercial.fields.totalNetWeight} MT</Text>
                       </View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{operation.comercial.fields.totalGrossWeight}</Text>
+                        <Text style={styles.textDato}>{operation.comercial.fields.totalGrossWeight} MT</Text>
                       </View>
                     </View>
                   </View>
@@ -143,7 +143,7 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>VESSEL:</Text>
                       <Text style={styles.textDato}>
-                        {operation.logistica.fields.vessel}
+                        {operation.logistica.fields.vesselName}
                       </Text>
                     </View>
                     <View></View>
@@ -185,25 +185,6 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                       </Text>
                     </View>
                     <View></View>
-                  </View>
-                  
-                  <View style={styles.vSpacer}></View>
-                  <View style={styles.vSpacer}></View>
-                  <Image
-                    style={styles.firma}
-                    src={
-                      fields.empresa.empresa == "DPL"
-                        ? "/Firma-DPL.png"
-                        : "/Firma-Duplo.png"
-                    }
-                  />
-                  <View style={styles.vSpacer}></View>
-                  <View style={styles.line}></View>
-                  <View style={styles.footer}>
-                    <Text style={styles.text}>{fields.empresa.nombre}</Text>
-                    <Text style={styles.text}>
-                      {fields.empresa.direccion} (CP {fields.empresa.vatNumber})
-                    </Text>
                   </View>
                 </View>
               </Page>

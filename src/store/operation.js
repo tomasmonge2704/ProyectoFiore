@@ -68,18 +68,37 @@ export const useStore = create((set) => ({
       },
     }));
   },
+  setFieldsContableFinanciera: (fields) => {
+    let totalFields = 13;
+    let completedFields = Object.values(fields).filter(Boolean).length;
+    const completed = Math.floor((completedFields / totalFields) * 100);
+    set((state) => ({
+      operation: {
+        ...state.operation,
+        contableFinanciera: {
+          ...state.operation.contableFinanciera,
+          fields: fields,
+          completed:completed
+        },
+      },
+    }));
+  },
   setProductsComercial: (productos) => {
     let balanceSale = 0;
     let balancePurchase = 0;
     let totalNetWeight = 0;
     let totalGrossWeight= 0;
     let totalQuantityCartons = 0;
+    let totalFacturaCompra = 0;
+    let totalFacturaVenta = 0;
     for (let i = 0; i < productos.length; i++) {
       balanceSale += productos[i].unitPriceSale * productos[i].netWeight;
       balancePurchase += productos[i].unitPricePurchase * productos[i].netWeight;
-      totalNetWeight += Number(productos[i].netWeight);
+      totalNetWeight += Number(productos[i].netWeightLogistica);
       totalGrossWeight += Number(productos[i].grossWeight);
       totalQuantityCartons += Number(productos[i].quantityCartons);
+      totalFacturaCompra += Number(productos[i].unitPricePurchase * productos[i].netWeightLogistica);
+      totalFacturaVenta += Number(productos[i].unitPriceSale * productos[i].netWeightLogistica);
     }
     set((state) => ({
       operation: {
@@ -96,7 +115,15 @@ export const useStore = create((set) => ({
             totalQuantityCartons:totalQuantityCartons
           },
         },
-      },
+        contableFinanciera:{
+          ...state.operation.contableFinanciera,
+          fields:{
+            ...state.operation.contableFinanciera.fields,
+            totalFacturaCompra:totalFacturaCompra,
+            totalFacturaVenta:totalFacturaVenta
+          }
+        }
+      }
     }));
   },
 }));

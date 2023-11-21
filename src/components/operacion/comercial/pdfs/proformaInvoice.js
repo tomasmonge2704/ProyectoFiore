@@ -231,10 +231,9 @@ export default function SaleForm({ fields, productos }) {
                           <View style={styles.borderTable}>
                             {" "}
                             <Text style={styles.textDato}>
-                              USD{" "}
                               {convertirAMoneda(
                                 prod.unitPriceSale * prod.netWeight
-                              ).slice(1) || 0}
+                              ) || 0}
                             </Text>
                           </View>
                         </View>
@@ -252,7 +251,7 @@ export default function SaleForm({ fields, productos }) {
                       <View style={styles.borderTable}>
                         {" "}
                         <Text style={styles.textDato}>
-                          USD {convertirAMoneda(fields.totalSale).slice(1)}
+                          {convertirAMoneda(fields.totalSale)}
                         </Text>
                       </View>
                     </View>

@@ -15,8 +15,6 @@ import {
   MenuList,
   HStack,
   Avatar,
-  VStack,
-  Text,
   IconButton,
 } from "@chakra-ui/react";
 import {
@@ -98,7 +96,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       ml={{ base: 0, md: 4 }}
       transition="3s ease"
       w={{ base: "full", md: 20 }}
-      boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+      boxShadow="lg"
       borderRadius={"15px"}
       pos="fixed"
       h={{base:"full",md:"96vh"}}

@@ -90,7 +90,7 @@ export default function NuevaOperacion() {
         
       ) : (
         <>
-          <Grid w="100%" templateColumns="repeat(3, 1fr)" h={7} gap={4}>
+          <Grid w="100%" templateColumns="repeat(4, 1fr)" h={7} gap={4}>
             <GridItem w="100%">
               <Text fontSize="2xl" fontWeight="bold">
                 Status
@@ -108,9 +108,17 @@ export default function NuevaOperacion() {
             <GridItem w="100%" display="flex" justifyContent="center">
               {operation.comercial.fields.empresa.nombre && (
                 <Text fontSize="2xl" fontWeight="bold">
-                  Company
                   <Badge ml="1" fontSize="1em" colorScheme="green">
                     {operation.comercial.fields.empresa.nombre}
+                  </Badge>
+                </Text>
+              )}
+            </GridItem>
+            <GridItem w="100%" display="flex" justifyContent="center">
+              {operation.comercial.fields.operationType && (
+                <Text fontSize="2xl" fontWeight="bold">
+                  <Badge ml="1" fontSize="1em" colorScheme="green">
+                    {operation.comercial.fields.operationType}
                   </Badge>
                 </Text>
               )}

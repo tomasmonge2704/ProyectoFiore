@@ -26,6 +26,7 @@ import {
         quantity:0,
         quantityCartons:0,
         netWeight:0,
+        netWeightLogistica:0,
         grossWeight:0,
         unitPricePurchase:0,
         unitPriceSale:0,
@@ -85,10 +86,10 @@ import {
                   <Td>
                     <Input
                       variant="filled"
-                      defaultValue={e.netWeight}
+                      defaultValue={e.netWeightLogistica}
                       type="number"
                       onChange={(event) =>
-                        handleChangeInput(event, e.id, "netWeight")
+                        handleChangeInput(event, e.id, "netWeightLogistica")
                       }
                     />
                   </Td>

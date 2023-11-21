@@ -28,6 +28,7 @@ const fieldsComercialSchema = new Schema({
       direccion: String,
       direccion2: String,
       pais: String,
+      country: String,
       taxId: String,
       refNumber: String,
       plantNumber:String,

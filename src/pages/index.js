@@ -18,8 +18,9 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
-  Avatar,
+  Icon,
 } from "@chakra-ui/react";
+import { ArrowDownIcon,ArrowUpIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { FiCalendar } from "react-icons/fi";
 import { Loadder } from "@/utils/loadder";
@@ -56,14 +57,6 @@ export default function Dashboard() {
   },[operations])
   const toast = useToast();
   return (
-    <Flex
-      w="full"
-      p={2}
-      flexDir="column"
-      className="noScrollBar"
-      overflow="auto"
-      minH="100vh"
-    >
       <Box shadow="lg" borderRadius={10}>
         <Flex w="full" justifyContent="space-between" p={5}>
           <Heading as="h1" size="lg" letterSpacing="normal">
@@ -84,7 +77,7 @@ export default function Dashboard() {
         </Flex>
 
         {operations ? (
-          <Table variant="simple" size="md">
+          <Table variant="simple">
             <Thead>
               <Tr color="gray">
                 <Th
@@ -94,6 +87,7 @@ export default function Dashboard() {
                   color={filter == "refNumber" && "orange"}
                 >
                   Ref Number
+                  {filter == "refNumber" ? <ArrowDownIcon boxSize={5} ml={2} /> : <ArrowUpIcon boxSize={5} ml={2} />}
                 </Th>
                 <Th
                   onClick={() =>
@@ -102,6 +96,7 @@ export default function Dashboard() {
                   color={filter == "status" && "orange"}
                 >
                   Status
+                  {filter == "status" ? <ArrowDownIcon boxSize={5} ml={2} /> : <ArrowUpIcon boxSize={5} ml={2} />}
                 </Th>
                 <Th
                   onClick={() =>
@@ -110,6 +105,7 @@ export default function Dashboard() {
                   color={filter == "shipper" && "orange"}
                 >
                   Shipper
+                  {filter == "shipper" ? <ArrowDownIcon boxSize={5} ml={2} /> : <ArrowUpIcon boxSize={5} ml={2} />}
                 </Th>
                 <Th
                   onClick={() =>
@@ -118,6 +114,7 @@ export default function Dashboard() {
                   color={filter == "buyer" && "orange"}
                 >
                   Buyer
+                  {filter == "buyer" ? <ArrowDownIcon boxSize={5} ml={2} /> : <ArrowUpIcon boxSize={5} ml={2} />}
                 </Th>
                 <Th>Paid</Th>
                 <Th>Collection</Th>
@@ -128,6 +125,7 @@ export default function Dashboard() {
                   color={filter == "timeToArrival" && "orange"}
                 >
                   Time to arrival
+                  {filter == "timeToArrival" ? <ArrowDownIcon boxSize={5} ml={2} /> : <ArrowUpIcon boxSize={5} ml={2} />}
                 </Th>
                 <Th
                   onClick={() =>
@@ -140,7 +138,7 @@ export default function Dashboard() {
             </Thead>
             <Tbody>
               {itemsToDisplay.slice(slice.start,slice.end).map((e, index) => (
-                <Tr key={index} _hover={{shadow:"lg",borderLeft:"5px solid",borderColor:"orange"}}>
+                <Tr key={index} borderLeft="5px solid transparent" _hover={{shadow:"md",borderColor:"orange"}}>
                   <Td>
                     <Link href={"/operation/" + e.refNumber}>
                       <Flex align="center" justifyContent="flex-start">
@@ -204,6 +202,5 @@ export default function Dashboard() {
           </Flex>
         </Flex>
       </Box>
-    </Flex>
   );
 }
