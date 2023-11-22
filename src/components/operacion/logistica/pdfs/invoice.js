@@ -284,7 +284,7 @@ export default function SaleForm({ operation, fields, productos }) {
                   <View style={styles.footer}>
                     <Text style={styles.text}>{fields.empresa.nombre}</Text>
                     <Text style={styles.text}>
-                      {fields.empresa.direccion} (CP {fields.empresa.vatNumber})
+                    {fields.empresa.direccion} {fields.empresa.direccion2} (Tax ID: {fields.empresa.vatNumber})
                     </Text>
                   </View>
                 </View>

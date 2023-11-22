@@ -7,7 +7,13 @@ const bankSchema = new mongoose.Schema({
     beneficiaryAccountNumber: String,
     correspondentBank: String,
     ABA: String,
-    swift: String
+    swift: String,
+    minimo:Number,
+    fijo:Number,
+    porcentaje:Number,
+    minimoCobranza:Number,
+    fijoCobranza:Number,
+    porcentajeCobranza:Number
   });
   
 const objetoSchema = new mongoose.Schema({

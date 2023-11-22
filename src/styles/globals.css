@@ -12,3 +12,8 @@
 .emoji {
   font-family: "EmojiSymbols-Regular";
 }
+.modificado{
+  border: 2px;
+  border-color: #dd6b20 !important;
+  border-style: dashed !important;
+}

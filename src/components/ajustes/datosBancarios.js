@@ -12,16 +12,27 @@ import {
   Input,
   Grid,
   GridItem,
-  useToast
+  useToast,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  VStack,
 } from "@chakra-ui/react";
 import useFetch from "@/hooks/useFetch";
 import { useState } from "react";
 import { Loadder } from "@/utils/loadder";
+import InputPersonalizado from "@/utils/inputPersonalizado";
 export const DatosBancarios = () => {
-  const [CarteraBancaria,setCarteraBancaria] = useFetch(`${process.env.API_URL}/empresa`,undefined);
+  const [CarteraBancaria, setCarteraBancaria] = useFetch(
+    `${process.env.API_URL}/empresa`,
+    undefined
+  );
   const [dirtyIndexes, setDirtyIndexes] = useState([]);
   const toast = useToast();
   const handleInputChange = (element, index, parametro, indexBank) => {
+    element.target.classList.add("modificado");
     setDirtyIndexes((prevDirtyIndexes) => {
       if (!prevDirtyIndexes.includes(index)) {
         return [...prevDirtyIndexes, index];
@@ -38,7 +49,7 @@ export const DatosBancarios = () => {
       // Si no se proporciona indexBank, se está modificando una propiedad directamente en el elemento
       newDatos[index][parametro] = element.target.value;
     }
-    setCarteraBancaria(newDatos)
+    setCarteraBancaria(newDatos);
   };
 
   const handleConfirmChanges = (index) => {
@@ -87,14 +98,9 @@ export const DatosBancarios = () => {
   };
   return (
     <Flex justify="space-evenly" mt={2} mb={5}>
-      {CarteraBancaria ?
+      {CarteraBancaria ? (
         CarteraBancaria.map((e, index) => (
-          <Card
-            minW="47%"
-            key={index}
-            variant="elevated"
-            backgroundColor={e.empresa == "Duplo" ? "orange.200" : "orange.300"}
-          >
+          <Card minW="47%" key={index} variant="elevated" shadow="xl">
             <CardHeader h={5}>
               <Center>
                 <Heading size="md">{e.nombre}</Heading>
@@ -127,116 +133,223 @@ export const DatosBancarios = () => {
                   }
                 />
               </Stack>
-              <Divider mt={2} mb={2} />
-              <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={2}>
-                {e.banks &&
-                  e.banks.map((bank, indexBank) => (
-                    <GridItem w="100%" key={indexBank}>
-                      <Stack spacing="2">
-                        <Text as="b">Beneficiary Bank {indexBank + 1}</Text>
-                        <Input
-                          variant="filled"
-                          defaultValue={bank.beneficiaryBank}
-                          onChange={(element) =>
-                            handleInputChange(
-                              element,
-                              index,
-                              "beneficiaryBank",
-                              indexBank
-                            )
-                          }
-                        />
-                        <Text as="b">Bank Adress</Text>
-                        <Input
-                          variant="filled"
-                          defaultValue={bank.bankAdress}
-                          onChange={(element) =>
-                            handleInputChange(
-                              element,
-                              index,
-                              "bankAdress",
-                              indexBank
-                            )
-                          }
-                        />
-                        <Text as="b">Swift Code</Text>
-                        <Input variant="filled" defaultValue={bank.swiftCode}  onChange={(element) =>
-                            handleInputChange(
-                              element,
-                              index,
-                              "swiftCode",
-                              indexBank
-                            )
-                          }/>
-                        <Text as="b">Beneficiary Name</Text>
-                        <Input
-                          variant="filled"
-                          defaultValue={bank.beneficiaryName}
-                          onChange={(element) =>
-                            handleInputChange(
-                              element,
-                              index,
-                              "beneficiaryName",
-                              indexBank
-                            )
-                          }
-                        />
-                        <Text as="b">Beneficiary Account Number</Text>
-                        <Input
-                          variant="filled"
-                          defaultValue={bank.beneficiaryAccountNumber}
-                          onChange={(element) =>
-                            handleInputChange(
-                              element,
-                              index,
-                              "beneficiaryAccountNumber",
-                              indexBank
-                            )
-                          }
-                        />
-                        <Text as="b">Correspondent Bank</Text>
-                        <Input
-                          variant="filled"
-                          defaultValue={bank.correspondentBank}
-                          onChange={(element) =>
-                            handleInputChange(
-                              element,
-                              index,
-                              "correspondentBank",
-                              indexBank
-                            )
-                          }
-                        />
-                         <Text as="b">ABA</Text>
-                        <Input
-                          variant="filled"
-                          defaultValue={bank.ABA}
-                          onChange={(element) =>
-                            handleInputChange(
-                              element,
-                              index,
-                              "ABA",
-                              indexBank
-                            )
-                          }
-                        />
-                         <Text as="b">SWIFT Code</Text>
-                        <Input
-                          variant="filled"
-                          defaultValue={bank.swift}
-                          onChange={(element) =>
-                            handleInputChange(
-                              element,
-                              index,
-                              "swift",
-                              indexBank
-                            )
-                          }
-                        />
-                      </Stack>
-                    </GridItem>
-                  ))}
-              </Grid>
+              <Divider mt={4} mb={4} />
+              <Tabs variant="soft-rounded" colorScheme="orange">
+                <TabList justifyContent="center">
+                  {e.banks &&
+                    e.banks.map((bank, indexBank) => (
+                      <Tab key={indexBank}>{bank.beneficiaryBank}</Tab>
+                    ))}
+                </TabList>
+                <TabPanels>
+                  {e.banks &&
+                    e.banks.map((bank, indexBank) => (
+                      <TabPanel w="100%" key={indexBank}>
+                        <Stack spacing="2">
+                          <Text as="b">Beneficiary Bank {indexBank + 1}</Text>
+                          <Input
+                            variant="filled"
+                            defaultValue={bank.beneficiaryBank}
+                            onChange={(element) =>
+                              handleInputChange(
+                                element,
+                                index,
+                                "beneficiaryBank",
+                                indexBank
+                              )
+                            }
+                          />
+                          <Text as="b">Bank Adress</Text>
+                          <Input
+                            variant="filled"
+                            defaultValue={bank.bankAdress}
+                            onChange={(element) =>
+                              handleInputChange(
+                                element,
+                                index,
+                                "bankAdress",
+                                indexBank
+                              )
+                            }
+                          />
+                          <Text as="b">Swift Code</Text>
+                          <Input
+                            variant="filled"
+                            defaultValue={bank.swiftCode}
+                            onChange={(element) =>
+                              handleInputChange(
+                                element,
+                                index,
+                                "swiftCode",
+                                indexBank
+                              )
+                            }
+                          />
+                          <Text as="b">Beneficiary Name</Text>
+                          <Input
+                            variant="filled"
+                            defaultValue={bank.beneficiaryName}
+                            onChange={(element) =>
+                              handleInputChange(
+                                element,
+                                index,
+                                "beneficiaryName",
+                                indexBank
+                              )
+                            }
+                          />
+                          <Text as="b">Beneficiary Account Number</Text>
+                          <Input
+                            variant="filled"
+                            defaultValue={bank.beneficiaryAccountNumber}
+                            onChange={(element) =>
+                              handleInputChange(
+                                element,
+                                index,
+                                "beneficiaryAccountNumber",
+                                indexBank
+                              )
+                            }
+                          />
+                          <Text as="b">Correspondent Bank</Text>
+                          <Input
+                            variant="filled"
+                            defaultValue={bank.correspondentBank}
+                            onChange={(element) =>
+                              handleInputChange(
+                                element,
+                                index,
+                                "correspondentBank",
+                                indexBank
+                              )
+                            }
+                          />
+                          <Text as="b">ABA</Text>
+                          <Input
+                            variant="filled"
+                            defaultValue={bank.ABA}
+                            onChange={(element) =>
+                              handleInputChange(
+                                element,
+                                index,
+                                "ABA",
+                                indexBank
+                              )
+                            }
+                          />
+                          <Text as="b">SWIFT Code</Text>
+                          <Input
+                            variant="filled"
+                            defaultValue={bank.swift}
+                            onChange={(element) =>
+                              handleInputChange(
+                                element,
+                                index,
+                                "swift",
+                                indexBank
+                              )
+                            }
+                          />
+                          <Grid
+                            maxWidth="37vw"
+                            templateColumns="repeat(2, 1fr)"
+                            gap={4}
+                            mt={2}
+                            rowGap="2"
+                            border="2px"
+                            borderStyle="dashed"
+                            borderColor="blue.100"
+                            p={1}
+                            borderRadius="lg"
+                          >
+                            <GridItem>
+                              <VStack>
+                                <Text as="b">Comisiones Pagos</Text>
+                                <InputPersonalizado
+                                  label="Fijo (USD)"
+                                  defaultValue={bank.fijo}
+                                  onChange={(element) =>
+                                    handleInputChange(
+                                      element,
+                                      index,
+                                      "fijo",
+                                      indexBank
+                                    )
+                                  }
+                                />
+                                <InputPersonalizado
+                                  label="Porcentaje (%)"
+                                  defaultValue={bank.porcentaje}
+                                  onChange={(element) =>
+                                    handleInputChange(
+                                      element,
+                                      index,
+                                      "porcentaje",
+                                      indexBank
+                                    )
+                                  }
+                                />
+                                <InputPersonalizado
+                                  label="Minimo (USD)"
+                                  defaultValue={bank.minimo}
+                                  onChange={(element) =>
+                                    handleInputChange(
+                                      element,
+                                      index,
+                                      "minimo",
+                                      indexBank
+                                    )
+                                  }
+                                />
+                              </VStack>
+                            </GridItem>
+                            <GridItem>
+                              <VStack>
+                                <Text as="b">Comisiones Cobranza</Text>
+                                <InputPersonalizado
+                                  label="Fijo (USD)"
+                                  defaultValue={bank.fijoCobranza}
+                                  onChange={(element) =>
+                                    handleInputChange(
+                                      element,
+                                      index,
+                                      "fijoCobranza",
+                                      indexBank
+                                    )
+                                  }
+                                />
+                                <InputPersonalizado
+                                  label="Porcentaje (%)"
+                                  defaultValue={bank.porcentajeCobranza}
+                                  onChange={(element) =>
+                                    handleInputChange(
+                                      element,
+                                      index,
+                                      "porcentajeCobranza",
+                                      indexBank
+                                    )
+                                  }
+                                />
+                                <InputPersonalizado
+                                  label="Minimo (USD)"
+                                  defaultValue={bank.minimoCobranza}
+                                  onChange={(element) =>
+                                    handleInputChange(
+                                      element,
+                                      index,
+                                      "minimoCobranza",
+                                      indexBank
+                                    )
+                                  }
+                                />
+                              </VStack>
+                            </GridItem>
+                          </Grid>
+                        </Stack>
+                      </TabPanel>
+                    ))}
+                </TabPanels>
+              </Tabs>
               {dirtyIndexes.includes(index) && (
                 <Center mt={7}>
                   <Button
@@ -249,7 +362,12 @@ export const DatosBancarios = () => {
               )}
             </CardBody>
           </Card>
-        )) : <Center><Loadder/></Center>}
+        ))
+      ) : (
+        <Center>
+          <Loadder />
+        </Center>
+      )}
     </Flex>
   );
 };
