@@ -114,7 +114,7 @@ export default function SaleForm({ operation, fields, productos }) {
                       <View style={styles.borderTable}>
                         {" "}
                         <Text style={styles.textDato}>
-                          {fields.totalNetWeight} MT
+                          {fields.totalNetWeightLogistica} MT
                         </Text>
                       </View>
                       <View style={{ width: "150%" }}></View>

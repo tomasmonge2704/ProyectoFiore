@@ -5,6 +5,7 @@ import {
   Tabs,
   TabPanel,
   TabPanels,
+  Flex,
 } from "@chakra-ui/react";
 import { DatosBancarios } from "@/components/ajustes/datosBancarios";
 import { PaymentTerms } from "@/components/ajustes/paymentTerms";
@@ -16,11 +17,11 @@ import { AjustesConsignee } from "@/components/ajustes/consignee";
 import { Forwarders } from "@/components/ajustes/forwarders";
 import { ShippingLine } from "@/components/ajustes/maritimas";
 export default function Ajustes() {
-
   return (
     <Tabs variant="soft-rounded" colorScheme="orange" isLazy>
       <Center>
-        <TabList>
+      <TabList>
+        <Flex justifyContent="center" flexWrap="wrap">
           <Tab>Datos Bancarios</Tab>
           <Tab>Payment Terms</Tab>
           <Tab>Puertos</Tab>
@@ -30,35 +31,36 @@ export default function Ajustes() {
           <Tab>Consignee</Tab>
           <Tab>Forwarders</Tab>
           <Tab>Maritimas</Tab>
-        </TabList>
+        </Flex>
+      </TabList>
       </Center>
       <TabPanels>
         <TabPanel>
-          <DatosBancarios/>
+          <DatosBancarios />
         </TabPanel>
         <TabPanel>
-          <PaymentTerms/>
+          <PaymentTerms />
         </TabPanel>
         <TabPanel>
-          <Puertos/>
+          <Puertos />
         </TabPanel>
         <TabPanel>
-          <AjustesPacking/>
+          <AjustesPacking />
         </TabPanel>
         <TabPanel>
-          <AjustesProductos/>
+          <AjustesProductos />
         </TabPanel>
         <TabPanel>
-          <AjustesEmpleados/>
+          <AjustesEmpleados />
         </TabPanel>
         <TabPanel>
           <AjustesConsignee />
         </TabPanel>
         <TabPanel>
-          <Forwarders/>
+          <Forwarders />
         </TabPanel>
         <TabPanel>
-          <ShippingLine/>
+          <ShippingLine />
         </TabPanel>
       </TabPanels>
     </Tabs>

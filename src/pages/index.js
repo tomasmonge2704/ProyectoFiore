@@ -18,7 +18,6 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
-  Icon,
 } from "@chakra-ui/react";
 import { ArrowDownIcon,ArrowUpIcon } from "@chakra-ui/icons";
 import Link from "next/link";
@@ -59,7 +58,7 @@ export default function Dashboard() {
   return (
       <Box shadow="lg" borderRadius={10}>
         <Flex w="full" justifyContent="space-between" p={5}>
-          <Heading as="h1" size="lg" letterSpacing="normal">
+          <Heading as="h1" size="sm:lg md" letterSpacing="normal">
             Operations
           </Heading>
           <InputGroup w="60%">
@@ -77,6 +76,7 @@ export default function Dashboard() {
         </Flex>
 
         {operations ? (
+          <Box w="full" overflowX="auto">
           <Table variant="simple">
             <Thead>
               <Tr color="gray">
@@ -189,12 +189,13 @@ export default function Dashboard() {
               ))}
             </Tbody>
           </Table>
+          </Box>
         ) : (
           <Center w="100%" h="70vh">
             <Loadder />
           </Center>
         )}
-        <Flex w="full" justifyContent="space-between" mt={5} p={5}>
+        <Flex w="full" justifyContent="space-between" flexWrap="wrap" mt={5} p={5}>
           <Text>Showing {slice.start} to {slice.end} of {itemsToDisplay.length} results</Text>
           <Flex justifyContent="space-between" w="44">
             <Button onClick={handlePrev} isDisabled={slice.start == 0 && true}>Previous</Button>

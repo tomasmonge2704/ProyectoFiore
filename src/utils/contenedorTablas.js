@@ -131,8 +131,8 @@ export const ContenedorTablas = ({
         isOpen={isOpen}
         element={selectedCard}
       />
-      <Flex justify="space-between">
-        <InputGroup w="80%">
+      <Flex justify="space-evenly" flexWrap="wrap" rowGap={5}>
+        <InputGroup width={["100%","70%"]}>
           <InputLeftElement pointerEvents="none">
             <SearchIcon color="gray.300" />
           </InputLeftElement>
@@ -146,7 +146,6 @@ export const ContenedorTablas = ({
           />
         </InputGroup>
         <Button
-          w="12%"
           colorScheme="orange"
           onClick={() => handleOpenModal(undefined)}
         >

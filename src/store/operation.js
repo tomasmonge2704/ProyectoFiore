@@ -87,6 +87,7 @@ export const useStore = create((set) => ({
     let balanceSale = 0;
     let balancePurchase = 0;
     let totalNetWeight = 0;
+    let totalNetWeightLogistica = 0;
     let totalGrossWeight= 0;
     let totalQuantityCartons = 0;
     let totalFacturaCompra = 0;
@@ -94,7 +95,8 @@ export const useStore = create((set) => ({
     for (let i = 0; i < productos.length; i++) {
       balanceSale += productos[i].unitPriceSale * productos[i].netWeight;
       balancePurchase += productos[i].unitPricePurchase * productos[i].netWeight;
-      totalNetWeight += Number(productos[i].netWeightLogistica);
+      totalNetWeight += Number(productos[i].netWeight);
+      totalNetWeightLogistica += Number(productos[i].netWeightLogistica);
       totalGrossWeight += Number(productos[i].grossWeight);
       totalQuantityCartons += Number(productos[i].quantityCartons);
       totalFacturaCompra += Number(productos[i].unitPricePurchase * productos[i].netWeightLogistica);
@@ -112,6 +114,7 @@ export const useStore = create((set) => ({
             totalSale: balanceSale,
             totalGrossWeight: totalGrossWeight,
             totalNetWeight:totalNetWeight,
+            totalNetWeightLogistica:totalNetWeightLogistica,
             totalQuantityCartons:totalQuantityCartons
           },
         },

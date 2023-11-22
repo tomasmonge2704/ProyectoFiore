@@ -27,7 +27,7 @@ export const GridCards = ({ data, params,handleOpenModal }) => {
         ) : (
           data.map((e, index) => (
             <Card
-            w="15%"
+            w={["9rem","12rem"]}
               key={index}
               shadow="sm"
               variant="filled"

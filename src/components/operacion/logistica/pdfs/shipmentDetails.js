@@ -93,7 +93,7 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                       </View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{operation.comercial.fields.totalNetWeight} MT</Text>
+                        <Text style={styles.textDato}>{operation.comercial.fields.totalNetWeightLogistica} MT</Text>
                       </View>
                       <View style={styles.borderTable}>
                         {" "}

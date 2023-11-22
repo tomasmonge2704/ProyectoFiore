@@ -123,7 +123,7 @@ import {
               <Th>Total {fields.totalQuantityCartons}</Th>
               <Th></Th>
               <Th></Th>
-              <Th isNumeric>{fields.totalNetWeight}</Th>
+              <Th isNumeric>{fields.totalNetWeightLogistica}</Th>
               <Th isNumeric>{fields.totalGrossWeight}</Th>
             </Tr>
           </Tfoot>
