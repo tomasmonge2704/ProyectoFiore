@@ -9,7 +9,7 @@ import {
   } from "@chakra-ui/react";
 import { EgresosForm } from "./egresos";
 import { ResumenFinanciera } from "./resumen";
-
+import { ConfirmButton } from "@/utils/saveForm";
 export const Contable = () => {
     const operation = useStore((state) => state.operation);
     const setOperation = useStore((state) => state.setOperation);
@@ -30,6 +30,7 @@ export const Contable = () => {
           <ResumenFinanciera operation={operation} />
         </TabPanel>
       </TabPanels>
+      <Center mt={10}><ConfirmButton operation={operation} /></Center>
     </Tabs>
     )
 }

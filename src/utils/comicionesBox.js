@@ -1,16 +1,21 @@
-import { Text, Tooltip } from "@chakra-ui/react";
+import { Flex, IconButton, Tooltip } from "@chakra-ui/react";
 import InputPersonalizado from "./inputPersonalizado";
-
-export const ComisionesBox = ({ text,monto,bank,fontSize,colorScheme }) => {
-    const porcentaje = text === "COMISIONES" ? (bank?.porcentaje * monto || 0) : (bank?.porcentajeCobranza * monto || 0);
+import { convertirAMoneda } from "./convertInt";
+import { FiEye } from "react-icons/fi";
+export const ComisionesBox = ({ text,monto,bank}) => {
+    monto = Number(monto);
+    const porcentaje = text === "COMISIONES" ? ((bank?.porcentaje * monto) / 100 || 0) : ((bank?.porcentajeCobranza * monto) / 100 || 0);
     const minimo = text === "COMISIONES" ? (bank?.minimo || 0) : (bank?.minimoCobranza || 0);
     const fijo = text === "COMISIONES" ? (bank?.fijo || 0) : (bank?.fijoCobranza || 0);
-    const calc = monto > minimo ? monto + porcentaje + fijo : "No supera el mínimo";
-    
+    const calc = monto > minimo ? porcentaje + fijo : 0;
   return (
-    <Tooltip label={calc ? `comision = ${monto} + ${porcentaje} + ${fijo}` : ""} aria-label={text}>
-        <InputPersonalizado label={text} defaultValue={`${monto ? calc : "0 USD"}`} />
-    </Tooltip>
+    <Flex justifyContent="space-between" w="full">
+      <InputPersonalizado label={text} value={convertirAMoneda(calc)} readOnly={true}/>
+      <Tooltip label={calc ? `comision = ${convertirAMoneda(porcentaje)} + ${fijo !== 0 && convertirAMoneda(fijo) + " (fijo)"}` : ""} aria-label={text}>
+         <IconButton colorScheme="blue" variant="link" icon={<FiEye/>}/>
+         </Tooltip>
+    </Flex>
+
   );
 }
 

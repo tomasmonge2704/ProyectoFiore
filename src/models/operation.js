@@ -59,6 +59,7 @@ const fieldsComercialSchema = new Schema({
       amountSale: Number,
       amountPurchase: Number,
       netWeight: Number,
+      netWeightLogistica:Number,
       grossWeight: Number,
     },
   ],
@@ -146,7 +147,14 @@ const fieldsDocsSchema = new Schema({
     taxId: String,
   },
 });
-const fieldsContableFinanciera = new Schema({});
+const fieldsContableFinanciera = new Schema({
+  montoAnticipoSale:String,
+  montoAnticipoPurchase:String,
+  montoBalancePurchase:String,
+  montoBalanceSale:String,
+  totalFacturaCompra:String,
+  totalFacturaVenta:String
+});
 // Esquema principal
 const objetoSchema = new Schema({
   id: {
