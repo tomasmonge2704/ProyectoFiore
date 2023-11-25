@@ -99,7 +99,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       boxShadow="lg"
       borderRadius={"15px"}
       pos="fixed"
-      h={{base:"full",md:"96vh"}}
+      h={{base:"full",md:"90vh"}}
       {...rest}
     >
       <Box

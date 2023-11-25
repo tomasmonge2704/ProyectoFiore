@@ -148,12 +148,32 @@ const fieldsDocsSchema = new Schema({
   },
 });
 const fieldsContableFinanciera = new Schema({
-  montoAnticipoSale:String,
-  montoAnticipoPurchase:String,
-  montoBalancePurchase:String,
-  montoBalanceSale:String,
-  totalFacturaCompra:String,
-  totalFacturaVenta:String
+  montoAnticipoSale:Number,
+  montoAnticipoPurchase:Number,
+  montoBalancePurchase:Number,
+  montoBalanceSale:Number,
+  totalFacturaCompra:Number,
+  totalFacturaVenta:Number,
+  intermediaryCharges:Number,
+  nroFacturaProveedorFrigo:String,
+  fechaBalancePurchase:String,
+  fechaAnticipoPurchase:String,
+  nroFacturaMarketing:String,
+  montoFacturaMarketing:Number,
+  fechaPagoMarketing:String,
+  nroFacturaFlete:String,
+  montoFacturaFlete:Number,
+  fechaPagoFlete:String,
+  nroFacturaSeguro:String,
+  montoFacturaSeguro:Number,
+  fechaPagoSeguro:String,
+  nroFacturaSell:String,
+  fechaCobroBalance:String,
+  nroFacturaBrokerage:String,
+  fechaCobroBrokerage:String,
+  fechaCobroAnticipo:String,
+  comentariosPurchase:String,
+  comentariosSell:String
 });
 // Esquema principal
 const objetoSchema = new Schema({
