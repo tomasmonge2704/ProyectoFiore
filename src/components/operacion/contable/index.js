@@ -124,12 +124,12 @@ export const Contable = () => {
   const [totalComisionesIngresos, setTotalComisionesIngresos] = useState(0);
   useEffect(() => {
     const fields = operation.contableFinanciera.fields;
-    const fijo = operation.comercial.fields.empresa.bank.fijo || 0;
+    const fijo = operation.comercial.fields.empresa.bank?.fijo || 0;
     const fijoCobranza =
-      operation.comercial.fields.empresa.bank.fijoCobranza || 0;
-    const porcentaje = operation.comercial.fields.empresa.bank.porcentaje || 0;
+      operation.comercial.fields.empresa.bank?.fijoCobranza || 0;
+    const porcentaje = operation.comercial.fields.empresa.bank?.porcentaje || 0;
     const porcentajeCobranza =
-      operation.comercial.fields.empresa.bank.porcentajeCobranza || 0;
+      operation.comercial.fields.empresa.bank?.porcentajeCobranza || 0;
     setComisionPagadoAnticipo(
       calculateComision(
         fields.comisionMontoPagadoAnticipo,
