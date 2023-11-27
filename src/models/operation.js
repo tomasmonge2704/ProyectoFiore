@@ -170,10 +170,20 @@ const fieldsContableFinanciera = new Schema({
   nroFacturaSell:String,
   fechaCobroBalance:String,
   nroFacturaBrokerage:String,
+  montoCobradoBrokerage:Number,
   fechaCobroBrokerage:String,
   fechaCobroAnticipo:String,
   comentariosPurchase:String,
-  comentariosSell:String
+  comentariosSell:String,
+  comisionMontoPagadoAnticipo:Number,
+  comisionMontoPagadobalance:Number,
+  comisionMontoPagadoMarketing:Number,
+  comisionPagadoFlete:Number,
+  comisionPagadoInsurance:Number,
+  comisionMontoCobradoAnticipo:Number,
+  comisionMontoCobradoBalance:Number,
+  comisionMontoCobradoBrokerage:Number,
+  profitNeto:Number
 });
 // Esquema principal
 const objetoSchema = new Schema({
