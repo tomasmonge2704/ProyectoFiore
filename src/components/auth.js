@@ -1,9 +1,8 @@
-import { useEffect, useContext } from "react";
-import { UserContext } from "./context/userContext";
+import { useEffect } from "react";
 import { verify } from "jsonwebtoken";
 import Router from "next/router";
 import { useRouter } from "next/router";
-
+import { useStoreUser } from "@/store/user";
 const secretKey = process.env.CLAVE_TOKEN;
 
 function validateToken(token) {
@@ -15,7 +14,7 @@ function validateToken(token) {
 }
 
 export function CheckAuth({ children }) {
-  const { setUser } = useContext(UserContext);
+  const setUser = useStoreUser((state) => state.setUser);
   const router = useRouter();
 
   useEffect(() => {

@@ -69,7 +69,7 @@ export const useStore = create((set) => ({
     }));
   },
   setFieldsContableFinanciera: (fields) => {
-    let totalFields = 15;
+    let totalFields = 21;
     let completedFields = Object.values(fields).filter(Boolean).length;
     const completed = Math.floor((completedFields / totalFields) * 100);
     set((state) => ({

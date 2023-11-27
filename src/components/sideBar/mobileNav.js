@@ -13,13 +13,12 @@ import {
   MenuList,
   useColorMode
 } from "@chakra-ui/react";
-import { useContext } from "react";
-import { UserContext } from "../context/userContext";
+import { useStoreUser } from "@/store/user";
 import { FiMenu, FiBell } from "react-icons/fi";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 export const MobileNav = ({ onOpen,text, ...rest }) => {
-  const {user} = useContext(UserContext); 
+  const user = useStoreUser((state) => state.user);
   const { colorMode, toggleColorMode } = useColorMode();
   const router = useRouter();
   const logOut = () => {

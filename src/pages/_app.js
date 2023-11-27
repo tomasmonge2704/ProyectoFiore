@@ -1,7 +1,6 @@
 import "@/styles/globals.css";
 import Chakra from "@/components/chakra";
 import Fonts from "@/components/fonts";
-import { UserProvider } from "@/components/context/userContext";
 import { CheckAuth } from "@/components/auth";
 import Layout from "@/components/Layouts/main";
 import { useRouter } from 'next/router';
@@ -34,7 +33,6 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
-    <UserProvider>
       <CheckAuth>
         <Chakra>
           <Fonts />
@@ -43,6 +41,5 @@ export default function App({ Component, pageProps }) {
           </Layout>
         </Chakra>
       </CheckAuth>
-    </UserProvider>
   );
 }

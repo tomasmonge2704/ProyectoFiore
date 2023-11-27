@@ -29,8 +29,7 @@ import { NavItem } from "./navItem";
 import { MobileNav } from "./mobileNav";
 import { useRouter } from "next/router";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { useContext } from "react";
-import { UserContext } from "../context/userContext";
+import { useStoreUser } from "@/store/user";
 const LinkItems = [
   { name: "Home", icon: FiHome, href: "/", text: "" },
   { name: "Buyers", icon: FiUser, href: "/Buyers", text: "BUYERS" },
@@ -84,7 +83,7 @@ export default function SidebarWithHeader({ children }) {
 }
 const SidebarContent = ({ onClose, ...rest }) => {
   const router = useRouter();
-  const { user } = useContext(UserContext);
+  const user = useStoreUser((state) => state.user);
   const logOut = () => {
     localStorage.removeItem("token");
     router.replace("/login");

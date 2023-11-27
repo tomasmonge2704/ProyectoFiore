@@ -63,7 +63,7 @@ export const Contable = () => {
     calculateAnticipo(
       operation.contableFinanciera.fields.montoAnticipoPurchase,
       operation.comercial.fields.paymentTermsPurchase,
-      montoFacturaPurchase
+      operation.comercial.fields.totalPurchase
     ) || 0
   );
 
@@ -71,7 +71,7 @@ export const Contable = () => {
     calculateAnticipo(
       operation.contableFinanciera.fields.montoAnticipoSale,
       operation.comercial.fields.paymentTermsSale,
-      montoFacturaSell
+      operation.comercial.fields.totalSale
     ) || 0
   );
 
