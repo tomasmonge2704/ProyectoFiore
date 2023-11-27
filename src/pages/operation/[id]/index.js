@@ -42,36 +42,80 @@ export default function NuevaOperacion() {
         .finally(() => setIsLoading(false));
     }
   }, [router.query]);
+  const { activeStep, setActiveStep } = useSteps({
+    index: 1,
+    count: 4,
+  });
+  const [showStep, setShowStep] = useState("Commercial");
+  const [completadoComercial, setCompletadoComercial] = useState(0);
+  const [completadoDocs, setCompletadoDocs] = useState(0);
+  const [completadoLogistica, setCompletadoLogistica] = useState(0);
+  const [completadoContable, setCompletadoContable] = useState(0);
+
+  useEffect(() => {
+    if (operation) {
+      setCompletadoComercial(() => {
+        let totalFields = 25;
+        const fields = operation.comercial.fields;
+        if (fields?.comision) totalFields = totalFields + 1;
+        let completedFields = Object.values(fields).filter(Boolean).length;
+        if (fields.comentarios) completedFields -= 1;
+        if (fields.shipmentPeriod) completedFields -= 1;
+        return Math.floor((completedFields / totalFields) * 100);
+      });
+      setCompletadoDocs(() => {
+        let totalFields = 11;
+        const fields = operation.docs.fields;
+        let completedFields = 0;
+        if (fields.documentRequested.length > 0) {
+          completedFields += 1;
+          totalFields += 1;
+        }
+        if (fields.date) completedFields += 1;
+        if (fields.responsable) completedFields += 1;
+        if (fields.terminosFlete) completedFields += 1;
+        if (fields.descriptionGoods) completedFields += 1;
+        if (fields.descriptionGoods2) completedFields += 1;
+        if (fields.temperature) completedFields += 1;
+        if (fields.consignee.nombre) completedFields += 1;
+        if (fields.notify.nombre) completedFields += 1;
+        if (fields.consigneeRest.nombre) completedFields += 1;
+        if (fields.placeBLIssue) completedFields += 1;
+        if (fields.tipoContenedor) completedFields += 1;
+        return Math.floor((completedFields / totalFields) * 100);
+      });
+      setCompletadoLogistica(() => {
+        let totalFields = 13;
+        const fields = operation.logistica.fields;
+        let completedFields = Object.values(fields).filter(Boolean).length;
+        return Math.floor((completedFields / totalFields) * 100);
+      });
+      setCompletadoContable(() => {
+        let totalFields = 21;
+        const fields = operation.contableFinanciera.fields;
+        let completedFields = Object.values(fields).filter(Boolean).length;
+        return Math.floor((completedFields / totalFields) * 100);
+      });
+    }
+  }, [operation]);
   const steps = [
     {
       title: "Commercial",
-      description: `${
-        operation ? operation.comercial.completed : 0
-      }% completado`,
+      description: `${completadoComercial}% completado`,
     },
     {
       title: "Docs",
-      description: `${operation ? operation.docs.completed : 0}% completado`,
+      description: `${completadoDocs}% completado`,
     },
     {
       title: "Logistics",
-      description: `${
-        operation ? operation.logistica.completed : 0
-      }% completado`,
+      description: `${completadoLogistica}% completado`,
     },
     {
       title: "Finance",
-      description: `${
-        operation ? operation.contableFinanciera.completed : 0
-      }% completado`,
+      description: `${completadoContable}% completado`,
     },
   ];
-  const { activeStep, setActiveStep } = useSteps({
-    index: 1,
-    count: steps.length,
-  });
-  const [showStep, setShowStep] = useState("Commercial");
-
   return (
     <Box
       boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
@@ -81,29 +125,31 @@ export default function NuevaOperacion() {
     >
       {isLoading == true ? (
         <Center>
-        <Loadder />
+          <Loadder />
         </Center>
       ) : !operation ? (
         <Center h="100%">
-            <Text>No se ha encontrado la Operacion {router.query.refNumber}</Text>
+          <Text>No se ha encontrado la Operacion {router.query.refNumber}</Text>
         </Center>
-        
       ) : (
         <>
           <Grid w="100%" templateColumns="repeat(4, 1fr)" h={7} gap={4}>
             <GridItem w="100%">
               <Text fontSize="2xl" fontWeight="bold">
                 Status
-                <StateSelector selected={operation.status} refNumber={operation.id} />
+                <StateSelector
+                  selected={operation.status}
+                  refNumber={operation.id}
+                />
               </Text>
             </GridItem>
             <GridItem w="100%" display="flex" justifyContent="center">
-                <Text fontSize="2xl" fontWeight="bold">
-                  REF. Number
-                  <Badge ml="1" fontSize="1em" colorScheme="green">
-                    {operation.id}
-                  </Badge>
-                </Text>
+              <Text fontSize="2xl" fontWeight="bold">
+                REF. Number
+                <Badge ml="1" fontSize="1em" colorScheme="green">
+                  {operation.id}
+                </Badge>
+              </Text>
             </GridItem>
             <GridItem w="100%" display="flex" justifyContent="center">
               {operation.comercial.fields.empresa.nombre && (

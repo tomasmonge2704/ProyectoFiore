@@ -102,7 +102,7 @@ export const Contable = () => {
     operation.contableFinanciera.fields.montoFacturaSeguro || 0
   );
   const [montoCobradoBrokerage, setMontoCobradoBrokerage] = useState(
-    operation.contableFinanciera.fields.montoCobradoBrokerage || operation.comercial.fields.comisionSale || 0
+    operation.contableFinanciera.fields.montoCobradoBrokerage || operation.comercial.fields.comisionSale || operation.comercial.fields.comisionPurchase || 0
   );
   const [intermediaryCharges, setIntermediaryCharges] = useState(
     calculateCharges(
@@ -186,6 +186,12 @@ export const Contable = () => {
         fijo
       )
     );
+    setIntermediaryCharges( calculateCharges(
+      operation.contableFinanciera.fields.intermediaryCharges,
+      montoCobradoAnticipo,
+      montoCobradoBalance,
+      montoFacturaSell
+    ))
     setComisionCobradoBrokerage(calculateComision(
       fields.comisionMontoCobradoBrokerage,
       montoCobradoBrokerage,
@@ -202,11 +208,16 @@ export const Contable = () => {
     setTotalComisionesIngresos(
       comisionCobradoAnticipo + comisionCobradoBalance + comisionCobradoBrokerage
     );
-    const profitNeto =
-      montoFacturaSell -
+    let profitNeto;
+    if(operation.comercial.fields.operationType == "Broker"){
+      profitNeto = montoCobradoBrokerage - comisionCobradoBrokerage;
+    }else{
+      profitNeto = montoFacturaSell -
       montoFacturaPurchase -
       totalComisionesEgresos -
       totalComisionesIngresos;
+    }
+    
     setFieldsContableFinanciera({ ...fields, profitNeto: profitNeto });
   }, [
     operation.comercial.fields.bank,
@@ -219,7 +230,10 @@ export const Contable = () => {
     montoPagadoMarketing,
     montoPagadoInsurance,
     comisionCobradoAnticipo,
+    comisionCobradoBalance,
     comisionPagadoAnticipo,
+    comisionPagadoBalance,
+    comisionCobradoBrokerage
   ]);
   return (
     <Tabs variant="soft-rounded" colorScheme="orange">
@@ -567,7 +581,7 @@ export const Contable = () => {
                   />
                   <InputPersonalizado
                     label="Intermediary Charges"
-                    defaultValue={convertirAMoneda(intermediaryCharges)}
+                    value={convertirAMoneda(intermediaryCharges)}
                     onChange={(e) =>
                       handleChange(
                         e,
@@ -654,6 +668,18 @@ export const Contable = () => {
             >
               Profit Neto
             </Badge>
+            {operation.comercial.fields.operationType == "Broker" ? <>
+            <LineValue
+              text="Monto Brokerage"
+              type="+"
+              value={montoCobradoBrokerage}
+            />
+            <LineValue
+              text="Comisiones por Ingresos"
+              type="+"
+              value={totalComisionesIngresos}
+            />
+            </> :<>
             <LineValue
               text="Monto Total Factura de Venta"
               type="+"
@@ -663,10 +689,10 @@ export const Contable = () => {
               text="Monto Total Factura de Compra"
               value={montoFacturaPurchase}
             />
-            <LineValue
+            {operation.comercial.fields.operationType == "Trading + Marketing" && <LineValue
               text="Monto Factura de Marketing Services"
               value={montoPagadoMarketing}
-            />
+            />}
             <LineValue
               text="Monto Factura de Flete Internacional"
               value={montoPagadoFlete}
@@ -683,6 +709,8 @@ export const Contable = () => {
               text="Gastos Intermediary Charges"
               value={intermediaryCharges}
             />
+            </>
+            }
             <Divider />
             <Badge
               colorScheme="green"

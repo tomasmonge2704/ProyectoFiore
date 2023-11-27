@@ -7,78 +7,44 @@ export const useStore = create((set) => ({
       operation: newOperation,
     })),
   setFieldsDocs: (fields) => {
-    let totalFields = 11;
-    let completedFields = 0;
-    if(fields.documentRequested.length > 0 ) {
-      completedFields += 1;
-      totalFields += 1;
-    } 
-    if(fields.date) completedFields += 1; 
-    if(fields.responsable) completedFields += 1; 
-    if(fields.terminosFlete) completedFields += 1; 
-    if(fields.descriptionGoods) completedFields += 1; 
-    if(fields.descriptionGoods2) completedFields += 1; 
-    if(fields.temperature) completedFields += 1; 
-    if(fields.consignee.nombre) completedFields += 1; 
-    if(fields.notify.nombre) completedFields += 1; 
-    if(fields.consigneeRest.nombre) completedFields += 1; 
-    if(fields.placeBLIssue) completedFields += 1; 
-    if(fields.tipoContenedor) completedFields += 1; 
-    const completed = Math.floor((completedFields / totalFields) * 100);
     set((state) => ({
       operation: {
         ...state.operation,
         docs: {
           ...state.operation.docs,
-          fields: fields,
-          completed:completed
+          fields: fields
         },
       },
     }))},
   setFieldsComercial: (fields) => {
-    let totalFields = 25;
-    if(fields?.comision) totalFields = totalFields + 1;
-    let completedFields = Object.values(fields).filter(Boolean).length;
-    if(fields.comentarios) completedFields -= 1;
-    if(fields.shipmentPeriod) completedFields -= 1;
-    const completed = Math.floor((completedFields / totalFields) * 100);
     set((state) => ({
       operation: {
         ...state.operation,
         comercial: {
           ...state.operation.comercial,
-          fields: fields,
-          completed:completed
+          fields: fields
         },
       },
     }));
   },
   setFieldsLogistica: (fields) => {
-    let totalFields = 13;
-    let completedFields = Object.values(fields).filter(Boolean).length;
-    const completed = Math.floor((completedFields / totalFields) * 100);
     set((state) => ({
       operation: {
         ...state.operation,
         logistica: {
           ...state.operation.logistica,
-          fields: fields,
-          completed:completed
+          fields: fields
         },
       },
     }));
   },
   setFieldsContableFinanciera: (fields) => {
-    let totalFields = 21;
-    let completedFields = Object.values(fields).filter(Boolean).length;
-    const completed = Math.floor((completedFields / totalFields) * 100);
     set((state) => ({
       operation: {
         ...state.operation,
         contableFinanciera: {
           ...state.operation.contableFinanciera,
-          fields: fields,
-          completed:completed
+          fields: fields
         },
       },
     }));
