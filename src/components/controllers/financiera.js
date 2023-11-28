@@ -1,5 +1,5 @@
 export const calculateAnticipo = (anticipo, paymentTerm, total) => {
-  if (!anticipo) {
+  if (!anticipo && anticipo !== 0) {
     if (paymentTerm.includes("in advance")) {
       const porcentajeMatch = paymentTerm.match(/(\d+(\.\d+)?)%/);
       return (parseFloat(porcentajeMatch[1]) * total) / 100;
@@ -8,13 +8,13 @@ export const calculateAnticipo = (anticipo, paymentTerm, total) => {
   return anticipo;
 };
 export const calculateBalance = (anticipo, total, balance) => {
-  if (!balance) {
+  if (!balance && balance !== 0) {
     return total - anticipo;
   }
   return balance;
 };
 export const calculateTotal = (total, productos, param) => {
-  if (!total) {
+  if (!total && total !== 0) {
     let sum = 0;
     for (let i = 0; i < productos.length; i++) {
       sum += Number(productos[i][param] * productos[i].netWeightLogistica);

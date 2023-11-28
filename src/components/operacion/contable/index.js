@@ -45,7 +45,7 @@ export const Contable = () => {
   };
   const [montoFacturaPurchase, setMontoFacturaPurchase] = useState(
     calculateTotal(
-      operation.logistica.fields.totalFacturaCompra,
+      operation.contableFinanciera.fields.totalFacturaCompra,
       operation.comercial.fields.productos,
       "unitPricePurchase"
     ) || 0
@@ -53,7 +53,7 @@ export const Contable = () => {
 
   const [montoFacturaSell, setMontoFacturaSell] = useState(
     calculateTotal(
-      operation.logistica.fields.totalFacturaVenta,
+      operation.contableFinanciera.fields.totalFacturaVenta,
       operation.comercial.fields.productos,
       "unitPriceSale"
     ) || 0
@@ -91,7 +91,7 @@ export const Contable = () => {
     )
   );
   const [montoPagadoFlete, setMontoPagadoFlete] = useState(
-    operation.contableFinanciera.fields.montoFacturaFlete || 0
+    operation.contableFinanciera.fields.montoFacturaFlete || operation.logistica.fields.freightAmount || 0
   );
   const [montoPagadoMarketing, setMontoPagadoMarketing] = useState(
     operation.contableFinanciera.fields.montoFacturaMarketing ||
@@ -99,7 +99,7 @@ export const Contable = () => {
       0
   );
   const [montoPagadoInsurance, setMontoPagadoInsurance] = useState(
-    operation.contableFinanciera.fields.montoFacturaSeguro || 0
+    operation.contableFinanciera.fields.montoFacturaSeguro || operation.logistica.fields.insuranceAmount || 0
   );
   const [montoCobradoBrokerage, setMontoCobradoBrokerage] = useState(
     operation.contableFinanciera.fields.montoCobradoBrokerage || operation.comercial.fields.comisionSale || operation.comercial.fields.comisionPurchase || 0
@@ -130,6 +130,18 @@ export const Contable = () => {
     const porcentaje = operation.comercial.fields.empresa.bank?.porcentaje || 0;
     const porcentajeCobranza =
       operation.comercial.fields.empresa.bank?.porcentajeCobranza || 0;
+    setMontoPagadoBalance(calculateBalance(
+      montoPagadoAnticipo,
+      montoFacturaPurchase,
+      operation.contableFinanciera.fields.montoBalancePurchase
+    ));
+    setMontoCobradoBalance(
+      calculateBalance(
+        montoCobradoAnticipo,
+        montoFacturaSell,
+        operation.contableFinanciera.fields.montoBalanceSale
+      )
+    )
     setComisionPagadoAnticipo(
       calculateComision(
         fields.comisionMontoPagadoAnticipo,
@@ -222,6 +234,8 @@ export const Contable = () => {
   }, [
     operation.comercial.fields.bank,
     montoPagadoAnticipo,
+    montoFacturaPurchase,
+    montoFacturaSell,
     montoPagadoBalance,
     montoCobradoAnticipo,
     montoCobradoBalance,
@@ -273,7 +287,7 @@ export const Contable = () => {
                 />
                 <InputPersonalizado
                   label="Monto Total Factura"
-                  defaultValue={convertirAMoneda(montoFacturaPurchase)}
+                  value={convertirAMoneda(montoFacturaPurchase)}
                   onChange={(e) =>
                     handleChange(
                       e,
@@ -318,7 +332,7 @@ export const Contable = () => {
                 />
                 <InputPersonalizado
                   label="Monto Pagado Balance"
-                  defaultValue={convertirAMoneda(montoPagadoBalance)}
+                  value={convertirAMoneda(montoPagadoBalance)}
                   onChange={(e) =>
                     handleChange(
                       e,
@@ -521,7 +535,7 @@ export const Contable = () => {
                   />
                   <InputPersonalizado
                     label="Monto total Factura"
-                    defaultValue={convertirAMoneda(montoFacturaSell)}
+                    value={convertirAMoneda(montoFacturaSell)}
                     onChange={(e) =>
                       handleChange(e, "totalFacturaVenta", setMontoFacturaSell)
                     }
@@ -676,7 +690,6 @@ export const Contable = () => {
             />
             <LineValue
               text="Comisiones por Ingresos"
-              type="+"
               value={totalComisionesIngresos}
             />
             </> :<>
@@ -715,8 +728,10 @@ export const Contable = () => {
             <Badge
               colorScheme="green"
               fontSize="lg"
+              backgroundColor="transparent"
               w="full"
-              textAlign="center"
+              mr={8}
+              textAlign="right"
             >
               {convertirAMoneda(operation.contableFinanciera.fields.profitNeto)}
             </Badge>

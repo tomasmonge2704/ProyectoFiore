@@ -1,9 +1,10 @@
 import { convertirAMoneda } from "./convertInt";
-import { Flex,IconButton,Badge,Text } from "@chakra-ui/react";
+import { Flex,IconButton,Badge,Text, Box } from "@chakra-ui/react";
 import { FiPlus,FiMinus } from "react-icons/fi";
 export const LineValue = ({ text, type, value }) => {
     return (
-      <Flex alignItems="center">
+      <Flex display="flex" justifyContent="space-between" w="full">
+        <Box>
         <IconButton
           icon={type == "+" ? <FiPlus /> : <FiMinus />}
           colorScheme="orange"
@@ -11,10 +12,12 @@ export const LineValue = ({ text, type, value }) => {
         />
         <Text as="samp">
           {text}
-          <Badge colorScheme="orange" fontSize="md" ml={4}>
+        </Text>
+        </Box>
+        
+        <Badge colorScheme="orange" fontSize="md" ml={4} mr={5} backgroundColor="transparent">
             {convertirAMoneda(value)}
           </Badge>
-        </Text>
       </Flex>
     );
   };
