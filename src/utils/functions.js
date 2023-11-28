@@ -36,10 +36,15 @@ export function handleDuplicateOperation(id, setOperations, operations, toast) {
     });
 }
 
-export const handleOrderBy = (param, setFilter, setData) => {
+export const handleOrderBy = (param, setFilter, setData,status) => {
   const token = localStorage.getItem("token");
   setFilter(param);
-  fetch(`${process.env.API_URL}/operation/orderBy/${param}`, {
+  let url = `${process.env.API_URL}/operation/orderBy/${param}`;
+  if(param == "status" && status){
+    const valuesArray = status.map(option => option.value);
+    url = url + "/" + valuesArray.join('-');
+  }
+  fetch(url, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

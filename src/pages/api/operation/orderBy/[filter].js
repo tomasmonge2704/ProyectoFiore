@@ -19,7 +19,7 @@ async function handler(req, res) {
     } else if (filter === "timeToArrival") {
       objetos = listado.sort((a, b) => b.timestamp - a.timestamp);
     }
-    res.status(200).json(objetos);
+    res.status(200).json(listado);
   }catch (err){
     res.status(500).json({message:err})
   }
