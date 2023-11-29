@@ -1,76 +1,43 @@
-import { Input, Menu, MenuList, MenuItem, Box } from "@chakra-ui/react";
-import { useEffect, useState, useRef } from "react";
+import { Select } from "chakra-react-select";
+import { useEffect, useState } from "react";
 
 export const InputSearch = ({
   cartera,
   placeholder,
   searchParam,
   selectChangeLogic,
-  defaultValue
+  defaultValue,
 }) => {
-  const [searchText, setSearchText] = useState(defaultValue || "");
-  const [searchResults, setSearchResults] = useState([]);
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const inputRef = useRef(null);
-
+  const [options, setOptions] = useState([]);
+  const [value,setValue] = useState(defaultValue)
   useEffect(() => {
-    const filteredArray = cartera.filter((elemnt) =>
-      elemnt[searchParam].toLowerCase().includes(searchText.toLowerCase())
-    );
-    setSearchResults(filteredArray);
-  }, [searchText, searchParam, cartera]);
-
-  const handleSearchChange = (e) => {
-    setSearchText(e.target.value);
-    setDropdownVisible(true);
-  };
-
-  const handleSelectChange = (event) => {
-    selectChangeLogic(event);
-    setSearchText(event.target.value);
-    setDropdownVisible(false);
-  };
-
-  const handleClickOutside = (event) => {
-    if (inputRef.current && !inputRef.current.contains(event.target)) {
-      // Clic fuera del componente, oculta el desplegable
-      setDropdownVisible(false);
+    if (cartera) {
+      setOptions(
+        cartera.map(function (elemento) {
+          return { label: elemento[searchParam], value: elemento[searchParam] };
+        })
+      );
     }
-  };
-
+  },[cartera]);
   useEffect(() => {
-    // Agrega un manejador de eventos al documento para detectar clics fuera del componente
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      // Limpia el manejador de eventos al desmontar el componente
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
-
+    setValue({label:defaultValue,value:defaultValue})
+  },[defaultValue])
+  const handleChange = (event) => {
+    setValue(event);
+    event.target = {value:event.value};
+    selectChangeLogic(event);
+  }
   return (
-    <div ref={inputRef} style={{width:"100%"}}>
-      <Input
-        placeholder={placeholder}
+    <div style={{ width: "100%" }}>
+      <Select
+        styles={{width:"100%"}}
         variant="filled"
-        value={searchText}
-        onChange={handleSearchChange}
+        value={value}
+        isSearchable
+        options={options}
+        placeholder={placeholder}
+        onChange={(event) => handleChange(event)}
       />
-      <Box position="absolute">
-        <Menu isOpen={isDropdownVisible && searchResults.length > 0}>
-          <MenuList>
-            {searchResults.length > 0 &&
-              searchResults.map((e, index) => (
-                <MenuItem
-                  key={index}
-                  onClick={(event) => handleSelectChange(event)}
-                  value={e[searchParam]}
-                >
-                  {e[searchParam]}
-                </MenuItem>
-              ))}
-          </MenuList>
-        </Menu>
-      </Box>
     </div>
   );
 };

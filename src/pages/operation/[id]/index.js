@@ -135,7 +135,7 @@ export default function NuevaOperacion() {
         <>
           <Grid w="100%" templateColumns="repeat(4, 1fr)" h={7} gap={4}>
             <GridItem w="100%">
-              <Text fontSize="2xl" fontWeight="bold">
+              <Text fontSize="xl" fontWeight="bold">
                 Status
                 <StateSelector
                   selected={operation.status}
@@ -144,7 +144,7 @@ export default function NuevaOperacion() {
               </Text>
             </GridItem>
             <GridItem w="100%" display="flex" justifyContent="center">
-              <Text fontSize="2xl" fontWeight="bold">
+              <Text fontSize="xl" fontWeight="bold">
                 REF. Number
                 <Badge ml="1" fontSize="1em" colorScheme="green">
                   {operation.id}
@@ -153,7 +153,7 @@ export default function NuevaOperacion() {
             </GridItem>
             <GridItem w="100%" display="flex" justifyContent="center">
               {operation.comercial.fields.empresa.nombre && (
-                <Text fontSize="2xl" fontWeight="bold">
+                <Text fontSize="xl" fontWeight="bold">
                   <Badge ml="1" fontSize="1em" colorScheme="green">
                     {operation.comercial.fields.empresa.nombre}
                   </Badge>
@@ -162,7 +162,7 @@ export default function NuevaOperacion() {
             </GridItem>
             <GridItem w="100%" display="flex" justifyContent="center">
               {operation.comercial.fields.operationType && (
-                <Text fontSize="2xl" fontWeight="bold">
+                <Text fontSize="xl" fontWeight="bold">
                   <Badge ml="1" fontSize="1em" colorScheme="green">
                     {operation.comercial.fields.operationType}
                   </Badge>

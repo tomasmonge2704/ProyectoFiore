@@ -1,5 +1,4 @@
 import InputPersonalizado from "@/utils/inputPersonalizado";
-import { MultiSelector } from "@/utils/multiSelector";
 import {
   Box,
   VStack,
@@ -21,6 +20,7 @@ import useFetch from "@/hooks/useFetch";
 import { ConfirmButton } from "@/utils/saveForm";
 import PdfDocsIntructions from "../pdf";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import { Select } from "chakra-react-select";
 export default function GeneralDocs({
   operation,
   setFieldsComercial,
@@ -63,6 +63,13 @@ export default function GeneralDocs({
     setFieldsDocs({ ...fieldsDocs, responsable: buscado.nombre });
   };
   const [selected, setSelected] = useState(fieldsDocs.documentRequested);
+  const handleChangeSelected = (event) => {
+    if(typeof Object == event){
+      setSelected([event]);
+    }else{
+      setSelected(event)
+    }
+  }
   useEffect(() => {
     setFieldsDocs({ ...fieldsDocs, documentRequested: selected });
   }, [selected]);
@@ -75,7 +82,7 @@ export default function GeneralDocs({
           <GridItem w="100%">
             <VStack spacing="3">
               <InputPersonalizado
-                defaultValue={fieldsComercial.seller.refNumber}
+                value={fieldsComercial.seller.refNumber}
                 label="Sup Ref. Number"
                 onChange={(e) =>
                   setFieldsComercial({
@@ -87,18 +94,26 @@ export default function GeneralDocs({
                   })
                 }
               />
-              <MultiSelector
+              <Box w="full">
+              <Select
                 options={options}
+                placeholder="Document Requested..."
+                variant="filled"
                 value={selected}
-                onChange={setSelected}
-                labelledBy="Select"
+                styles={{width:"100%"}}
+                isMulti={true}
+                closeMenuOnSelect={false}
+                hideSelectedOptions={false}
+                selectedOptionStyle="check"
+                onChange={(e) => handleChangeSelected(e)}
               />
+              </Box>    
             </VStack>
           </GridItem>
           <GridItem w="100%">
             <VStack spacing="3">
               <InputPersonalizado
-                defaultValue={fieldsDocs.date}
+                value={fieldsDocs.date}
                 label="Date"
                 type="date"
                 onChange={(e) =>
@@ -141,7 +156,7 @@ export default function GeneralDocs({
         <Textarea
           placeholder="Comentarios..."
           variant="filled"
-          defaultValue={fieldsDocs.comentarios}
+          value={fieldsDocs.comentarios}
           onChange={(e) =>
             setFieldsDocs({ ...fieldsDocs, comentarios: e.target.value })
           }
