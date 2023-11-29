@@ -10,7 +10,6 @@ export const InputConsignee = ({ fields,placeholder,defaultValue, setFields,para
       [param]: Cartera[index],
     });
   };
-
   return (
     <InputSearch
       searchParam="nombre"

@@ -280,7 +280,7 @@ export const Contable = () => {
                 </Badge>
                 <InputPersonalizado
                   label="Nro Factura Proveedor Frigorifico"
-                  defaultValue={
+                  value={
                     operation.contableFinanciera.fields.nroFacturaProveedorFrigo
                   }
                   onChange={(e) => handleChange(e, "nroFacturaProveedorFrigo")}
@@ -299,14 +299,14 @@ export const Contable = () => {
                 <InputPersonalizado
                   label="Fecha de Pago Anticipo"
                   type="date"
-                  defaultValue={
+                  value={
                     operation.contableFinanciera.fields.fechaAnticipoPurchase
                   }
                   onChange={(e) => handleChange(e, "fechaAnticipoPurchase")}
                 />
                 <InputPersonalizado
                   label="Monto Pagado Anticipo"
-                  defaultValue={convertirAMoneda(montoPagadoAnticipo)}
+                  value={convertirAMoneda(montoPagadoAnticipo)}
                   onChange={(e) =>
                     handleChange(
                       e,
@@ -324,7 +324,7 @@ export const Contable = () => {
                 <Divider />
                 <InputPersonalizado
                   label="Fecha de Pago Balance / Total"
-                  defaultValue={
+                  value={
                     operation.contableFinanciera.fields.fechaBalancePurchase
                   }
                   type="date"
@@ -374,7 +374,7 @@ export const Contable = () => {
                   />
                   <InputPersonalizado
                     label="Monto Factura"
-                    defaultValue={convertirAMoneda(
+                    value={convertirAMoneda(
                       operation.comercial.fields.comisionMarketing
                     )}
                     onChange={(e) =>
@@ -420,14 +420,14 @@ export const Contable = () => {
                   </Badge>
                   <InputPersonalizado
                     label="Nro Factura Proveedor Flete internacional"
-                    defaultValue={
+                    value={
                       operation.contableFinanciera.fields.nroFacturaFlete
                     }
                     onChange={(e) => handleChange(e, "nroFacturaFlete")}
                   />
                   <InputPersonalizado
                     label="Monto Factura"
-                    defaultValue={convertirAMoneda(montoPagadoFlete)}
+                    value={convertirAMoneda(montoPagadoFlete)}
                     onChange={(e) =>
                       handleChange(e, "montoFacturaFlete", setMontoPagadoFlete)
                     }
@@ -435,7 +435,7 @@ export const Contable = () => {
                   <InputPersonalizado
                     label="Fecha de pago"
                     type="date"
-                    defaultValue={
+                    value={
                       operation.contableFinanciera.fields.fechaPagoFlete
                     }
                     onChange={(e) => handleChange(e, "fechaPagoFlete")}
@@ -473,7 +473,7 @@ export const Contable = () => {
                   />
                   <InputPersonalizado
                     label="Monto Factura"
-                    defaultValue={convertirAMoneda(montoPagadoInsurance)}
+                    value={convertirAMoneda(montoPagadoInsurance)}
                     onChange={(e) =>
                       handleChange(
                         e,
@@ -484,7 +484,7 @@ export const Contable = () => {
                   />
                   <InputPersonalizado
                     label="Fecha de pago"
-                    defaultValue={
+                    value={
                       operation.contableFinanciera.fields.fechaPagoSeguro
                     }
                     type="date"
@@ -501,7 +501,7 @@ export const Contable = () => {
               <Textarea
                 placeholder="Coments..."
                 variant="filled"
-                defaultValue={
+                value={
                   operation.contableFinanciera.fields.comentariosPurchase
                 }
                 onChange={(e) => handleChange(e, "comentariosPurchase")}
@@ -528,7 +528,7 @@ export const Contable = () => {
                   </Badge>
                   <InputPersonalizado
                     label="Nro Factura"
-                    defaultValue={
+                    value={
                       operation.contableFinanciera.fields.nroFacturaSell
                     }
                     onChange={(e) => handleChange(e, "nroFacturaSell")}
@@ -543,14 +543,14 @@ export const Contable = () => {
                   <InputPersonalizado
                     label="Fecha de cobro Anticipo"
                     type="date"
-                    defaultValue={
+                    value={
                       operation.contableFinanciera.fields.fechaCobroAnticipo
                     }
                     onChange={(e) => handleChange(e, "fechaCobroAnticipo")}
                   />
                   <InputPersonalizado
                     label="Monto Cobrado Anticipo"
-                    defaultValue={convertirAMoneda(montoCobradoAnticipo)}
+                    value={convertirAMoneda(montoCobradoAnticipo)}
                     onChange={(e) =>
                       handleChange(
                         e,
@@ -570,14 +570,14 @@ export const Contable = () => {
                   <InputPersonalizado
                     label="Fecha de cobro Balance"
                     type="date"
-                    defaultValue={
+                    value={
                       operation.contableFinanciera.fields.fechaCobroBalance
                     }
                     onChange={(e) => handleChange(e, "fechaCobroBalance")}
                   />
                   <InputPersonalizado
                     label="Monto cobrado Balance"
-                    defaultValue={convertirAMoneda(montoCobradoBalance)}
+                    value={convertirAMoneda(montoCobradoBalance)}
                     onChange={(e) =>
                       handleChange(
                         e,
@@ -626,20 +626,20 @@ export const Contable = () => {
                     </Badge>
                     <InputPersonalizado
                       label="Nro Factura"
-                      defaultValue={
+                      value={
                         operation.contableFinanciera.fields.nroFacturaBrokerage
                       }
                       onChange={(e) => handleChange(e, "nroFacturaBrokerage")}
                     />
                     <InputPersonalizado
                       label="Monto Factura"
-                      defaultValue={convertirAMoneda(montoCobradoBrokerage)}
+                      value={convertirAMoneda(montoCobradoBrokerage)}
                       onChange={(e) => handleChange(e, "montoCobradoBrokerage",setMontoCobradoBrokerage)}
                     />
                     <InputPersonalizado
                       label="Fecha de Cobro"
                       type="date"
-                      defaultValue={
+                      value={
                         operation.contableFinanciera.fields.fechaCobroBrokerage
                       }
                       onChange={(e) => handleChange(e, "fechaCobroBrokerage")}
@@ -655,7 +655,7 @@ export const Contable = () => {
                 <Textarea
                   placeholder="Coments..."
                   variant="filled"
-                  defaultValue={
+                  value={
                     operation.contableFinanciera.fields.comentariosSell
                   }
                   onChange={(e) => handleChange(e, "comentariosSell")}

@@ -27,12 +27,13 @@ export const InputSearch = ({
     event.target = {value:event.value};
     selectChangeLogic(event);
   }
+  console.log(options)
   return (
     <div style={{ width: "100%" }}>
       <Select
         styles={{width:"100%"}}
         variant="filled"
-        value={value}
+        value={value.value !== "" && value}
         isSearchable
         options={options}
         placeholder={placeholder}

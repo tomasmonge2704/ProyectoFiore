@@ -14,7 +14,6 @@ export const TableRestDocs = ({
   setFieldsDocs,
   CarteraConsignee,
 }) => {
-  
   return (
     <TableContainer w="100%">
       <Table variant="unstyled" size="sm">
@@ -29,7 +28,7 @@ export const TableRestDocs = ({
             <Td>
               <Text as="b">CONSIGNEE</Text>
             </Td>
-            <Td>
+            <Td w="47%">
               <InputConsignee
                 placeholder="Search consignee..."
                 Cartera={CarteraConsignee}
@@ -39,6 +38,30 @@ export const TableRestDocs = ({
                 setFields={setFieldsDocs}
               />
             </Td>
+          </Tr>
+          <Tr>
+            <Td></Td>
+            <Td></Td>
+          </Tr>
+          <Tr>
+            <Td></Td>
+            <Td></Td>
+          </Tr>
+          <Tr>
+            <Td></Td>
+            <Td></Td>
+          </Tr>
+          <Tr>
+            <Td></Td>
+            <Td></Td>
+          </Tr>
+          <Tr>
+            <Td></Td>
+            <Td></Td>
+          </Tr>
+          <Tr>
+            <Td></Td>
+            <Td></Td>
           </Tr>
         </Tbody>
       </Table>
