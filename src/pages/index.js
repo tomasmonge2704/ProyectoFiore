@@ -139,7 +139,7 @@ export default function Dashboard() {
                     <ArrowUpIcon boxSize={5} ml={2} />
                   )}
                 </Th>
-                <Th w="25%">
+                <Th w="15%">
                   <MultipleSelector
                     options={options}
                     set={setSelectedStatus}
