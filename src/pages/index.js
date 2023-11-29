@@ -171,6 +171,7 @@ export default function Dashboard() {
                     <ArrowUpIcon boxSize={5} ml={2} />
                   )}
                 </Th>
+                <Th>Buyer Ref.</Th>
                 <Th>Paid</Th>
                 <Th>Collection</Th>
                 <Th
@@ -237,6 +238,7 @@ export default function Dashboard() {
                   </Td>
                   <Td>{e.shipper && e.shipper}</Td>
                   <Td>{e.buyer && e.buyer}</Td>
+                  <Td>{e.buyerRef && e.buyerRef}</Td>
                   <Td>{e.pay && e.pay}</Td>
                   <Td>{e.charged && e.charged}</Td>
                   <Td>{e.timeToArrival && e.timeToArrival}</Td>

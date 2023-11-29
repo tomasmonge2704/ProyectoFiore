@@ -1,9 +1,10 @@
 export function transformDate(date) {
+  if(!date) return "";
   const partesFecha = date.split("-");
   const año = partesFecha[0];
   const mes = partesFecha[1];
   const dia = partesFecha[2];
-  return dia + "/" + mes + "/" + año;
+  return (dia + "/" + mes + "/" + año);
 }
 export function handleDuplicateOperation(id, setOperations, operations, toast) {
   const token = localStorage.getItem("token");
@@ -73,7 +74,10 @@ export function getListado(objetos) {
     empleado: elemento.comercial.fields.empleadoBuyer,
     shipper: elemento.comercial.fields.seller.nombre,
     buyer: elemento.comercial.fields.buyer.nombre,
+    buyerRef: elemento.comercial.fields.buyer.refNumber,
     empresa: elemento.comercial.fields.empresa.empresa,
-    timeToArrival:calcularDiasHastaFecha(elemento.logistica.fields.eta)
+    timeToArrival:calcularDiasHastaFecha(elemento.logistica.fields.eta),
+    pay:transformDate(elemento.contableFinanciera.fields.fechaBalancePurchase),
+    charged:transformDate(elemento.contableFinanciera.fields.fechaCobroBalance),
   }));
 }
