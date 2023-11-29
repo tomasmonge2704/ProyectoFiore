@@ -117,6 +117,9 @@ export default function PdfDocsIntructions({
                         <Text style={styles.textDato}>{operation.docs.fields.consignee.direccion}</Text>
                         <Text style={styles.textDato}>{operation.docs.fields.consignee.direccion2}</Text>
                         <Text style={styles.textDato}>{operation.docs.fields.consignee.direccion3}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.consignee.taxId}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.consignee.country}</Text>
+
                       </View>
                     </View>
                     <View style={styles.docsTableRow}>
@@ -128,6 +131,9 @@ export default function PdfDocsIntructions({
                         <Text style={styles.textDato}>{operation.docs.fields.notify.direccion}</Text>
                         <Text style={styles.textDato}>{operation.docs.fields.notify.direccion2}</Text>
                         <Text style={styles.textDato}>{operation.docs.fields.notify.direccion3}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.notify.taxId}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.notify.country}</Text>
+
                       </View>
                     </View>
                     <View style={styles.docsTableRow}>
@@ -196,6 +202,8 @@ export default function PdfDocsIntructions({
                         <Text style={styles.textDato}>{operation.docs.fields.consigneeRest.direccion}</Text>
                         <Text style={styles.textDato}>{operation.docs.fields.consigneeRest.direccion2}</Text>
                         <Text style={styles.textDato}>{operation.docs.fields.consigneeRest.direccion3}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.consigneeRest.taxId}</Text>
+                        <Text style={styles.textDato}>{operation.docs.fields.consigneeRest.country}</Text>
                       </View>
                     </View>
                     <View style={styles.docsTableRowMercaderia}>
