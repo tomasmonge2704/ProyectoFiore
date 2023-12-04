@@ -6,6 +6,7 @@ import {
   Image,
 } from "@react-pdf/renderer";
 import { styles } from "@/utils/formsStyles";
+import { transformDate } from "@/utils/functions";
 
 export default function PdfDocsIntructions({
   operation,
@@ -49,7 +50,7 @@ export default function PdfDocsIntructions({
                     </View>
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>DATE:</Text>
-                      <Text style={styles.textDato}>{fieldsDocs.date}</Text>
+                      <Text style={styles.textDato}>{transformDate(fieldsDocs.date)}</Text>
                     </View>
                   </View>
                   <View style={styles.vSpacerXs}></View>

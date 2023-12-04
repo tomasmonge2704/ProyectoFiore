@@ -27,7 +27,6 @@ export const InputSearch = ({
     event.target = {value:event.value};
     selectChangeLogic(event);
   }
-  console.log(options)
   return (
     <div style={{ width: "100%" }}>
       <Select

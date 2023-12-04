@@ -6,6 +6,7 @@ import {
   Image,
 } from "@react-pdf/renderer";
 import { styles } from "@/utils/formsStyles";
+import { transformDate } from "@/utils/functions";
 
 export default function ShipmentPeriodPDF({ operation, fields, productos }) {
 
@@ -28,7 +29,7 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                   </Text>
                   <View style={styles.date}>
                     <Text style={styles.negrita}>DATE:</Text>
-                    <Text style={styles.textDato}>{fields.date}</Text>
+                    <Text style={styles.textDato}>{transformDate(fields.date)}</Text>
                   </View>
                   <View style={styles.vSpacer}></View>
                   <View style={styles.tableContainer}>
@@ -116,7 +117,7 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>SALES ORDER:</Text>
                       <Text style={styles.textDato}>
-                        {operation.logistica.fields.seals}
+                        {operation.id}
                       </Text>
                     </View>
                     <View></View>

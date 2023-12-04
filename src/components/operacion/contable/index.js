@@ -226,6 +226,8 @@ export const Contable = () => {
     }else{
       profitNeto = montoFacturaSell -
       montoFacturaPurchase -
+      montoPagadoFlete -
+      montoPagadoMarketing -
       totalComisionesEgresos -
       totalComisionesIngresos;
     }

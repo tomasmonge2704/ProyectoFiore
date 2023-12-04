@@ -5,7 +5,7 @@ class Controllers {
     async create(req, res) {
         try {
           for (const key in req.body) {
-            if (typeof req.body[key] === 'string' && req.body[key].trim() === '') {
+            if (typeof req.body[key] === 'string' && req.body[key].trim() === '' ) {
               throw new Error(`El parámetro ${key} está vacío`);
             }
           }

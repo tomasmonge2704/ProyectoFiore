@@ -7,6 +7,7 @@ import {
 } from "@react-pdf/renderer";
 import { styles } from "@/utils/formsStyles";
 import { convertirAMoneda } from "@/utils/convertInt";
+import { transformDate } from "@/utils/functions";
 
 export default function SaleForm({ operation, fields, productos }) {
 
@@ -36,7 +37,7 @@ export default function SaleForm({ operation, fields, productos }) {
                     </View>
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>DATE:</Text>
-                      <Text style={styles.textDato}>{operation.logistica.fields.etd}</Text>
+                      <Text style={styles.textDato}>{transformDate(operation.logistica.fields.etd)}</Text>
                     </View>
                   </View>
                   <View style={styles.vSpacerXs}></View>
@@ -197,7 +198,7 @@ export default function SaleForm({ operation, fields, productos }) {
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>PURCHASE ORDER NR.:</Text>
                       <Text style={styles.textDato}>
-                        {operation.logistica.fields.seals}
+                        {operation.comercial.fields.seller.refNumber}
                       </Text>
                     </View>
                     <View></View>
@@ -206,7 +207,7 @@ export default function SaleForm({ operation, fields, productos }) {
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>SALES ORDER:</Text>
                       <Text style={styles.textDato}>
-                        {operation.logistica.fields.seals}
+                        {operation.id}
                       </Text>
                     </View>
                     <View></View>

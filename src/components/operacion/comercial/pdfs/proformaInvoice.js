@@ -40,7 +40,7 @@ export default function SaleForm({ fields, productos }) {
                     </View>
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>DATE:</Text>
-                      <Text style={styles.textDato}>{fields.date}</Text>
+                      <Text style={styles.textDato}>{transformDate(fields.date)}</Text>
                     </View>
                   </View>
                   <View style={styles.vSpacerXs}></View>
