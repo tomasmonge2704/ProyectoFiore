@@ -71,7 +71,7 @@ export function getListado(objetos) {
   return objetos.map((elemento) => ({
     status: elemento.status,
     refNumber: elemento.id,
-    empleado: elemento.comercial.fields.empleadoBuyer,
+    empleado: elemento.docs.fields.responsable,
     shipper: elemento.comercial.fields.seller.nombre,
     buyer: elemento.comercial.fields.buyer.nombre,
     buyerRef: elemento.comercial.fields.buyer.refNumber,

@@ -207,7 +207,7 @@ export default function Dashboard() {
                 >
                   <Td w="20%">
                     <Link href={"/operation/" + e.refNumber}>
-                      <Flex align="center" justifyContent="flex-start" flexWrap="wrap">
+                      <Flex align="center" justifyContent="flex-start">
                         {e.empresa && (
                           <Image
                             mr={2}

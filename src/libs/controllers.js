@@ -20,7 +20,11 @@ class Controllers {
     async getAll(req, res) {
         try {
           const objetos = await this.Objeto.find({});
-          res.json(objetos);
+          res.json(objetos.sort((a, b) => {
+            if(a.nombre) return a.nombre.localeCompare(b.nombre);
+            if(a.pod) return a.pod.localeCompare(b.pod);
+            if(a.description) return a.description.localeCompare(b.description);
+          }));
         } catch (error) {
         console.log(error)
           res.status(500).json({ error: 'Error al obtener los objetos' });
