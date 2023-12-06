@@ -64,8 +64,8 @@ function calcularDiasHastaFecha(fecha) {
   const fechaActual = new Date();
   const diferenciaEnMilisegundos = fechaObjetivo - fechaActual;
   const diasRestantes = Math.ceil(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
-  if(diasRestantes < 0) return "Ya arrivo"
-    return `${diasRestantes} días`;
+  if(diasRestantes < 0) return "Arrived"
+    return `${diasRestantes} days`;
 }
 export function getListado(objetos) {
   return objetos.map((elemento) => ({
