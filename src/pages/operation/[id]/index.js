@@ -56,8 +56,9 @@ export default function NuevaOperacion() {
   useEffect(() => {
     if (operation) {
       setCompletadoComercial(() => {
-        let totalFields = 25;
+        let totalFields = 26;
         const fields = operation.comercial.fields;
+        if(fields.operationType == "Trading") totalFields = totalFields - 2;
         if (fields?.comision) totalFields = totalFields + 1;
         let completedFields = Object.values(fields).filter(Boolean).length;
         if (fields.comentarios) completedFields -= 1;
