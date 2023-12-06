@@ -1,6 +1,6 @@
 import { Select } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
-export const DeliveryTerms = ({fields, setFields,type}) => {
+export const DeliveryTerms = ({fields, handleChange,type}) => {
     const [deliveryTerms, setDeliveryTerms] = useState(type);
     useEffect(() => {
       if(type == "sale"){
@@ -12,10 +12,10 @@ export const DeliveryTerms = ({fields, setFields,type}) => {
     },[type,fields])
     const handleIndexChange = (e) => {
         if(type == "sale"){
-          setFields({ ...fields, deliveryTermsSale: e.target.value })
+          handleChange(e.target.value,"deliveryTermsSale");
         }
         if(type == "purchase"){
-          setFields({ ...fields, deliveryTermsPurchase: e.target.value })
+          handleChange(e.target.value,"deliveryTermsPurchase");
         }
       };
     return (

@@ -1,13 +1,10 @@
 import { InputSearch } from "@/utils/inputSearch";
-export const Buyer = ({ buyer,fields,setFields, CarteraClientes }) => {
+export const Buyer = ({ fields,handleChange, CarteraClientes }) => {
   const handleIndexChange = (e) => {
     const index = CarteraClientes.findIndex(
       (elemento) => elemento.nombre === e.target.value
     );
-    setFields({
-      ...fields,
-      buyer: CarteraClientes[index],
-    });
+    handleChange(CarteraClientes[index],"buyer")
   };
 
   return (
@@ -16,7 +13,7 @@ export const Buyer = ({ buyer,fields,setFields, CarteraClientes }) => {
       searchParam="nombre"
       placeholder="Search buyer..."
       selectChangeLogic={handleIndexChange}
-      defaultValue={buyer.nombre}
+      defaultValue={fields.buyer.nombre}
     />
   );
 };

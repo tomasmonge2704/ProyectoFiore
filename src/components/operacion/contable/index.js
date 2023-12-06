@@ -95,14 +95,14 @@ export const Contable = () => {
   );
   const [montoPagadoMarketing, setMontoPagadoMarketing] = useState(
     operation.contableFinanciera.fields.montoFacturaMarketing ||
-      operation.comercial.fields.comisionMarketing ||
+      operation.logistica.fields.totalMarketing ||
       0
   );
   const [montoPagadoInsurance, setMontoPagadoInsurance] = useState(
     operation.contableFinanciera.fields.montoFacturaSeguro || operation.logistica.fields.insuranceAmount || 0
   );
   const [montoCobradoBrokerage, setMontoCobradoBrokerage] = useState(
-    operation.contableFinanciera.fields.montoCobradoBrokerage || operation.comercial.fields.comisionSale || operation.comercial.fields.comisionPurchase || 0
+    operation.contableFinanciera.fields.montoCobradoBrokerage || operation.logistica.fields.totalBroker || 0
   );
   const [intermediaryCharges, setIntermediaryCharges] = useState(
     calculateCharges(
@@ -377,7 +377,7 @@ export const Contable = () => {
                   <InputPersonalizado
                     label="Monto Factura"
                     value={convertirAMoneda(
-                      operation.comercial.fields.comisionMarketing
+                      montoPagadoMarketing
                     )}
                     onChange={(e) =>
                       handleChange(

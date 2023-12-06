@@ -1,6 +1,6 @@
 import { Select } from "@chakra-ui/react";
 import { useState,useEffect } from "react";
-export const PaymentTerms = ({fields,setFields,type,CarteraPaymentTerms}) => {
+export const PaymentTerms = ({fields,handleChange,type,CarteraPaymentTerms}) => {
   const [paymentTerms, setPaymentTerms] = useState(undefined);
     useEffect(() => {
       if(type == "sale"){
@@ -16,10 +16,10 @@ export const PaymentTerms = ({fields,setFields,type,CarteraPaymentTerms}) => {
   };
   const handleSelectChange = (event) => {
     if(type == "sale"){
-      setFields({...fields, paymentTermsSale:findElementByTitle(event.target.value)});
+      handleChange(findElementByTitle(event.target.value),"paymentTermsSale");
     }
     if(type == "purchase"){
-      setFields({...fields, paymentTermsPurchase:findElementByTitle(event.target.value)});
+      handleChange(findElementByTitle(event.target.value),"paymentTermsPurchase");
     }
   };
 

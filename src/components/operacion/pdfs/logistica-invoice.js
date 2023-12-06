@@ -115,7 +115,7 @@ export default function SaleForm({ operation, fields, productos }) {
                       <View style={styles.borderTable}>
                         {" "}
                         <Text style={styles.textDato}>
-                          {fields.totalNetWeightLogistica} MT
+                          {operation.logistica.fields.totalNetWeightLogistica} MT
                         </Text>
                       </View>
                       <View style={{ width: "150%" }}></View>
@@ -124,7 +124,7 @@ export default function SaleForm({ operation, fields, productos }) {
                       <View style={styles.borderTable}>
                         {" "}
                         <Text style={styles.textDato}>
-                          {convertirAMoneda(operation.contableFinanciera.fields.totalFacturaVenta)}
+                          {convertirAMoneda(operation.logistica.fields.totalLogistica)}
                         </Text>
                       </View>
                     </View>
@@ -198,7 +198,7 @@ export default function SaleForm({ operation, fields, productos }) {
                     <View style={styles.grid2}>
                       <Text style={styles.negrita}>PURCHASE ORDER NR.:</Text>
                       <Text style={styles.textDato}>
-                        {operation.comercial.fields.seller.refNumber}
+                        {operation.comercial.fields.buyer.refNumber}
                       </Text>
                     </View>
                     <View></View>

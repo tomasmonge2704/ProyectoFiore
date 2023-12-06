@@ -50,10 +50,10 @@ export const ConfirmDuplicate = ({
         <PopoverHeader pt={4} fontWeight="bold" border="0"></PopoverHeader>
         <PopoverArrow bg="transparent" />
         <PopoverCloseButton onClick={() => setIsPopoverOpen(false)} />
-        <PopoverBody>
+        <PopoverBody >
           {!isLoading ? (
-            <VStack spacing={5} mt={2} textAlign="center">
-              <Text>Esta seguro de duplicar esta operacion ({refNumber})?</Text>
+            <VStack spacing={5} textAlign="center" mt={2}>
+              <Text fontSize="sm">Esta seguro de duplicar esta operacion {refNumber}?</Text>
               <Button
                 onClick={() =>
                   handleDuplicateOperation(

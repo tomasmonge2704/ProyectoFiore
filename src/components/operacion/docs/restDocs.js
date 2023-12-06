@@ -7,6 +7,8 @@ import {
   Td,
   TableContainer,
   Text,
+  VStack,
+  Textarea
 } from "@chakra-ui/react";
 import { InputConsignee } from "./inputConsignee";
 export const TableRestDocs = ({
@@ -29,6 +31,7 @@ export const TableRestDocs = ({
               <Text as="b">CONSIGNEE</Text>
             </Td>
             <Td w="47%">
+              <VStack>
               <InputConsignee
                 placeholder="Search consignee..."
                 Cartera={CarteraConsignee}
@@ -37,6 +40,18 @@ export const TableRestDocs = ({
                 defaultValue={operation.docs.fields.consigneeRest.nombre}
                 setFields={setFieldsDocs}
               />
+              <Textarea
+                  placeholder="Comentarios..."
+                  variant="filled"
+                  onChange={(e) =>
+                    setFieldsDocs({
+                      ...operation.docs.fields,
+                      comentariosConsigneeRest: e.target.value,
+                    })
+                  }
+                  defaultValue={operation.docs.fields.comentariosConsigneeRest}
+                />
+                </VStack>
             </Td>
           </Tr>
           <Tr>

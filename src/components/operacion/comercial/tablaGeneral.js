@@ -20,42 +20,43 @@ import { PaymentTerms } from "./paymentTerms";
 import { SelectProducts } from "./products";
 export default function TablaGeneral({
   fields,
-  setFields,
-  productos,
-  setProductos,
+  handleChange,
   operationType,
   CarteraProducts,
   CarteraPacking,
   CarteraPaymentTerms,
 }) {
   const handleNewRow = (id) => {
-    const updatedProductos = [...productos, {
-      id:id,
-      description: "",
-      packing: "",
-      quantity:1,
-      quantityCartons:0,
-      netWeight:0,
-      grossWeight:0,
-      unitPricePurchase:0,
-      unitPriceSale:0,
-      amountSale: "",
-      amountPurchase: "",
-    }];
-    setProductos(updatedProductos);
+    const updatedProductos = [
+      ...productos,
+      {
+        id: id,
+        description: "",
+        packing: "",
+        quantity: 1,
+        quantityCartons: 0,
+        netWeight: 0,
+        grossWeight: 0,
+        unitPricePurchase: 0,
+        unitPriceSale: 0,
+        amountSale: "",
+        amountPurchase: "",
+      },
+    ];
+    handleChange(updatedProductos, "productos");
   };
   const handleDeleteRow = (id) => {
-    const updatedProductos = productos.filter((e) => e.id !== id);
-    setProductos(updatedProductos);
+    const updatedProductos = fields.productos.filter((e) => e.id !== id);
+    handleChange(updatedProductos, "productos");
   };
   const handleChangeInput = (event, id, parameter) => {
-    const updatedProductos = productos.map((producto) => {
+    const updatedProductos = fields.productos.map((producto) => {
       if (producto.id === id) {
         return { ...producto, [parameter]: Number(event.target.value) };
       }
       return producto;
     });
-    setProductos(updatedProductos);
+    handleChange(updatedProductos, "productos");
   };
 
   return (
@@ -66,14 +67,16 @@ export default function TablaGeneral({
             <Th w="20%">Net Weight (MT)</Th>
             <Th w="40%">PRODUCT</Th>
             <Th w="25%">PACKING</Th>
+            {operationType == "Broker" && <Th>Broker</Th>}
+            {operationType == "Trading + Marketing" && <Th>Marketing</Th>}
             <Th>UNIT PRICE PURCHASE</Th>
             <Th>UNIT PRICE SALE</Th>
             <Th></Th>
           </Tr>
         </Thead>
         <Tbody>
-          {productos.length &&
-            productos.map((e, index) => (
+          {fields.productos.length &&
+            fields.productos.map((e, index) => (
               <Tr key={index}>
                 <Td>
                   <Input
@@ -87,8 +90,8 @@ export default function TablaGeneral({
                 </Td>
                 <Td>
                   <SelectProducts
-                    productos={productos}
-                    setProductos={setProductos}
+                    productos={fields.productos}
+                    handleChange={handleChange}
                     id={e.id}
                     index={index}
                     CarteraProducts={CarteraProducts}
@@ -97,13 +100,35 @@ export default function TablaGeneral({
 
                 <Td>
                   <SelectPacking
-                    productos={productos}
-                    setProductos={setProductos}
+                    productos={fields.productos}
+                    handleChange={handleChange}
                     id={e.id}
                     index={index}
                     CarteraPacking={CarteraPacking}
                   />
                 </Td>
+                {operationType == "Broker" && 
+                <Td>
+                  <Input
+                  type="number"
+                  variant="filled"
+                  defaultValue={fields.comisionPurchase}
+                  onChange={(e) =>
+                    handleChange(e.target.value, "comisionPurchase")
+                  }
+                />
+                  </Td>}
+                  {operationType == "Trading + Marketing" && 
+                <Td>
+                  <Input
+                  type="number"
+                  variant="filled"
+                  defaultValue={fields.comisionMarketing}
+                  onChange={(e) =>
+                    handleChange(e.target.value, "comisionMarketing")
+                  }
+                />
+                  </Td>}
                 <Td>
                   <Input
                     variant="filled"
@@ -124,6 +149,7 @@ export default function TablaGeneral({
                     }
                   />
                 </Td>
+                
                 <Td>
                   <IconButton
                     icon={index < 1 ? <AiOutlinePlus /> : <DeleteIcon />}
@@ -144,16 +170,18 @@ export default function TablaGeneral({
             <Th>Incoterm</Th>
             <Th></Th>
             <Th></Th>
+            {operationType == "Broker" && <Th></Th>}
+            {operationType == "Trading + Marketing" && <Th></Th>}
             <Th>
               <DeliveryTerms
-                setFields={setFields}
+                handleChange={handleChange}
                 fields={fields}
                 type="purchase"
               />
             </Th>
             <Th>
               <DeliveryTerms
-                setFields={setFields}
+                handleChange={handleChange}
                 fields={fields}
                 type="sale"
               />
@@ -164,10 +192,12 @@ export default function TablaGeneral({
             <Th>Payment Terms</Th>
             <Th></Th>
             <Th></Th>
+            {operationType == "Broker" && <Th></Th>}
+            {operationType == "Trading + Marketing" && <Th></Th>}
             <Th>
               <PaymentTerms
                 fields={fields}
-                setFields={setFields}
+                handleChange={handleChange}
                 type="purchase"
                 CarteraPaymentTerms={CarteraPaymentTerms}
               />
@@ -175,43 +205,19 @@ export default function TablaGeneral({
             <Th>
               <PaymentTerms
                 fields={fields}
-                setFields={setFields}
+                handleChange={handleChange}
                 type="sale"
                 CarteraPaymentTerms={CarteraPaymentTerms}
               />
             </Th>
             <Th></Th>
           </Tr>
-          {operationType == "Trading + Marketing" && (
-            <Tr>
-              <Th>Marketing</Th>
-              <Th></Th>
-              <Th></Th>
-              <Th>
-                <InputPersonalizado label="$" type="number" defaultValue={fields.comisionMarketing} onChange={(e) => setFields({...fields,comisionMarketing:e.target.value})} />
-              </Th>
-              <Th></Th>
-              <Th></Th>
-            </Tr>
-          )}
-          {operationType == "Broker" && (
-            <Tr>
-              <Th>COMISSION</Th>
-              <Th></Th>
-              <Th></Th>
-              <Th>
-                <InputPersonalizado label="$" type="number" defaultValue={fields.comisionPurchase} onChange={(e) => setFields({...fields,comisionPurchase:e.target.value})} />
-              </Th>
-              <Th>
-                <InputPersonalizado label="$" type="number" defaultValue={fields.comisionSale} onChange={(e) => setFields({...fields,comisionSale:e.target.value})} />
-              </Th>
-              <Th></Th>
-            </Tr>
-          )}
           <Tr>
             <Th>Total</Th>
             <Th></Th>
             <Th></Th>
+            {operationType == "Broker" && <Th isNumeric>{convertirAMoneda(fields.totalBroker)}</Th>}
+            {operationType == "Trading + Marketing" && <Th isNumeric>{convertirAMoneda(fields.totalMarketing)}</Th>}
             <Th isNumeric>{convertirAMoneda(fields.totalPurchase)}</Th>
             <Th isNumeric>{convertirAMoneda(fields.totalSale)}</Th>
           </Tr>

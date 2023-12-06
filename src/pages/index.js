@@ -18,6 +18,7 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
+  TableContainer,
 } from "@chakra-ui/react";
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import Link from "next/link";
@@ -45,12 +46,12 @@ export default function Dashboard() {
       );
     }
   }, [searchText]);
-  const [slice, setSlice] = useState({ start: 0, end: 8 });
+  const [slice, setSlice] = useState({ start: 0, end: 10 });
   const handlePrev = () => {
-    setSlice({ start: slice.start - 8, end: slice.start });
+    setSlice({ start: slice.start - 10, end: slice.start });
   };
   const handleNext = () => {
-    setSlice({ start: slice.end, end: slice.end + 8 });
+    setSlice({ start: slice.end, end: slice.end + 10 });
   };
   const [operations, setOperations] = useFetch(
     `${process.env.API_URL}/operation/listado`,
@@ -123,7 +124,8 @@ export default function Dashboard() {
 
       {operations ? (
         <Box w="full" overflowX="auto">
-          <Table variant="simple" minH="74vh">
+          <TableContainer w="full" h="75vh">
+          <Table variant="simple" size="sm">
             <Thead>
               <Tr color="gray">
                 <Th
@@ -203,9 +205,9 @@ export default function Dashboard() {
                   borderLeft="5px solid transparent"
                   _hover={{ shadow: "md", borderColor: "orange" }}
                 >
-                  <Td>
+                  <Td w="20%">
                     <Link href={"/operation/" + e.refNumber}>
-                      <Flex align="center" justifyContent="flex-start">
+                      <Flex align="center" justifyContent="flex-start" flexWrap="wrap">
                         {e.empresa && (
                           <Image
                             mr={2}
@@ -230,7 +232,7 @@ export default function Dashboard() {
                       </Flex>
                     </Link>
                   </Td>
-                  <Td>
+                  <Td w="20%">
                     <StateSelector
                       selected={e.status}
                       refNumber={e.refNumber}
@@ -254,6 +256,7 @@ export default function Dashboard() {
               ))}
             </Tbody>
           </Table>
+          </TableContainer>
         </Box>
       ) : (
         <Center w="100%" h="70vh">

@@ -1,14 +1,11 @@
 import { Select } from "@chakra-ui/react";
-export const Empresa = ({ fields,setFields,CarteraBancaria }) => {
+export const Empresa = ({ operation,handleChange,CarteraBancaria }) => {
   const handleIndexChange = (event) => {
     const buscado = CarteraBancaria.find((e) => e.nombre ==  event.target.value)
-    console.log(buscado)
-    setFields({...fields,
-      empresa: buscado,
-    });
+    handleChange(buscado,"empresa");
   };
   return (
-      <Select value={fields.empresa.nombre} onChange={handleIndexChange}>
+      <Select value={operation.comercial.fields.empresa.nombre} onChange={handleIndexChange}>
       <option value="" disabled>
         Empresa
       </option>

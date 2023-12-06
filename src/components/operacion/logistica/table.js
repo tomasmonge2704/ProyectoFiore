@@ -14,10 +14,13 @@ import {
   import { AiOutlinePlus } from "react-icons/ai";
 
   export default function TablaLogistica({
-    fields,
+    operation,
     productos,
-    setProductos,
+    setFieldsComercial,
   }) {
+    const setProductos = (value) => {
+      setFieldsComercial({...operation.comercial.fields,productos:value})
+    };
     const handleNewRow = (id) => {
       const updatedProductos = [...productos, {
         id:id,
@@ -120,11 +123,11 @@ import {
           </Tbody>
           <Tfoot>  
             <Tr>
-              <Th>Total {fields.totalQuantityCartons}</Th>
+              <Th>Total {operation.logistica.fields.totalQuantityCartons}</Th>
               <Th></Th>
               <Th></Th>
-              <Th isNumeric>{fields.totalNetWeightLogistica}</Th>
-              <Th isNumeric>{fields.totalGrossWeight}</Th>
+              <Th isNumeric>{operation.logistica.fields.totalNetWeightLogistica}</Th>
+              <Th isNumeric>{operation.logistica.fields.totalGrossWeight}</Th>
             </Tr>
           </Tfoot>
         </Table>

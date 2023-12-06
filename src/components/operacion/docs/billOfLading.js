@@ -17,28 +17,31 @@ export const TableBillOfLading = ({
   operation,
   setFieldsDocs,
   CarteraConsignee,
-  setSelected
+  setSelected,
 }) => {
-  const descriptionOfGoods = operation.docs.fields.descriptionGoods !== ""
-  ? operation.docs.fields.descriptionGoods
-  : operation.comercial.fields.productos
-  .map((e) => `${e.description}`)
-  .join("\n");
+  const descriptionOfGoods =
+    operation.docs.fields.descriptionGoods !== ""
+      ? operation.docs.fields.descriptionGoods
+      : operation.comercial.fields.productos
+          .map((e) => `${e.description}`)
+          .join("\n");
   const handleplaceBlChange = (event) => {
-    if(event.target.value == "TELEX RELEASE"){
-      const updatedFields = operation.docs.fields.documentRequested.map((element) => {
-        if (element.label === "BILL OF LADING") {
-          return {...element, copias:"TELEX RELEASE"}
+    if (event.target.value == "TELEX RELEASE") {
+      const updatedFields = operation.docs.fields.documentRequested.map(
+        (element) => {
+          if (element.label === "BILL OF LADING") {
+            return { ...element, copias: "TELEX RELEASE" };
+          }
+          return element;
         }
-        return element;
-      });
+      );
       setSelected(updatedFields);
     }
     setFieldsDocs({
       ...operation.docs.fields,
       placeBLIssue: event.target.value,
-    })
-  }
+    });
+  };
   return (
     <TableContainer w="100%">
       <Table variant="unstyled" size="sm">
@@ -75,14 +78,27 @@ export const TableBillOfLading = ({
               <Text as="b">CONSIGNEE</Text>
             </Td>
             <Td>
-              <InputConsignee
-                placeholder="Search consignee..."
-                param="consignee"
-                fields={operation.docs.fields}
-                defaultValue={operation.docs.fields.consignee.nombre}
-                setFields={setFieldsDocs}
-                Cartera={CarteraConsignee}
-              />
+              <VStack>
+                <InputConsignee
+                  placeholder="Search consignee..."
+                  param="consignee"
+                  fields={operation.docs.fields}
+                  defaultValue={operation.docs.fields.consignee.nombre}
+                  setFields={setFieldsDocs}
+                  Cartera={CarteraConsignee}
+                />
+                <Textarea
+                  placeholder="Comentarios..."
+                  variant="filled"
+                  onChange={(e) =>
+                    setFieldsDocs({
+                      ...operation.docs.fields,
+                      comentariosConsignee: e.target.value,
+                    })
+                  }
+                  defaultValue={operation.docs.fields.comentariosConsignee}
+                />
+              </VStack>
             </Td>
           </Tr>
           <Tr>
@@ -90,6 +106,7 @@ export const TableBillOfLading = ({
               <Text as="b">NOTIFY</Text>
             </Td>
             <Td>
+              <VStack>
               <InputConsignee
                 placeholder="Search notify..."
                 Cartera={CarteraConsignee}
@@ -98,6 +115,18 @@ export const TableBillOfLading = ({
                 defaultValue={operation.docs.fields.notify.nombre}
                 setFields={setFieldsDocs}
               />
+              <Textarea
+                  placeholder="Comentarios..."
+                  variant="filled"
+                  onChange={(e) =>
+                    setFieldsDocs({
+                      ...operation.docs.fields,
+                      comentariosNotify: e.target.value,
+                    })
+                  }
+                  defaultValue={operation.docs.fields.comentariosNotify}
+                />
+                </VStack>
             </Td>
           </Tr>
           <Tr>

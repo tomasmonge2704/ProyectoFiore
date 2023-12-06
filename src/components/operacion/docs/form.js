@@ -18,7 +18,7 @@ import { TableRestDocs } from "./restDocs";
 import { TableFacturaComercial } from "./facturaComercial";
 import useFetch from "@/hooks/useFetch";
 import { ConfirmButton } from "@/utils/saveForm";
-import PdfDocsIntructions from "../pdf";
+import PdfDocsIntructions from "../pdfs/docs";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { Select } from "chakra-react-select";
 export default function GeneralDocs({

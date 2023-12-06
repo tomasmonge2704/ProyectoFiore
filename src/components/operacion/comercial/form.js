@@ -19,14 +19,11 @@ import { SelectBanco } from "./banco";
 import { EmpleadoComponent } from "./empleado";
 import { ConfirmButton } from "@/utils/saveForm";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import PurchaseForm from "../pdfs/ordenCompra";
-import SaleForm from "../pdfs/proformaInvoice";
+import PurchaseForm from "../pdfs/comercial-ordenCompra";
+import SaleForm from "../pdfs/comercial-proformaInvoice";
 export default function GeneralForm({
   operation,
-  fields,
   setFields,
-  productos,
-  setProductos,
   CarteraBancaria,
   CarteraProveedores,
   CarteraClientes,
@@ -36,8 +33,11 @@ export default function GeneralForm({
   CarteraPuertos,
   CarteraEmpleados,
 }) {
-  const handleInputChange = (elemnt) => {
-    setFields(elemnt);
+  const handleChange = (value, param) => {
+    setFields({
+      ...operation.comercial.fields,
+      [param]: value,
+    });
   };
   return (
     <Box w="100%">
@@ -48,22 +48,20 @@ export default function GeneralForm({
               <InputPersonalizado
                 type="text"
                 label="REF. NUMBER"
-                defaultValue={fields.empresaRefNumber}
+                defaultValue={operation.comercial.fields.empresaRefNumber}
                 onChange={(e) =>
-                  handleInputChange({
-                    ...fields,
-                    empresaRefNumber: e.target.value,
-                  })
+                  handleChange(e.target.value, "empresaRefNumber")
                 }
               />
               <Empresa
-                fields={operation.comercial.fields}
-                setFields={setFields}
+                operation={operation}
+                operationType={operation}
+                handleChange={handleChange}
                 CarteraBancaria={CarteraBancaria}
               />
               <SelectBanco
                 fields={operation.comercial.fields}
-                setFields={setFields}
+                handleChange={handleChange}
                 empresa={operation.comercial.fields.empresa.empresa}
                 CarteraBancaria={CarteraBancaria}
               />
@@ -74,59 +72,50 @@ export default function GeneralForm({
               <InputPersonalizado
                 type="date"
                 label="Date"
-                defaultValue={fields.date}
-                onChange={(e) =>
-                  handleInputChange({ ...fields, date: e.target.value })
-                }
+                defaultValue={operation.comercial.fields.date}
+                onChange={(e) => handleChange(e.target.value, "date")}
               />
               <Seller
-                seller={fields.seller}
-                fields={fields}
-                setFields={setFields}
+                fields={operation.comercial.fields}
+                handleChange={handleChange}
                 CarteraProveedores={CarteraProveedores}
               />
               <InputPersonalizado
                 type="text"
                 label="REF. NUMBER"
-                defaultValue={fields.seller.refNumber}
+                defaultValue={operation.comercial.fields.seller.refNumber}
                 onChange={(e) =>
-                  handleInputChange({
-                    ...fields,
-                    seller: { ...fields.seller, refNumber: e.target.value },
-                  })
+                  handleChange({...operation.comercial.fields.seller,refNumber:e.target.value}, "seller")
                 }
               />
             </VStack>
           </GridItem>
           <GridItem w="100%">
             <VStack spacing="3">
-              <OperationType fields={fields} setFields={setFields} />
+              <OperationType
+                fields={operation.comercial.fields}
+                handleChange={handleChange}
+              />
               <Buyer
-                buyer={fields.buyer}
-                fields={fields}
-                setFields={setFields}
+                fields={operation.comercial.fields}
+                handleChange={handleChange}
                 CarteraClientes={CarteraClientes}
               />
               <InputPersonalizado
                 type="text"
                 label="REF. NUMBER"
-                defaultValue={fields.buyer.refNumber}
+                defaultValue={operation.comercial.fields.buyer.refNumber}
                 onChange={(e) =>
-                  handleInputChange({
-                    ...fields,
-                    buyer: { ...fields.buyer, refNumber: e.target.value },
-                  })
+                  handleChange({...operation.comercial.fields.buyer,refNumber:e.target.value}, "buyer")
                 }
               />
             </VStack>
           </GridItem>
         </Grid>
         <TablaGeneral
-          fields={fields}
-          setFields={setFields}
-          productos={productos}
-          operationType={fields.operationType}
-          setProductos={setProductos}
+          fields={operation.comercial.fields}
+          operationType={operation.comercial.fields.operationType }
+          handleChange={handleChange}
           CarteraProducts={CarteraProducts}
           CarteraPacking={CarteraPacking}
           CarteraPaymentTerms={CarteraPaymentTerms}
@@ -136,9 +125,9 @@ export default function GeneralForm({
             <InputPersonalizado
               type="date"
               label="SHIPMENT PERIOD FROM"
-              defaultValue={fields.shipmentPeriodFrom}
+              defaultValue={operation.comercial.fields.shipmentPeriodFrom}
               onChange={(e) =>
-                setFields({ ...fields, shipmentPeriodFrom: e.target.value })
+                handleChange(e.target.value, "shipmentPeriodFrom")
               }
             />
           </GridItem>
@@ -146,10 +135,8 @@ export default function GeneralForm({
             <InputPersonalizado
               type="date"
               label="SHIPMENT PERIOD TO"
-              defaultValue={fields.shipmentPeriodTo}
-              onChange={(e) =>
-                setFields({ ...fields, shipmentPeriodTo: e.target.value })
-              }
+              defaultValue={operation.comercial.fields.shipmentPeriodTo}
+              onChange={(e) => handleChange(e.target.value, "shipmentPeriodTo")}
             />
           </GridItem>
         </Grid>
@@ -157,7 +144,7 @@ export default function GeneralForm({
           <GridItem w="100%">
             <VStack spacing="3">
               <DestinationPort
-                fields={fields}
+                fields={operation.comercial.fields}
                 setFields={setFields}
                 CarteraPuertos={CarteraPuertos}
               />
@@ -168,12 +155,9 @@ export default function GeneralForm({
               <InputPersonalizado
                 type="text"
                 label="DESTINATION COUNTRY"
-                value={fields.destinationCountry}
+                value={operation.comercial.fields.destinationCountry}
                 onChange={(e) =>
-                  handleInputChange({
-                    ...fields,
-                    destinationCountry: e.target.value,
-                  })
+                  handleChange(e.target.value, "destinationCountry")
                 }
               />
             </VStack>
@@ -185,56 +169,65 @@ export default function GeneralForm({
               <InputPersonalizado
                 type="text"
                 label="PRODUCTION DATE"
-                value={fields.productionDate}
-                onChange={(e) =>
-                  handleInputChange({
-                    ...fields,
-                    productionDate: e.target.value,
-                  })
-                }
+                value={operation.comercial.fields.productionDate}
+                onChange={(e) => handleChange(e.target.value, "productionDate")}
               />
             </VStack>
           </GridItem>
           <GridItem w="100%"></GridItem>
           <GridItem w="100%">
             <VStack spacing="3">
-              <ShelfLife setFields={setFields} fields={fields} />
+              <ShelfLife
+                handleChange={handleChange}
+                fields={operation.comercial.fields}
+              />
             </VStack>
           </GridItem>
         </Grid>
         <EmpleadoComponent
           fields={operation.comercial.fields}
-          setFields={setFields}
+          handleChange={handleChange}
           CarteraEmpleados={CarteraEmpleados}
         />
         <Textarea
-          onChange={(e) =>
-            setFields({ ...fields, comentarios: e.target.value })
-          }
+          onChange={(e) => handleChange(e.target.value, "comentarios")}
           placeholder="Comentarios..."
-          defaultValue={fields.comentarios}
+          defaultValue={operation.comercial.fields.comentarios}
           variant="filled"
         />
         <Center>
           <ConfirmButton operation={operation} />
           <PDFDownloadLink
-            document={<PurchaseForm fields={fields} productos={productos} />}
+            document={
+              <PurchaseForm
+                fields={operation.comercial.fields}
+                productos={operation.comercial.fields.productos}
+              />
+            }
             fileName={`Purchase Confirmation${
-              fields.empresaRefNumber && " " + fields.empresaRefNumber
+              operation.comercial.fields.empresaRefNumber &&
+              " " + operation.comercial.fields.empresaRefNumber
             }.pdf`}
           >
             <Button ml={5} colorScheme="red">
-              Purchase Confirmation {fields.empresaRefNumber}.pdf
+              Purchase Confirmation{" "}
+              {operation.comercial.fields.empresaRefNumber}.pdf
             </Button>
           </PDFDownloadLink>
           <PDFDownloadLink
-            document={<SaleForm fields={fields} productos={productos} />}
+            document={
+              <SaleForm
+                fields={operation.comercial.fields}
+                productos={operation.comercial.fields.productos}
+              />
+            }
             fileName={`Proforma Invoice${
-              fields.empresaRefNumber && " " + fields.empresaRefNumber
+              operation.comercial.fields.empresaRefNumber &&
+              " " + operation.comercial.fields.empresaRefNumber
             }.pdf`}
           >
             <Button ml={5} colorScheme="red">
-              Proforma Invoice {fields.empresaRefNumber}.pdf
+              Proforma Invoice {operation.comercial.fields.empresaRefNumber}.pdf
             </Button>
           </PDFDownloadLink>
         </Center>

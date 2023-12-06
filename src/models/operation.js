@@ -122,6 +122,9 @@ const fieldsDocsSchema = new Schema({
   placeBLIssue: String,
   comentarios: String,
   comentariosSeller: String,
+  comentariosConsignee:String,
+  comentariosNotify:String,
+  comentariosConsigneeRest:String,
   consignee: {
     nombre: String,
     direccion: String,

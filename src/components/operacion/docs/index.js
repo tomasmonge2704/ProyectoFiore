@@ -6,8 +6,8 @@ import {
   TabPanel,
   Center,
 } from "@chakra-ui/react";
-import GeneralDocs from "./general";
-import PdfDocsIntructions from "./pdf";
+import GeneralDocs from "./form";
+import PdfDocsIntructions from "../pdfs/docs";
 import { useStore } from "@/store/operation";
 import ContenedoPDFs from "@/components/contenedorPDFs";
 import ImportDocs from "@/utils/importDocs";

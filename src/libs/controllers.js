@@ -43,11 +43,6 @@ class Controllers {
       // Método para actualizar un objeto por su ID
     async updateById(req, res) {
         try {
-          for (const key in req.body) {
-            if (typeof req.body[key] === 'string' && req.body[key].trim() === '') {
-              throw new Error(`El parámetro ${key} está vacío`);
-            }
-          }
           const objetoActualizado = await this.Objeto.findByIdAndUpdate(req.query.id, req.body, { new: true });
           res.json(objetoActualizado);
         } catch (error) {

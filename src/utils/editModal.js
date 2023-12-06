@@ -30,6 +30,7 @@ export const EditModal = ({
   },[element])
   const hanleSave = () => {
     onSave(newElement);
+    setNewElement(undefined);
   };
   const handleChange = (event,param) => {
     setNewElement({...newElement,[param]:event.target.value});
@@ -52,7 +53,7 @@ export const EditModal = ({
                 <InputPersonalizado
                   label={e.label}
                   key={index}
-                  defaultValue={element && element[e.param]}
+                  value={newElement ? newElement[e.param] : ""}
                   onChange={(event) => handleChange(event,e.param)}
                 />
               ))}

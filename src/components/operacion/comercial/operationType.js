@@ -1,11 +1,9 @@
 import { Select } from "@chakra-ui/react";
 
-export const OperationType = ({ fields, setFields }) => {
-  const handleIndexChange = (e) => {
-    setFields({ ...fields, operationType: e.target.value })
-  };
+export const OperationType = ({ fields, handleChange }) => {
+
   return (
-      <Select value={fields.operationType ? fields.operationType : ""} onChange={(e) => handleIndexChange(e)}>
+      <Select value={fields.operationType ? fields.operationType : ""} onChange={(e) => handleChange(e.target.value,"operationType")}>
       <option value="" disabled>
         Operation Type
       </option>

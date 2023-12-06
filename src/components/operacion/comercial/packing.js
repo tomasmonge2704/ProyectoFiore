@@ -1,5 +1,5 @@
 import { Select } from "@chakra-ui/react";
-export const SelectPacking = ({productos,setProductos,index,id,CarteraPacking}) => {
+export const SelectPacking = ({productos,handleChange,index,id,CarteraPacking}) => {
   const handleSelectChange = (event) => {
     const updatedProductos = productos.map((producto) => {
         if (producto.id === id) {
@@ -7,7 +7,7 @@ export const SelectPacking = ({productos,setProductos,index,id,CarteraPacking}) 
         }
         return producto;
       });
-      setProductos(updatedProductos);
+      handleChange(updatedProductos,"productos");
   };
   return (
         <Select onChange={(e) => handleSelectChange(e)} value={productos[index].packing ? productos[index].packing : ""} variant="filled">

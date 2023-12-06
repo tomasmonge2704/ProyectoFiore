@@ -90,15 +90,15 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                       <View style={{ width: "100%" }}></View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{operation.comercial.fields.totalQuantityCartons}</Text>
+                        <Text style={styles.textDato}>{operation.logistica.fields.totalQuantityCartons}</Text>
                       </View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{operation.comercial.fields.totalNetWeightLogistica} MT</Text>
+                        <Text style={styles.textDato}>{operation.logistica.fields.totalNetWeightLogistica} MT</Text>
                       </View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{operation.comercial.fields.totalGrossWeight} MT</Text>
+                        <Text style={styles.textDato}>{operation.logistica.fields.totalGrossWeight} MT</Text>
                       </View>
                     </View>
                   </View>

@@ -6,18 +6,15 @@ import {
   TabPanels,
   Center,
 } from "@chakra-ui/react";
-import PurchaseForm from "./pdfs/ordenCompra";
-import SaleForm from "./pdfs/proformaInvoice";
-import GeneralForm from "./generales";
+import PurchaseForm from "../pdfs/comercial-ordenCompra";
+import SaleForm from "../pdfs/comercial-proformaInvoice";
+import GeneralForm from "./form";
 import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store/operation";
 import ContenedoPDFs from "@/components/contenedorPDFs";
 export const Comercial = () => {
   const operation = useStore((state) => state.operation);
   const setFields = useStore((state) => state.setFieldsComercial);
-  const fields = operation.comercial.fields;
-  const productos = operation.comercial.fields.productos;
-  const setProductos = useStore((state) => state.setProductsComercial);
   const [CarteraBancaria] = useFetch(`${process.env.API_URL}/empresa`,[]);
   const [CarteraProveedores] = useFetch(`${process.env.API_URL}/proveedor`,[]);
   const [CarteraClients] = useFetch(`${process.env.API_URL}/client`,[]);
@@ -40,10 +37,7 @@ export const Comercial = () => {
         <TabPanel>
           <GeneralForm
             operation={operation}
-            fields={fields}
             setFields={setFields}
-            productos={productos}
-            setProductos={setProductos}
             CarteraBancaria={CarteraBancaria}
             CarteraProveedores={CarteraProveedores}
             CarteraClientes={CarteraClients}
@@ -57,16 +51,16 @@ export const Comercial = () => {
         <TabPanel>
           <ContenedoPDFs>
           <PurchaseForm 
-          fields={fields}
-          productos={productos}
+          fields={operation.comercial.fields}
+          productos={operation.comercial.fields.productos}
           />
           </ContenedoPDFs>
         </TabPanel>
         <TabPanel>
           <ContenedoPDFs>
           <SaleForm 
-          fields={fields}
-          productos={productos}
+          fields={operation.comercial.fields}
+          productos={operation.comercial.fields.productos}
           />
           </ContenedoPDFs>
         </TabPanel>

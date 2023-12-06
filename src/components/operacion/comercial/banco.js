@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SelectComponent } from "@/utils/select";
-export const SelectBanco = ({ fields, setFields,empresa,CarteraBancaria }) => {
+export const SelectBanco = ({ fields, handleChange,empresa,CarteraBancaria }) => {
   const [carteraIndex, setCarteraIndex] = useState(undefined);
   useEffect(() => {
     if(CarteraBancaria.length) {
@@ -10,7 +10,7 @@ export const SelectBanco = ({ fields, setFields,empresa,CarteraBancaria }) => {
   },[empresa,CarteraBancaria])
   const handleIndexChange = (e) => {
     const bank = CarteraBancaria[carteraIndex].banks.find((elemento) => elemento.beneficiaryBank === e.target.value);
-    setFields({ ...fields, empresa:{...fields.empresa,bank:bank}});
+    handleChange({...fields.empresa,bank:bank},"empresa");
   };
   return (
     <SelectComponent

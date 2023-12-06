@@ -79,5 +79,6 @@ export function getListado(objetos) {
     timeToArrival:calcularDiasHastaFecha(elemento.logistica.fields.eta),
     pay:transformDate(elemento.contableFinanciera.fields.fechaBalancePurchase),
     charged:transformDate(elemento.contableFinanciera.fields.fechaCobroBalance),
+    containerNr:elemento.logistica.fields.containerNr
   }));
 }

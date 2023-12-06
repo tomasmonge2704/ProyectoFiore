@@ -1,7 +1,7 @@
 import { InputSearch } from "@/utils/inputSearch";
 export const SelectProducts = ({
   productos,
-  setProductos,
+  handleChange,
   id,
   CarteraProducts,
 }) => {
@@ -12,7 +12,7 @@ export const SelectProducts = ({
       }
       return producto;
     });
-    setProductos(updatedProductos);
+    handleChange(updatedProductos,"productos");
   }
   const productoEncontrado = productos.find((e) => e.id === id);
   return (

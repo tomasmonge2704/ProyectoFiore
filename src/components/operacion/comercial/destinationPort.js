@@ -10,8 +10,7 @@ export const DestinationPort = ({ fields, setFields, CarteraPuertos }) => {
     setFields({
       ...fields,
       destinationPort: e.target.value,
-      destinationCountry: country,
-      exportTo: country,
+      destinationCountry:country
     });
   };
 

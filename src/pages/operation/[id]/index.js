@@ -22,6 +22,7 @@ import { useStore } from "@/store/operation";
 import { Loadder } from "@/utils/loadder";
 import { useRouter } from "next/router";
 import { StateSelector } from "@/utils/stateSelector";
+import { OperationSearch } from "@/utils/operationSearch";
 export default function NuevaOperacion() {
   const operation = useStore((state) => state.operation);
   const setOperation = useStore((state) => state.setOperation);
@@ -98,6 +99,73 @@ export default function NuevaOperacion() {
       });
     }
   }, [operation]);
+  useEffect(() => {
+    const productos = operation?.comercial?.fields?.productos;
+    if (productos) {
+      let balanceSale = 0;
+      let balancePurchase = 0;
+      let totalNetWeight = 0;
+      let totalNetWeightLogistica = 0;
+      let totalLogistica = 0;
+      let totalGrossWeight = 0;
+      let totalQuantityCartons = 0;
+      let totalBroker = 0;
+      let totalMarketing = 0;
+      let totalBrokerLogistica = 0;
+      let totalMarketingLogistica = 0;
+      for (let i = 0; i < productos.length; i++) {
+        balanceSale += productos[i].unitPriceSale * productos[i].netWeight;
+        balancePurchase +=
+          productos[i].unitPricePurchase * productos[i].netWeight;
+        totalNetWeight += Number(productos[i].netWeight);
+        totalNetWeightLogistica += Number(productos[i].netWeightLogistica);
+        totalLogistica +=
+          productos[i].netWeightLogistica * productos[i].unitPriceSale;
+        totalGrossWeight += Number(productos[i].grossWeight);
+        totalQuantityCartons += Number(productos[i].quantityCartons);
+        totalBroker +=
+          productos[i].netWeight * operation.comercial.fields.comisionPurchase;
+        totalMarketing +=
+          productos[i].netWeight * operation.comercial.fields.comisionMarketing;
+        totalBrokerLogistica +=
+          productos[i].netWeightLogistica *
+          operation.comercial.fields.comisionPurchase;
+        totalMarketingLogistica +=
+          productos[i].netWeightLogistica *
+          operation.comercial.fields.comisionMarketing;
+      }
+      setOperation({
+        ...operation,
+        comercial: {
+          ...operation.comercial,
+          fields: {
+            ...operation.comercial.fields,
+            totalPurchase: balancePurchase,
+            totalSale: balanceSale,
+            totalNetWeight: totalNetWeight,
+            totalBroker: totalBroker,
+            totalMarketing: totalMarketing,
+          },
+        },
+        logistica: {
+          ...operation.logistica,
+          fields: {
+            ...operation.logistica.fields,
+            totalNetWeightLogistica: totalNetWeightLogistica,
+            totalLogistica: totalLogistica,
+            totalQuantityCartons: totalQuantityCartons,
+            totalGrossWeight: totalGrossWeight,
+            totalBroker: totalBrokerLogistica,
+            totalMarketing: totalMarketingLogistica,
+          },
+        },
+      });
+    }
+  }, [
+    operation?.comercial?.fields?.productos,
+    operation?.comercial?.fields?.comisionMarketing,
+    operation?.comercial?.fields?.comisionPurchase,
+  ]);
   const steps = [
     {
       title: "Commercial",
@@ -146,9 +214,7 @@ export default function NuevaOperacion() {
             <GridItem w="100%" display="flex" justifyContent="center">
               <Text fontSize="xl" fontWeight="bold">
                 REF. Number
-                <Badge ml="1" fontSize="1em" colorScheme="green">
-                  {operation.id}
-                </Badge>
+                <OperationSearch operationId={operation.id} />
               </Text>
             </GridItem>
             <GridItem w="100%" display="flex" justifyContent="center">

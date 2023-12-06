@@ -15,16 +15,16 @@ import { ConfirmButton } from "@/utils/saveForm";
 import { useStore } from "@/store/operation";
 import { SelectComponent } from "@/utils/select";
 import InputPersonalizado from "@/utils/inputPersonalizado";
-import SaleForm from "./pdfs/invoice";
-import ShipmentPeriodPDF from "./pdfs/shipmentDetails";
+import SaleForm from "../pdfs/logistica-invoice";
+import ShipmentPeriodPDF from "../pdfs/logistica-shipmentDetails";
 import TablaLogistica from "./table";
 import useFetch from "@/hooks/useFetch";
 import ContenedoPDFs from "@/components/contenedorPDFs";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 export const Logistica = () => {
   const operation = useStore((state) => state.operation);
+  const setFieldsComercial = useStore((state) => state.setFieldsComercial);
   const setFieldsLogistica = useStore((state) => state.setFieldsLogistica);
-  const setProductos = useStore((state) => state.setProductsComercial);
   const fieldsComercial = operation.comercial.fields;
   const handleIndexChange = (event, param) => {
     setFieldsLogistica({
@@ -179,10 +179,10 @@ export const Logistica = () => {
                 </GridItem>
               </Grid>
               <TablaLogistica
-                fields={fieldsComercial}
+                operation={operation}
                 productos={fieldsComercial.productos}
-                setProductos={setProductos}
-              />
+                setFieldsComercial={setFieldsComercial}
+                />
               <Box h={5} />
               <Center w="full">
                 <ConfirmButton operation={operation} />
