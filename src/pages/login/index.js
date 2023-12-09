@@ -76,7 +76,6 @@ export default function SimpleCard() {
             <Stack spacing={10}>
               <Stack direction={{ base: 'column', sm: 'row' }} align={'start'} justify={'space-between'}>
                 <Checkbox colorScheme="orange">Remember me</Checkbox>
-                <Link href="/signup">Signup</Link>
               </Stack>
               <Button
                 colorScheme="orange"
