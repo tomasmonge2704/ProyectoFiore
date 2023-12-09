@@ -19,9 +19,6 @@ import {
   Badge,
   Text,
   VStack,
-  Card,
-  CardBody,
-  CardHeader,
   Divider,
 } from "@chakra-ui/react";
 import {
@@ -30,9 +27,9 @@ import {
   FiBox,
   FiUser,
   FiSettings,
-  FiBell,
-  FiPieChart,
+  FiBell
 } from "react-icons/fi";
+import { FaChartLine } from "react-icons/fa";
 import { NavItem } from "./navItem";
 import { MobileNav } from "./mobileNav";
 import { useRouter } from "next/router";
@@ -42,7 +39,7 @@ import { useEffect, useState } from "react";
 import useFetch from "@/hooks/useFetch";
 const LinkItems = [
   { name: "Home", icon: FiHome, href: "/", text: "" },
-  { name: "Metrics", icon: FiPieChart, href: "/metrics", text: "" },
+  { name: "Metrics", icon: FaChartLine, href: "/metrics", text: "" },
   { name: "Buyers", icon: FiUser, href: "/Buyers", text: "BUYERS" },
   {
     name: "Shippers",

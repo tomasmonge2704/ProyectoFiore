@@ -10,9 +10,12 @@ export default function authMiddleware(handler) {
       return res.status(401).json({ error: 'Acceso no autorizado' });
     }
 
-    verify(token.replace("Bearer ", ""), secretKey, (err) => {
+    verify(token.replace("Bearer ", ""), secretKey, (err,user) => {
       if (err) {
         return res.status(403).json({ error: 'Token inválido' });
+      }
+      if(user.user.role !== "admin"){
+        return res.status(401).json({ error: 'No tiene permiso de administrador' });
       }
     });
 

@@ -1,6 +1,7 @@
 import OperationModel from "@/models/operation";
 import { getListado } from "@/utils/functions";
 import authMiddleware from "@/libs/auth";
+import operationObjet from "@/libs/operationObjet"
 async function handler(req, res) {
     try {
         let objetos = await OperationModel.find({});
@@ -14,11 +15,10 @@ async function handler(req, res) {
         duplicatedObject.comercial.fields.empresaRefNumber = id;
         duplicatedObject._id = undefined;
         duplicatedObject.comercial.fields._id = undefined;
-        duplicatedObject.docs.fields._id = undefined;
-        duplicatedObject.logistica.fields._id = undefined;
-        duplicatedObject.contableFinanciera.fields._id = undefined;
+        duplicatedObject.docs = operationObjet.docs;
+        duplicatedObject.logistica = operationObjet.logistica;
+        duplicatedObject.contableFinanciera = operationObjet.contableFinanciera;
         const response = await duplicatedObject.save();
-        await duplicatedObject.save();
         res.status(200).json(getListado([response])[0]);
       } catch (error) {
         console.log(error)

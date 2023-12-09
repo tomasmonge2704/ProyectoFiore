@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 
 export default function SimpleCard() {
   const [username, setUsername] = useState('');
+  const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false); // Nuevo estado para controlar el estado del inicio de sesión
@@ -26,22 +27,22 @@ export default function SimpleCard() {
     setIsLoggingIn(true); // Deshabilitar el botón de login al iniciar sesión
 
     try {
-      const response = await fetch(`${process.env.API_URL}/login`, {
+      const response = await fetch(`${process.env.API_URL}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username,mail, password }),
       });
 
       if (!response.ok) {
-        throw new Error('Error en el inicio de sesión');
-      }
+        const {error} = await response.json();
+        setError(error)
+        return;
+    }
       const { token } = await response.json();
       localStorage.setItem('token', token);
       router.push('/');
-    } catch (error) {
-      setError('Las credenciales no son correctas.');
     } finally {
       setIsLoggingIn(false); // Habilitar el botón de login después de la respuesta del backend
     }
@@ -59,11 +60,15 @@ export default function SimpleCard() {
           p={8}
         >
           <Stack spacing={4}>
-            <FormControl id="username">
+            <FormControl>
               <FormLabel>Username</FormLabel>
               <Input variant="filled" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
             </FormControl>
-            <FormControl id="password">
+            <FormControl>
+              <FormLabel>Mail</FormLabel>
+              <Input variant="filled" type="email" value={mail} onChange={(e) => setMail(e.target.value)} />
+            </FormControl>
+            <FormControl>
               <FormLabel>Password</FormLabel>
               <Input variant="filled" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </FormControl>
@@ -73,20 +78,15 @@ export default function SimpleCard() {
                 {error}
               </Alert>
             )}
-            <Stack spacing={10}>
-              <Stack direction={{ base: 'column', sm: 'row' }} align={'start'} justify={'space-between'}>
-                <Checkbox colorScheme="orange">Remember me</Checkbox>
-                <Link href="/signup">Signup</Link>
-              </Stack>
+            
               <Button
                 colorScheme="orange"
                 onClick={handleLogin}
                 isLoading={isLoggingIn}
-                disabled={isLoggingIn}
+                isDisabled={password && mail && username ? false : true}
               >
-                Login
+                Submit
               </Button>
-            </Stack>
           </Stack>
         </Box>
       </Stack>

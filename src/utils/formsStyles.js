@@ -137,7 +137,7 @@ export const styles = StyleSheet.create({
       backgroundColor:"#feebc8"
   },
   mercaderiaText:{
-    fontSize: 10,
+    fontSize: 7,
     fontWeight: "ultrabold",
     color:"#0987A0"
   },

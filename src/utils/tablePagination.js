@@ -23,7 +23,7 @@ export const TablePagination = ({ data, params, handleOpenModal }) => {
   let startIndex = (currentPage - 1) * itemsPerPage;
   let endIndex = startIndex + itemsPerPage;
   useEffect(() => {
-    if (data) {
+    if (data && !data.error) {
       setItemsToDisplay(data.slice(0, itemsPerPage));
       setTotalPages((data.length * 10) / itemsPerPage);
     }

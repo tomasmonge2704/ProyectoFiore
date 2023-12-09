@@ -199,7 +199,7 @@ export default function Dashboard() {
               </Tr>
             </Thead>
             <Tbody>
-              {itemsToDisplay.slice(slice.start, slice.end).map((e, index) => (
+              {itemsToDisplay.length && itemsToDisplay.slice(slice.start, slice.end).map((e, index) => (
                 <Tr
                   key={index}
                   borderLeft="5px solid transparent"

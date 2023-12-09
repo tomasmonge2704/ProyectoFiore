@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }) {
   }
 
   // Evitar renderizar el layout en la página de inicio de sesión y en la página 404
-  if (router.pathname === '/login' || router.pathname === '/404') {
+  if (router.pathname === '/login' || router.pathname === '/signup') {
     return (
       <Chakra>
         <Fonts />

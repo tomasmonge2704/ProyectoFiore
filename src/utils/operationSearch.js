@@ -14,17 +14,26 @@ import {
   Center,
 } from "@chakra-ui/react";
 import Router from "next/router";
+
 export const OperationSearch = ({ operationId }) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [refNumber, setRefnumber] = useState(operationId);
+
   const handleConfirm = () => {
-    Router.push("/operation/" + refNumber);
+    Router.replace("/operation/" + refNumber).then(() => Router.reload());
+};
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleConfirm();
+      setIsPopoverOpen(false); // Puedes cerrar el popover aquí si también deseas cerrarlo al presionar Enter
+    }
   };
 
   return (
     <Popover
       isOpen={isPopoverOpen}
-      onOpen={() => setIsPopoverOpen(true)} // Abre el Popover cuando sea necesario
+      onOpen={() => setIsPopoverOpen(true)}
       placement="bottom"
       closeOnBlur={false}
     >
@@ -57,9 +66,14 @@ export const OperationSearch = ({ operationId }) => {
               variant="filled"
               type="number"
               onChange={(e) => setRefnumber(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
           </Flex>
-          <Center><Button mt={5} onClick={handleConfirm} colorScheme="blue">Confirmar</Button></Center>
+          <Center>
+            <Button mt={5} onClick={handleConfirm} colorScheme="blue">
+              Confirmar
+            </Button>
+          </Center>
         </PopoverBody>
       </PopoverContent>
     </Popover>

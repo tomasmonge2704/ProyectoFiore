@@ -121,7 +121,7 @@ export default function PdfDocsIntructions({ operation }) {
                 <Text style={styles.textDato}>
                   {operation.docs.fields.consignee.country}
                 </Text>
-                <Text style={styles.mercaderiaText}>
+                <Text style={styles.textDato}>
                   {fieldsDocs.comentariosConsignee}
                 </Text>
               </View>
@@ -149,7 +149,7 @@ export default function PdfDocsIntructions({ operation }) {
                 <Text style={styles.textDato}>
                   {operation.docs.fields.notify.country}
                 </Text>
-                <Text style={styles.mercaderiaText}>
+                <Text style={styles.textDato}>
                   {fieldsDocs.comentariosNotify}
                 </Text>
               </View>
@@ -201,7 +201,7 @@ export default function PdfDocsIntructions({ operation }) {
                 <Text style={styles.negrita}>DESCRIPCIÓN MERCADERÍA</Text>
               </View>
               <View style={styles.tableDocsRight}>
-                <Text style={styles.mercaderiaText}>{descriptionOfGoods}</Text>
+                <Text style={styles.textDato}>{descriptionOfGoods}</Text>
               </View>
             </View>
           </View>
@@ -236,7 +236,7 @@ export default function PdfDocsIntructions({ operation }) {
                 <Text style={styles.textDato}>
                   {operation.docs.fields.consigneeRest.country}
                 </Text>
-                <Text style={styles.mercaderiaText}>
+                <Text style={styles.textDato}>
                   {fieldsDocs.comentariosConsigneeRest}
                 </Text>
               </View>
@@ -246,7 +246,7 @@ export default function PdfDocsIntructions({ operation }) {
                 <Text style={styles.negrita}>DESCRIPCIÓN MERCADERÍA</Text>
               </View>
               <View style={styles.tableDocsRight}>
-                <Text style={styles.mercaderiaText}>{descriptionOfGoods2}</Text>
+                <Text style={styles.textDato}>{descriptionOfGoods2}</Text>
               </View>
             </View>
           </View>
@@ -284,7 +284,7 @@ export default function PdfDocsIntructions({ operation }) {
                 <Text style={styles.negrita}>DESCRIPCIÓN MERCADERÍA</Text>
               </View>
               <View style={styles.tableDocsRight}>
-                <Text style={styles.mercaderiaText}>{descriptionOfGoods2}</Text>
+                <Text style={styles.textDato}>{descriptionOfGoods2}</Text>
               </View>
             </View>
           </View>
