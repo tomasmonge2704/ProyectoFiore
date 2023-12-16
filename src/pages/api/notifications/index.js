@@ -6,8 +6,10 @@ async function handler(req, res) {
     const objetos = await OperationModel.find({});
     const listado = getListado(objetos);
     const proximos = listado.filter(item => {
+        if(item.timeToArrival !== "Arrived"){
         const primerosDosCaracteres = parseInt(item.timeToArrival.substring(0, 2), 10);
-        return !isNaN(primerosDosCaracteres) && primerosDosCaracteres >= 1 && primerosDosCaracteres <= 10;
+        return !isNaN(primerosDosCaracteres) && primerosDosCaracteres >= 1 && primerosDosCaracteres <= 15;
+        }
       });
     res.status(200).json(proximos);
   }catch (err){

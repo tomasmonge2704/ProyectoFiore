@@ -14,7 +14,6 @@ import { convertirAMoneda } from "@/utils/convertInt";
 import { DeliveryTerms } from "./deliveryTerms";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { AiOutlinePlus } from "react-icons/ai";
-import InputPersonalizado from "@/utils/inputPersonalizado";
 import { SelectPacking } from "./packing";
 import { PaymentTerms } from "./paymentTerms";
 import { SelectProducts } from "./products";
@@ -28,7 +27,7 @@ export default function TablaGeneral({
 }) {
   const handleNewRow = (id) => {
     const updatedProductos = [
-      ...productos,
+      ...fields.productos,
       {
         id: id,
         description: "",
@@ -36,11 +35,14 @@ export default function TablaGeneral({
         quantity: 1,
         quantityCartons: 0,
         netWeight: 0,
+        netWeightLogistica:0,
         grossWeight: 0,
         unitPricePurchase: 0,
         unitPriceSale: 0,
         amountSale: "",
         amountPurchase: "",
+        comisionMarketing:0,
+        comisionPurchase:0
       },
     ];
     handleChange(updatedProductos, "productos");
@@ -112,10 +114,9 @@ export default function TablaGeneral({
                   <Input
                   type="number"
                   variant="filled"
-                  defaultValue={fields.comisionPurchase}
-                  onChange={(e) =>
-                    handleChange(e.target.value, "comisionPurchase")
-                  }
+                  defaultValue={e.comisionPurchase || fields.comisionPurchase}
+                  onChange={(event) =>
+                    handleChangeInput(event, e.id, "comisionPurchase")}
                 />
                   </Td>}
                   {operationType == "Trading + Marketing" && 
@@ -123,10 +124,9 @@ export default function TablaGeneral({
                   <Input
                   type="number"
                   variant="filled"
-                  defaultValue={fields.comisionMarketing}
-                  onChange={(e) =>
-                    handleChange(e.target.value, "comisionMarketing")
-                  }
+                  defaultValue={e.comisionMarketing ||fields.comisionMarketing}
+                  onChange={(event) =>
+                    handleChangeInput(event, e.id, "comisionPurchase")}
                 />
                   </Td>}
                 <Td>

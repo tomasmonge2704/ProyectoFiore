@@ -61,6 +61,8 @@ const fieldsComercialSchema = new Schema({
       netWeight: Number,
       netWeightLogistica:Number,
       grossWeight: Number,
+      comisionPurchase:Number,
+      comisionMarketing:Number
     },
   ],
   totalPurchase: Number,

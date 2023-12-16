@@ -56,8 +56,8 @@ export default function NuevaOperacion() {
   useEffect(() => {
     if (operation) {
       setCompletadoComercial(() => {
-        let totalFields = 26;
         const fields = operation.comercial.fields;
+        let totalFields = 26;
         if(fields.operationType == "Trading") totalFields = totalFields - 2;
         if (fields?.comision) totalFields = totalFields + 1;
         let completedFields = Object.values(fields).filter(Boolean).length;
@@ -125,12 +125,11 @@ export default function NuevaOperacion() {
         totalGrossWeight += Number(productos[i].grossWeight);
         totalQuantityCartons += Number(productos[i].quantityCartons);
         totalBroker +=
-          productos[i].netWeight * operation.comercial.fields.comisionPurchase;
+          productos[i].netWeight * (productos[i].comisionPurchase ? productos[i].comisionPurchase  : operation.comercial.fields.comisionPurchase);
         totalMarketing +=
           productos[i].netWeight * operation.comercial.fields.comisionMarketing;
         totalBrokerLogistica +=
-          productos[i].netWeightLogistica *
-          operation.comercial.fields.comisionPurchase;
+          productos[i].netWeightLogistica * (productos[i].comisionPurchase ? productos[i].comisionPurchase  : operation.comercial.fields.comisionPurchase);
         totalMarketingLogistica +=
           productos[i].netWeightLogistica *
           operation.comercial.fields.comisionMarketing;
