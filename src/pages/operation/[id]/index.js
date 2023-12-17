@@ -57,13 +57,15 @@ export default function NuevaOperacion() {
     if (operation) {
       setCompletadoComercial(() => {
         const fields = operation.comercial.fields;
-        let totalFields = 26;
-        if(fields.operationType == "Trading") totalFields = totalFields - 2;
-        if (fields?.comision) totalFields = totalFields + 1;
-        let completedFields = Object.values(fields).filter(Boolean).length;
-        if (fields.comentarios) completedFields -= 1;
-        if (fields.shipmentPeriod) completedFields -= 1;
-        return Math.floor((completedFields / totalFields) * 100);
+        let totalFields = Object.keys(fields).length;
+        let completedFields = 0;
+        Object.keys(fields).forEach(field => {
+          const value =  fields[field]
+         if(field !== "comentarios" && value !== Boolean && value !== null && value !== "" ){
+          completedFields += 1 
+         }
+        });
+        return Math.floor((completedFields / (totalFields - 1)) * 100);
       });
       setCompletadoDocs(() => {
         let totalFields = 11;

@@ -11,8 +11,6 @@ let operationObjet = {
       title: "Comercial",
       completed: 0,
       fields: {
-        orderNumber: "",
-        supplierRefNumber: "",
         empresaRefNumber: "",
         empleadoBuyer: "",
         empleadoSeller: "",
@@ -79,13 +77,10 @@ let operationObjet = {
         shelfLife: "",
         destinationPort: "",
         destinationCountry: "",
-        quantity: "",
-        shipmentPeriod: "",
         deliveryTermsSale: "",
         deliveryTermsPurchase: "",
         paymentTermsSale: "",
         paymentTermsPurchase: "",
-        exportTo: "",
         comentarios:""
       },
     },
