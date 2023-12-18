@@ -129,12 +129,12 @@ export default function NuevaOperacion() {
         totalBroker +=
           productos[i].netWeight * (productos[i].comisionPurchase ? productos[i].comisionPurchase  : operation.comercial.fields.comisionPurchase);
         totalMarketing +=
-          productos[i].netWeight * operation.comercial.fields.comisionMarketing;
+          productos[i].netWeight * (productos[i].comisionMarketing ? productos[i].comisionMarketing  : operation.comercial.fields.comisionMarketing);
         totalBrokerLogistica +=
           productos[i].netWeightLogistica * (productos[i].comisionPurchase ? productos[i].comisionPurchase  : operation.comercial.fields.comisionPurchase);
         totalMarketingLogistica +=
           productos[i].netWeightLogistica *
-          operation.comercial.fields.comisionMarketing;
+          (productos[i].comisionMarketing ? productos[i].comisionMarketing  : operation.comercial.fields.comisionMarketing);
       }
       setOperation({
         ...operation,

@@ -126,7 +126,7 @@ export default function TablaGeneral({
                   variant="filled"
                   defaultValue={e.comisionMarketing ||fields.comisionMarketing}
                   onChange={(event) =>
-                    handleChangeInput(event, e.id, "comisionPurchase")}
+                    handleChangeInput(event, e.id, "comisionMarketing")}
                 />
                   </Td>}
                 <Td>
