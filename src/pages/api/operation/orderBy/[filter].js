@@ -3,10 +3,10 @@ import { getListado } from "@/utils/functions";
 import authMiddleware from "@/libs/auth";
 function compararFechas(a, b) {
   // Manejar el caso de "no tiene fecha ETA"
-  if (a.timeToArrival === "No tiene fecha ETA") {
+  if (a.timeToArrival === "No tiene fecha ETA" || a.timeToArrival === "Arrived") {
     return 1;
   }
-  if (b.timeToArrival === "No tiene fecha ETA") {
+  if (b.timeToArrival === "No tiene fecha ETA" || b.timeToArrival === "Arrived") {
     return -1;
   }
 
@@ -22,6 +22,7 @@ async function handler(req, res) {
     const { filter } = req.query;
     const objetos = await OperationModel.find().sort({ timestamp: -1 });
     let listado = getListado(objetos);
+    listado = listado.filter((e) => e.status !== "Finished");
     if (filter === "refNumber") {
       listado = listado.sort((a, b) => b.refNumber - a.refNumber);
     } else if (filter === "shipper") {
