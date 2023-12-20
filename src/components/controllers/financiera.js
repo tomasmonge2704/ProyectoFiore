@@ -17,7 +17,7 @@ export const calculateTotal = (total, productos, param) => {
   if (!total && total !== 0) {
     let sum = 0;
     for (let i = 0; i < productos.length; i++) {
-      sum += Number(productos[i][param] * productos[i].netWeightLogistica);
+      sum += Number(productos[i][param]) * Number(productos[i].netWeightLogistica);
     }
     return sum;
   }
@@ -31,7 +31,7 @@ export const calculateCharges = (charges, anticipo, balance, total) => {
 };
 export const calculateComision = (comision,monto,porcentaje,fijo) => {
     if(!comision && comision !== 0 && monto > 0){
-    const calc = (porcentaje * monto || 0) + (fijo || 0);
+    const calc = ((porcentaje / 100) * monto || 0) + (fijo || 0);
     return calc
     }
     return comision || 0

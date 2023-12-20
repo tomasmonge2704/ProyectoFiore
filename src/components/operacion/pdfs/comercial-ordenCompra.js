@@ -96,6 +96,16 @@ export default function PurchaseForm({ fields, productos }) {
                       </Text>
                     </View>
                   </View>
+                  <View style={styles.grid}>
+                    <Text style={styles.textDato}>
+                      {fields.seller.country}
+                    </Text>
+                    <View style={styles.grid2}>
+                      <Text style={styles.textDato}>
+                        {fields.empresa.country}
+                      </Text>
+                    </View>
+                  </View>
                   <View style={styles.vSpacerMd}></View>
                   <View style={styles.grid}>
                     <View></View>
