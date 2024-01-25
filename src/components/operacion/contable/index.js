@@ -288,8 +288,8 @@ export const Contable = () => {
                   onChange={(e) => handleChange(e, "nroFacturaProveedorFrigo")}
                 />
                 <InputPersonalizado
-                  label="Monto Total Factura"
-                  value={convertirAMoneda(montoFacturaPurchase)}
+                  label="Monto Total Factura (USD)"
+                  value={montoFacturaPurchase}
                   onChange={(e) =>
                     handleChange(
                       e,
@@ -307,8 +307,8 @@ export const Contable = () => {
                   onChange={(e) => handleChange(e, "fechaAnticipoPurchase")}
                 />
                 <InputPersonalizado
-                  label="Monto Pagado Anticipo"
-                  value={convertirAMoneda(montoPagadoAnticipo)}
+                  label="Monto Pagado Anticipo (USD)"
+                  value={montoPagadoAnticipo}
                   onChange={(e) =>
                     handleChange(
                       e,
@@ -333,8 +333,8 @@ export const Contable = () => {
                   onChange={(e) => handleChange(e, "fechaBalancePurchase")}
                 />
                 <InputPersonalizado
-                  label="Monto Pagado Balance"
-                  value={convertirAMoneda(montoPagadoBalance)}
+                  label="Monto Pagado Balance (USD)"
+                  value={montoPagadoBalance}
                   onChange={(e) =>
                     handleChange(
                       e,
@@ -375,10 +375,8 @@ export const Contable = () => {
                     onChange={(e) => handleChange(e, "nroFacturaMarketing")}
                   />
                   <InputPersonalizado
-                    label="Monto Factura"
-                    value={convertirAMoneda(
-                      montoPagadoMarketing
-                    )}
+                    label="Monto Factura (USD)"
+                    value={montoPagadoMarketing}
                     onChange={(e) =>
                       handleChange(
                         e,
@@ -428,8 +426,8 @@ export const Contable = () => {
                     onChange={(e) => handleChange(e, "nroFacturaFlete")}
                   />
                   <InputPersonalizado
-                    label="Monto Factura"
-                    value={convertirAMoneda(montoPagadoFlete)}
+                    label="Monto Factura (USD)"
+                    value={montoPagadoFlete}
                     onChange={(e) =>
                       handleChange(e, "montoFacturaFlete", setMontoPagadoFlete)
                     }
@@ -474,8 +472,8 @@ export const Contable = () => {
                     onChange={(e) => handleChange(e, "nroFacturaSeguro")}
                   />
                   <InputPersonalizado
-                    label="Monto Factura"
-                    value={convertirAMoneda(montoPagadoInsurance)}
+                    label="Monto Factura (USD)"
+                    value={montoPagadoInsurance}
                     onChange={(e) =>
                       handleChange(
                         e,
@@ -536,8 +534,8 @@ export const Contable = () => {
                     onChange={(e) => handleChange(e, "nroFacturaSell")}
                   />
                   <InputPersonalizado
-                    label="Monto total Factura"
-                    value={convertirAMoneda(montoFacturaSell)}
+                    label="Monto total Factura (USD)"
+                    value={montoFacturaSell}
                     onChange={(e) =>
                       handleChange(e, "totalFacturaVenta", setMontoFacturaSell)
                     }
@@ -551,8 +549,8 @@ export const Contable = () => {
                     onChange={(e) => handleChange(e, "fechaCobroAnticipo")}
                   />
                   <InputPersonalizado
-                    label="Monto Cobrado Anticipo"
-                    value={convertirAMoneda(montoCobradoAnticipo)}
+                    label="Monto Cobrado Anticipo (USD)"
+                    value={montoCobradoAnticipo}
                     onChange={(e) =>
                       handleChange(
                         e,
@@ -578,8 +576,8 @@ export const Contable = () => {
                     onChange={(e) => handleChange(e, "fechaCobroBalance")}
                   />
                   <InputPersonalizado
-                    label="Monto cobrado Balance"
-                    value={convertirAMoneda(montoCobradoBalance)}
+                    label="Monto cobrado Balance (USD)"
+                    value={montoCobradoBalance}
                     onChange={(e) =>
                       handleChange(
                         e,
@@ -596,8 +594,8 @@ export const Contable = () => {
                     set={setComisionCobradoBalance}
                   />
                   <InputPersonalizado
-                    label="Intermediary Charges"
-                    value={convertirAMoneda(intermediaryCharges)}
+                    label="Intermediary Charges (USD)"
+                    value={intermediaryCharges}
                     onChange={(e) =>
                       handleChange(
                         e,
@@ -634,8 +632,8 @@ export const Contable = () => {
                       onChange={(e) => handleChange(e, "nroFacturaBrokerage")}
                     />
                     <InputPersonalizado
-                      label="Monto Factura"
-                      value={convertirAMoneda(montoCobradoBrokerage)}
+                      label="Monto Factura (USD)"
+                      value={montoCobradoBrokerage}
                       onChange={(e) => handleChange(e, "montoCobradoBrokerage",setMontoCobradoBrokerage)}
                     />
                     <InputPersonalizado

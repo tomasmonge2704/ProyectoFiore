@@ -4,8 +4,8 @@ export const ComisionesBox = ({value, handleChange, param,set }) => {
   
   return (
     <InputPersonalizado
-      label="COMISIONES"
-      value={convertirAMoneda(value)}
+      label="COMISIONES (USD)"
+      value={value}
       onChange={(e) => handleChange(e, param,set)}
     />
   );
