@@ -30,6 +30,7 @@ import { handleOrderBy } from "@/utils/functions";
 import { SearchIcon } from "@chakra-ui/icons";
 import { ConfirmDuplicate } from "@/utils/confirmDuplicate";
 import { MultipleSelector } from "@/utils/selectMultiple";
+import { ExcelIconButton } from "@/utils/excelDownloadButton";
 export default function Dashboard() {
   const [filter, setFilter] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -120,6 +121,7 @@ export default function Dashboard() {
             onChange={(e) => setSearchText(e.target.value)}
           />
         </InputGroup>
+        <ExcelIconButton data={operations} />
       </Flex>
 
       {operations ? (
