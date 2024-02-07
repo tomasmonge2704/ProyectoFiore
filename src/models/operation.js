@@ -51,6 +51,8 @@ const fieldsComercialSchema = new Schema({
     {
       id: String,
       description: String,
+      family: String,
+      famili2: String,
       packing: String,
       quantity: Number,
       quantityCartons: Number,

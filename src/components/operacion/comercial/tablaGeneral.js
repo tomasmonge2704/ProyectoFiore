@@ -32,6 +32,8 @@ export default function TablaGeneral({
         id: id,
         description: "",
         packing: "",
+        family:"",
+        famili2:"",
         quantity: 1,
         quantityCartons: 0,
         netWeight: 0,

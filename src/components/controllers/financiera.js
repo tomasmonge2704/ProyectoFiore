@@ -1,6 +1,6 @@
 export const calculateAnticipo = (anticipo, paymentTerm, total) => {
   if (!anticipo && anticipo !== 0) {
-    if (paymentTerm.includes("in advance")) {
+    if (paymentTerm && paymentTerm.includes("in advance")) {
       const porcentajeMatch = paymentTerm.match(/(\d+(\.\d+)?)%/);
       return (parseFloat(porcentajeMatch[1]) * total) / 100;
     }
