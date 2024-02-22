@@ -77,7 +77,7 @@ export default function SaleForm({ fields, productos }) {
                     </View>
                   </View>
                   <View style={styles.grid}>
-                    <Text style={styles.text}>{fields.buyer.direccion2}</Text>
+                    <Text style={styles.text}>{fields.buyer.direccion2} {fields.buyer.country}</Text>
                     <View style={styles.grid2}>
                       <Text style={styles.textDato}>
                         {fields.empresa.direccion2}

@@ -4,7 +4,7 @@ import authMiddleware from "@/libs/auth";
 import operationObjet from "@/libs/operationObjet"
 async function handler(req, res) {
     try {
-        let objetos = await OperationModel.find({});
+        const objetos = await OperationModel.find({});
         const id = String(210500 + objetos.length + 1);
         const objetoExistente = await OperationModel.findOne({ id: req.query.refNumber });
         if (!objetoExistente) {
@@ -12,7 +12,9 @@ async function handler(req, res) {
         }
         const duplicatedObject = new OperationModel(objetoExistente.toObject());
         duplicatedObject.id = id;
+        duplicatedObject.status = "New"
         duplicatedObject.comercial.fields.empresaRefNumber = id;
+        duplicatedObject.comercial.fields.productos = duplicatedObject.comercial.fields.productos.map((e) => ({...e,netWeightLogistica:0,grossWeight:0,quantityCartons:0}));
         duplicatedObject._id = undefined;
         duplicatedObject.comercial.fields._id = undefined;
         duplicatedObject.docs = operationObjet.docs;

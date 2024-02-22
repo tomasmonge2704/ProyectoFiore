@@ -271,6 +271,34 @@ export default function SaleForm({ operation, fields, productos }) {
                       </Text>
                     </View>
                   </View>
+                  <View style={styles.grid}>
+                    <View>
+                      <Text style={styles.textDato}>
+                        Correspondent Bank:{" "}
+                        {fields.empresa.bank &&
+                          fields.empresa.bank.correspondentBank}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.grid}>
+                    <View>
+                      <Text style={styles.textDato}>
+                        ABA:{" "}
+                        {fields.empresa.bank &&
+                          fields.empresa.bank.ABA}
+                      </Text>
+                    </View>
+                  </View>
+                 
+                  <View style={styles.grid}>
+                    <View>
+                      <Text style={styles.textDato}>
+                        Swift Code:{" "}
+                        {fields.empresa.bank &&
+                          fields.empresa.bank.swift}
+                      </Text>
+                    </View>
+                  </View>
                   <View style={styles.vSpacer}></View>
                   <Image
                     style={styles.firma}

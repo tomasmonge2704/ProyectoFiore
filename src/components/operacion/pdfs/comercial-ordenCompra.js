@@ -89,7 +89,7 @@ export default function PurchaseForm({ fields, productos }) {
                     </View>
                   </View>
                   <View style={styles.grid}>
-                    <Text style={styles.textDato}>{fields.seller.taxId}</Text>
+                    <Text style={styles.textDato}>{fields.seller.country}</Text>
                     <View style={styles.grid2}>
                       <Text style={styles.textDato}>
                         VAT NUMBER: {fields.empresa.vatNumber}
@@ -98,7 +98,7 @@ export default function PurchaseForm({ fields, productos }) {
                   </View>
                   <View style={styles.grid}>
                     <Text style={styles.textDato}>
-                      {fields.seller.country}
+                      {fields.seller.taxId}
                     </Text>
                     <View style={styles.grid2}>
                       <Text style={styles.textDato}>
