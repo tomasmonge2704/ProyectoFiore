@@ -7,6 +7,7 @@ import {
 } from "@react-pdf/renderer";
 import { styles } from "@/utils/formsStyles";
 import { transformDate } from "@/utils/functions";
+import { convertDecimales } from "@/utils/convertInt";
 
 export default function ShipmentPeriodPDF({ operation, fields, productos }) {
 
@@ -90,15 +91,15 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                       <View style={{ width: "100%" }}></View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{operation.logistica.fields.totalQuantityCartons}</Text>
+                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalQuantityCartons)}</Text>
                       </View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{operation.logistica.fields.totalNetWeightLogistica} MT</Text>
+                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalNetWeightLogistica)} MT</Text>
                       </View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{operation.logistica.fields.totalGrossWeight} MT</Text>
+                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalGrossWeight)} MT</Text>
                       </View>
                     </View>
                   </View>

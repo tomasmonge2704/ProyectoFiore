@@ -6,7 +6,7 @@ import {
   Image,
 } from "@react-pdf/renderer";
 import { styles } from "@/utils/formsStyles";
-import { convertirAMoneda } from "@/utils/convertInt";
+import { convertDecimales, convertirAMoneda } from "@/utils/convertInt";
 import { transformDate } from "@/utils/functions";
 export default function PurchaseForm({ fields, productos }) {
 
@@ -198,7 +198,7 @@ export default function PurchaseForm({ fields, productos }) {
                       <View style={styles.borderTable}>
                         {" "}
                         <Text style={styles.textDato}>
-                          {fields.totalNetWeight} MT
+                          {convertDecimales(fields.totalNetWeight)} MT
                         </Text>
                       </View>
                       <View style={{ width: "150%" }}></View>

@@ -46,6 +46,7 @@ const fieldsComercialSchema = new Schema({
     direccion2: String,
     vatNumber: String,
     refNumber: String,
+    country: String
   },
   productos: [
     {

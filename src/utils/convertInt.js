@@ -8,3 +8,7 @@ export function convertirAMoneda(numero) {
   if(numero == undefined || numero == NaN) return "USD 0";
   return formatoMoneda.format(numero);
 }
+
+export function convertDecimales(numero) {
+  return parseFloat(numero).toFixed(2);
+}

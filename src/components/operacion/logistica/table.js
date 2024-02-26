@@ -12,6 +12,7 @@ import {
   } from "@chakra-ui/react";
   import { DeleteIcon } from "@chakra-ui/icons";
   import { AiOutlinePlus } from "react-icons/ai";
+import { convertDecimales } from "@/utils/convertInt";
 
   export default function TablaLogistica({
     operation,
@@ -123,11 +124,11 @@ import {
           </Tbody>
           <Tfoot>  
             <Tr>
-              <Th>Total {operation.logistica.fields.totalQuantityCartons}</Th>
+              <Th>Total {convertDecimales(operation.logistica.fields.totalQuantityCartons)}</Th>
               <Th></Th>
               <Th></Th>
-              <Th isNumeric>{operation.logistica.fields.totalNetWeightLogistica}</Th>
-              <Th isNumeric>{operation.logistica.fields.totalGrossWeight}</Th>
+              <Th isNumeric>{convertDecimales(operation.logistica.fields.totalNetWeightLogistica)}</Th>
+              <Th isNumeric>{convertDecimales(operation.logistica.fields.totalGrossWeight)}</Th>
             </Tr>
           </Tfoot>
         </Table>
