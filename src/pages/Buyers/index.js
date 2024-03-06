@@ -6,7 +6,7 @@ export default function Proveedores() {
     {label:"Address Line 1",param:"direccion"},
     {label:"Address Line 2",param:"direccion2"},
     {label:"Country",param:"country"},
-    {label:"Tax ID",param:"vatNumber"},
+    {label:"Vat Number",param:"vatNumber"},
   ];
   const [CarteraClientes, setCarteraClientes] = useFetch(`${process.env.API_URL}/client`,undefined);
 

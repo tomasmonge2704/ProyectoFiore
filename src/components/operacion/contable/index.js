@@ -372,6 +372,7 @@ export const Contable = () => {
                   </Badge>
                   <InputPersonalizado
                     label="Nro Factura Proveedor Marketing"
+                    value={operation.contableFinanciera.fields.nroFacturaMarketing}
                     onChange={(e) => handleChange(e, "nroFacturaMarketing")}
                   />
                   <InputPersonalizado
@@ -388,6 +389,7 @@ export const Contable = () => {
                   <InputPersonalizado
                     label="Fecha de pago"
                     type="date"
+                    value={operation.contableFinanciera.fields.fechaPagoMarketing}
                     onChange={(e) => handleChange(e, "fechaPagoMarketing")}
                   />
                   <ComisionesBox
