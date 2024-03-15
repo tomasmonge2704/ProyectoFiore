@@ -76,12 +76,12 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
 
                           <View style={styles.borderTable}>
                             <Text style={styles.textDato}>
-                              {convertDecimales(prod.netWeightLogistica,3)} MT
+                              {convertDecimales(prod.netWeightLogistica,5)} MT
                             </Text>
                           </View>
                           <View style={styles.borderTable}>
                             <Text style={styles.textDato}>
-                              {convertDecimales(prod.grossWeight,3)} MT
+                              {convertDecimales(prod.grossWeight,5)} MT
                             </Text>
                           </View>
                         </View>
@@ -95,11 +95,11 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                       </View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalNetWeightLogistica,3)} MT</Text>
+                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalNetWeightLogistica,5)} MT</Text>
                       </View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalGrossWeight,3)} MT</Text>
+                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalGrossWeight,5)} MT</Text>
                       </View>
                     </View>
                   </View>

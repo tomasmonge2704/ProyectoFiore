@@ -80,7 +80,7 @@ export default function SaleForm({ operation, fields, productos }) {
                           <View style={styles.borderTable}>
                             {" "}
                             <Text style={styles.textDato}>
-                              {prod.netWeightLogistica} MT
+                              {convertDecimales(prod.netWeightLogistica,5)} MT
                             </Text>
                           </View>
                           <View style={{ width: "150%" }}>
@@ -115,7 +115,7 @@ export default function SaleForm({ operation, fields, productos }) {
                       <View style={styles.borderTable}>
                         {" "}
                         <Text style={styles.textDato}>
-                          {convertDecimales(operation.logistica.fields.totalNetWeightLogistica)} MT
+                          {convertDecimales(operation.logistica.fields.totalNetWeightLogistica,5)} MT
                         </Text>
                       </View>
                       <View style={{ width: "150%" }}></View>
