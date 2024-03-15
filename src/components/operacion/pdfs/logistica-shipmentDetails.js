@@ -91,7 +91,7 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                       <View style={{ width: "100%" }}></View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalQuantityCartons,3)}</Text>
+                        <Text style={styles.textDato}>{operation.logistica.fields.totalQuantityCartons}</Text>
                       </View>
                       <View style={styles.borderTable}>
                         {" "}
