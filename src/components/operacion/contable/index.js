@@ -17,7 +17,7 @@ import { LineValue } from "@/utils/lineValue";
 import { ConfirmButton } from "@/utils/saveForm";
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import { ComisionesBox } from "@/utils/comicionesBox";
-import { convertirAMoneda } from "@/utils/convertInt";
+import { convertDecimales, convertirAMoneda } from "@/utils/convertInt";
 import {
   calculateTotal,
   calculateAnticipo,
@@ -26,6 +26,7 @@ import {
   calculateComision,
 } from "@/components/controllers/financiera";
 import { useEffect, useState } from "react";
+import EditableValue from "@/utils/editableValue";
 export const Contable = () => {
   const operation = useStore((state) => state.operation);
   const setFieldsContableFinanciera = useStore(

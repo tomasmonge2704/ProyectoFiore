@@ -9,6 +9,6 @@ export function convertirAMoneda(numero) {
   return formatoMoneda.format(numero);
 }
 
-export function convertDecimales(numero) {
-  return parseFloat(numero).toFixed(2);
+export function convertDecimales(numero,cantidadDecimales) {
+  return parseFloat(numero).toFixed(cantidadDecimales || 2);
 }

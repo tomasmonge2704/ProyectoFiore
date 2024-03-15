@@ -76,12 +76,12 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
 
                           <View style={styles.borderTable}>
                             <Text style={styles.textDato}>
-                              {prod.netWeightLogistica} MT
+                              {convertDecimales(prod.netWeightLogistica,3)} MT
                             </Text>
                           </View>
                           <View style={styles.borderTable}>
                             <Text style={styles.textDato}>
-                              {prod.grossWeight} MT
+                              {convertDecimales(prod.grossWeight,3)} MT
                             </Text>
                           </View>
                         </View>
@@ -91,15 +91,15 @@ export default function ShipmentPeriodPDF({ operation, fields, productos }) {
                       <View style={{ width: "100%" }}></View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalQuantityCartons)}</Text>
+                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalQuantityCartons,3)}</Text>
                       </View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalNetWeightLogistica)} MT</Text>
+                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalNetWeightLogistica,3)} MT</Text>
                       </View>
                       <View style={styles.borderTable}>
                         {" "}
-                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalGrossWeight)} MT</Text>
+                        <Text style={styles.textDato}>{convertDecimales(operation.logistica.fields.totalGrossWeight,3)} MT</Text>
                       </View>
                     </View>
                   </View>

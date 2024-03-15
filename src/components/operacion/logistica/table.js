@@ -124,11 +124,11 @@ import { convertDecimales } from "@/utils/convertInt";
           </Tbody>
           <Tfoot>  
             <Tr>
-              <Th>Total {convertDecimales(operation.logistica.fields.totalQuantityCartons)}</Th>
+              <Th>Total {convertDecimales(operation.logistica.fields.totalQuantityCartons,3)}</Th>
               <Th></Th>
               <Th></Th>
-              <Th isNumeric>{convertDecimales(operation.logistica.fields.totalNetWeightLogistica)}</Th>
-              <Th isNumeric>{convertDecimales(operation.logistica.fields.totalGrossWeight)}</Th>
+              <Th isNumeric>{convertDecimales(operation.logistica.fields.totalNetWeightLogistica,3)}</Th>
+              <Th isNumeric>{convertDecimales(operation.logistica.fields.totalGrossWeight,3)}</Th>
             </Tr>
           </Tfoot>
         </Table>
