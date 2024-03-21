@@ -35,7 +35,7 @@ export default function InputPersonalizado({
         type={type}
         onChange={onChange}
         defaultValue={defaultValue}
-        value={hoverEffect && hovered ? value : displayValue}
+        value={hoverEffect ? (hovered ? value : displayValue) : value}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       />
