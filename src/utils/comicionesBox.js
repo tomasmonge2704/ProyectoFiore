@@ -1,10 +1,11 @@
 import InputPersonalizado from "./inputPersonalizado";
-import { convertirAMoneda } from "./convertInt";
-export const ComisionesBox = ({value, handleChange, param,set }) => {
+export const ComisionesBox = ({value, handleChange,defaultValue, param,set,hoverEffect }) => {
   
   return (
     <InputPersonalizado
-      label="COMISIONES (USD)"
+      label="COMISIONES"
+      defaultValue={defaultValue}
+      hoverEffect={hoverEffect}
       value={value}
       onChange={(e) => handleChange(e, param,set)}
     />

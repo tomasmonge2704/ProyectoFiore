@@ -3,8 +3,9 @@ import { FiDownload } from "react-icons/fi";
 import React, { useEffect, useState } from "react";
 import * as ExcelJS from "exceljs";
 import useFetch from "@/hooks/useFetch";
-import { calculateAnticipo } from "@/components/controllers/financiera";
+import { calculateAnticipo,calculateTotal,calculateBalance } from "@/components/controllers/financiera";
 import { transformDate } from "./functions";
+import { convertMonedaWUsd } from "./convertInt";
 const generateExcelFile = async (data) => {
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet("Sheet 1");
@@ -34,6 +35,7 @@ const generateExcelFile = async (data) => {
 
 export const ExcelIconButton = () => {
   const [operations] = useFetch(`${process.env.API_URL}/operation`, undefined);
+
   const labels = [
     [
       "Ref Number",
@@ -58,23 +60,35 @@ export const ExcelIconButton = () => {
       "Precio Venta",
       "Monto Venta",
       "Precio Marketing",
-      "Nro. Factura Marketing",
       "Monto Marketing",
       "Monto Broker",
-      "Profit",
+      "Shipment From",
+      "Shipment To",
       "Destino",
       "Container Number",
       "Fecha ETD",
       "Fecha ETA",
       "Freight Forwarder",
       "Shipping Line",
-      "Freight Amount",
-      "Shipment From",
-      "Shipment To",
+      "Nro Factura Flete Int.",
+      "Monto Factura Flete Int.",
+      "Fecha de Pago Flete Int.",
+      "Nro Factura Frigorifico",
+      "Monto Factura Frigorífico",
       "Monto Pago Anticipo",
       "Fecha Pago Anticipo",
+      "Monto Pago Balance",
+      "Fecha Pago Balance",
+      "Nro Factura (Duplo/DPL)",
+      "Monto Factura",
       "Monto Cobro Anticipo",
       "Fecha Cobro Anticipo",
+      "Monto Cobro Balance",
+      "Fecha Cobro Balance",
+      "Nro. Factura Marketing",
+      "Monto Factura Marketing",
+      "Fecha de Pago Marketing",
+      "Profit",
       "Tipo de Operacion (Trading / Trading+Mkt / Broker)",
     ],
   ];
@@ -85,6 +99,21 @@ export const ExcelIconButton = () => {
       const newDataExcel = [
         ...labels,
         ...operations.map((operation) => {
+          const montoCobradoAnticipo =  calculateAnticipo(
+            operation.contableFinanciera.fields.montoAnticipoSale,
+            operation.comercial.fields.paymentTermsSale,
+            operation.comercial.fields.totalSale
+          ) || 0;
+          const montoFacturaSell = calculateTotal(
+            operation.contableFinanciera.fields.totalFacturaVenta,
+            operation.comercial.fields.productos,
+            "unitPriceSale"
+          ) || 0;
+          const montoPagadoAnticipo = calculateAnticipo(
+            operation.contableFinanciera.fields.montoAnticipoPurchase,
+            operation.comercial.fields.paymentTermsPurchase,
+            operation.comercial.fields.totalPurchase
+          ) || 0;
           return [
             operation.id,
             transformDate(operation.comercial.fields.date),
@@ -101,44 +130,67 @@ export const ExcelIconButton = () => {
             operation.comercial.fields.productos[0].description,
             operation.comercial.fields.deliveryTermsPurchase,
             operation.comercial.fields.paymentTermsPurchase,
-            operation.comercial.fields.productos[0].unitPricePurchase,
-            operation.comercial.fields.totalPurchase,
+            convertMonedaWUsd(operation.comercial.fields.productos[0].unitPricePurchase),
+            convertMonedaWUsd(operation.comercial.fields.totalPurchase),
             operation.comercial.fields.deliveryTermsSale,
             operation.comercial.fields.paymentTermsSale,
-            operation.comercial.fields.productos[0].unitPriceSale,
-            operation.comercial.fields.totalSale,
-            operation.comercial.fields.comisionMarketing,
+            convertMonedaWUsd(operation.comercial.fields.productos[0].unitPriceSale),
+            convertMonedaWUsd(operation.comercial.fields.totalSale),
+            convertMonedaWUsd(operation.comercial.fields.comisionMarketing),
             operation.contableFinanciera.fields.nroFacturaMarketing,
-            operation.contableFinanciera.fields.montoFacturaMarketing ||
-              operation.logistica.fields.totalMarketing,
-            operation.comercial.fields.comisionPurchase,
-            operation.contableFinanciera.fields.profitNeto,
+            convertMonedaWUsd(operation.contableFinanciera.fields.montoFacturaMarketing ||
+            operation.logistica.fields.totalMarketing),
+            transformDate(operation.comercial.fields.shipmentPeriodFrom),
+            transformDate(operation.comercial.fields.shipmentPeriodTo),
             operation.comercial.fields.destinationCountry,
             operation.logistica.fields.containerNr,
             transformDate(operation.logistica.fields.etd),
             transformDate(operation.logistica.fields.eta),
             operation.logistica.fields.freightForwarder,
             operation.logistica.fields.ShippingLine,
-            operation.logistica.fields.freightAmount,
-            transformDate(operation.comercial.fields.shipmentPeriodFrom),
-            transformDate(operation.comercial.fields.shipmentPeriodTo),
-
-            calculateAnticipo(
+            operation.contableFinanciera.fields.nroFacturaFlete,
+            convertMonedaWUsd(operation.contableFinanciera.fields.montoFacturaFlete || operation.logistica.fields.freightAmount || 0),
+            transformDate(operation.contableFinanciera.fields.fechaPagoFlete),
+            operation.contableFinanciera.fields.nroFacturaProveedorFrigo,
+            convertMonedaWUsd(calculateTotal(
+              operation.contableFinanciera.fields.totalFacturaCompra,
+              operation.comercial.fields.productos,
+              "unitPricePurchase"
+            ) || 0),
+            convertMonedaWUsd(calculateAnticipo(
               operation.contableFinanciera.fields.montoAnticipoPurchase,
               operation.comercial.fields.paymentTermsPurchase,
               operation.comercial.fields.totalPurchase
-            ) || 0,
+            ) || 0),
             transformDate(
               operation.contableFinanciera.fields.fechaAnticipoPurchase
             ),
-            calculateAnticipo(
-              operation.contableFinanciera.fields.montoAnticipoSale,
-              operation.comercial.fields.paymentTermsSale,
-              operation.comercial.fields.totalSale
-            ) || 0,
+            convertMonedaWUsd(montoPagadoAnticipo),
+            transformDate(
+              operation.contableFinanciera.fields.fechaBalancePurchase
+            ),
+            operation.contableFinanciera.fields.nroFacturaSell,
+            convertMonedaWUsd(montoFacturaSell),
+            convertMonedaWUsd(montoCobradoAnticipo),
             transformDate(
               operation.contableFinanciera.fields.fechaCobroAnticipo
             ),
+            convertMonedaWUsd(calculateBalance(
+              montoCobradoAnticipo,
+              montoFacturaSell,
+              operation.contableFinanciera.fields.montoBalanceSale
+            )),
+            transformDate(
+              operation.contableFinanciera.fields.fechaCobroBalance
+            ),
+            operation.contableFinanciera.fields.nroFacturaMarketing,
+            convertMonedaWUsd(operation.contableFinanciera.fields.montoFacturaMarketing ||
+              operation.logistica.fields.totalMarketing ||
+              0),
+            transformDate(
+              operation.contableFinanciera.fields.fechaPagoMarketing
+            ),
+            convertMonedaWUsd(operation.contableFinanciera.fields.profitNeto),
             operation.comercial.fields.operationType,
           ];
         }),

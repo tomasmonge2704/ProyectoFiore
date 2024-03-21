@@ -17,7 +17,7 @@ import { LineValue } from "@/utils/lineValue";
 import { ConfirmButton } from "@/utils/saveForm";
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import { ComisionesBox } from "@/utils/comicionesBox";
-import { convertDecimales, convertirAMoneda } from "@/utils/convertInt";
+import { convertDecimales, convertirAMoneda, convertMonedaWUsd } from "@/utils/convertInt";
 import {
   calculateTotal,
   calculateAnticipo,
@@ -289,8 +289,10 @@ export const Contable = () => {
                   onChange={(e) => handleChange(e, "nroFacturaProveedorFrigo")}
                 />
                 <InputPersonalizado
-                  label="Monto Total Factura (USD)"
+                  label="Monto Total Factura"
                   value={montoFacturaPurchase}
+                  hoverEffect={true}
+                  defaultValue={convertirAMoneda(montoFacturaPurchase)}
                   onChange={(e) =>
                     handleChange(
                       e,
@@ -308,8 +310,10 @@ export const Contable = () => {
                   onChange={(e) => handleChange(e, "fechaAnticipoPurchase")}
                 />
                 <InputPersonalizado
-                  label="Monto Pagado Anticipo (USD)"
+                  label="Monto Pagado Anticipo"
                   value={montoPagadoAnticipo}
+                  defaultValue={convertirAMoneda(montoPagadoAnticipo)}
+                  hoverEffect={true}
                   onChange={(e) =>
                     handleChange(
                       e,
@@ -320,6 +324,8 @@ export const Contable = () => {
                 />
                 <ComisionesBox
                   value={comisionPagadoAnticipo}
+                  defaultValue={convertirAMoneda(comisionPagadoAnticipo)}
+                  hoverEffect={true}
                   handleChange={handleChange}
                   param="comisionMontoPagadoAnticipo"
                   set={setComisionPagadoAnticipo}
@@ -334,7 +340,9 @@ export const Contable = () => {
                   onChange={(e) => handleChange(e, "fechaBalancePurchase")}
                 />
                 <InputPersonalizado
-                  label="Monto Pagado Balance (USD)"
+                  label="Monto Pagado Balance"
+                  defaultValue={convertirAMoneda(montoPagadoBalance)}
+                  hoverEffect={true}
                   value={montoPagadoBalance}
                   onChange={(e) =>
                     handleChange(
@@ -346,6 +354,8 @@ export const Contable = () => {
                 />
                 <ComisionesBox
                   value={comisionPagadoBalance}
+                  defaultValue={convertirAMoneda(comisionPagadoBalance)}
+                  hoverEffect={true}
                   handleChange={handleChange}
                   param="comisionMontoPagadobalance"
                   set={setComisionPagadoBalance}
@@ -377,7 +387,9 @@ export const Contable = () => {
                     onChange={(e) => handleChange(e, "nroFacturaMarketing")}
                   />
                   <InputPersonalizado
-                    label="Monto Factura (USD)"
+                    label="Monto Factura"
+                    defaultValue={convertirAMoneda(montoPagadoMarketing)}
+                  hoverEffect={true}
                     value={montoPagadoMarketing}
                     onChange={(e) =>
                       handleChange(
@@ -395,6 +407,8 @@ export const Contable = () => {
                   />
                   <ComisionesBox
                     value={comisionPagadoMarketing}
+                    defaultValue={convertirAMoneda(comisionPagadoMarketing)}
+                  hoverEffect={true}
                     set={setComisionPagadoMarketing}
                     handleChange={handleChange}
                     param="comisionMontoPagadoMarketing"
@@ -429,8 +443,10 @@ export const Contable = () => {
                     onChange={(e) => handleChange(e, "nroFacturaFlete")}
                   />
                   <InputPersonalizado
-                    label="Monto Factura (USD)"
+                    label="Monto Factura"
                     value={montoPagadoFlete}
+                    defaultValue={convertirAMoneda(montoPagadoFlete)}
+                  hoverEffect={true}
                     onChange={(e) =>
                       handleChange(e, "montoFacturaFlete", setMontoPagadoFlete)
                     }
@@ -445,6 +461,8 @@ export const Contable = () => {
                   />
                   <ComisionesBox
                     value={comisionPagadoFlete}
+                    defaultValue={convertirAMoneda(comisionPagadoFlete)}
+                  hoverEffect={true}
                     param="comisionPagadoFlete"
                     set={setComisionPagadoFlete}
                     handleChange={handleChange}
@@ -475,7 +493,9 @@ export const Contable = () => {
                     onChange={(e) => handleChange(e, "nroFacturaSeguro")}
                   />
                   <InputPersonalizado
-                    label="Monto Factura (USD)"
+                    label="Monto Factura"
+                    defaultValue={convertirAMoneda(montoPagadoInsurance)}
+                  hoverEffect={true}
                     value={montoPagadoInsurance}
                     onChange={(e) =>
                       handleChange(
@@ -495,6 +515,8 @@ export const Contable = () => {
                   />
                   <ComisionesBox
                     value={comisionPagadoInsurance}
+                    defaultValue={convertirAMoneda(comisionPagadoInsurance)}
+                  hoverEffect={true}
                     handleChange={handleChange}
                     param="comisionPagadoInsurance"
                     set={setComisionPagadoInsurance}
@@ -537,8 +559,10 @@ export const Contable = () => {
                     onChange={(e) => handleChange(e, "nroFacturaSell")}
                   />
                   <InputPersonalizado
-                    label="Monto total Factura (USD)"
+                    label="Monto total Factura"
                     value={montoFacturaSell}
+                    defaultValue={convertirAMoneda(montoFacturaSell)}
+                  hoverEffect={true}
                     onChange={(e) =>
                       handleChange(e, "totalFacturaVenta", setMontoFacturaSell)
                     }
@@ -552,7 +576,9 @@ export const Contable = () => {
                     onChange={(e) => handleChange(e, "fechaCobroAnticipo")}
                   />
                   <InputPersonalizado
-                    label="Monto Cobrado Anticipo (USD)"
+                    label="Monto Cobrado Anticipo"
+                    defaultValue={convertirAMoneda(montoCobradoAnticipo)}
+                  hoverEffect={true}
                     value={montoCobradoAnticipo}
                     onChange={(e) =>
                       handleChange(
@@ -564,6 +590,8 @@ export const Contable = () => {
                   />
                   <ComisionesBox
                     value={comisionCobradoAnticipo}
+                    defaultValue={convertirAMoneda(comisionCobradoAnticipo)}
+                  hoverEffect={true}
                     handleChange={handleChange}
                     param="comisionMontoCobradoAnticipo"
                     set={setComisionCobradoAnticipo}
@@ -579,8 +607,10 @@ export const Contable = () => {
                     onChange={(e) => handleChange(e, "fechaCobroBalance")}
                   />
                   <InputPersonalizado
-                    label="Monto cobrado Balance (USD)"
+                    label="Monto cobrado Balance"
                     value={montoCobradoBalance}
+                    defaultValue={convertirAMoneda(montoCobradoBalance)}
+                  hoverEffect={true}
                     onChange={(e) =>
                       handleChange(
                         e,
@@ -593,12 +623,16 @@ export const Contable = () => {
                   <ComisionesBox
                     handleChange={handleChange}
                     value={comisionCobradoBalance}
+                    defaultValue={convertirAMoneda(comisionCobradoBalance)}
+                  hoverEffect={true}
                     param="comisionMontoCobradoBalance"
                     set={setComisionCobradoBalance}
                   />
                   <InputPersonalizado
-                    label="Intermediary Charges (USD)"
+                    label="Intermediary Charges"
                     value={intermediaryCharges}
+                    defaultValue={convertirAMoneda(intermediaryCharges)}
+                  hoverEffect={true}
                     onChange={(e) =>
                       handleChange(
                         e,
@@ -635,7 +669,9 @@ export const Contable = () => {
                       onChange={(e) => handleChange(e, "nroFacturaBrokerage")}
                     />
                     <InputPersonalizado
-                      label="Monto Factura (USD)"
+                      label="Monto Factura"
+                      defaultValue={convertirAMoneda(montoCobradoBrokerage)}
+                  hoverEffect={true}
                       value={montoCobradoBrokerage}
                       onChange={(e) => handleChange(e, "montoCobradoBrokerage",setMontoCobradoBrokerage)}
                     />
@@ -649,6 +685,8 @@ export const Contable = () => {
                     />
                     <ComisionesBox
                       value={comisionCobradoBrokerage}
+                      defaultValue={convertirAMoneda(comisionCobradoBrokerage)}
+                  hoverEffect={true}
                       handleChange={handleChange}
                       set={setComisionCobradoBrokerage}
                       param="comisionMontoCobradoBrokerage"
