@@ -10,9 +10,9 @@ export function convertirAMoneda(numero) {
 }
 export function convertMonedaWUsd(numero) {
   // Formatear el número con separador de miles y decimales
-  const numeroFormateado = numero.toLocaleString('es-ES', { maximumFractionDigits: 2 });
+  const numeroFormateado = (numero || 0).toLocaleString('es-ES', { maximumFractionDigits: 2 });
 
-  return numeroFormateado || 0;
+  return numeroFormateado;
 }
 export function convertDecimales(numero, cantidadDecimales) {
   if (cantidadDecimales && cantidadDecimales > 0) {
