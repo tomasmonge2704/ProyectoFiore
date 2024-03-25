@@ -228,14 +228,14 @@ export const Contable = () => {
       profitNeto = montoFacturaSell -
       montoFacturaPurchase -
       montoPagadoFlete -
-      montoPagadoMarketing -
       totalComisionesEgresos -
       totalComisionesIngresos;
+      if (operation.comercial.fields.operationType == "Trading + Marketing") profitNeto -= montoPagadoMarketing;
     }
-    
     setFieldsContableFinanciera({ ...fields, profitNeto: profitNeto });
   }, [
     operation.comercial.fields.bank,
+    operation.comercial.fields.operationType,
     montoPagadoAnticipo,
     montoFacturaPurchase,
     montoFacturaSell,
@@ -250,7 +250,9 @@ export const Contable = () => {
     comisionCobradoBalance,
     comisionPagadoAnticipo,
     comisionPagadoBalance,
-    comisionCobradoBrokerage
+    comisionCobradoBrokerage,
+    totalComisionesEgresos,
+    totalComisionesIngresos
   ]);
   return (
     <Tabs variant="soft-rounded" colorScheme="orange">
@@ -727,6 +729,7 @@ export const Contable = () => {
             <LineValue
               text="Monto Brokerage"
               type="+"
+              colorScheme="green"
               value={montoCobradoBrokerage}
             />
             <LineValue
@@ -737,6 +740,7 @@ export const Contable = () => {
             <LineValue
               text="Monto Total Factura de Venta"
               type="+"
+              colorScheme="green"
               value={montoFacturaSell}
             />
             <LineValue

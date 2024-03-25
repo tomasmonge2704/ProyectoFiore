@@ -1,5 +1,5 @@
 import { InputGroup, Input, InputLeftAddon } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function InputPersonalizado({
   type,
@@ -14,7 +14,9 @@ export default function InputPersonalizado({
 }) {
   const [hovered, setHovered] = useState(false);
   const [displayValue, setDisplayValue] = useState(defaultValue);
-
+  useEffect(() => {
+    setDisplayValue(defaultValue);
+  },[defaultValue])
   const handleMouseEnter = () => {
     setHovered(true);
     setDisplayValue(value);
@@ -31,6 +33,7 @@ export default function InputPersonalizado({
       <InputLeftAddon>{label}</InputLeftAddon>
       <Input
         variant={variant || "filled"}
+        borderColor={hovered ? "orange.200" : undefined}
         readOnly={readOnly}
         type={type}
         onChange={onChange}

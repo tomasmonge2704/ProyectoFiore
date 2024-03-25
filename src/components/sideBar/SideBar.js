@@ -159,7 +159,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
             onClick={toggleColorMode}
             icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           />
-          <Menu>
+          <Menu placement="top-end">
             <MenuButton
               as={IconButton}
               size="lg"
@@ -187,7 +187,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
               }
             />
 
-            <MenuList zIndex="modal">
+            <MenuList zIndex="modal" >
               {cantidadNotificaciones > 0 ? (
                 notificaciones.map((notificacion, index) => (
                   <VStack key={index} spacing={3}>
