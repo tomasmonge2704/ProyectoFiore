@@ -17,7 +17,7 @@ import { LineValue } from "@/utils/lineValue";
 import { ConfirmButton } from "@/utils/saveForm";
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import { ComisionesBox } from "@/utils/comicionesBox";
-import { convertirAMoneda, convertMonedaWUsd } from "@/utils/convertInt";
+import { convertirAMoneda } from "@/utils/convertInt";
 import {
   calculateTotal,
   calculateAnticipo,
@@ -777,7 +777,7 @@ export const Contable = () => {
               mr={8}
               textAlign="right"
             >
-              {convertMonedaWUsd(operation.contableFinanciera.fields.profitNeto)}
+              {convertirAMoneda(operation.contableFinanciera.fields.profitNeto)}
             </Badge>
           </VStack>
         </TabPanel>
