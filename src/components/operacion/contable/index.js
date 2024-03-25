@@ -26,7 +26,6 @@ import {
   calculateComision,
 } from "@/components/controllers/financiera";
 import { useEffect, useState } from "react";
-import EditableValue from "@/utils/editableValue";
 export const Contable = () => {
   const operation = useStore((state) => state.operation);
   const setFieldsContableFinanciera = useStore(
@@ -35,11 +34,11 @@ export const Contable = () => {
   const handleChange = (event, param, set) => {
     let value = event.target.value;
     if (typeof value === "string" && value.includes("USD")) {
-      value = parseFloat(value.replace(/[^\d.]/g, "")) || 0;
+      value = parseFloat(value.replace("USD ", "")) || 0;
     }
     setFieldsContableFinanciera({
       ...operation.contableFinanciera.fields,
-      [param]: value,
+      [param]: Number(value),
     });
     //cuando modifica montos
     if (set) set(value);
@@ -221,6 +220,9 @@ export const Contable = () => {
     setTotalComisionesIngresos(
       comisionCobradoAnticipo + comisionCobradoBalance + comisionCobradoBrokerage
     );
+    console.log(comisionCobradoAnticipo)
+    console.log(comisionCobradoBalance)
+    console.log(comisionCobradoBrokerage)
     let profitNeto;
     if(operation.comercial.fields.operationType == "Broker"){
       profitNeto = montoCobradoBrokerage - comisionCobradoBrokerage;
