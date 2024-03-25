@@ -229,7 +229,7 @@ export const Contable = () => {
       montoFacturaPurchase -
       montoPagadoFlete -
       totalComisionesEgresos -
-      totalComisionesIngresos;
+      totalComisionesIngresos - intermediaryCharges;
       if (operation.comercial.fields.operationType == "Trading + Marketing") profitNeto -= montoPagadoMarketing;
     }
     setFieldsContableFinanciera({ ...fields, profitNeto: profitNeto });
