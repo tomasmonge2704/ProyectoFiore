@@ -8,20 +8,16 @@ export function convertirAMoneda(numero) {
   if(numero == undefined || numero == NaN) return "USD 0";
   return formatoMoneda.format(numero);
 }
-export  function convertMonedaWUsd(numero) {
-  const formatoMoneda = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 2, // Define el número máximo de decimales
-  });
-  if(numero == undefined || numero == NaN) return "0";
-  return formatoMoneda.format(numero).replace(/^\D+/g, ''); // Elimina todos los caracteres que no sean dígitos al principio
+export function convertMonedaWUsd(numero) {
+  // Formatear el número con separador de miles y decimales
+  const numeroFormateado = Number(numero).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ".").replace(".", ",");
+
+  return numeroFormateado;
 }
 export function convertDecimales(numero, cantidadDecimales) {
   if (cantidadDecimales && cantidadDecimales > 0) {
-    return parseFloat(numero).toFixed(cantidadDecimales).replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace('.', ',');
+    return parseFloat(numero).toFixed(cantidadDecimales).replace(/\.?0+$/, '');
   }
-  return parseFloat(numero).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace('.', ',');
+  return parseFloat(numero).toFixed(2).replace(/\.?0+$/, '');
 }
-
 
