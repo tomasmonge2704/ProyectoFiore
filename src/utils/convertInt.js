@@ -12,7 +12,7 @@ export function convertMonedaWUsd(numero) {
   // Formatear el número con separador de miles y decimales
   const numeroFormateado = Number(numero).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ".").replace(".", ",");
 
-  return numeroFormateado;
+  return numeroFormateado || 0;
 }
 export function convertDecimales(numero, cantidadDecimales) {
   if (cantidadDecimales && cantidadDecimales > 0) {
