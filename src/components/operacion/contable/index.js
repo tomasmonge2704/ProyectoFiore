@@ -17,7 +17,7 @@ import { LineValue } from "@/utils/lineValue";
 import { ConfirmButton } from "@/utils/saveForm";
 import InputPersonalizado from "@/utils/inputPersonalizado";
 import { ComisionesBox } from "@/utils/comicionesBox";
-import { convertDecimales, convertirAMoneda, convertMonedaWUsd } from "@/utils/convertInt";
+import { convertirAMoneda } from "@/utils/convertInt";
 import {
   calculateTotal,
   calculateAnticipo,
@@ -220,9 +220,6 @@ export const Contable = () => {
     setTotalComisionesIngresos(
       comisionCobradoAnticipo + comisionCobradoBalance + comisionCobradoBrokerage
     );
-    console.log(comisionCobradoAnticipo)
-    console.log(comisionCobradoBalance)
-    console.log(comisionCobradoBrokerage)
     let profitNeto;
     if(operation.comercial.fields.operationType == "Broker"){
       profitNeto = montoCobradoBrokerage - comisionCobradoBrokerage;

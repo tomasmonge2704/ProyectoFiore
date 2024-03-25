@@ -19,8 +19,9 @@ export  function convertMonedaWUsd(numero) {
 }
 export function convertDecimales(numero, cantidadDecimales) {
   if (cantidadDecimales && cantidadDecimales > 0) {
-    return parseFloat(numero).toFixed(cantidadDecimales).replace(/\.?0+$/, '');
+    return parseFloat(numero).toFixed(cantidadDecimales).replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace('.', ',');
   }
-  return parseFloat(numero).toFixed(2).replace(/\.?0+$/, '');
+  return parseFloat(numero).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace('.', ',');
 }
+
 
