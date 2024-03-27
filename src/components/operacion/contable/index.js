@@ -38,10 +38,17 @@ export const Contable = () => {
     }
     setFieldsContableFinanciera({
       ...operation.contableFinanciera.fields,
-      [param]: Number(value),
+      [param]: value,
     });
     //cuando modifica montos
     if (set) set(value);
+  };
+  const handleChangeDate = (event, param) => {
+    const { value } = event.target;
+    setFieldsContableFinanciera({
+      ...operation.contableFinanciera.fields,
+      [param]: value,
+    });
   };
   const [montoFacturaPurchase, setMontoFacturaPurchase] = useState(
     calculateTotal(
@@ -308,7 +315,7 @@ export const Contable = () => {
                   value={
                     operation.contableFinanciera.fields.fechaAnticipoPurchase
                   }
-                  onChange={(e) => handleChange(e, "fechaAnticipoPurchase")}
+                  onChange={(e) => handleChangeDate(e, "fechaAnticipoPurchase")}
                 />
                 <InputPersonalizado
                   label="Monto Pagado Anticipo"
@@ -338,7 +345,7 @@ export const Contable = () => {
                     operation.contableFinanciera.fields.fechaBalancePurchase
                   }
                   type="date"
-                  onChange={(e) => handleChange(e, "fechaBalancePurchase")}
+                  onChange={(e) => handleChangeDate(e, "fechaBalancePurchase")}
                 />
                 <InputPersonalizado
                   label="Monto Pagado Balance"
@@ -404,7 +411,7 @@ export const Contable = () => {
                     label="Fecha de pago"
                     type="date"
                     value={operation.contableFinanciera.fields.fechaPagoMarketing}
-                    onChange={(e) => handleChange(e, "fechaPagoMarketing")}
+                    onChange={(e) => handleChangeDate(e, "fechaPagoMarketing")}
                   />
                   <ComisionesBox
                     value={comisionPagadoMarketing}
@@ -458,7 +465,7 @@ export const Contable = () => {
                     value={
                       operation.contableFinanciera.fields.fechaPagoFlete
                     }
-                    onChange={(e) => handleChange(e, "fechaPagoFlete")}
+                    onChange={(e) => handleChangeDate(e, "fechaPagoFlete")}
                   />
                   <ComisionesBox
                     value={comisionPagadoFlete}
@@ -512,7 +519,7 @@ export const Contable = () => {
                       operation.contableFinanciera.fields.fechaPagoSeguro
                     }
                     type="date"
-                    onChange={(e) => handleChange(e, "fechaPagoSeguro")}
+                    onChange={(e) => handleChangeDate(e, "fechaPagoSeguro")}
                   />
                   <ComisionesBox
                     value={comisionPagadoInsurance}
@@ -574,7 +581,7 @@ export const Contable = () => {
                     value={
                       operation.contableFinanciera.fields.fechaCobroAnticipo
                     }
-                    onChange={(e) => handleChange(e, "fechaCobroAnticipo")}
+                    onChange={(e) => handleChangeDate(e, "fechaCobroAnticipo")}
                   />
                   <InputPersonalizado
                     label="Monto Cobrado Anticipo"
@@ -605,7 +612,7 @@ export const Contable = () => {
                     value={
                       operation.contableFinanciera.fields.fechaCobroBalance
                     }
-                    onChange={(e) => handleChange(e, "fechaCobroBalance")}
+                    onChange={(e) => handleChangeDate(e, "fechaCobroBalance")}
                   />
                   <InputPersonalizado
                     label="Monto cobrado Balance"
@@ -682,7 +689,7 @@ export const Contable = () => {
                       value={
                         operation.contableFinanciera.fields.fechaCobroBrokerage
                       }
-                      onChange={(e) => handleChange(e, "fechaCobroBrokerage")}
+                      onChange={(e) => handleChangeDate(e, "fechaCobroBrokerage")}
                     />
                     <ComisionesBox
                       value={comisionCobradoBrokerage}
