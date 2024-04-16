@@ -16,10 +16,6 @@ import {
   HStack,
   Avatar,
   IconButton,
-  Badge,
-  Text,
-  VStack,
-  Divider,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -27,7 +23,6 @@ import {
   FiBox,
   FiUser,
   FiSettings,
-  FiBell
 } from "react-icons/fi";
 import { FaChartLine } from "react-icons/fa";
 import { NavItem } from "./navItem";
@@ -37,6 +32,7 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { useStoreUser } from "@/store/user";
 import { useEffect, useState } from "react";
 import useFetch from "@/hooks/useFetch";
+import NotificationsIcon from "./notications";
 const LinkItems = [
   { name: "Home", icon: FiHome, href: "/", text: "" },
   { name: "Metrics", icon: FaChartLine, href: "/metrics", text: "" },
@@ -159,56 +155,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
             onClick={toggleColorMode}
             icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           />
-          <Menu placement="top-end">
-            <MenuButton
-              as={IconButton}
-              size="lg"
-              variant="ghost"
-              py={2}
-              transition="all 0.3s"
-              _focus={{ boxShadow: "none" }}
-              aria-label="open menu"
-              icon={
-                <>
-                  <FiBell />
-                  {cantidadNotificaciones > 0 && (
-                    <Badge
-                      colorScheme="red"
-                      position="absolute"
-                      top="0"
-                      right="0"
-                      fontSize="0.8em"
-                      borderRadius="3xl"
-                    >
-                      {cantidadNotificaciones}
-                    </Badge>
-                  )}
-                </>
-              }
-            />
-
-            <MenuList zIndex="modal" >
-              {cantidadNotificaciones > 0 ? (
-                notificaciones.map((notificacion, index) => (
-                  <VStack key={index} spacing={3}>
-                    <Box
-                    w="full"
-                    p={2}
-                    mt={2}
-                      borderLeft="5px solid orange"
-                      _hover={{ shadow: "md"}}
-                    >
-                      <Text as="b">{notificacion.refNumber}</Text>
-                      <Text alignItems="center">Is arriving in <Badge ml={1} colorScheme="orange">{notificacion.timeToArrival}</Badge></Text>
-                    </Box>
-                    <Divider />
-                  </VStack>
-                ))
-              ) : (
-                <Text>No hay notificaciones</Text>
-              )}
-            </MenuList>
-          </Menu>
+          <NotificationsIcon notificaciones={notificaciones} cantidadNotificaciones={cantidadNotificaciones}/>
           <Flex alignItems={"center"}>
             <Menu>
               <MenuButton

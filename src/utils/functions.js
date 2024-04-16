@@ -37,18 +37,19 @@ export function handleDuplicateOperation(id, setOperations, operations, toast) {
     });
 }
 
-export const handleOrderBy = (param, setFilter, setData,status) => {
+export const handleOrderBy = (param, setFilter, setData, status) => {
   const token = localStorage.getItem("token");
   setFilter(param);
-  let url = `${process.env.API_URL}/operation/orderBy/${param}`;
-  if(param == "status" && status){
-    const valuesArray = status.map(option => option.value);
-    url = url + "/" + valuesArray.join('-');
-  }
+  let url = `${process.env.API_URL}/operation/filter`;
+  const body = { param };
+  if (status) body.status = status.map(elemento => elemento.value);;
   fetch(url, {
+    method: "POST", // Método POST para enviar datos
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json", // Especificamos JSON como tipo de contenido
     },
+    body: JSON.stringify(body), // Convertimos el cuerpo a formato JSON
   })
     .then((res) => res.json())
     .then((data) => setData(data))
@@ -57,6 +58,7 @@ export const handleOrderBy = (param, setFilter, setData,status) => {
       // Aquí puedes agregar código para manejar el error, como mostrar un mensaje al usuario.
     });
 };
+
 
 function calcularDiasHastaFecha(fecha) {
   if(!fecha) return "No tiene fecha ETA";

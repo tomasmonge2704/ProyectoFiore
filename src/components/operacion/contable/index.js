@@ -154,7 +154,8 @@ export const Contable = () => {
         fields.comisionMontoPagadoAnticipo,
         montoPagadoAnticipo,
         porcentaje,
-        fijo
+        fijo,
+        operation.comercial.fields.empresa?.bank?.minimo
       )
     );
     setComisionPagadoBalance(
@@ -162,7 +163,8 @@ export const Contable = () => {
         fields.comisionMontoPagadobalance,
         montoPagadoBalance,
         porcentaje,
-        fijo
+        fijo,
+        operation.comercial.fields.empresa?.bank?.minimo
       )
     );
     setComisionCobradoAnticipo(
@@ -170,7 +172,8 @@ export const Contable = () => {
         fields.comisionMontoCobradoAnticipo,
         montoCobradoAnticipo,
         porcentajeCobranza,
-        fijoCobranza
+        fijoCobranza,
+        operation.comercial.fields.empresa?.bank?.minimo
       )
     );
     setComisionCobradoBalance(
@@ -178,7 +181,8 @@ export const Contable = () => {
         fields.comisionMontoCobradoBalance,
         montoCobradoBalance,
         porcentajeCobranza,
-        fijoCobranza
+        fijoCobranza,
+        operation.comercial.fields.empresa?.bank?.minimo
       )
     );
     setComisionPagadoFlete(
@@ -186,7 +190,8 @@ export const Contable = () => {
         fields.comisionPagadoFlete,
         montoPagadoFlete,
         porcentaje,
-        fijo
+        fijo,
+        operation.comercial.fields.empresa?.bank?.minimo
       )
     );
     setComisionPagadoMarketing(
@@ -194,7 +199,8 @@ export const Contable = () => {
         fields.comisionMontoPagadoMarketing,
         montoPagadoMarketing,
         porcentaje,
-        fijo
+        fijo,
+        operation.comercial.fields.empresa?.bank?.minimo
       )
     );
     setComisionPagadoInsurance(
@@ -202,7 +208,8 @@ export const Contable = () => {
         fields.comisionPagadoInsurance,
         montoPagadoInsurance,
         porcentaje,
-        fijo
+        fijo,
+        operation.comercial.fields.empresa?.bank?.minimo
       )
     );
     setIntermediaryCharges( calculateCharges(
@@ -215,7 +222,8 @@ export const Contable = () => {
       fields.comisionMontoCobradoBrokerage,
       montoCobradoBrokerage,
       porcentajeCobranza,
-      fijoCobranza
+      fijoCobranza,
+      operation.comercial.fields.empresa?.bank?.minimo
     ))
     setTotalComisionesEgresos(
       comisionPagadoAnticipo +
@@ -534,7 +542,7 @@ export const Contable = () => {
               <Textarea
                 placeholder="Coments..."
                 variant="filled"
-                value={
+                defaultValue={
                   operation.contableFinanciera.fields.comentariosPurchase
                 }
                 onChange={(e) => handleChange(e, "comentariosPurchase")}
@@ -704,7 +712,7 @@ export const Contable = () => {
                 <Textarea
                   placeholder="Coments..."
                   variant="filled"
-                  value={
+                  defaultValue={
                     operation.contableFinanciera.fields.comentariosSell
                   }
                   onChange={(e) => handleChange(e, "comentariosSell")}

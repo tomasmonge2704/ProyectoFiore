@@ -29,9 +29,10 @@ export const calculateCharges = (charges, anticipo, balance, total) => {
   }
   return charges;
 };
-export const calculateComision = (comision,monto,porcentaje,fijo) => {
+export const calculateComision = (comision,monto,porcentaje,fijo,minimo) => {
     if(!comision && comision !== 0 && monto > 0){
     const calc = ((porcentaje / 100) * monto || 0) + (fijo || 0);
+    if (minimo && minimo > calc) return minimo;
     return calc
     }
     return comision || 0

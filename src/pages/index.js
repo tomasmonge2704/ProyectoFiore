@@ -11,7 +11,6 @@ import {
   Th,
   Td,
   Box,
-  Center,
   Image,
   useToast,
   Button,
@@ -19,11 +18,11 @@ import {
   InputLeftElement,
   Input,
   TableContainer,
+  Skeleton,
 } from "@chakra-ui/react";
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { FiCalendar } from "react-icons/fi";
-import { Loadder } from "@/utils/loadder";
 import useFetch from "@/hooks/useFetch";
 import { StateSelector } from "@/utils/stateSelector";
 import { handleOrderBy } from "@/utils/functions";
@@ -34,6 +33,7 @@ import { ExcelIconButton } from "@/utils/excelDownloadButton";
 export default function Dashboard() {
   const [filter, setFilter] = useState("");
   const [searchText, setSearchText] = useState("");
+  const [isLoading, setIsloading] = useState(true);
   useEffect(() => {
     if (operations) {
       setItemsToDisplay(
@@ -60,56 +60,59 @@ export default function Dashboard() {
   );
   const [itemsToDisplay, setItemsToDisplay] = useState([]);
   useEffect(() => {
-    if (operations) setItemsToDisplay(operations);
+    if (operations) {
+      setItemsToDisplay(operations);
+      setIsloading(false);
+    }
   }, [operations]);
   const toast = useToast();
   const options = [
     {
       label: "New",
       value: "New",
-      colorScheme: "purple"
+      colorScheme: "purple",
     },
     {
       label: "Pending Shipment",
       value: "Pending Shipment",
-      colorScheme:"blue"
+      colorScheme: "blue",
     },
     {
       label: "Draft",
       value: "Draft",
-      colorScheme:"yellow"
+      colorScheme: "yellow",
     },
     {
       label: "Originals",
       value: "Originals",
-      colorScheme:"orange"
+      colorScheme: "orange",
     },
     {
       label: "Finished",
       value: "Finished",
-      colorScheme:"green"
+      colorScheme: "green",
     },
     {
       label: "Canceled",
       value: "Canceled",
-      colorScheme:"red"
+      colorScheme: "red",
     },
-  ]
+  ];
   const [selectedStatus, setSelectedStatus] = useState([]);
+  const skeletonRows = 8;
   useEffect(() => {
-    if(selectedStatus.length > 0){
-      handleOrderBy("status", setFilter, setOperations,selectedStatus);
-    }else{
-      handleOrderBy("refNumber", setFilter, setOperations)
-    }
-  },[selectedStatus])
+    setIsloading(true);
+    handleOrderBy(filter, setFilter, setOperations, selectedStatus);
+  }, [filter,selectedStatus]);
   return (
     <Box shadow="lg" borderRadius={10}>
       <Flex w="full" justifyContent="space-between" p={5}>
-        <Heading as="h1" size="sm:lg md" letterSpacing="normal">
-          Operations
-        </Heading>
-        <InputGroup w="60%">
+        <MultipleSelector
+                    options={options}
+                    defaultValue={selectedStatus}
+                    set={setSelectedStatus}
+                  />
+        <InputGroup w="30%">
           <InputLeftElement pointerEvents="none">
             <SearchIcon color="gray.300" />
           </InputLeftElement>
@@ -123,17 +126,13 @@ export default function Dashboard() {
         </InputGroup>
         <ExcelIconButton data={operations} />
       </Flex>
-
-      {operations ? (
-        <Box w="full" overflowX="auto">
-          <TableContainer w="full" h="75vh">
+      <Box w="full" overflowX="auto">
+        <TableContainer w="full" h="75vh">
           <Table variant="simple" size="sm">
             <Thead>
               <Tr color="gray">
                 <Th
-                  onClick={() =>
-                    handleOrderBy("refNumber", setFilter, setOperations)
-                  }
+                  onClick={() => setFilter("refNumber")}
                   color={filter == "refNumber" && "orange"}
                 >
                   Ref Number
@@ -143,16 +142,11 @@ export default function Dashboard() {
                     <ArrowUpIcon boxSize={5} ml={2} />
                   )}
                 </Th>
-                <Th w="15%">
-                  <MultipleSelector
-                    options={options}
-                    set={setSelectedStatus}
-                  />
+                <Th w="15vw">
+                  
                 </Th>
                 <Th
-                  onClick={() =>
-                    handleOrderBy("shipper", setFilter, setOperations)
-                  }
+                  onClick={() => setFilter("shipper")}
                   color={filter == "shipper" && "orange"}
                 >
                   Shipper
@@ -163,9 +157,8 @@ export default function Dashboard() {
                   )}
                 </Th>
                 <Th
-                  onClick={() =>
-                    handleOrderBy("buyer", setFilter, setOperations)
-                  }
+                  onClick={() => setFilter("buyer")}
+
                   color={filter == "buyer" && "orange"}
                 >
                   Buyer
@@ -179,9 +172,7 @@ export default function Dashboard() {
                 <Th>Paid</Th>
                 <Th>Collection</Th>
                 <Th
-                  onClick={() =>
-                    handleOrderBy("timeToArrival", setFilter, setOperations)
-                  }
+                  onClick={() => setFilter("timeToArrival")}
                   color={filter == "timeToArrival" && "orange"}
                 >
                   Time to arrival
@@ -201,70 +192,105 @@ export default function Dashboard() {
               </Tr>
             </Thead>
             <Tbody>
-              {itemsToDisplay.length && itemsToDisplay.slice(slice.start, slice.end).map((e, index) => (
-                <Tr
-                  key={index}
-                  borderLeft="5px solid transparent"
-                  _hover={{ shadow: "md", borderColor: "orange" }}
-                >
-                  <Td w="20%">
-                    <Link href={"/operation/" + e.refNumber}>
-                      <Flex align="center" justifyContent="flex-start">
-                        {e.empresa && (
-                          <Image
-                            mr={2}
-                            w="20"
-                            objectFit="cover"
-                            src={
-                              e.empresa == "Duplo"
-                                ? "Logo-Duplo.png"
-                                : "Logo-DPL.png"
-                            }
-                            alt={e.refNumber}
-                          />
-                        )}
-                        <Flex flexDir="column">
-                          <Text as="b" fontSize="lg" letterSpacing="tight">
-                            {e.refNumber}
-                          </Text>
-                          <Text fontSize="sm" color="gray">
-                            {e.empleado}
-                          </Text>
+              {!isLoading && itemsToDisplay.length ? (
+                itemsToDisplay.slice(slice.start, slice.end).map((e, index) => (
+                  <Tr
+                    key={index}
+                    borderLeft="5px solid transparent"
+                    _hover={{ shadow: "md", borderColor: "orange" }}
+                  >
+                    <Td w="20%">
+                      <Link href={"/operation/" + e.refNumber}>
+                        <Flex align="center" justifyContent="flex-start">
+                          {e.empresa && (
+                            <Image
+                              mr={2}
+                              w="20"
+                              objectFit="cover"
+                              src={
+                                e.empresa == "Duplo"
+                                  ? "Logo-Duplo.png"
+                                  : "Logo-DPL.png"
+                              }
+                              alt={e.refNumber}
+                            />
+                          )}
+                          <Flex flexDir="column">
+                            <Text as="b" fontSize="lg" letterSpacing="tight">
+                              {e.refNumber}
+                            </Text>
+                            <Text fontSize="sm" color="gray">
+                              {e.empleado}
+                            </Text>
+                          </Flex>
                         </Flex>
-                      </Flex>
-                    </Link>
-                  </Td>
-                  <Td w="20%">
-                    <StateSelector
-                      selected={e.status}
-                      refNumber={e.refNumber}
-                    />
-                  </Td>
-                  <Td>{e.shipper && e.shipper}</Td>
-                  <Td>{e.buyer && e.buyer}</Td>
-                  <Td>{e.buyerRef && e.buyerRef}</Td>
-                  <Td>{e.pay && e.pay}</Td>
-                  <Td>{e.charged && e.charged}</Td>
-                  <Td>{e.timeToArrival && e.timeToArrival}</Td>
-                  <Td>
-                    <ConfirmDuplicate
-                      refNumber={e.refNumber}
-                      operations={operations}
-                      setOperations={setOperations}
-                      toast={toast}
-                    />
-                  </Td>
-                </Tr>
-              ))}
+                      </Link>
+                    </Td>
+                    <Td>
+                      <StateSelector
+                        selected={e.status}
+                        refNumber={e.refNumber}
+                      />
+                    </Td>
+                    <Td>{e.shipper && e.shipper}</Td>
+                    <Td>{e.buyer && e.buyer}</Td>
+                    <Td>{e.buyerRef && e.buyerRef}</Td>
+                    <Td>{e.pay && e.pay}</Td>
+                    <Td>{e.charged && e.charged}</Td>
+                    <Td>{e.timeToArrival && e.timeToArrival}</Td>
+                    <Td>
+                      <ConfirmDuplicate
+                        refNumber={e.refNumber}
+                        operations={operations}
+                        setOperations={setOperations}
+                        toast={toast}
+                      />
+                    </Td>
+                  </Tr>
+                ))
+              ) : (
+                <>
+                  {[...Array(skeletonRows)].map((_, index) => (
+                    <Tr
+                    key={index}
+                      borderLeft="5px solid transparent"
+                      _hover={{ shadow: "md", borderColor: "orange" }}
+                    >
+                      <Td w="20%">
+                        <Skeleton h={10} />
+                      </Td>
+                      <Td w="20%">
+                        <Skeleton h={10} />
+                      </Td>
+                      <Td>
+                        <Skeleton h={10} />
+                      </Td>
+                      <Td>
+                        <Skeleton h={10} />
+                      </Td>
+                      <Td>
+                        <Skeleton h={10} />
+                      </Td>
+                      <Td>
+                        <Skeleton h={10} />
+                      </Td>
+                      <Td>
+                        <Skeleton h={10} />
+                      </Td>
+                      <Td>
+                        <Skeleton h={10} />
+                      </Td>
+                      <Td>
+                        <Skeleton h={10} />
+                      </Td>
+                    </Tr>
+                  ))}
+                </>
+              )}
             </Tbody>
           </Table>
-          </TableContainer>
-        </Box>
-      ) : (
-        <Center w="100%" h="70vh">
-          <Loadder />
-        </Center>
-      )}
+        </TableContainer>
+      </Box>
       <Flex
         w="full"
         justifyContent="space-between"

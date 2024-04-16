@@ -156,7 +156,7 @@ export default function GeneralDocs({
         <Textarea
           placeholder="Comentarios..."
           variant="filled"
-          value={fieldsDocs.comentarios}
+          defaultValue={fieldsDocs.comentarios}
           onChange={(e) =>
             setFieldsDocs({ ...fieldsDocs, comentarios: e.target.value })
           }
