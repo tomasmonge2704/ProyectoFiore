@@ -21,6 +21,7 @@ class Controllers {
         try {
           const objetos = await this.Objeto.find({});
           res.json(objetos.sort((a, b) => {
+            if(a.name) return a.name.localeCompare(b.name);
             if(a.nombre) return a.nombre.localeCompare(b.nombre);
             if(a.pod) return a.pod.localeCompare(b.pod);
             if(a.description) return a.description.localeCompare(b.description);

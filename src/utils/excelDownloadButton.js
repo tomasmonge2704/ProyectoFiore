@@ -120,6 +120,10 @@ export const ExcelIconButton = () => {
               operation.comercial.fields.paymentTermsPurchase,
               operation.comercial.fields.totalPurchase
             ) || 0;
+          const montoMarketing = operation.comercial.fields.operationType === "Trading + Marketing"
+          ? (operation.comercial.fields.comisionMarketing * operation.comercial.fields.totalNetWeight) : 0;
+          const montoBroker = operation.comercial.fields.operationType === "Broker"
+          ? (operation.comercial.fields.comisionPurchase * operation.comercial.fields.totalNetWeight) : 0;
           return [
             operation.id,
             transformDate(operation.comercial.fields.date),
@@ -143,14 +147,8 @@ export const ExcelIconButton = () => {
             operation.comercial.fields.productos[0].unitPriceSale,
             operation.comercial.fields.totalSale,
             operation.comercial.fields.comisionMarketing,
-            operation.comercial.fields.operationType === "Trading + Marketing"
-              ? (operation.contableFinanciera.fields.montoFacturaMarketing ||
-                operation.logistica.fields.totalMarketing)
-              : 0,
-            operation.comercial.fields.operationType === "Broker"
-              ? (operation.contableFinanciera.fields.montoCobradoBrokerage ||
-                operation.logistica.fields.totalBrokerLogistica)
-              : 0,
+            montoMarketing,
+            montoBroker,
             transformDate(operation.comercial.fields.shipmentPeriodFrom),
             transformDate(operation.comercial.fields.shipmentPeriodTo),
             operation.comercial.fields.destinationCountry,
