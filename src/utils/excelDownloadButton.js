@@ -17,7 +17,11 @@ const generateExcelFile = async (data) => {
   data.forEach((row) => {
     worksheet.addRow(row);
   });
-
+  // Establecer el formato de fecha para las columnas que contienen fechas
+  const dateColumns = ["B","Y","Z","AC","AD", "AI", "AM", "AO", "AS", "AX"];
+  dateColumns.forEach((column) => {
+    worksheet.getColumn(column).numFmt = "dd/mm/yyyy";
+  });
   // Crear un blob que contiene el archivo Excel
   const blob = await workbook.xlsx.writeBuffer();
 
@@ -121,9 +125,9 @@ export const ExcelIconButton = () => {
               operation.comercial.fields.totalPurchase
             ) || 0;
           const montoMarketing = operation.comercial.fields.operationType === "Trading + Marketing"
-          ? (operation.comercial.fields.comisionMarketing * operation.comercial.fields.totalNetWeight) : 0;
+          ? (operation.comercial.fields.comisionMarketing * operation.comercial.fields.totalNetWeight || 0) : 0;
           const montoBroker = operation.comercial.fields.operationType === "Broker"
-          ? (operation.comercial.fields.comisionPurchase * operation.comercial.fields.totalNetWeight) : 0;
+          ? (operation.comercial.fields.comisionPurchase * operation.comercial.fields.totalNetWeight || 0) : 0;
           return [
             operation.id,
             transformDate(operation.comercial.fields.date),
