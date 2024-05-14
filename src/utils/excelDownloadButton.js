@@ -8,7 +8,7 @@ import {
   calculateTotal,
   calculateBalance,
 } from "@/components/controllers/financiera";
-import { transformDate } from "./functions";
+import { transformDateExcel } from "./functions";
 const generateExcelFile = async (data) => {
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet("Sheet 1");
@@ -130,7 +130,7 @@ export const ExcelIconButton = () => {
           ? (operation.comercial.fields.comisionPurchase * operation.comercial.fields.totalNetWeight || 0) : 0;
           return [
             operation.id,
-            transformDate(operation.comercial.fields.date),
+            transformDateExcel(operation.comercial.fields.date),
             operation.status,
             operation.comercial.fields.empresa.nombre,
             operation.comercial.fields?.seller?.nombre,
@@ -153,19 +153,19 @@ export const ExcelIconButton = () => {
             operation.comercial.fields.comisionMarketing,
             montoMarketing,
             montoBroker,
-            transformDate(operation.comercial.fields.shipmentPeriodFrom),
-            transformDate(operation.comercial.fields.shipmentPeriodTo),
+            transformDateExcel(operation.comercial.fields.shipmentPeriodFrom),
+            transformDateExcel(operation.comercial.fields.shipmentPeriodTo),
             operation.comercial.fields.destinationCountry,
             operation.logistica.fields.containerNr,
-            transformDate(operation.logistica.fields.etd),
-            transformDate(operation.logistica.fields.eta),
+            transformDateExcel(operation.logistica.fields.etd),
+            transformDateExcel(operation.logistica.fields.eta),
             operation.logistica.fields.freightForwarder,
             operation.logistica.fields.ShippingLine,
             operation.contableFinanciera.fields.nroFacturaFlete,
             operation.contableFinanciera.fields.montoFacturaFlete ||
               operation.logistica.fields.freightAmount ||
               0,
-            transformDate(operation.contableFinanciera.fields.fechaPagoFlete),
+            transformDateExcel(operation.contableFinanciera.fields.fechaPagoFlete),
             operation.contableFinanciera.fields.nroFacturaProveedorFrigo,
             calculateTotal(
               operation.contableFinanciera.fields.totalFacturaCompra,
@@ -177,17 +177,17 @@ export const ExcelIconButton = () => {
               operation.comercial.fields.paymentTermsPurchase,
               operation.comercial.fields.totalPurchase
             ) || 0,
-            transformDate(
+            transformDateExcel(
               operation.contableFinanciera.fields.fechaAnticipoPurchase
             ),
             montoPagadoAnticipo,
-            transformDate(
+            transformDateExcel(
               operation.contableFinanciera.fields.fechaBalancePurchase
             ),
             operation.contableFinanciera.fields.nroFacturaSell,
             montoFacturaSell,
             montoCobradoAnticipo,
-            transformDate(
+            transformDateExcel(
               operation.contableFinanciera.fields.fechaCobroAnticipo
             ),
             calculateBalance(
@@ -195,14 +195,14 @@ export const ExcelIconButton = () => {
               montoFacturaSell,
               operation.contableFinanciera.fields.montoBalanceSale
             ),
-            transformDate(
+            transformDateExcel(
               operation.contableFinanciera.fields.fechaCobroBalance
             ),
             operation.contableFinanciera.fields.nroFacturaMarketing,
             operation.contableFinanciera.fields.montoFacturaMarketing ||
               operation.logistica.fields.totalMarketing ||
               0,
-            transformDate(
+            transformDateExcel(
               operation.contableFinanciera.fields.fechaPagoMarketing
             ),
             operation.contableFinanciera.fields.profitNeto,

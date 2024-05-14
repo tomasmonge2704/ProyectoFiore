@@ -3,7 +3,7 @@ import { FiEye } from "react-icons/fi";
 import InputPersonalizado from "./inputPersonalizado";
 import { useState } from "react";
 
-export const ComisionesBox = ({value, handleChange, defaultValue, param, set, hoverEffect, }) => {
+export const ComisionesBox = ({value, handleChange, defaultValue, param, set, hoverEffect, detalle}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleModalOpen = () => {

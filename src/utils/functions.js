@@ -6,6 +6,13 @@ export function transformDate(date) {
   const dia = partesFecha[2];
   return (dia + "/" + mes + "/" + año);
 }
+export function transformDateExcel(date) {
+  // Separa la fecha en año, mes y día
+  if(!date) return undefined
+  const [year, month, day] = date.split('-').map(Number);
+  return new Date(year, month - 1, day);
+}
+
 export function handleDuplicateOperation(id, setOperations, operations, toast) {
   const token = localStorage.getItem("token");
   fetch(`${process.env.API_URL}/operation/duplicate/${id}`, {
