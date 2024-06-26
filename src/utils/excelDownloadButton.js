@@ -106,6 +106,7 @@ export const ExcelIconButton = () => {
       const newDataExcel = [
         ...labels,
         ...operations.map((operation) => {
+          const { productos, operationType } = operation.comercial.fields; 
           const montoCobradoAnticipo =
             calculateAnticipo(
               operation.contableFinanciera.fields.montoAnticipoSale,
@@ -124,10 +125,17 @@ export const ExcelIconButton = () => {
               operation.comercial.fields.paymentTermsPurchase,
               operation.comercial.fields.totalPurchase
             ) || 0;
-          const montoMarketing = operation.comercial.fields.operationType === "Trading + Marketing"
-          ? (operation.comercial.fields.comisionMarketing * operation.comercial.fields.totalNetWeight || 0) : 0;
-          const montoBroker = operation.comercial.fields.operationType === "Broker"
-          ? (operation.comercial.fields.comisionPurchase * operation.comercial.fields.totalNetWeight || 0) : 0;
+          let montoMarketing = 0;
+          let montoBroker = 0;
+          productos.forEach((product) => {
+            const { netWeightLogistica, netWeight, comisionMarketing, comisionPurchase } = product;
+            if(operationType === "Trading + Marketing"){
+              montoMarketing += comisionMarketing * (netWeightLogistica || netWeight);
+            }
+            if(operationType === "Broker"){
+              montoBroker += comisionPurchase * (netWeightLogistica || netWeight);
+            }
+          })
           return [
             operation.id,
             transformDateExcel(operation.comercial.fields.date),
@@ -151,8 +159,8 @@ export const ExcelIconButton = () => {
             operation.comercial.fields.productos[0].unitPriceSale,
             operation.comercial.fields.totalSale,
             operation.comercial.fields.comisionMarketing,
-            montoMarketing,
-            montoBroker,
+            montoMarketing || 0,
+            montoBroker || 0,
             transformDateExcel(operation.comercial.fields.shipmentPeriodFrom),
             transformDateExcel(operation.comercial.fields.shipmentPeriodTo),
             operation.comercial.fields.destinationCountry,
