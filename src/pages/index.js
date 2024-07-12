@@ -128,7 +128,7 @@ export default function Dashboard() {
       </Flex>
       <Box w="full" overflowX="auto">
         <TableContainer w="full" h="75vh">
-          <Table variant="simple" size="sm">
+          <Table variant="striped" size="sm">
             <Thead>
               <Tr color="gray">
                 <Th
