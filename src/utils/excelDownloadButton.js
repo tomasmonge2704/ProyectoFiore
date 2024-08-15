@@ -6,7 +6,7 @@ import useFetch from "@/hooks/useFetch";
 
 const convertDateStringsToDates = (row) => {
   // Aquí puedes especificar los índices de las columnas que contienen fechas.
-  const dateIndices = [1, 24, 25, 28, 29, 34, 38, 40, 44, 49];
+  const dateIndices = [1, 24, 25, 28, 29, 34, 38, 40, 44, 46, 49];
   return row.map((cell, index) => {
     if (dateIndices.includes(index) && typeof cell === 'string') {
       // Intenta convertir la cadena de fecha en un objeto Date.
@@ -31,7 +31,7 @@ const generateExcelFile = async (data) => {
   });
 
   // Establecer el formato de fecha para las columnas que contienen fechas
-  const dateColumns = ["B","Y","Z","AC","AD", "AI", "AM", "AO", "AS", "AX"];
+  const dateColumns = ["B","Y","Z","AC","AD", "AI", "AM", "AO", "AS", "AU", "AX"];
   dateColumns.forEach((column) => {
     worksheet.getColumn(column).numFmt = "dd/mm/yyyy";
   });
