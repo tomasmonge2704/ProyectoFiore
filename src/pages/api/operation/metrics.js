@@ -63,9 +63,11 @@ const keys = [
 
 async function handler(req, res) {
     try {
-        const objetos = await OperationModel.find({});
-        const operations = objetos.map((operation) => {
+        const data = await OperationModel.find({});
+        const operations = [];
+        data.forEach((operation) => {
             const { productos, operationType } = operation.comercial.fields; 
+            const hasMultipleProducts = productos.length > 0;
             let netWeight2 = 0;
             const montoCobradoAnticipo =
               calculateAnticipo(
@@ -109,7 +111,7 @@ async function handler(req, res) {
               }
               netWeight2 += netWeightLogistica;
             })
-            return [
+            operations.push([
               operation.id,
               transformDateExcel(operation.comercial.fields.date),
               operation.status,
@@ -118,20 +120,20 @@ async function handler(req, res) {
               operation.comercial.fields?.buyer?.nombre,
               operation.comercial.fields?.buyer?.refNumber,
               operation.docs.fields?.consignee?.nombre,
-              operation.comercial.fields.totalNetWeight,
-              netWeight2,
-              operation.comercial.fields.productos[0].family,
-              operation.comercial.fields.productos[0].famili2,
-              operation.comercial.fields.productos[0].description,
+                hasMultipleProducts ? productos[0].netWeight : operation.comercial.fields.totalNetWeight,
+              hasMultipleProducts ? productos[0].netWeightLogistica : netWeight2,
+                operation.comercial.fields.productos[0].family,
+                operation.comercial.fields.productos[0].famili2,
+                operation.comercial.fields.productos[0].description,
               operation.comercial.fields.deliveryTermsPurchase,
               operation.comercial.fields.paymentTermsPurchase,
-              operation.comercial.fields.productos[0].unitPricePurchase,
+                operation.comercial.fields.productos[0].unitPricePurchase,
               operation.comercial.fields.totalPurchase,
               operation.comercial.fields.deliveryTermsSale,
               operation.comercial.fields.paymentTermsSale,
               operation.comercial.fields.productos[0].unitPriceSale,
               operation.comercial.fields.totalSale,
-              operation.comercial.fields.comisionMarketing,
+                operationType === "Trading + Marketing" ? (productos[0].comisionMarketing || operation.comercial.fields.comisionMarketing) : 0,
               montoMarketingComercial || 0,
               montoBroker || 0,
               transformDateExcel(operation.comercial.fields.shipmentPeriodFrom),
@@ -182,7 +184,65 @@ async function handler(req, res) {
               ),
               operation.contableFinanciera.fields.profitNeto,
               operation.comercial.fields.operationType,
-            ];
+            ]);
+            if (hasMultipleProducts) {
+                productos.slice(1).forEach((e) => {
+                    operations.push([
+                        operation.id,
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        e.netWeight,
+                        e.netWeightLogistica,
+                        e.family,
+                        e.famili2,
+                        e.description,
+                        '',
+                        '',
+                        e.unitPricePurchase,
+                        '',
+                        '',
+                        '',
+                        e.unitPriceSale,
+                        0,
+                        operationType === "Trading + Marketing" ? e.comisionMarketing : 0,
+                        0,
+                        0,
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                       '',
+                        '',
+                        '',
+                        0,
+                        '',
+                        '',
+                        0,
+                        0,
+                        '',
+                        0,
+                       '',
+                        '',
+                        0,
+                        0,
+                       '',
+                        0,
+                       '',
+                       0,
+                        0,
+                        '',
+                        0,
+                        '',
+                    ])
+                })
+            }
           })
         res.json([keys,...operations]);
       } catch (error) {
